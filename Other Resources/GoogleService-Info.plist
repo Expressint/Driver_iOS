@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>968991622520-s4mb2rjscs18q5efv9ef0hbgkm26ebqn.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.968991622520-s4mb2rjscs18q5efv9ef0hbgkm26ebqn</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCQ10cPN_q98K0PrDxvZx-aVYD05hiNB7g</string>
+	<key>GCM_SENDER_ID</key>
+	<string>968991622520</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.eww.BookARideDriver</string>
+	<key>PROJECT_ID</key>
+	<string>book-a-ride-c22ab</string>
+	<key>STORAGE_BUCKET</key>
+	<string>book-a-ride-c22ab.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:968991622520:ios:589470c7bb8a7a8d6b748d</string>
+	<key>DATABASE_URL</key>
+	<string>https://book-a-ride-c22ab.firebaseio.com</string>
+</dict>
+</plist>
