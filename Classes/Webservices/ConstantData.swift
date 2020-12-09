@@ -19,7 +19,7 @@ struct WebSupport {
 
 struct WebserviceURLs {
     
-    static let kBaseURL = "http://3.83.58.5/Drvier_Api"
+    static let kBaseURL = "http://3.83.58.5/Drvier_Api/"
 //    "https://www.tantaxitanzania.com/Drvier_Api/"//"https://pickngolk.info/web/Drvier_Api/" // "http://54.169.67.226/web/Drvier_Api/" //
     static let kImageBaseURL                            = "https://www.tantaxitanzania.com/" // "http://54.169.67.226/web/" //
     static let kOTPForDriverRegister                    = "OtpForRegister"
@@ -251,6 +251,10 @@ struct appName {
 //    "TanTaxi Driver"
     static let kAPPUrl = "itms-apps://itunes.apple.com/app/id1445179587"
     
+}
+
+struct AppTextfieldTags {
+    static let SecureTextTag = 111
 }
 
 //Email,MobileNo,Fullname,Gender,Password,Address,ReferralCode,Lat,Lng,

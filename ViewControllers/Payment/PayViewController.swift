@@ -55,7 +55,7 @@ class PayViewController: ParentViewController, UIPickerViewDataSource, UIPickerV
     //-------------------------------------------------------------
     
     override func loadView() {
-//        super.loadView()
+        super.loadView()
 
     }
     

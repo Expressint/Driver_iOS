@@ -10,8 +10,6 @@ import SideMenuController
 import IQKeyboardManagerSwift
 import GooglePlaces
 import GoogleMaps
-//import Fabric
-//import Crashlytics
 import UserNotifications
 import FirebaseMessaging
 import SocketIO
@@ -53,7 +51,7 @@ let googlPlacesApiKey = "AIzaSyCSwJSvFn2je-EXNxjUEUrU06_L7flz4qw" // "AIzaSyCKEP
         }
         
 //        Fabric.with([Crashlytics.self])
-        FirebaseApp.configure()
+        
         Messaging.messaging().delegate = self
         SideMenuController.preferences.drawing.menuButtonImage = UIImage(named: "menu")
         SideMenuController.preferences.drawing.sidePanelPosition = .overCenterPanelLeft
@@ -114,7 +112,7 @@ let googlPlacesApiKey = "AIzaSyCSwJSvFn2je-EXNxjUEUrU06_L7flz4qw" // "AIzaSyCKEP
         }
 
         UNUserNotificationCenter.current().delegate = self
-        
+        FirebaseApp.configure()
         return true
     }
     

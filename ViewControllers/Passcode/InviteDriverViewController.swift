@@ -36,9 +36,11 @@ class InviteDriverViewController : ParentViewController,MFMailComposeViewControl
         self.btnFaceBook.cornerRadius = self.view.frame.size.height / 2
         self.btnFaceBook.clipsToBounds = true
         let profileData = Singletons.sharedInstance.dictDriverProfile
-
+        if let ReferalAmount = profileData?.object(forKey: "ReferralAmount") as? Double {
+             lblReferalAmount.text = "\("Referral Amount".localized) \(ReferalAmount) \(currency)"
+        }
         
-        lblReferalAmount.text = "\("Referral Amount".localized) \((profileData?.object(forKey: "profile") as! NSDictionary).object(forKey: "ReferralAmount") as! Double) \(currency)"
+//        lblReferalAmount.text = "\("Referral Amount".localized) \((profileData?.object(forKey: "profile") as! NSDictionary).object(forKey: "ReferralAmount") as! Double) \(currency)"
         if let ReferralCode = (profileData?.object(forKey: "profile") as! NSDictionary).object(forKey: "ReferralCode") as? String {
             strReferralCode = ReferralCode
             lblReferralCode.text = strReferralCode
@@ -69,6 +71,7 @@ class InviteDriverViewController : ParentViewController,MFMailComposeViewControl
         imgProfilePick.layer.borderColor = ThemeAppMainColor.cgColor
         imgProfilePick.layer.borderWidth = 1.0
         
+        btnShare.setTitleColor(ThemeAppMainColor, for: .normal)
 //        headerView?.btnBack.addTarget(self, action: #selector(self.nevigateToBack), for: .touchUpInside)//binal
 
 //        imgProfilePick.layer.cornerRadius = imgProfilePick.frame.width / 2
@@ -91,7 +94,10 @@ class InviteDriverViewController : ParentViewController,MFMailComposeViewControl
     func setLocalization()
     {
          let profileData = Singletons.sharedInstance.dictDriverProfile
-        lblReferalAmount.text = "\("Referral Amount".localized) \((profileData?.object(forKey: "profile") as! NSDictionary).object(forKey: "ReferralAmount") as! Double) \(currency)"
+        if let ReferalAmount = profileData?.object(forKey: "ReferralAmount") as? Double {
+             lblReferalAmount.text = "\("Referral Amount".localized) \(ReferalAmount) \(currency)"
+        }
+//        lblReferalAmount.text = "\("Referral Amount".localized) \((profileData?.object(forKey: "profile") as! NSDictionary).object(forKey: "ReferralAmount") as! Double) \(currency)"
         lblWhenAFrindRidesWithYourCode.text = "When a friend rides with your code".localized
         lblShareYourInviteCode.text =   "Share Your Invite Code".localized
         btnShare.setTitle("Share".localized, for: .normal)

@@ -26,8 +26,8 @@
     //-------------------------------------------------------------
     
     //textFiled
-    @IBOutlet weak var txtMobile: UITextField!
-    @IBOutlet weak var txtPassword: UITextField!
+    @IBOutlet weak var txtMobile: ThemeTextField!
+    @IBOutlet weak var txtPassword: ThemeTextField!
     
     @IBOutlet weak var lblDonTHaveAnyAccount: UILabel!
     //view
@@ -71,7 +71,7 @@
     override func loadView() {
         super.loadView()
           self.webserviceOfAppSetting()
-//        super.loadView()
+
     
     
 //        txtMobile.text = "3698523698"
@@ -116,6 +116,9 @@
         lblLaungageName.backgroundColor = ThemeAppMainColor
         lblLaungageName.layer.borderColor = UIColor.black.cgColor
         lblLaungageName.layer.borderWidth = 0.5
+        btnForgotPassWord.setTitleColor(ThemeAppTextColor, for: .normal)
+        btnSignUp.setTitleColor(ThemeAppTextColor, for: .normal)
+        lblDonTHaveAnyAccount.textColor = ThemeAppTextColor
         
         if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
             if SelectedLanguage == "en" {
@@ -132,10 +135,10 @@
       
         //
         
-        btnSignUp.layer.cornerRadius = 3.0
-        btnSignUp.layer.borderColor = UIColor.black.cgColor
-        btnSignUp.layer.borderWidth = 1.0
-        btnSignUp.clipsToBounds = true
+//        btnSignUp.layer.cornerRadius = 3.0
+//        btnSignUp.layer.borderColor = ThemeAppTextColor.cgColor
+//        btnSignUp.layer.borderWidth = 1.0
+//        btnSignUp.clipsToBounds = true
         //
         //        if DeviceType.IS_IPHONE_4_OR_LESS || DeviceType.IS_IPAD {
         //            constraintHeightOfLogo.constant = 120
@@ -180,8 +183,8 @@
 //        btnSignUp.layer.cornerRadius = btnSignUp.frame.size.height - 50
 //        btnSignUp.clipsToBounds = true
 //        
-//        btnSignIn.layer.cornerRadius = btnSignIn.frame.size.height - 30
-//        btnSignIn.clipsToBounds = true
+        btnSignIn.layer.cornerRadius = btnSignIn.frame.size.height/2
+        btnSignIn.clipsToBounds = true
         
         
     }

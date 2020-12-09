@@ -10,6 +10,10 @@ import Foundation
 
 extension UIViewController {
     
+    func FullHeightWithNavigationBarStatusBar(NavHeight:CGFloat) -> CGFloat {
+        return UIApplication.shared.statusBarFrame.height + NavHeight
+    }
+    
     /// Convert Any data to String From Dictionary
     func convertAnyToStringFromDictionary(dictData: [String:AnyObject], shouldConvert paramString: String) -> String {
         

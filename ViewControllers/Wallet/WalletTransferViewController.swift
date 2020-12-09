@@ -414,6 +414,7 @@ class WalletTransferSend: UIViewController, AVCaptureMetadataOutputObjectsDelega
         viewBG.layer.shadowOffset = CGSize(width: 3, height: 3)
         viewBG.layer.shadowOpacity = 0.7
         viewBG.layer.shadowRadius = 4.0
+        btnSendMoney.backgroundColor = ThemeAppMainColor
         
     }
     override func didReceiveMemoryWarning() {
@@ -781,6 +782,7 @@ class WalletTransferRecieve: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setImage()
     }
     

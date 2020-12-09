@@ -52,7 +52,7 @@ class DispatchedJobsForMyJobsVC: ParentViewController, UITableViewDataSource, UI
     }
     
     override func loadView() {
-//        super.loadView()
+        super.loadView()
         
 //        let activityData = ActivityData()
 //        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)

@@ -104,10 +104,9 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
         txtNumberPassenger.isOptionalDropDown = true
         txtNumberPassenger.itemList = ["1","2","3","4","5","6","7","8","9","10"]
         
-        
         txtNumberPassenger.font = UIFont.init(name: CustomeFontProximaNovaRegular, size: 14)
         txtNumberPassenger.textColor = UIColor.black
-        txtNumberPassenger.backgroundColor = UIColor.white
+        txtNumberPassenger.backgroundColor = UIColor.init(white: 1, alpha: 0.8)
         txtNumberPassenger.setValue(UIColor.black , forKeyPath: "placeholderLabel.textColor")
         
         
@@ -618,7 +617,7 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
         
         userDefault.set(vehicleRegistrationNumber, forKey: RegistrationFinalKeys.kVehicleRegistrationNo)
         userDefault.set(VehiclaMakeCompanyModel, forKey: RegistrationFinalKeys.kCompanyModel)
-        userDefault.set(vehicleClasscarType, forKey: RegistrationFinalKeys.kVehicleClass)
+//        userDefault.set(vehicleClasscarType, forKey: RegistrationFinalKeys.kVehicleClass)
         userDefault.set(VehiclaCompanyModelName, forKey: RegistrationFinalKeys.kVehicleModelName)
         userDefault.set(vehiclePassenger, forKey: RegistrationFinalKeys.kNumberOfPasssenger)
        

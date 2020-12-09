@@ -17,13 +17,14 @@ class MyRatingViewController : ParentViewController,UITableViewDataSource, UITab
     
     @IBOutlet var tblview: UITableView!
     @IBOutlet weak var lblNodataFound: UILabel!
+    @IBOutlet var TopConstraint: NSLayoutConstraint!
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         self.tblview.dataSource = self
         self.tblview.delegate = self
-        
+        self.TopConstraint.constant = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
         self.tblview.tableFooterView = UIView()
         
 //

@@ -28,9 +28,14 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
     
     override func viewDidLoad()
     {
-    
         super.viewDidLoad()
- 
+        self.NavBarHeightConstraint.constant = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
+        if UIApplication.shared.statusBarFrame.height == 20 {
+            self.TopNavBarConstraint.constant = -20
+        }
+        else {
+            self.TopNavBarConstraint.constant = -UIApplication.shared.statusBarFrame.height
+        }
         
 //    btnSave.layer.cornerRadius = btnSave.frame.height / 2
 //    btnSave.layer.masksToBounds = true
@@ -143,10 +148,11 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
     
     @IBOutlet weak var viewCarsAndTexis: UIView!
     @IBOutlet weak var viewDeliveryService: UIView!
-    
     @IBOutlet weak var viewbtnCarsAndTexis: UIView!
     @IBOutlet weak var viewbtnDeliveryService: UIView!
     
+    @IBOutlet var TopNavBarConstraint: NSLayoutConstraint!
+    @IBOutlet var NavBarHeightConstraint: NSLayoutConstraint!
     
     //-------------------------------------------------------------
     // MARK: - Actions and Custom Methods

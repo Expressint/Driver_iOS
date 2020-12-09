@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import WebKit
 
-class LegalWebView: ParentViewController, UIWebViewDelegate  {
+class LegalWebPage: ParentViewController, WKUIDelegate, WKNavigationDelegate {
 
     
     var headerName = String()
     var strURL = String()
+    @IBOutlet var TopConstraint: NSLayoutConstraint!
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.headerView?.lblTitle.text = "Support".localized
@@ -20,6 +23,16 @@ class LegalWebView: ParentViewController, UIWebViewDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.webView.uiDelegate = self
+        self.webView.navigationDelegate = self
+        
+        let NavBarHeight = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
+        if UIApplication.shared.statusBarFrame.height != 20 {
+            self.TopConstraint.constant = NavBarHeight
+        }
+        else {
+            self.TopConstraint.constant =  NavBarHeight
+        }
         
         UtilityClass.showACProgressHUD()
         //
@@ -48,36 +61,50 @@ class LegalWebView: ParentViewController, UIWebViewDelegate  {
         
         let requestURL = URL(string: url)
         let request = URLRequest(url: requestURL! as URL)
-        webView.loadRequest(request)
+        webView.load(request)
         
     }
     
     // MARK: - Outlets
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet var webView: WKWebView!
+    
     
     @IBAction func btnBack(_ sender: UIButton) {
 //        self.navigationController?.popToViewController(LegalViewController, animated: true)
     }
-    // MARK: - web view delegate method
-    func webViewDidFinishLoad(_ webView: UIWebView)
-    {
+    
+    
+    // MARK: - WKWebView Navigation delegate method
+//    func webViewDidFinishLoad(_ webView: UIWebView)
+//    {
+//        UtilityClass.hideACProgressHUD()
+//    }
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         UtilityClass.hideACProgressHUD()
     }
     
-    
 }
-class termsConditionWebviewVc: ParentViewController, UIWebViewDelegate  {
+
+class termsConditionWebviewVc: ParentViewController, WKNavigationDelegate, WKUIDelegate  {
     
-    
+
     var headerName = String()
     var strURL = String()
     
     // MARK: - Outlets
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var webView:WKWebView!
+    
+    @IBOutlet var TopConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let NavBarHeight = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
+        if UIApplication.shared.statusBarFrame.height != 20 {
+            self.TopConstraint.constant = NavBarHeight
+        }
+        else {
+            self.TopConstraint.constant =  NavBarHeight
+        }
         UtilityClass.showACProgressHUD()
         //
         strURL = "https://www.tantaxitanzania.com/web/front/termsconditions"
@@ -98,14 +125,13 @@ class termsConditionWebviewVc: ParentViewController, UIWebViewDelegate  {
         
         let requestURL = URL(string: url)
         let request = URLRequest(url: requestURL! as URL)
-        webView.loadRequest(request)
+        webView.load(request)
         
     }
     
     
-    // MARK: - web view delegate method
-    func webViewDidFinishLoad(_ webView: UIWebView)
-    {
+    // MARK: - WKWebView Navigation delegate method
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         UtilityClass.hideACProgressHUD()
     }
     

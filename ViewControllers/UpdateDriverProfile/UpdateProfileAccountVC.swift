@@ -19,6 +19,8 @@ class UpdateProfileAccountVC: UIViewController {
     
     @IBOutlet weak var lblTitle: UILabel!
     
+    @IBOutlet var TopNavBarConstraint: NSLayoutConstraint!
+    @IBOutlet var NavBarHeightConstraint: NSLayoutConstraint!
     
     //-------------------------------------------------------------
     // MARK: - Base Methods
@@ -26,8 +28,16 @@ class UpdateProfileAccountVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.NavBarHeightConstraint.constant = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
+        if UIApplication.shared.statusBarFrame.height == 20 {
+            self.TopNavBarConstraint.constant = -20
+        }
+        else {
+            self.TopNavBarConstraint.constant = -UIApplication.shared.statusBarFrame.height
+        }
+        
         dictData = NSMutableDictionary(dictionary: Singletons.sharedInstance.dictDriverProfile as NSDictionary)
-       
         let profile = dictData.object(forKey: "profile") as! NSDictionary
         strDriverID = profile.object(forKey: "Id") as! String
         setData()

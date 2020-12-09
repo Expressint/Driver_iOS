@@ -94,6 +94,9 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     let socket = (UIApplication.shared.delegate as! AppDelegate).SManager.defaultSocket
     
     @IBOutlet var viewHomeMyJobsBTN: UIView!
+    @IBOutlet var TopCurrentContraint: NSLayoutConstraint!
+    
+    
     let baseURLDirections = "https://maps.googleapis.com/maps/api/directions/json?"
     
     var oldCoordinate: CLLocationCoordinate2D!
@@ -150,7 +153,13 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let NavBarHeight = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
+        if UIApplication.shared.statusBarFrame.height != 20 {
+            self.TopCurrentContraint.constant = NavBarHeight
+        }
+        else {
+            self.TopCurrentContraint.constant =  NavBarHeight
+        }
 //       self.title = "Home"
       
         btnMyJob.layer.cornerRadius = btnHome.frame.size.height - 30
@@ -726,23 +735,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     func socketMethods()
     {
-        
-        if (isSocketConnected == false) {
-            isSocketConnected = true
-            //            self.methodsAfterConnectingToSocket()
-            if UserDefaults.standard.bool(forKey: kIsSocketEmited) == false
-            {
-                self.methodsAfterConnectingToSocket()
-                UserDefaults.standard.set(true, forKey: kIsSocketEmited)
-                UserDefaults.standard.synchronize()
-            }
-            else
-            {
-                print("already emited")
-            }
-            
-        }
-        
+       
         socket.on(clientEvent: .disconnect) { (data, ack) in
             print ("socket is disconnected please reconnect")
         }
@@ -753,6 +746,22 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         socket.on(clientEvent: .connect) {data, ack in
             print ("socket connected")
+        
+            if (self.isSocketConnected == false) {
+                self.isSocketConnected = true
+                       //            self.methodsAfterConnectingToSocket()
+                       if UserDefaults.standard.bool(forKey: kIsSocketEmited) == false
+                       {
+                           self.methodsAfterConnectingToSocket()
+                           UserDefaults.standard.set(true, forKey: kIsSocketEmited)
+                           UserDefaults.standard.synchronize()
+                       }
+                       else
+                       {
+                           print("already emited")
+                       }
+                       
+                   }
             
             //            self.socket.on(socketApiKeys.kReceiveBookingRequest, callback: { (data, ack) in
             //                // print ("data is \(data)")
@@ -2948,7 +2957,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         //
         //            dictParams["DropoffLocation"] = "23.08327370,72.54679840" as AnyObject
         //        }
-        let headerTemp: [String:String] = ["key":"Tantaxi123*"]
+        let headerTemp: [String:String] = ["key":"Book$951951"]
         
         Alamofire.request(url, method: .post, parameters: dictParams, encoding: URLEncoding.default, headers: headerTemp)
             .validate()

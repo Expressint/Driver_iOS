@@ -73,7 +73,7 @@ class WalletCardsVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     //-------------------------------------------------------------
     
     override func loadView() {
-//        super.loadView()
+        super.loadView()
         
         if Singletons.sharedInstance.isCardsVCFirstTimeLoad {
 //            webserviceOFGetAllCards()

@@ -7,22 +7,29 @@
 //
 
 import UIKit
+import WebKit
 
-class webViewVC: ParentViewController, UIWebViewDelegate {
+class webPageVC: ParentViewController, WKUIDelegate , WKNavigationDelegate {
 
     var headerName = String()
     var strURL = String()
     
+    @IBOutlet var TopWebConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.TopWebConstraint.constant = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
+        
+        self.WebPageView.uiDelegate = self
+        self.WebPageView.navigationDelegate = self
          UtilityClass.showACProgressHUD()
 //
 //         strURL = "https://www.tantaxitanzania.com/web/front/privacypolicy"
 
         let requestURL = URL(string: strURL)!
         let request = URLRequest(url: requestURL as URL)
-        webView.loadRequest(request)
+        WebPageView.load(request)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,23 +48,17 @@ class webViewVC: ParentViewController, UIWebViewDelegate {
         
         let requestURL = URL(string: url)
         let request = URLRequest(url: requestURL! as URL)
-        webView.loadRequest(request)
+        WebPageView.load(request)
         
     }
     
     // MARK: - Outlets
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet var WebPageView: WKWebView!
     
-    // MARK: - web view delegate method
-    func webViewDidStartLoad(_ webView: UIWebView) {
-        
-    }
-    
-    // MARK: - web view delegate method
-    func webViewDidFinishLoad(_ webView: UIWebView)
-    {
+    // MARK: - WKWebView delegate method
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         UtilityClass.hideACProgressHUD()
     }
-    
 
 }

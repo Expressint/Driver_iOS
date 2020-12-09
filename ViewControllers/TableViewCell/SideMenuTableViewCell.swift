@@ -10,7 +10,7 @@ import UIKit
 
 class SideMenuTableViewCell: UITableViewCell {
 
-    @IBOutlet var btnLaungageChange: UIButton!
+//    @IBOutlet var btnLaungageChange: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -45,7 +45,7 @@ class SideMenuTableViewCell: UITableViewCell {
     @IBOutlet weak var btnLogOut: UIButton!
     @IBOutlet weak var btnSupport: UIButton!
     
-    @IBOutlet var lblLaungageName: UILabel!
+//    @IBOutlet var lblLaungageName: UILabel!
     @IBOutlet weak var btnLegal: UIButton!
     @IBOutlet weak var viewWallet: UIView!
     @IBOutlet weak var viewPaymentOption: UIView!

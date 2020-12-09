@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "imgSplashBackground.png",
+      "filename" : "hide.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "imgSplashBackground@2x.jpeg",
+      "filename" : "hide@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "imgSplashBackground@3x.png",
+      "filename" : "hide@3x.png",
       "scale" : "3x"
     }
   ],

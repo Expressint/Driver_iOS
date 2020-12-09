@@ -71,11 +71,12 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
     func setLocalizable()
     {
         self.title = "App Name".localized
-
-        txtDriverLicence.placeholder =  "Select driver licence expiry date".localized
         lblDriverLicence.text = "Driver Licence (Front only)".localized
-        txtAccreditation.placeholder = "Select revenue licence expiry date".localized//Select Tin Certificate expiry day
-        lblAccreditation.text = "Revenue Licence".localized
+        txtDriverLicence.placeholder =  "Select driver licence expiry date".localized
+        lblAccreditation.text = "TIN Certificate".localized
+//            "Revenue Licence".localized
+        txtAccreditation.placeholder = "Select TIN Certificate expiry date".localized
+//            "Select revenue licence expiry date".localized//Select Tin Certificate expiry day
         txtCarRegistraion.placeholder = "Vehicle Registration Document".localized
         txtVehicleInsurance.placeholder = "Select vehicle insurance/policy expiry date".localized
         lblVehicleInsurance.text = "Vehicle Insurance Policy/Certificate".localized

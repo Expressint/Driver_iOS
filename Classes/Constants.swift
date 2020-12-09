@@ -13,14 +13,17 @@ import UIKit
 let App_Delegate = UIApplication.shared.delegate as! AppDelegate
 let ThemeAppColor = UIColor.init(hex: "E48428")
 let ThemeAppMainColor : UIColor = UIColor.init(hex: "bba739")
+let NavBarBGColor: UIColor = UIColor.black
+let ThemeAppTextColor:UIColor = UIColor.white
 let ThemeGrayColor : UIColor = UIColor.init(hex:  "8e8c80")
 let ThemeStatusBarColor : UIColor = UIColor.init(hex:  "cccccc")
 let themeGrayBGColor : UIColor = UIColor.init(hex: "DDDDDD")
 let themeGrayTextColor : UIColor = UIColor.init(hex: "7A7A7C")
 let Appdelegate = UIApplication.shared.delegate as! AppDelegate
-let AppNAME : String = "TanTaxi-Driver"
+let AppNAME : String = "Book A Ride-Driver"
 
 let navigationBarHeightIphoneX = 84
+
 var utility = Utilities()
 
 let kHtmlReplaceString   :   String  =   "<[^>]+>"
@@ -118,6 +121,7 @@ let kSettings : String = "Settings"
 let kLegal : String = "Legal"
 let kSupport : String = "Support"
 let kLogout : String = "Log Out"
+
 
 //let kMeter : String = "Meter"
 //let kTripToDstination : String = "Trip To Destination"

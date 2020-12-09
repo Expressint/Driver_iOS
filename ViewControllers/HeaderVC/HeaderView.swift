@@ -26,7 +26,12 @@ class HeaderView: UIView {
     override func draw(_ rect: CGRect) {
         
         btnSwitch.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-        
+        if UIApplication.shared.statusBarFrame.height == 20 {
+            self.titleCenterConstraint.constant = 10
+        }
+        else {
+            self.titleCenterConstraint.constant = 23
+        }
         // Drawing code
     }
     
@@ -51,6 +56,8 @@ class HeaderView: UIView {
     @IBOutlet var lblHeaderTitle: UILabel!    
     @IBOutlet var bottomView: UIView!
     
+    @IBOutlet var titleCenterConstraint: NSLayoutConstraint!
+    
     
     //-------------------------------------------------------------
     // MARK: - Actions
@@ -58,11 +65,10 @@ class HeaderView: UIView {
     
     class func headerView(withDelegate delegate: HeaderViewDelegate?) -> HeaderView
     {
-//        print("Hello")
+        //        print("Hello")
         var arr: [Any] = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)!
         let hView: HeaderView? = (arr[0] as? HeaderView)
         hView?.delegate = delegate
-        
         if Singletons.sharedInstance.driverDuty == "1" {
             hView?.btnSwitch.setImage(UIImage(named: "iconSwitchOn"), for: .normal)
         }

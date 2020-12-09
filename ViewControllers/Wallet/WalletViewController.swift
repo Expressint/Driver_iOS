@@ -19,9 +19,12 @@ class WalletViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var viewTransfer: UIView!
     @IBOutlet var lblNavTitle: UILabel!
     
+    @IBOutlet var TopViewConstraint: NSLayoutConstraint!
+    @IBOutlet var NavBarHeight: NSLayoutConstraint!
+    @IBOutlet var titleCenterConstraint: NSLayoutConstraint!
     
     override func loadView() {
-//        super.loadView()
+        super.loadView()
     }
     
     @IBAction func btnCallHelpLine(_ sender: Any) {
@@ -60,7 +63,15 @@ class WalletViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+      self.NavBarHeight.constant = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
+      if UIApplication.shared.statusBarFrame.height == 20 {
+          self.TopViewConstraint.constant = 0
+      }
+      else {
+        self.TopViewConstraint.constant = 0
+        self.titleCenterConstraint.constant = 23
+      }
+        
         if DeviceType.IS_IPHONE_4_OR_LESS || DeviceType.IS_IPAD {
             stackViewForList.spacing = 20
             
@@ -425,7 +436,7 @@ class TravelVC: UIViewController {
     
     func showWebSite(strHeager: String, strURL: String) {
         
-        let next = self.storyboard?.instantiateViewController(withIdentifier: "webViewVC") as! webViewVC
+        let next = self.storyboard?.instantiateViewController(withIdentifier: "webViewVC") as! webPageVC
         next.headerName = strHeager
         next.strURL = strURL
         self.navigationController?.present(next, animated: true, completion: nil)
@@ -495,7 +506,7 @@ class EntertainmentVC: UIViewController {
     
     func showWebSite(strHeager: String, strURL: String) {
         
-        let next = self.storyboard?.instantiateViewController(withIdentifier: "webViewVC") as! webViewVC
+        let next = self.storyboard?.instantiateViewController(withIdentifier: "webViewVC") as! webPageVC
         next.headerName = strHeager
         next.strURL = strURL
         self.navigationController?.present(next, animated: true, completion: nil)

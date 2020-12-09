@@ -21,11 +21,19 @@ class updateCertificatesViewController: UIViewController, UIImagePickerControlle
     // MARK: - Base Methods
     //-------------------------------------------------------------
     
-  
+    @IBOutlet var TopNavBarConstraint: NSLayoutConstraint!
+    @IBOutlet var NavBarHeightConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.NavBarHeightConstraint.constant = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
+        if UIApplication.shared.statusBarFrame.height == 20 {
+            self.TopNavBarConstraint.constant = -20
+        }
+        else {
+            self.TopNavBarConstraint.constant = -UIApplication.shared.statusBarFrame.height
+        }
+        
         
         imgVehicleImage.layer.cornerRadius = imgVehicleImage.frame.width / 2
         imgVehicleImage.layer.masksToBounds = true

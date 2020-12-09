@@ -61,6 +61,7 @@ class WalletTransferToBankVC: ParentViewController, SelectBankCardDelegate {
         
         btnWithdrawFunds.layer.cornerRadius = 5
         btnWithdrawFunds.layer.masksToBounds = true
+        btnWithdrawFunds.backgroundColor = ThemeAppMainColor
         
       txtBankAccountNo.keyboardType = .numberPad
         self.lblcurrentBalance.text = "\(Singletons.sharedInstance.strCurrentBalance) \(currency)"
@@ -110,7 +111,6 @@ class WalletTransferToBankVC: ParentViewController, SelectBankCardDelegate {
         self.txtBankName.placeholder = "Bank Name".localized
         self.txtBankAccountNo.placeholder = "Bank Account No.".localized
         self.txtBSB.placeholder = "Branch Code".localized
-        
         
     }
     

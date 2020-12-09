@@ -11,15 +11,21 @@ class ThemeTextField: UITextField {
     @IBInspectable public var LeftImage: UIImage = UIImage()
     @IBInspectable public var isBorderNeeded: Bool = false
     
+    var btnSecureText = UIButton()
+    var iconClick:Bool = true {
+        didSet {
+            self.btnSecureText.isSelected  = self.iconClick
+        }
+    }
+    
+    
+    
     override func awakeFromNib()
     {
         self.font = UIFont.init(name: CustomeFontProximaNovaRegular, size: 14)
         self.textColor = UIColor.black
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.init(white: 1, alpha: 0.8)
         self.setValue(UIColor.black , forKeyPath: "placeholderLabel.textColor")
-        
-        
-
             self.layer.cornerRadius = 2
             self.layer.shadowRadius = 3.0
             self.layer.shadowColor = UIColor.black.withAlphaComponent(0.6).cgColor
@@ -47,6 +53,32 @@ class ThemeTextField: UITextField {
             self.layer.addSublayer(border)
             self.layer.masksToBounds = true
         }
+        
+        if self.tag == AppTextfieldTags.SecureTextTag {
+            self.btnSecureText = UIButton(frame: CGRect(x: 5, y: 5, width: 20.0, height: 20.0))
+            let LeftView = UIView(frame: CGRect(x: 0, y: 0, width: 30.0, height: 30.0))
+            LeftView.backgroundColor = UIColor.clear
+            btnSecureText.backgroundColor = UIColor.clear
+            btnSecureText.setImage(UIImage(named: "hide"), for: .selected)
+            btnSecureText.setImage(UIImage(named: "show"), for: .normal)
+            btnSecureText.addTarget(self, action: #selector(self.iconAction), for: .touchUpInside)
+            LeftView.addSubview(btnSecureText)
+            self.iconClick = true
+            
+            self.rightView = LeftView
+            self.rightViewMode = .always
+        }
+    }
+    
+    //MARK:- Action Methods
+    
+    @objc func iconAction() {
+        if(iconClick == true) {
+            self.isSecureTextEntry = false
+        } else {
+            self.isSecureTextEntry = true
+        }
+        iconClick = !iconClick
     }
 }
 //

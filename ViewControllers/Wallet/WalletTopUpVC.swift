@@ -18,6 +18,8 @@ import UIKit
 class WalletTopUpVC: ParentViewController, SelectCardDelegate, delegatePesapalWebView {
    
     @IBOutlet var viewCardNumber: UIView!
+    @IBOutlet var Underline: UIView!
+    
     var strCardId = String()
     var strAmt = String()
     
@@ -36,6 +38,9 @@ class WalletTopUpVC: ParentViewController, SelectCardDelegate, delegatePesapalWe
         viewCardNumber.layer.borderWidth = 1.5
         btnAddFunds.layer.cornerRadius = 5
         btnAddFunds.layer.masksToBounds = true
+        btnAddFunds.backgroundColor = ThemeAppMainColor
+        Underline.backgroundColor = ThemeAppMainColor
+        
         // Do any additional setup after loading the view.
     }
     

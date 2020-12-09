@@ -37,6 +37,7 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
     var userDefault = UserDefaults.standard
     var driverDuty = String()
     
+    
     //-------------------------------------------------------------
     // MARK: - Base Methods
     //-------------------------------------------------------------
@@ -239,32 +240,45 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
         let screenRect: CGRect = UIScreen.main.bounds
         let screenWidth: CGFloat = screenRect.size.width
         let hView = HeaderView.headerView(withDelegate: self)
-        
-        var frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: screenWidth, height: CGFloat(heightWithoutLabel))
+        let NavBarHeight = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
+//        var frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: screenWidth, height: CGFloat(heightWithoutLabel))
+        var frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: screenWidth, height: CGFloat(NavBarHeight))
         hView.bottomView.isHidden = !showTitleLabelView
         
         hView.backgroundColor = UIColor.clear
         if (showTitleLabelView)
         {
-            frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: screenWidth, height: CGFloat(heightWithoutLabel))
+            frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: screenWidth, height: CGFloat(NavBarHeight))
+//            frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: screenWidth, height: CGFloat(heightWithoutLabel))
             hView.lblHeaderTitle.text = strHeaderTitle
         }
         
-        
-        
-        if UIDevice().userInterfaceIdiom == .phone {
-            switch UIScreen.main.nativeBounds.height {
-            case 2436, 2688:
-                frame = CGRect(x: CGFloat(0), y: CGFloat(-20), width: screenWidth, height: CGFloat(heightWithoutLabelForX))
-                if (showTitleLabelView)
-                {
-                    frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: screenWidth, height: CGFloat(heightWithLabelForX))
-                    hView.lblHeaderTitle.text = strHeaderTitle
-                }
-            default:
-                print("unknown")
+        if UIApplication.shared.statusBarFrame.height != 20 {
+            frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: screenWidth, height: CGFloat(NavBarHeight))
+//            frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: screenWidth, height: CGFloat(heightWithoutLabelForX))
+            if (showTitleLabelView)
+            {
+                frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: screenWidth, height: CGFloat(NavBarHeight))
+//                frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: screenWidth, height: CGFloat(heightWithLabelForX))
+                hView.lblHeaderTitle.text = strHeaderTitle
             }
+           
         }
+        
+       //Commented By Bhautik
+//        if UIDevice().userInterfaceIdiom == .phone {
+//            switch UIScreen.main.nativeBounds.height {
+//            case 2436, 2688:
+//                frame = CGRect(x: CGFloat(0), y: CGFloat(-20), width: screenWidth, height: CGFloat(heightWithoutLabelForX))
+//                if (showTitleLabelView)
+//                {
+//                    frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: screenWidth, height: CGFloat(heightWithLabelForX))
+//                    hView.lblHeaderTitle.text = strHeaderTitle
+//                }
+//            default:
+//                print("unknown")
+//            }
+//        }
         
         headerView?.lblTitle.isHidden = true
         
@@ -281,9 +295,9 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
         hView.btnSwitch.isHidden = !hideSwitchButton
         
         hView.btnSignOut.isHidden = !hideSignOut
-        
         hView.frame = frame
         headerView = hView
+        
         view.addSubview(hView)
         
     }

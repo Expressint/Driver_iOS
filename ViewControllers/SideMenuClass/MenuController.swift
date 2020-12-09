@@ -8,6 +8,7 @@
 import UIKit
 import SideMenuController
 import SDWebImage
+import MapKit
 
 let KEnglish : String = "EN"
 let KSwiley : String = "SW"
@@ -129,21 +130,21 @@ class  MenuController: UIViewController, UITableViewDataSource, UITableViewDeleg
             //            cellProfile.lblRating.text = Singletons.sharedInstance.strRating
             cellProfile.imgProfile.sd_setImage(with: URL(string: strImagPath))
             cellProfile.btnUpdateProfile.addTarget(self, action: #selector(self.updateProfile), for: .touchUpInside)
-            cellProfile.lblLaungageName.layer.cornerRadius = 5
-            cellProfile.lblLaungageName.backgroundColor = ThemeAppMainColor
-            cellProfile.lblLaungageName.layer.borderColor = UIColor.black.cgColor
-            cellProfile.lblLaungageName.layer.borderWidth = 0.5
-            
-            if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
-                if SelectedLanguage == "en" {
-                    cellProfile.lblLaungageName.text = "SW"
-                } else if SelectedLanguage == "sw" {
-                    cellProfile.lblLaungageName.text = "EN"
-                }
-            }
+//            cellProfile.lblLaungageName.layer.cornerRadius = 5
+//            cellProfile.lblLaungageName.backgroundColor = ThemeAppMainColor
+//            cellProfile.lblLaungageName.layer.borderColor = UIColor.black.cgColor
+//            cellProfile.lblLaungageName.layer.borderWidth = 0.5
+//
+//            if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
+//                if SelectedLanguage == "en" {
+//                    cellProfile.lblLaungageName.text = "SW"
+//                } else if SelectedLanguage == "sw" {
+//                    cellProfile.lblLaungageName.text = "EN"
+//                }
+//            }
 //            cellProfile.lblLaungageName.text = strSelectedLaungage
             
-            cellProfile.btnLaungageChange.addTarget(self, action: #selector(btnLaungageClicked(_:)), for: .touchUpInside)
+//            cellProfile.btnLaungageChange.addTarget(self, action: #selector(btnLaungageClicked(_:)), for: .touchUpInside)
             //            .layer.cornerRadius = btnHome.frame.size.height / 2
             //            btnMyJob.clipsToBounds = true
             //            btnMyJob.borderColor = UIColor.red
@@ -156,9 +157,9 @@ class  MenuController: UIViewController, UITableViewDataSource, UITableViewDeleg
             cellItemList.lblMyJobs.text = "My Jobs".localized
             cellItemList.lblMyRaitng.text = "My Ratings".localized
             cellItemList.lblInviteFrnd.text = "Invite Friends".localized
-            cellItemList.lblTripToDestination.text = "Trip to Destination".localized
-            cellItemList.lblLegal.text = "Legal".localized
-            cellItemList.lblSupport.text = "Support".localized
+//            cellItemList.lblTripToDestination.text = "Trip to Destination".localized
+//            cellItemList.lblLegal.text = "Legal".localized
+            cellItemList.lblSupport.text = "Setting".localized
             cellItemList.btnLogOut.setTitle("Log Out".localized, for: .normal)
             cellItemList.lblPaymentOption.text = "Payment Options".localized
             cellItemList.btnMyJob.addTarget(self, action: #selector(self.MyJob), for: .touchUpInside)
@@ -167,9 +168,9 @@ class  MenuController: UIViewController, UITableViewDataSource, UITableViewDeleg
             cellItemList.btnWallet.addTarget(self, action: #selector(self.Wallet), for: .touchUpInside)
             cellItemList.btnMyRating.addTarget(self, action: #selector(self.MyRating), for: .touchUpInside)
             cellItemList.btnInviteFriend.addTarget(self, action: #selector(self.InviteFriend), for: .touchUpInside)
-            cellItemList.btnTripToDestination.addTarget(self, action: #selector(self.setting), for: .touchUpInside)
-            cellItemList.btnLegal.addTarget(self, action: #selector(self.Legal), for: .touchUpInside)
-            cellItemList.btnSupport.addTarget(self, action: #selector(self.Support), for: .touchUpInside)
+//            cellItemList.btnTripToDestination.addTarget(self, action: #selector(self.setting), for: .touchUpInside)
+//            cellItemList.btnLegal.addTarget(self, action: #selector(self.Legal), for: .touchUpInside)
+            cellItemList.btnSupport.addTarget(self, action: #selector(self.updateProfile), for: .touchUpInside)
             cellItemList.btnLogOuts.addTarget(self, action: #selector(self.LogOut), for: .touchUpInside)
             
             cellItemList.btnMyJob.layer.shadowOpacity = 0.7
@@ -187,12 +188,12 @@ class  MenuController: UIViewController, UITableViewDataSource, UITableViewDeleg
             cellItemList.btnInviteFriend.layer.shadowOpacity = 0.7
             cellItemList.btnInviteFriend.layer.shadowRadius = 15.0
             cellItemList.btnInviteFriend.layer.shadowColor = UIColor.black.cgColor
-            cellItemList.btnTripToDestination.layer.shadowOpacity = 0.7
-            cellItemList.btnTripToDestination.layer.shadowRadius = 15.0
-            cellItemList.btnTripToDestination.layer.shadowColor = UIColor.black.cgColor
-            cellItemList.btnLegal.layer.shadowOpacity = 0.7
-            cellItemList.btnLegal.layer.shadowRadius = 15.0
-            cellItemList.btnLegal.layer.shadowColor = UIColor.black.cgColor
+//            cellItemList.btnTripToDestination.layer.shadowOpacity = 0.7
+//            cellItemList.btnTripToDestination.layer.shadowRadius = 15.0
+//            cellItemList.btnTripToDestination.layer.shadowColor = UIColor.black.cgColor
+//            cellItemList.btnLegal.layer.shadowOpacity = 0.7
+//            cellItemList.btnLegal.layer.shadowRadius = 15.0
+//            cellItemList.btnLegal.layer.shadowColor = UIColor.black.cgColor
             cellItemList.btnSupport.layer.shadowOpacity = 0.7
             cellItemList.btnSupport.layer.shadowRadius = 15.0
             cellItemList.btnSupport.layer.shadowColor = UIColor.black.cgColor
@@ -292,12 +293,13 @@ class  MenuController: UIViewController, UITableViewDataSource, UITableViewDeleg
    }
     
     @objc func  Support(){
-        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "webViewVC") as! webViewVC
-        viewController.headerName = "Support".localized
-//        viewController.headerName = "\("App Name".localized) - Terms & Conditions"
-        viewController.strURL = WebSupport.SupportURL
-//        "https://www.tantaxitanzania.com/front/termsconditions"
-        self.navigationController?.pushViewController(viewController, animated: true)
+        
+//        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "webViewVC") as! webViewVC
+//        viewController.headerName = "Support".localized
+////        viewController.headerName = "\("App Name".localized) - Terms & Conditions"
+//        viewController.strURL = WebSupport.SupportURL
+////        "https://www.tantaxitanzania.com/front/termsconditions"
+//        self.navigationController?.pushViewController(viewController, animated: true)
         
     }
     @objc func LogOut(){

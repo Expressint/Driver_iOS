@@ -12,6 +12,9 @@ class SplashViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+     
+        
         if Connectivity.isConnectedToInternet()
         {
             print("Yes! internet is available.")
@@ -32,6 +35,7 @@ class SplashViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+
     
     func webserviceOfAppSetting() {
         //        version : 1.0.0 , (app_type : AndroidPassenger , AndroidDriver , IOSPassenger , IOSDriver)

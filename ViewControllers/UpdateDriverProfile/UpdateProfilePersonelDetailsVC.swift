@@ -48,11 +48,27 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
     @IBOutlet weak var txtSuburb: UITextField!
     
     @IBOutlet weak var btnEditProfileIPic: UIButton!
+    
+    @IBOutlet var TopNavBarConstraint: NSLayoutConstraint!
+    @IBOutlet var NavBarHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var titleVerticalConstraint: NSLayoutConstraint!
+    @IBOutlet var vwTopConstraint: NSLayoutConstraint!
+    
     //-------------------------------------------------------------
     // MARK: - Base Methods
     //-------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.NavBarHeightConstraint.constant = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
+        self.vwTopConstraint.constant = self.NavBarHeightConstraint.constant
+        if UIApplication.shared.statusBarFrame.height == 20 {
+           
+            self.TopNavBarConstraint.constant = -20
+        }
+        else {
+             self.titleVerticalConstraint.constant = 23
+            self.TopNavBarConstraint.constant = -UIApplication.shared.statusBarFrame.height
+        }
         thePicker.delegate = self
         showDatePicker()
 //        viewGenders.layer.borderWidth = 1

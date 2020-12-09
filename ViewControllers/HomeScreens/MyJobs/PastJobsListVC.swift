@@ -16,7 +16,7 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var lblNodataFound: UILabel!
     
     override func loadView() {
-//        super.loadView()
+            super.loadView()
         
         //        let activityData = ActivityData()
         //        NVActivityIndicatorPresenter.sharedInstance.startAnimating(ActivityData())
