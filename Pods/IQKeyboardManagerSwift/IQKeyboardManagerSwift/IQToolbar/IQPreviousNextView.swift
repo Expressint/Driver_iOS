@@ -22,7 +22,6 @@
 // THE SOFTWARE.
 
 import UIKit
-
 @objc public class IQPreviousNextView: UIView {
 
 }

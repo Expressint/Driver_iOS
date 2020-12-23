@@ -24,7 +24,7 @@ class ContentViewController: ParentViewController, CLLocationManagerDelegate,ARC
     let manager = CLLocationManager()
 
     var mapView : GMSMapView!
- var driverMarker: GMSMarker!
+    var driverMarker: GMSMarker!
 
     @IBOutlet var lblLocationOnMap: UILabel!
     @IBOutlet var subMapView: UIView!
@@ -34,7 +34,7 @@ class ContentViewController: ParentViewController, CLLocationManagerDelegate,ARC
     var timer: Timer! = nil
     var counter: NSInteger!
     var coordinateArr = NSArray()
-  var moveMent: ARCarMovement!
+    var moveMent: ARCarMovement!
     override func viewDidLoad() {
         super.viewDidLoad()
         

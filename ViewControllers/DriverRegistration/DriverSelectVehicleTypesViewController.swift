@@ -76,9 +76,10 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
         }
         btnChoosePhoto.layer.cornerRadius = btnChoosePhoto.frame.size.width / 2
         btnChoosePhoto.layer.masksToBounds = true
-        imgVehicle.layer.cornerRadius = imgVehicle.frame.size.width / 2
-        imgVehicle.layer.masksToBounds = true
-
+//        self.view.layoutIfNeeded()
+       
+       
+        
 //        AppDelegate.isFromRegistration = true
         Singletons.sharedInstance.isFromRegistration = true
         
@@ -130,8 +131,7 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
         
     }
 
-    func textField(_ textField: IQDropDownTextField, didSelectItem item: String?)
-    {
+    func textField(_ textField: IQDropDownTextField, didSelectItem item: String?) {
         txtNumberPassenger.selectedItem = item
     }
     
@@ -141,11 +141,14 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
     }
     
    
-    override func viewDidLayoutSubviews()
-    {
+    override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         btnNext.layer.cornerRadius = btnNext.frame.size.height/2
         btnNext.clipsToBounds = true
+        
+        imgVehicle.clipsToBounds = true
+        imgVehicle.layer.cornerRadius = imgVehicle.frame.size.height / 2
+        imgVehicle.layer.masksToBounds = true
     }
     
     @objc func setDataInCarType()
@@ -185,7 +188,7 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
     @IBOutlet weak var txtVehicleRegistrationNumber: UITextField!
     @IBOutlet weak var txtCompany: UITextField!
     @IBOutlet weak var txtCarType: UITextField!
-    
+    @IBOutlet weak var txtVehicleColor: UITextField!
   
     @IBOutlet var txtVehicleMake: ThemeTextField!
     
@@ -343,8 +346,11 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
         var validatorMessage:String = ""
     
 //        let sb = Snackbar()
-        
-        if txtVehicleRegistrationNumber.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
+         if imgVehicle.image!.isEqualToImage(UIImage(named: "iconCARPlaceholder")!) {
+            isValidate = false
+            validatorMessage = "Please select vehicle image".localized
+        }
+        else if txtVehicleRegistrationNumber.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
             isValidate = false
             validatorMessage = "Please enter vehicle plate number".localized
 //            sb.createWithAction(text: "Please enter vehicle plate number".localized, actionTitle: "Dismiss".localized, action: { print("Button is push") })
@@ -436,8 +442,7 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
         
         webserviceForVehicalModelList("" as AnyObject) { (result, status) in
             
-            if (status)
-            {
+            if (status) {
                 print(result)
                 
                 //                let checkCarModelClass: Bool = Singletons.sharedInstance.boolTaxiModel
@@ -446,8 +451,7 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
                 self.aryDataCarsAndTaxi = result["cars_and_taxi"] as! [[String:AnyObject]]
                 
                 
-                for (i,_) in self.aryDataCarsAndTaxi.enumerated()
-                {
+                for (i,_) in self.aryDataCarsAndTaxi.enumerated() {
                     var dataOFCars = self.aryDataCarsAndTaxi[i]
                     let CarModelID = dataOFCars["Id"] as! String
                     let strCarModelNames = dataOFCars["Name"] as! String
@@ -457,9 +461,7 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
                 
                 self.getVehicleName()
                 
-            }
-            else
-            {
+            }else {
                 print(result)
                 if let res = result as? String {
                     UtilityClass.showAlert("App Name".localized, message: res, vc: self)
@@ -573,6 +575,7 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             imgVehicle.contentMode = .scaleToFill
             imgVehicle.image = pickedImage
+            self.view.layoutIfNeeded()
         }
         
         dismiss(animated: true, completion: nil)
@@ -621,6 +624,7 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
         userDefault.set(VehiclaCompanyModelName, forKey: RegistrationFinalKeys.kVehicleModelName)
         userDefault.set(vehiclePassenger, forKey: RegistrationFinalKeys.kNumberOfPasssenger)
        
+        userDefault.set(txtVehicleColor.text, forKey: RegistrationFinalKeys.kVehicleColor)
     }
     
     
@@ -631,4 +635,10 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
     
     
 
+}
+
+extension UIImage {
+    func isEqualToImage(_ image: UIImage) -> Bool {
+        return self.pngData() == image.pngData()
+    }
 }

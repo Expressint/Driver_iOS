@@ -42,11 +42,10 @@ class DriverBankDetailsViewController: UIViewController
         self.title = "App Name".localized
 
     }
-    func setLocalizable()
-    {
+    func setLocalizable() {
         txtAccountHolderName.placeholder = "Account Holder Name".localized
         txtBankName.placeholder = "Bank Name".localized
-        txtBankBranch.placeholder = "Bank Branch".localized
+        txtBankBranch.placeholder = "Branch Code".localized //RJ Change Bank Branch
         txtAccountNumber.placeholder = "Account Number".localized
         btnNext.setTitle("Next".localized, for: .normal)
 //        lblHaveAnAccount.text = "".localized

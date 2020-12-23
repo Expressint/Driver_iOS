@@ -76,7 +76,7 @@ let shareRide = WebserviceURLs.kShareRide
 let TrackRunningTrip = WebserviceURLs.kTrackRunningTrip
 
 let PrivateMeterBooking = WebserviceURLs.kPrivateMeterBooking
-
+let DriverEarningReport = WebserviceURLs.kDriverEarningReport
 
 //-------------------------------------------------------------
 // MARK: - Webservice For Registration
@@ -197,7 +197,6 @@ func webserviceForUpdateDriverProfileUpdateVehicleInfoDetails(_ dictParams: AnyO
 {
     let url = UpdateVehicleInfo
     postData(dictParams, nsURL: url, completion: completion)
-    
 }
 
 //-------------------------------------------------------------
@@ -598,6 +597,15 @@ func webserviceForTrackRunningTrip(_ dictParams: AnyObject, completion: @escapin
 }
 
 
+//-------------------------------------------------------------
+// MARK: - Webservice For My Earnings
+//-------------------------------------------------------------
+
+func webserviceForMyEarnings(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = DriverEarningReport
+    postData(dictParams, nsURL: url, completion: completion)
+}
 
 
 

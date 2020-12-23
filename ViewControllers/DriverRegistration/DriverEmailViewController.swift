@@ -55,7 +55,7 @@ class DriverEmailViewController: UIViewController, UIScrollViewDelegate, NVActiv
             constraintHeightOfLogo.constant = 50
             constraintHeightOfAllTextFields.constant = 30
         }
-        
+        txtMobile.delegate = self
         txtOTP.keyboardType = .numberPad
 //        txtMobile.text = "5500990033"
 //        txtEmail.text = "djhfs@sjhdf.com"
@@ -348,4 +348,20 @@ class DriverEmailViewController: UIViewController, UIScrollViewDelegate, NVActiv
         }
     }
     
+}
+
+extension DriverEmailViewController : UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == txtMobile {
+            let resultText: String? = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
+            
+            if resultText!.count >= 11 {
+                return false
+            }
+            else {
+                return true
+            }
+        }
+        return true
+    }
 }

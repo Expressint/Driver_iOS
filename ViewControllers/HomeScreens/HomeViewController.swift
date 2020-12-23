@@ -3023,8 +3023,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     @IBOutlet weak var btnWaiting: UIButton!
     
     // Holding Button
-    @IBAction func btnHoldWaiting(_ sender: UIButton)
-    {
+    @IBAction func btnHoldWaiting(_ sender: UIButton) {
         if isAdvanceBooking {
             if advanceBookingID == "" {
                 UtilityClass.showAlert("App Name".localized, message: "Booking Id".localized, vc: self)

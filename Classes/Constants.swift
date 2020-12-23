@@ -113,7 +113,7 @@ let kShopping : String = "Shopping"
 
 //SideMenu Option
 let kMyJobs : String = "My Jobs"
-let kPaymentOption : String = "Payment Option"
+let kPaymentOption : String = "My Earnings"//"Payment Option"
 let kWallet : String = "Wallet"
 let kMyRating : String = "My Rating"
 let kInviteFriend : String = "Invite Friend"

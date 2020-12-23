@@ -36,7 +36,7 @@ class ThemeTextField: UITextField {
             self.SetLeftViewImage(Image: LeftImage)
         }
         else {
-            let LeftView = UIView(frame: CGRect(x: 0, y: 0, width: 20.0, height: 20.0))
+            let LeftView = UIView(frame: CGRect(x: 0, y: 0, width: 10.0, height: 20.0)) //RJ Change width change 20 to 10
             LeftView.backgroundColor = UIColor.clear
             
             self.leftView = LeftView

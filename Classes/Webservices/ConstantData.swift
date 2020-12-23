@@ -74,6 +74,7 @@ struct WebserviceURLs {
     static let kShareRide                               = "ShareRide/"
     static let kTrackRunningTrip                        = "TrackRunningTrip/"
     static let kPrivateMeterBooking                     = "PrivateMeterBooking"
+    static let kDriverEarningReport                     = "driverEarningReport"
     
 //    https://www.tantaxitanzania.com/Drvier_Api/FeedbackList/9
     static let kFeedbackList                     = "FeedbackList/"
@@ -192,7 +193,7 @@ struct RegistrationFinalKeys {
     static let kVehicleModelName = "VehicleModelName" //Done
     static let kNumberOfPasssenger = "NoOfPassenger" //Done
     static let kVehicleClass = "VehicleClass" //Done
-
+   
     
 }
 

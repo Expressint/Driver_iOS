@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "CCC685DC-9012-4EEB-9BCF-E58B56375A34"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "28037548-AF25-46A5-84C2-5D65581C6540"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewControllers/DriverRegistration/DriverRegistrationViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "547"
+            endingLineNumber = "547"
+            landmarkName = "btnBack(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "28037548-AF25-46A5-84C2-5D65581C6540 - 8e1a287785e098a1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Book_A_Ride_Driver.DriverRegistrationViewController.btnBack(__C.UIButton) -&gt; ()"
+                  moduleName = "Book A Ride-Driver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raju/Documents/Raju/Projects/BookARideDriver/Code/BookARideDriver/ViewControllers/DriverRegistration/DriverRegistrationViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "547"
+                  endingLineNumber = "547"
+                  offsetFromSymbolStart = "27256">
+               </Location>
+               <Location
+                  uuid = "28037548-AF25-46A5-84C2-5D65581C6540 - 8e1a287785e098a1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Book_A_Ride_Driver.DriverRegistrationViewController.btnBack(__C.UIButton) -&gt; ()"
+                  moduleName = "Book A Ride-Driver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raju/Documents/Raju/Projects/BookARideDriver/Code/BookARideDriver/ViewControllers/DriverRegistration/DriverRegistrationViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "547"
+                  endingLineNumber = "547"
+                  offsetFromSymbolStart = "30880">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8C200A59-00CE-471B-AED6-15A7F887BCD3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewControllers/DriverRegistration/DriverCertificatesViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "490"
+            endingLineNumber = "490"
+            landmarkName = "btnNext(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5A45CF07-85FB-4EDD-B246-FE4E53F4046F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewControllers/MyRatingViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "awakeFromNib()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

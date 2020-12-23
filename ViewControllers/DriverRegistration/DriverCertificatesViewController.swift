@@ -188,32 +188,32 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
     @IBAction func btnAccreditationCertiView(_ sender: UIButton) {
         
         let alert = UIAlertController(title: "Choose Photo".localized
-, message: nil, preferredStyle: .alert)
+            , message: nil, preferredStyle: .alert)
         
         let Gallery = UIAlertAction(title: "Select photo from gallery".localized
-, style: .default, handler: { ACTION in
-//            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum){
-            
+            , style: .default, handler: { ACTION in
+                //            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum){
+                
                 self.imagePicker.allowsEditing = false
                 self.imagePicker.sourceType = .photoLibrary
                 self.imagePicker.mediaTypes = [kUTTypeImage as String]
-//                    UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+                //                    UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
                 self.imagePicked = sender.tag
                 self.present(self.imagePicker, animated: true)
                 
-//            }
+                //            }
         })
         let Camera  = UIAlertAction(title: "Select photo from camera".localized ,style: .default, handler: { ACTION in
-   
+            
             
             self.imagePicker.allowsEditing = false
             self.imagePicker.sourceType = UIImagePickerController.SourceType.camera
             self.imagePicker.cameraCaptureMode = .photo
-         
+            
             
             self.imagePicked = sender.tag
             self.present(self.imagePicker, animated: true)
-                
+            
             
         })
         let Cancel = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
@@ -226,7 +226,7 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
         
         
         
-//        alert()
+        //        alert()
     }
     
     @IBAction func btnCarRegisView(_ sender: UIButton) {
@@ -473,9 +473,22 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
     
     @IBAction func btnNext(_ sender: Any) {
         
-       
+        if imgDriverLicence.image!.isEqualToImage(UIImage(named: "iconPlaceholderVehicle")!) {
+            UtilityClass.showAlert("App Name".localized, message: "Please enter all document\'s detail.".localized, vc: self)
+        }else if imgCarRegistration.image!.isEqualToImage(UIImage(named: "iconPlaceholderVehicle")!) {
+            UtilityClass.showAlert("App Name".localized, message: "Please enter all document\'s detail.".localized, vc: self)
+        }else if imgVehicleInsurience.image!.isEqualToImage(UIImage(named: "iconPlaceholderVehicle")!) {
+            
+            UtilityClass.showAlert("App Name".localized, message: "Please enter all document\'s detail.".localized, vc: self)
+            
+        } else{
+            getAllRegistrationData()
+            self.webserviceForRegistration()
+        }
         
-        if imgDriverLicence.image == UIImage(named: "iconPlaceholderVehicle") {
+        
+      /*
+         if imgDriverLicence.image == UIImage(named: "iconPlaceholderVehicle") {
             
             UtilityClass.showAlert("App Name".localized, message: "Please enter all document\'s detail.".localized, vc: self)
             
@@ -500,6 +513,7 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
             getAllRegistrationData()
             self.webserviceForRegistration()
         }
+         */
         
     }
     

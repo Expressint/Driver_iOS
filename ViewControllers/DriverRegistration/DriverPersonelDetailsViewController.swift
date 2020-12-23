@@ -272,6 +272,7 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
         {
             imgProfile.contentMode = .scaleToFill
             imgProfile.image = pickedImage
+            
         }
         
         dismiss(animated: true, completion: nil)
@@ -291,7 +292,7 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
             dictData.setObject(txtAddress.text!, forKey: RegistrationProfileKeys.kKeyAddress as NSCopying)
             dictData.setObject(txtPostCode.text!, forKey: RegistrationProfileKeys.kKeyPostCode as NSCopying)
             dictData.setObject(txtInviteCode.text!, forKey: RegistrationProfileKeys.kKeyInviteCode as NSCopying)
-        dictData.setObject(imgProfile.image!.pngData() as Any, forKey: RegistrationFinalKeys.kDriverImage as NSCopying)
+            dictData.setObject(imgProfile.image!.pngData() as Any, forKey: RegistrationFinalKeys.kDriverImage as NSCopying)
             
             arrData.add(dictData)
         
@@ -317,8 +318,11 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
         
 //        let sb = Snackbar()
 //        sb.createWithAction(text: "Upload Car Registration", actionTitle: "Dismiss".localized, action: { print("Button is push") })
-
-        if txtFullName.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
+        if imgProfile.image!.isEqualToImage(UIImage(named: "iconProfileLocation")!) {
+            isValidate = false
+            ValidatorMessage = "Choose Photo".localized
+        }
+       else if txtFullName.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
             isValidate = false
             ValidatorMessage = "Please enter user name".localized
 //            sb.createWithAction(text: "Please enter user name".localized, actionTitle: "Dismiss".localized, action: { print("Button is push") })
