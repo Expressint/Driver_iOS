@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -226,7 +226,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wJ3-i9-zDp">
-                                        <rect key="frame" x="126" y="24.5" width="68.5" height="20.5"/>
+                                        <rect key="frame" x="126" y="24.5" width="68" height="20.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -428,7 +428,7 @@
                                                                     <constraint firstAttribute="width" constant="90" id="A2Z-8O-VDG"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1v3-7m-T1t">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1v3-7m-T1t">
                                                                 <rect key="frame" x="135" y="0.0" width="105" height="105"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="105" id="3Sl-wn-lh3"/>
@@ -614,7 +614,7 @@
                                                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                                 <nil key="highlightedColor"/>
                                                                                             </label>
-                                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u01-sK-RR3">
+                                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u01-sK-RR3">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="142.5" height="30"/>
                                                                                                 <connections>
                                                                                                     <action selector="btnMale:" destination="ed2-r5-hVe" eventType="touchUpInside" id="QNR-ON-SAx"/>
@@ -661,7 +661,7 @@
                                                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                                 <nil key="highlightedColor"/>
                                                                                             </label>
-                                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCl-Rm-WxJ">
+                                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCl-Rm-WxJ">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="142.5" height="30"/>
                                                                                                 <connections>
                                                                                                     <action selector="btnFemale:" destination="ed2-r5-hVe" eventType="touchUpInside" id="l6G-m9-zW7"/>
@@ -1382,7 +1382,7 @@
                                 <rect key="frame" x="0.0" y="-20" width="320" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Documents" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tx7-ua-5u4">
-                                        <rect key="frame" x="113" y="29.5" width="94" height="20.5"/>
+                                        <rect key="frame" x="113.5" y="29.5" width="93.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -1427,7 +1427,7 @@
                                     <constraint firstAttribute="height" constant="2" id="Pcb-dg-XwS"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Yj-YE-klf">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Yj-YE-klf">
                                 <rect key="frame" x="105" y="57" width="110" height="110"/>
                                 <connections>
                                     <action selector="btnUploadVehicleImage:" destination="R89-Dr-0Kg" eventType="touchUpInside" id="xDo-uz-pd6"/>
@@ -1478,7 +1478,7 @@
                                                 <color key="textColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLj-rZ-quO">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLj-rZ-quO">
                                                 <rect key="frame" x="0.0" y="0.0" width="306" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
@@ -1539,7 +1539,7 @@
                                                 <color key="textColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cMe-TD-wyZ">
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cMe-TD-wyZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="306" height="50"/>
                                                 <connections>
                                                     <action selector="btnAccreditationCerti:" destination="R89-Dr-0Kg" eventType="touchUpInside" id="C2S-uh-uDP"/>
@@ -1605,7 +1605,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jlF-8x-UQC">
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jlF-8x-UQC">
                                                 <rect key="frame" x="0.0" y="0.0" width="306" height="50"/>
                                                 <connections>
                                                     <action selector="btnCarRegistration:" destination="R89-Dr-0Kg" eventType="touchUpInside" id="HUN-0g-zHX"/>
@@ -1646,7 +1646,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vehicle Insurance Policy/Certificate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HrD-Uk-ot0">
-                                                <rect key="frame" x="8" y="8" width="241.5" height="21"/>
+                                                <rect key="frame" x="8" y="8" width="241" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="QbV-Bp-ZXU"/>
                                                 </constraints>
@@ -1655,7 +1655,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Vehicle Insurance Policy Expiry date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="el1-p2-ulC">
-                                                <rect key="frame" x="8" y="31.5" width="225.5" height="13.5"/>
+                                                <rect key="frame" x="8" y="31.5" width="225" height="13.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="13.5" id="PWA-uA-HKD"/>
                                                 </constraints>
@@ -1663,7 +1663,7 @@
                                                 <color key="textColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g5b-DA-D8p">
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g5b-DA-D8p">
                                                 <rect key="frame" x="0.0" y="0.0" width="306" height="50"/>
                                                 <connections>
                                                     <action selector="btnVehicleInsurance:" destination="R89-Dr-0Kg" eventType="touchUpInside" id="Mto-TI-Dq4"/>
@@ -1756,7 +1756,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EKF-Gt-iIZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TUG-HZ-5V5">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TUG-HZ-5V5">
                     <rect key="frame" x="0.0" y="0.0" width="97" height="28"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="28" id="Jhf-TX-EPk"/>
@@ -1936,7 +1936,7 @@ You must be 21 years of age or over.</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="akX-Of-dF0">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="akX-Of-dF0">
                                                     <rect key="frame" x="7" y="56.5" width="306" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="17" id="PIW-rM-ghr"/>
@@ -2099,7 +2099,7 @@ You must be 21 years of age or over.</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HSl-qX-aQA">
                                         <rect key="frame" x="10" y="84" width="300" height="128"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YwJ-7V-mkQ">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YwJ-7V-mkQ">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="128"/>
                                             </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sgk-2q-bIQ">
@@ -2215,7 +2215,7 @@ You must be 21 years of age or over.</string>
                                                             <constraint firstAttribute="height" constant="110" id="mmu-52-Nxo"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PWm-nv-F2K">
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PWm-nv-F2K">
                                                         <rect key="frame" x="105" y="20" width="110" height="110"/>
                                                         <connections>
                                                             <action selector="btnChoosePicture:" destination="hC5-5v-puM" eventType="touchUpInside" id="ag9-p5-hWQ"/>
@@ -2544,7 +2544,7 @@ You must be 21 years of age or over.</string>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vehicle Option" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uq3-2U-QLh">
-                                        <rect key="frame" x="100.5" y="29.5" width="119" height="20.5"/>
+                                        <rect key="frame" x="101" y="29.5" width="118.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -2609,9 +2609,20 @@ You must be 21 years of age or over.</string>
             <point key="canvasLocation" x="1898" y="3156"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="Fsi-Ug-1IT">
+            <size key="intrinsicContentSize" width="127.5" height="18.5"/>
+        </designable>
+        <designable name="nCJ-yc-9Ay">
+            <size key="intrinsicContentSize" width="64.5" height="18.5"/>
+        </designable>
+        <designable name="wPF-e9-k2t">
+            <size key="intrinsicContentSize" width="99" height="18.5"/>
+        </designable>
+    </designables>
     <resources>
         <image name="iconAccount" width="85" height="85"/>
-        <image name="iconBack" width="28" height="28"/>
+        <image name="iconBack" width="85" height="85"/>
         <image name="iconCARPlaceholder" width="85" height="85"/>
         <image name="iconCall" width="26" height="26"/>
         <image name="iconCarPlaceholder" width="225" height="104"/>
