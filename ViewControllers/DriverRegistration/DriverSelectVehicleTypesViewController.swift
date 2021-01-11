@@ -620,7 +620,7 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
         
         userDefault.set(vehicleRegistrationNumber, forKey: RegistrationFinalKeys.kVehicleRegistrationNo)
         userDefault.set(VehiclaMakeCompanyModel, forKey: RegistrationFinalKeys.kCompanyModel)
-//        userDefault.set(vehicleClasscarType, forKey: RegistrationFinalKeys.kVehicleClass)
+        userDefault.set(vehicleClasscarType, forKey: RegistrationFinalKeys.kVehicleClass)
         userDefault.set(VehiclaCompanyModelName, forKey: RegistrationFinalKeys.kVehicleModelName)
         userDefault.set(vehiclePassenger, forKey: RegistrationFinalKeys.kNumberOfPasssenger)
        

@@ -318,7 +318,7 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
         
 //        let sb = Snackbar()
 //        sb.createWithAction(text: "Upload Car Registration", actionTitle: "Dismiss".localized, action: { print("Button is push") })
-        if imgProfile.image!.isEqualToImage(UIImage(named: "iconProfileLocation")!) {
+        if imgProfile.image!.isEqualToImage(UIImage(named: "iconUsers") ?? UIImage()) {
             isValidate = false
             ValidatorMessage = "Choose Photo".localized
         }

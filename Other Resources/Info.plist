@@ -82,8 +82,6 @@
 		<string>proxima-nova-semibold.otf</string>
 		<string>proxima-nova.otf</string>
 	</array>
-	<key>UIApplicationExitsOnSuspend</key>
-	<false/>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
