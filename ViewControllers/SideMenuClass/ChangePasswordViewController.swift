@@ -36,6 +36,7 @@ class ChangePasswordViewController: ParentViewController {
     func setLicalization()
     {
         self.headerView?.lblTitle.text = "Change Password".localized
+        txtCurrentPassword.placeholder = "Current Password".localized
         txtNewPassword.placeholder = "New Password".localized
         txtConfirmPass.placeholder = "Confirm Password".localized
         btnSubmit.setTitle("Submit".localized, for: .normal)
@@ -61,6 +62,7 @@ class ChangePasswordViewController: ParentViewController {
     //-------------------------------------------------------------
     
     @IBOutlet weak var txtNewPassword: UITextField!
+    @IBOutlet weak var txtCurrentPassword: UITextField!
     
     //-------------------------------------------------------------
     // MARK: - Actions
@@ -94,7 +96,10 @@ class ChangePasswordViewController: ParentViewController {
     func isValidate() -> (Bool,String) {
         var isValid:Bool = true
         var ValidatorMessage:String = ""
-        if self.txtNewPassword.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
+        if self.txtCurrentPassword.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
+            isValid = false
+            ValidatorMessage = "Please enter current password".localized
+        }else if self.txtNewPassword.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
             isValid = false
             ValidatorMessage = "Please enter password".localized
         } else if (self.txtNewPassword.text?.count)! < 8 {
@@ -111,13 +116,11 @@ class ChangePasswordViewController: ParentViewController {
         return (isValid,ValidatorMessage)
     }
     
-    @objc func nevigateToBack()
-    {
+    @objc func nevigateToBack() {
         for controller in self.navigationController!.viewControllers as Array {
             if controller.isKind(of: TabbarController.self) {
                 self.sideMenuController?.embed(centerViewController: controller)
                 break
-                
             }
         }
     }
@@ -127,14 +130,13 @@ class ChangePasswordViewController: ParentViewController {
     // MARK: - Webservice For Change Password
     //-------------------------------------------------------------
     
-    func WebservieceChengePassword()
-    {
+    func WebservieceChengePassword() {
         
         var dictdata = [String:AnyObject]()
         
         dictdata["DriverId"] = Singletons.sharedInstance.strDriverID as AnyObject
         dictdata["Password"] = txtNewPassword.text as AnyObject
-        
+        dictdata["OldPassword"] = txtCurrentPassword.text as AnyObject
         webserviceForChangePassword(dictdata as AnyObject) { (result, status) in
             
                 if (status) {
@@ -143,8 +145,7 @@ class ChangePasswordViewController: ParentViewController {
                     
                     if let res = result as? String {
                         UtilityClass.showAlert("App Name".localized, message: res, vc: self)
-                    }
-                    else if let resDict = result as? NSDictionary {
+                    }else if let resDict = result as? NSDictionary {
                         
                         let alert = UIAlertController(title: "App Name".localized, message: (resDict).object(forKey: GetResponseMessageKey()) as? String, preferredStyle: .alert)
                         let OK = UIAlertAction(title: "OK".localized, style: .default, handler: { ACTION in
@@ -154,8 +155,7 @@ class ChangePasswordViewController: ParentViewController {
                         alert.addAction(OK)
                         self.present(alert, animated: true, completion: nil)
                         
-                    }
-                    else if let resAry = result as? NSArray {
+                    }else if let resAry = result as? NSArray {
                         UtilityClass.showAlert("App Name".localized, message: ((resAry).object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, vc: self)
                     }
                     
