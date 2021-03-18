@@ -114,9 +114,9 @@ PODS:
   - NVActivityIndicatorView/Presenter (4.8.0)
   - PromisesObjC (1.2.11)
   - Protobuf (3.12.0)
-  - SDWebImage (4.3.0):
-    - SDWebImage/Core (= 4.3.0)
-  - SDWebImage/Core (4.3.0)
+  - SDWebImage (5.10.4):
+    - SDWebImage/Core (= 5.10.4)
+  - SDWebImage/Core (5.10.4)
   - SideMenuController (0.2.4)
   - Socket.IO-Client-Swift (15.1.0):
     - Starscream (~> 3.1)
@@ -143,7 +143,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift
   - MarqueeLabel/Swift
   - NVActivityIndicatorView
-  - SDWebImage (= 4.3.0)
+  - SDWebImage
   - SideMenuController
   - Socket.IO-Client-Swift (= 15.1.0)
   - SRCountdownTimer
@@ -219,12 +219,12 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
-  SDWebImage: 6da6c8bca115addc4de8613362e1b15f66333825
+  SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
   SideMenuController: b463d2b3aa58e2afe57f57a07938fa9a647894ca
   Socket.IO-Client-Swift: 7cb44c0ffb86e158cee32d0642d30ec5fdcf8f61
   SRCountdownTimer: 9c92e444b5403c92f01dd6610299b8c634bc8562
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
 
-PODFILE CHECKSUM: c7ecd14d42da0083ba87fb0ab39aff01961c7acb
+PODFILE CHECKSUM: 31b6c190dcb9288f223cda3e8a83823378e8dec2
 
 COCOAPODS: 1.10.0

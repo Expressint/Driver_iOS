@@ -245,7 +245,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                     manager.allowsBackgroundLocationUpdates = true
                     //                    manager.distanceFilter = //
                 }
-                
             }
         }
         
@@ -750,14 +749,11 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             if (self.isSocketConnected == false) {
                 self.isSocketConnected = true
                        //            self.methodsAfterConnectingToSocket()
-                       if UserDefaults.standard.bool(forKey: kIsSocketEmited) == false
-                       {
+                       if UserDefaults.standard.bool(forKey: kIsSocketEmited) == false {
                            self.methodsAfterConnectingToSocket()
                            UserDefaults.standard.set(true, forKey: kIsSocketEmited)
                            UserDefaults.standard.synchronize()
-                       }
-                       else
-                       {
+                       }else {
                            print("already emited")
                        }
                        
@@ -1213,7 +1209,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 self.StartTripView.isHidden = false
                 //                self.btnStartTrip.isHidden = false
                 self.viewLocationDetails.isHidden = false
-                self.constrainLocationViewBottom.constant = self.BottomButtonView.frame.height
+                self.constrainLocationViewBottom.constant = self.BottomButtonView.frame.height + self.view.safeAreaInsets.bottom
                 Singletons.sharedInstance.MeterStatus = meterStatus.kIsMeterStart
                 
                 self.pickupPassengerFromLocation()
@@ -1286,7 +1282,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 self.BottomButtonView.layoutIfNeeded()
                 self.viewHomeMyJobsBTN.isHidden = true
                 //                self.viewLocationDetails.isHidden = true
-                self.constrainLocationViewBottom.constant = self.BottomButtonView.frame.size.height
+                self.constrainLocationViewBottom.constant = self.BottomButtonView.frame.size.height + self.view.safeAreaInsets.bottom
             }
             
         }
@@ -1615,7 +1611,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         Singletons.sharedInstance.aryPassengerInfo = data as NSArray
         self.viewHomeMyJobsBTN.isHidden = true
         //                self.viewLocationDetails.isHidden = true
-        self.constrainLocationViewBottom.constant = self.BottomButtonView.frame.size.height
+        self.constrainLocationViewBottom.constant = self.BottomButtonView.frame.size.height + self.view.safeAreaInsets.bottom
         self.isAdvanceBooking = true
         
         let getBookingAndPassengerInfo = self.getBookingAndPassengerInfo(data: data)
@@ -2413,7 +2409,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             StartTripView.isHidden = false
             //            self.btnStartTrip.isHidden = true
             self.viewLocationDetails.isHidden = false
-            self.constrainLocationViewBottom.constant = self.StartTripView.frame.height
+            self.constrainLocationViewBottom.constant = self.StartTripView.frame.height + self.view.safeAreaInsets.bottom
             self.pickupPassengerFromLocation()
             
             self.view.bringSubviewToFront(StartTripView)
@@ -2424,11 +2420,11 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             StartTripView.isHidden = false
             //            self.btnStartTrip.isHidden = true
             self.viewLocationDetails.isHidden = false
-            self.constrainLocationViewBottom.constant = self.StartTripView.frame.height
+            self.constrainLocationViewBottom.constant = self.StartTripView.frame.height + self.view.safeAreaInsets.bottom
             self.view.bringSubviewToFront(StartTripView)
             self.pickupPassengerFromLocation()
         }
-        self.constrainLocationViewBottom.constant = self.StartTripView.frame.size.height
+        self.constrainLocationViewBottom.constant = self.StartTripView.frame.size.height + self.view.safeAreaInsets.bottom
         Singletons.sharedInstance.MeterStatus = meterStatus.kIsMeterStart
 
     }
@@ -4158,9 +4154,10 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         webserviceForCurrentBooking(param as AnyObject) { (result, status) in
             
             if (status) {
-                
-                
-                
+                Singletons.sharedInstance.driverDuty = "1"
+                UserDefaults.standard.set(Singletons.sharedInstance.driverDuty, forKey: "DriverDuty")
+                self.headerView?.btnSwitch.isSelected = true
+                self.headerView?.btnSwitch.setImage(UIImage(named: "iconSwitchOn"), for: .normal)
                 self.resetMapView()
                 
                 let resultData = (result as! NSDictionary)

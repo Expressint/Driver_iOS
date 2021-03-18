@@ -125,13 +125,13 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
         lblPickupLocationDetails.text = strPickupLocation
         lblDropoffLocationDetails.text = strDropoffLocation
         lblPassengerName.text = strPassengerName
-        imgPassengerProfile.sd_setShowActivityIndicatorView(true)
+//        imgPassengerProfile.sd_setShowActivityIndicatorView(true)
         //        imgPassengerProfile.sd_addActivityIndicator()
         if(imgURL != "" )
         {
-            imgPassengerProfile.sd_setIndicatorStyle(UIActivityIndicatorView.Style.gray)
+//            imgPassengerProfile.sd_setIndicatorStyle(UIActivityIndicatorView.Style.gray)
             imgPassengerProfile.sd_setImage(with: URL(string:  WebserviceURLs.kImageBaseURL + imgURL)) { (image, error, cacheType, url) in
-                self.imgPassengerProfile.sd_removeActivityIndicator()
+//                self.imgPassengerProfile.sd_removeActivityIndicator()
             }
         }
         
