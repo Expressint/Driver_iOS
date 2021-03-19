@@ -81,8 +81,8 @@ let CustomeFontProximaNovaSemibold : String = "ProximaNova-Semibold"
 let CustomeFontProximaNovaSThin : String = "ProximaNovaS-Thin"
 let CustomeFontProximaNovaTThin : String = "ProximaNovaT-Thin"
 
-let kGooglePlaceClientAPIKey : String = "AIzaSyCSwJSvFn2je-EXNxjUEUrU06_L7flz4qw" //"AIzaSyAW9o_4ULlYZ9AF_Cxuqn2mPav4XKJJwGI"
-let kGoogleServiceAPIKey : String = "AIzaSyClUkKxzVBjw1wb4h9AfbsHGenepqcYwUA"
+//let kGooglePlaceClientAPIKey : String = "AIzaSyCSwJSvFn2je-EXNxjUEUrU06_L7flz4qw" //"AIzaSyAW9o_4ULlYZ9AF_Cxuqn2mPav4XKJJwGI"
+//let kGoogleServiceAPIKey : String = "AIzaSyClUkKxzVBjw1wb4h9AfbsHGenepqcYwUA"
 
 
 

@@ -62,8 +62,8 @@ let googlPlacesApiKey = googlApiKey// "AIzaSyCSwJSvFn2je-EXNxjUEUrU06_L7flz4qw" 
         
         // Google Map
         
-        GMSPlacesClient.provideAPIKey(kGooglePlaceClientAPIKey)
-        GMSServices.provideAPIKey(kGoogleServiceAPIKey)
+        GMSPlacesClient.provideAPIKey(googlPlacesApiKey)
+        GMSServices.provideAPIKey(googlPlacesApiKey)
         
         // AIzaSyCRaduVCKdm1ll3kHPY-ebtvwwPV2VVozo
         
