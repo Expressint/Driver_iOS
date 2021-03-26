@@ -298,7 +298,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     var timerForUpdateCurrentLocation = Timer()
     
     func runTimer() {
-        timerForUpdateCurrentLocation = Timer.scheduledTimer(timeInterval: 15, target: self,   selector: (#selector(self.updateCurrentLocationLabel)), userInfo: nil, repeats: true)
+        timerForUpdateCurrentLocation = Timer.scheduledTimer(timeInterval: 7, target: self,   selector: (#selector(self.updateCurrentLocationLabel)), userInfo: nil, repeats: true)
     }
     
     @objc func updateCurrentLocationLabel() {
@@ -327,10 +327,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 }
                 else
                 {
-                    
                     let viewController = self.storyboard?.instantiateViewController(withIdentifier: "VerifyPasswordViewController") as! VerifyPasswordViewController
                     self.present(viewController, animated: false, completion: nil)
-                    
                 }
             }
             

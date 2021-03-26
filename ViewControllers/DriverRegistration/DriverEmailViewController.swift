@@ -275,7 +275,7 @@ class DriverEmailViewController: UIViewController, UIScrollViewDelegate, NVActiv
                     { (done) in
                         
                     }
-                    self.userDefault.set(self.txtEmail.text, forKey: savedDataForRegistration.kKeyEmail)
+//                    self.userDefault.set(self.txtEmail.text, forKey: savedDataForRegistration.kKeyEmail)
                     self.userDefault.set(self.txtEmail.text, forKey: RegistrationFinalKeys.kEmail)
                     self.userDefault.set(self.txtPassword.text, forKey: RegistrationFinalKeys.kPassword)
                     self.userDefault.set(self.txtMobile.text, forKey: RegistrationFinalKeys.kMobileNo)

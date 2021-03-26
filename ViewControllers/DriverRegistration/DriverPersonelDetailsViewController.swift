@@ -385,6 +385,7 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
         userDefault.set(txtPostCode.text, forKey: RegistrationFinalKeys.kZipcode)
 
         
+        
         if (btnMale.currentImage?.isEqual(UIImage(named: "iconRadioSelected")))! {
             userDefault.set("Male", forKey: RegistrationFinalKeys.kGender)
         }
@@ -412,10 +413,10 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
 //        let driverVC = self.navigationController?.viewControllers.last as! DriverRegistrationViewController
         driverVC.viewDidLayoutSubviews()
 //        driverVC.imgBank.image = UIImage.init(named: iconBankSelect)
-        if (self.saveAllDataInArray().count != 0)
-        {
-            UserDefaults.standard.set(self.saveAllDataInArray(), forKey: savedDataForRegistration.kKeyAllUserDetails)
-        }
+//        if (self.saveAllDataInArray().count != 0)
+//        {
+//            UserDefaults.standard.set(self.saveAllDataInArray(), forKey: savedDataForRegistration.kKeyAllUserDetails)
+//        }
        
     }
     

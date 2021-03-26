@@ -676,35 +676,71 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
     
     func getAllRegistrationData()
     {
+        let mobileNo: String = (userDefault.object(forKey: RegistrationFinalKeys.kMobileNo) as? String)!
+            dictData[RegistrationFinalKeys.kMobileNo] = mobileNo as AnyObject
+        
         if let email: String = userDefault.object(forKey: RegistrationFinalKeys.kEmail) as? String {
             dictData[RegistrationFinalKeys.kEmail] = email as AnyObject
         }
+        let password: String = (userDefault.object(forKey: RegistrationFinalKeys.kPassword) as? String)!
+            dictData[RegistrationFinalKeys.kPassword] = password as AnyObject
+        
         let fullName: String = (userDefault.object(forKey: RegistrationFinalKeys.kFullname) as? String)!
             dictData[RegistrationFinalKeys.kFullname] = fullName as AnyObject
        
         let gender: String = (userDefault.object(forKey: RegistrationFinalKeys.kGender) as? String)!
             dictData[RegistrationFinalKeys.kGender] = gender as AnyObject
        
-        let mobileNo: String = (userDefault.object(forKey: RegistrationFinalKeys.kMobileNo) as? String)!
-            dictData[RegistrationFinalKeys.kMobileNo] = mobileNo as AnyObject
-      
-        let password: String = (userDefault.object(forKey: RegistrationFinalKeys.kPassword) as? String)!
-            dictData[RegistrationFinalKeys.kPassword] = password as AnyObject
+     
       
         let address: String = (userDefault.object(forKey: RegistrationFinalKeys.kAddress) as? String)!
             dictData[RegistrationFinalKeys.kAddress] = address as AnyObject
        
+        
+        
+        let BSB: String = userDefault.object(forKey: RegistrationFinalKeys.kBSB) as! String
+        dictData[RegistrationFinalKeys.kBSB] = BSB as AnyObject
+        //
+        let BankName: String = userDefault.object(forKey: RegistrationFinalKeys.kBankName) as! String
+        dictData[RegistrationFinalKeys.kBankName] = BankName as AnyObject
+        
+        let BankAccountNo: String = userDefault.object(forKey: RegistrationFinalKeys.kBankAccountNo) as! String
+        dictData[RegistrationFinalKeys.kBankAccountNo] = BankAccountNo as AnyObject
+
+        let bankHolederName: String = userDefault.object(forKey: RegistrationFinalKeys.kbankHolderName) as! String
+        dictData[RegistrationFinalKeys.kbankHolderName] = bankHolederName as AnyObject
+        
+        
+        
+        
+        
+        let vehicleRegistrationNumber: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleRegistrationNo) as! String
+        dictData[RegistrationFinalKeys.kVehicleRegistrationNo] = vehicleRegistrationNumber as AnyObject
+        
+        let vehicleCompanyModel: String = userDefault.object(forKey: RegistrationFinalKeys.kCompanyModel) as! String
+        dictData[RegistrationFinalKeys.kCompanyModel] = vehicleCompanyModel as AnyObject
+        
+        let vehicleClass: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleClass) as! String
+        dictData[RegistrationFinalKeys.kVehicleClass] = vehicleClass as AnyObject
+        
+        let vehicleModelName: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleModelName) as! String
+        dictData[RegistrationFinalKeys.kVehicleModelName] = vehicleModelName as AnyObject
+        
+        let passenger: String = userDefault.object(forKey: RegistrationFinalKeys.kNumberOfPasssenger) as! String
+           dictData[RegistrationFinalKeys.kNumberOfPasssenger] = passenger as AnyObject
+        
+        
+        let vehicleColor: String = userDefault.object(forKey: RegistrationFinalKeys.kCarThreeTypeName) as! String
+        dictData[RegistrationFinalKeys.kCarThreeTypeName] = vehicleColor as AnyObject
 //        let suburd: String = (userDefault.object(forKey: RegistrationFinalKeys.kSuburb) as? String)!
 //            dictData[RegistrationFinalKeys.kSuburb] = suburd as AnyObject
         
          let postcode: String = userDefault.object(forKey: RegistrationFinalKeys.kZipcode) as! String
             dictData[RegistrationFinalKeys.kZipcode] = postcode as AnyObject
       
-         let passenger: String = userDefault.object(forKey: RegistrationFinalKeys.kNumberOfPasssenger) as! String
-            dictData[RegistrationFinalKeys.kNumberOfPasssenger] = passenger as AnyObject
+
         
-        let vehicleModelName: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleModelName) as! String
-        dictData[RegistrationFinalKeys.kVehicleModelName] = vehicleModelName as AnyObject
+     
         
 //
         
@@ -733,14 +769,6 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
 //        let ServiceDescription = userDefault.object(forKey: RegistrationFinalKeys.kServiceDescription) as! String
 //            dictData[RegistrationFinalKeys.kServiceDescription] = ServiceDescription as AnyObject
         
-         let BSB: String = userDefault.object(forKey: RegistrationFinalKeys.kBSB) as! String
-            dictData[RegistrationFinalKeys.kBSB] = BSB as AnyObject
-//
-         let BankName: String = userDefault.object(forKey: RegistrationFinalKeys.kBankName) as! String
-            dictData[RegistrationFinalKeys.kBankName] = BankName as AnyObject
-     
-         let BankAccountNo: String = userDefault.object(forKey: RegistrationFinalKeys.kBankAccountNo) as! String
-        dictData[RegistrationFinalKeys.kBankAccountNo] = BankAccountNo as AnyObject
         
         let referralCode: String = userDefault.object(forKey: RegistrationFinalKeys.kReferralCode) as! String
         dictData[RegistrationFinalKeys.kReferralCode] = referralCode as AnyObject
@@ -766,22 +794,14 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
 //            dictData[profileKeys.kCarModel] = carModel as AnyObject
        
         
-        let vehicleRegistrationNumber: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleRegistrationNo) as! String
-        dictData[RegistrationFinalKeys.kVehicleRegistrationNo] = vehicleRegistrationNumber as AnyObject
+
         
-        let vehicleColor: String = userDefault.object(forKey: RegistrationFinalKeys.kCarThreeTypeName) as! String
-        dictData[RegistrationFinalKeys.kCarThreeTypeName] = vehicleColor as AnyObject
+     
         
         
-        let vehicleClass: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleClass) as! String
-        dictData[RegistrationFinalKeys.kVehicleClass] = vehicleClass as AnyObject
+
         
-        
-        let vehicleCompanyModel: String = userDefault.object(forKey: RegistrationFinalKeys.kCompanyModel) as! String
-        dictData[RegistrationFinalKeys.kCompanyModel] = vehicleCompanyModel as AnyObject
-        
-        let bankHolederName: String = userDefault.object(forKey: RegistrationFinalKeys.kbankHolderName) as! String
-        dictData[RegistrationFinalKeys.kbankHolderName] = bankHolederName as AnyObject
+    
         
         
         
