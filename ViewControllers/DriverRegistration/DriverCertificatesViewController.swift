@@ -794,12 +794,6 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
 //            dictData[profileKeys.kCarModel] = carModel as AnyObject
        
         
-
-        
-     
-        
-        
-
         
     
         
