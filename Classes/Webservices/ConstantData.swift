@@ -103,7 +103,6 @@ struct profileKeys {
     static let kCarModel = "CarModel"
     static let kCarCompany = "CarCompany"
     static let kCompanyID = "CompanyId"
-
 }
 
 struct RegistrationProfileKeys {
@@ -119,12 +118,10 @@ struct RegistrationProfileKeys {
     static let kKeyInviteCode = "inviteCode"
 }
 
-struct driverProfileKeys
-{
+struct driverProfileKeys {
     static let kKeyDriverProfile = "driverProfile"
     static let kKeyIsDriverLoggedIN = "isDriverLoggedIN"
     static let kKeyShowTickPayRegistrationScreen = "showTickPayRegistrationKey"
-
 }
 //struct driverTripToDestinationKeys
 //{
