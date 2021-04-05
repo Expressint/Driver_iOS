@@ -504,8 +504,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             
             //        if(location.speed > 0) {
             var kmh = location.speed / 1000.0 * 60.0 * 60.0
-            if(kmh < 0)
-            {
+            if(kmh < 0){
                 kmh = 0
             }
             if let speed = HomeViewController.numberFormatter.string(from: NSNumber(value: kmh)) {
