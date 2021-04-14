@@ -40,7 +40,6 @@ protocol addCardFromHomeVCDelegate {
 
 class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarMovementDelegate, SRCountdownTimerDelegate, ReceiveRequestDelegate,GMSMapViewDelegate,CompleterTripInfoDelegate,UITabBarControllerDelegate, delegateRatingIsSubmitSuccessfully,delegateWaitforTip
 {
-    
     func delegateResultTip() {
         
     }
@@ -149,8 +148,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     // MARK: - Base Methods
     //-------------------------------------------------------------
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         let NavBarHeight = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
@@ -187,15 +184,13 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         viewRound.layer.cornerRadius = viewRound.frame.size.height / 2
         viewRound.clipsToBounds = true
         
-        Utilities.setCornerRadiusButton(button: btnStartTrip, borderColor: ThemeAppMainColor, bgColor: ThemeAppMainColor, textColor: UIColor.white)
-        Utilities.setCornerRadiusButton(button: btnPassengerInfo, borderColor: ThemeAppMainColor, bgColor: UIColor.white, textColor: ThemeAppMainColor)
-        Utilities.setCornerRadiusButton(button: btnCancelTrip, borderColor: ThemeAppMainColor, bgColor: UIColor.white, textColor: ThemeAppMainColor)
-        Utilities.setCornerRadiusButton(button: btnDirectionFourBTN, borderColor: ThemeAppMainColor, bgColor: UIColor.white, textColor: ThemeAppMainColor)
-        
-        Utilities.setCornerRadiusButton(button: btnCompleteTrip, borderColor: ThemeAppMainColor, bgColor: ThemeAppMainColor, textColor: UIColor.white)
-        Utilities.setCornerRadiusButton(button: btnDirection, borderColor: ThemeAppMainColor, bgColor: UIColor.white, textColor: ThemeAppMainColor)
-        
-        Utilities.setCornerRadiusButton(button: btnWaiting, borderColor: ThemeAppMainColor, bgColor: ThemeAppMainColor, textColor: UIColor.white)
+        Utilities.setCornerRadiusButton(button: btnStartTrip, borderColor: ThemeAppSecondaryColor, bgColor: ThemeAppMainColor, textColor: UIColor.black)
+        Utilities.setCornerRadiusButton(button: btnPassengerInfo, borderColor: ThemeAppSecondaryColor, bgColor: UIColor.white, textColor: .black)
+        Utilities.setCornerRadiusButton(button: btnCancelTrip, borderColor: ThemeAppSecondaryColor, bgColor: UIColor.white, textColor: .black)
+        Utilities.setCornerRadiusButton(button: btnDirectionFourBTN, borderColor: ThemeAppSecondaryColor, bgColor: UIColor.white, textColor: .black)
+        Utilities.setCornerRadiusButton(button: btnCompleteTrip, borderColor: ThemeAppSecondaryColor, bgColor: ThemeAppMainColor, textColor: .black)
+        Utilities.setCornerRadiusButton(button: btnDirection, borderColor: ThemeAppSecondaryColor, bgColor: UIColor.white, textColor: .black)
+        Utilities.setCornerRadiusButton(button: btnWaiting, borderColor: ThemeAppSecondaryColor, bgColor: ThemeAppMainColor, textColor: .black)
         
         NotificationCenter.default.addObserver(self, selector: #selector(btnHoldWaiting(_:)), name: NSNotification.Name(rawValue: "HoldCurrentTrip"), object: nil)
         
@@ -494,6 +489,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                     startLocation = defaultLocation
                     
                     print("meter is on hold")
+                    
+                    
                     //                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateWaitingTime"), object: nil)
                 }
                 
@@ -1188,10 +1185,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 
                 //                ((self.aryPassengerData as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingInfo") as? NSDictionary
                 
-                
-                
                 self.btnStartTripAction()
-                
                 self.mapView.clear()
                 self.driverMarker = nil
                 self.UpdateDriverLocation()
@@ -1210,11 +1204,9 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 Singletons.sharedInstance.MeterStatus = meterStatus.kIsMeterStart
                 
                 self.pickupPassengerFromLocation()
-                
             }
             else
             {
-                
                 //                self.btnCompleteTrip.isHidden = true
                 UtilityClass.showAlert("App Name".localized, message: (((data as NSArray).object(at: 0) as! NSDictionary)).object(forKey: GetResponseMessageKey()) as! String, vc: self)
             }

@@ -26,7 +26,6 @@ class  MenuController: UIViewController, UITableViewDataSource, UITableViewDeleg
     var strSelectedLaungage = String()
     private var previousIndex: NSIndexPath?
     
-    
     var arrMenuIcons = [String]()
     var arrMenuTitle = [String]()
     

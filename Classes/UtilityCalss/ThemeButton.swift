@@ -20,12 +20,12 @@ class ThemeButton: UIButton {
         if isSubmitButton == true
         {
             self.backgroundColor = ThemeAppMainColor
-            setTitleColor(UIColor.white, for: .normal)
+            setTitleColor(UIColor.black, for: .normal)
         }
         else
         {
             self.backgroundColor = UIColor(red: 114.0/255.0, green: 114.0/255.0, blue: 114.0/255.0, alpha: 1.0)
-            setTitleColor(UIColor.white, for: .normal)
+            setTitleColor(UIColor.black, for: .normal)
         }
     }
 }

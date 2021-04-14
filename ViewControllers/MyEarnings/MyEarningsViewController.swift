@@ -61,7 +61,6 @@ class MyEarningsViewController: ParentViewController,IQDropDownTextFieldDelegate
     {
         super.viewDidLoad()
         
-        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
@@ -73,12 +72,20 @@ class MyEarningsViewController: ParentViewController,IQDropDownTextFieldDelegate
         arryear = ["\(year - 1)", "\(year)"]
         txtSelectYear.itemList = arryear
         
-        txtSelectYear.isOptionalDropDown = false
+        txtSelectYear.isOptionalDropDown = true
         txtSelectToDate.dropDownMode = .datePicker
         txtSelectFromDate.dropDownMode = .datePicker
         
         txtSelectFromDate.datePicker.maximumDate = Date()
         txtSelectToDate.datePicker.maximumDate = Date()
+        
+        if #available(iOS 13.4, *) {
+            txtSelectFromDate.datePicker.preferredDatePickerStyle = .wheels
+            txtSelectToDate.datePicker.preferredDatePickerStyle = .wheels
+        } else {
+            // Fallback on earlier versions
+            
+        }
         
         txtSelectToDate.delegate = self
         txtSelectFromDate.delegate = self
@@ -143,6 +150,7 @@ class MyEarningsViewController: ParentViewController,IQDropDownTextFieldDelegate
     func textField(_ textField: IQDropDownTextField, didSelect date: Date?) {
         
         let dateFormatter = DateFormatter()
+        //SJ_Change :
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss +zzzz"
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
@@ -323,6 +331,10 @@ class MyEarningsViewController: ParentViewController,IQDropDownTextFieldDelegate
             //btnMonth.setTitleColor(UIColor.darkGray, for: .normal)
             //            lblTotalEarningValue.text = "$1500.00"
         }
+        
+        self.arrEarning = []
+        self.tableView.reloadData()
+        
     }
     
     func CustomDateSelected()
@@ -333,6 +345,7 @@ class MyEarningsViewController: ParentViewController,IQDropDownTextFieldDelegate
         btnCustomeDate.isSelected = true
         btnYearly.isSelected = false
         btnMonth.isSelected = false
+        
         if btnCustomeDate.isSelected == true
         {
             self.selectedReportType = "datewise"
@@ -346,11 +359,14 @@ class MyEarningsViewController: ParentViewController,IQDropDownTextFieldDelegate
             btnWeekly.backgroundColor = UIColor.lightGray
             //            self.webserviceForGettingEarningwise("monthly")
         }
+        
+        self.arrEarning = []
+        self.tableView.reloadData()
+        
     }
     
     func MonthSelected()
     {
-        
         self.viewYear.isHidden = true
         self.viewFromToDate.isHidden = true
         
@@ -409,11 +425,14 @@ class MyEarningsViewController: ParentViewController,IQDropDownTextFieldDelegate
             {
                 let date = Date()
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss +zzzz"
-                dateFormatter.dateFormat = "yyyy-MM-dd"
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" //+zzzz"
+//                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let str1 = dateFormatter.string(from: self.selectedFromDate)
+                let res = dateFormatter.string(from: self.selectedToDate)
+                let str2 = res.replacingOccurrences(of: "00:00:00", with: "23:59:59")
                 
-                dictData["FromDate"] = self.selectedFromDate as AnyObject
-                dictData["ToDate"] = self.selectedToDate as AnyObject
+                dictData["FromDate"] = str1 as AnyObject //self.selectedFromDate as AnyObject
+                dictData["ToDate"] =  str2 as AnyObject //self.selectedToDate as AnyObject
             }
             else
             {

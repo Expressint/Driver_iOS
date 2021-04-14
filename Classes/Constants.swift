@@ -11,9 +11,10 @@ import UIKit
 //import BFKit
 
 let App_Delegate = UIApplication.shared.delegate as! AppDelegate
-let ThemeAppColor = UIColor.init(hex: "E48428")
-let ThemeAppMainColor : UIColor = UIColor.init(hex: "bba739")
-let NavBarBGColor: UIColor = UIColor.black
+let ThemeAppColor = UIColor.init(hex: "E48428") // E48428  // fcee21 yellowish // 02a64d green  //  be212e red  //     //
+let ThemeAppMainColor : UIColor = UIColor.init(hex: "fcee21") // bba739
+let ThemeAppSecondaryColor : UIColor = UIColor.init(hex: "be212e")
+let NavBarBGColor: UIColor = UIColor.init(hex: "02a64d") //UIColor.black
 let ThemeAppTextColor:UIColor = UIColor.white
 let ThemeGrayColor : UIColor = UIColor.init(hex:  "8e8c80")
 let ThemeStatusBarColor : UIColor = UIColor.init(hex:  "cccccc")
@@ -46,7 +47,6 @@ let IS_IPHONE_6P_7P = UIDevice.current.userInterfaceIdiom == .phone && SCREEN_MA
 let IS_IPAD = UIDevice.current.userInterfaceIdiom == .pad && SCREEN_MAX_LENGTH == 1024.0
 let IS_IPHONE_X = UIDevice.current.userInterfaceIdiom == .phone && SCREEN_MAX_LENGTH == 812.0
 let IS_IPAD_PRO = UIDevice.current.userInterfaceIdiom == .pad && SCREEN_MAX_LENGTH == 1366.0
-
 
 let RingToneSound : String = "PickNGo"
 let kBackIcon : String = "iconArrow"

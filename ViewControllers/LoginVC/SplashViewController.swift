@@ -13,8 +13,6 @@ class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-     
-        
         if Connectivity.isConnectedToInternet()
         {
             print("Yes! internet is available.")
@@ -29,7 +27,6 @@ class SplashViewController: UIViewController {
         {
             UtilityClass.showAlert("App Name".localized, message: "Sorry! Not connected to internet".localized, vc: self)
             //                UtilityClass.showAlert("App Name".localized, message: "Sorry! Not connected to internet".localized, vc: self)
-            
             return
         }
         // Do any additional setup after loading the view.

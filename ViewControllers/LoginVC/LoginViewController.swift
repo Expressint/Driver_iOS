@@ -37,7 +37,6 @@
     @IBOutlet weak var btnForgotPassWord: UIButton!
     @IBOutlet var btnSignIn: UIButton!
     @IBOutlet var btnSignUp: UIButton!
-    
     @IBOutlet var lblLaungageName: UILabel!
     
    
@@ -72,8 +71,6 @@
         super.loadView()
           self.webserviceOfAppSetting()
 
-    
-    
 //        txtMobile.text = "3698523698"
 //            txtPassword.text = "12345678"
     
@@ -128,8 +125,8 @@
             }
         }
         
-//        txtMobile.text = "1111111111"
-//        txtPassword.text = "123456"
+        txtMobile.text = "9898989898"//"1111111111"
+        txtPassword.text = "12345678"
         
         Utilities.setStatusBarColor(color: UIColor.clear)
       
@@ -188,6 +185,7 @@
         
         
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
