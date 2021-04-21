@@ -334,7 +334,6 @@ class MyEarningsViewController: ParentViewController,IQDropDownTextFieldDelegate
         
         self.arrEarning = []
         self.tableView.reloadData()
-        
     }
     
     func CustomDateSelected()
