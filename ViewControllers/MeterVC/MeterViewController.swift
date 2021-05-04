@@ -476,7 +476,6 @@ class MeterViewController: UIViewController {
     
     @IBAction func btnWaiting(_ sender: UIButton)
     {
-        
         if (Singletons.sharedInstance.MeterStatus != meterStatus.kIsMeterStop && Singletons.sharedInstance.MeterStatus != "" )
         {
             if (Singletons.sharedInstance.driverDuty == "0")
@@ -535,7 +534,6 @@ class MeterViewController: UIViewController {
         else
         {
             UtilityClass.showAlertAnother("App Name".localized, message: "To start waiting time the trip should on", vc: self)
-            
         }
         
     }

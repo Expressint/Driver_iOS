@@ -1499,28 +1499,25 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     }
     
     func AdvancedStartHoldTrip() {
-        
-        let myJSON = [socketApiKeys.kBookingId : advanceBookingID] as [String : Any]
+        let myJSON = [socketApiKeys.kBookingId : advanceBookingID, socketApiKeys.kBookingType : "BookLater"] as [String : Any]
         socket.emit(socketApiKeys.kAdvancedBookingStartHoldTrip, with: [myJSON])
     }
     
     func AdvancedEndHoldTrip() {
-        
-        let myJSON = [socketApiKeys.kBookingId : advanceBookingID] as [String : Any]
+        let myJSON = [socketApiKeys.kBookingId : advanceBookingID, socketApiKeys.kBookingType : "BookLater"] as [String : Any]
         socket.emit(socketApiKeys.kAdvancedBookingEndHoldTrip, with: [myJSON])
     }
     
     
     func StartHoldTrip() {
-        let myJSON = [socketApiKeys.kBookingId : bookingID] as [String : Any]
+        let myJSON = [socketApiKeys.kBookingId : bookingID, socketApiKeys.kBookingType : "BookNow"] as [String : Any]
         socket.emit(socketApiKeys.kStartHoldTrip, with: [myJSON])
     }
     
     func EndHoldTrip() {
-        let myJSON = [socketApiKeys.kBookingId : bookingID] as [String : Any]
+        let myJSON = [socketApiKeys.kBookingId : bookingID, socketApiKeys.kBookingType : "BookNow"] as [String : Any]
         socket.emit(socketApiKeys.kEndHoldTrip, with: [myJSON])
     }
-
 
     func CompletedBookLaterTrip() {
         
@@ -4621,12 +4618,10 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             
             if (status) {
                 print(result)
-                
                 Singletons.sharedInstance.CardsVCHaveAryData = (result as! NSDictionary).object(forKey: "cards") as! [[String:AnyObject]]
-                
             }
-            else {
-                
+            else
+            {
                 print(result)
                 if let res = result as? String {
                     UtilityClass.showAlert("App Name".localized, message: res, vc: self)

@@ -208,6 +208,7 @@ struct socketApiKeys {
     static let kLat = "Lat"
     static let kLong = "Long"
     static let kBookingId = "BookingId"
+    static let kBookingType = "BookingType"
     
     static let kAdvanceBookingID = "BookingId"
     
