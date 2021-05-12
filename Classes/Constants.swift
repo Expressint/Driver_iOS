@@ -15,9 +15,10 @@ let ThemeAppColor = UIColor.init(hex: "E48428") // E48428  // fcee21 yellowish /
 let ThemeAppMainColor : UIColor = UIColor.init(hex: "fcee21") // bba739
 let ThemeAppSecondaryColor : UIColor = UIColor.init(hex: "be212e")
 let NavBarBGColor: UIColor = UIColor.init(hex: "02a64d") //UIColor.black
+
 let ThemeAppTextColor:UIColor = UIColor.white
-let ThemeGrayColor : UIColor = UIColor.init(hex:  "8e8c80")
-let ThemeStatusBarColor : UIColor = UIColor.init(hex:  "cccccc")
+let ThemeGrayTextColorJob : UIColor = UIColor.init(hex:  "a5a5a5")
+let ThemeGrayBGColorJob : UIColor = UIColor.init(hex:  "e5e5e5")
 let themeGrayBGColor : UIColor = UIColor.init(hex: "DDDDDD")
 let themeGrayTextColor : UIColor = UIColor.init(hex: "7A7A7C")
 let Appdelegate = UIApplication.shared.delegate as! AppDelegate
@@ -28,7 +29,7 @@ let navigationBarHeightIphoneX = 84
 var utility = Utilities()
 
 let kHtmlReplaceString   :   String  =   "<[^>]+>"
-let currency : String = "TZS"
+let currency : String = "$"
 let dictanceType : String = "km"
 
 let kIsSocketEmited : String = "IsEmited"

@@ -296,7 +296,7 @@ class MyEarningsViewController: ParentViewController,IQDropDownTextFieldDelegate
         
         if btnWeekly.isSelected == true {
             self.selectedReportType = "weekly"
-            btnWeekly.backgroundColor = ThemeAppColor//themeColors.themeBlueColor
+            btnWeekly.backgroundColor = NavBarBGColor //themeColors.themeBlueColor
             //btnDay.setTitleColor(.white, for: .normal)
             btnCustomeDate.backgroundColor = UIColor.lightGray
             //btnCustomeDate.setTitleColor(UIColor.darkGray, for: .normal)
@@ -322,7 +322,7 @@ class MyEarningsViewController: ParentViewController,IQDropDownTextFieldDelegate
         if btnYearly.isSelected == true
         {
             self.selectedReportType = "yearly"
-            btnYearly.backgroundColor = ThemeAppColor//themeColors.themeBlueColor
+            btnYearly.backgroundColor = NavBarBGColor//themeColors.themeBlueColor
             //btnDay.setTitleColor(.white, for: .normal)
             btnCustomeDate.backgroundColor = UIColor.lightGray
             //btnCustomeDate.setTitleColor(UIColor.darkGray, for: .normal)
@@ -338,7 +338,7 @@ class MyEarningsViewController: ParentViewController,IQDropDownTextFieldDelegate
     
     func CustomDateSelected()
     {
-        self.viewYear.isHidden = false
+        self.viewYear.isHidden = true
         self.viewFromToDate.isHidden = false
         btnWeekly.isSelected = false
         btnCustomeDate.isSelected = true
@@ -348,7 +348,7 @@ class MyEarningsViewController: ParentViewController,IQDropDownTextFieldDelegate
         if btnCustomeDate.isSelected == true
         {
             self.selectedReportType = "datewise"
-            btnCustomeDate.backgroundColor = ThemeAppColor//themeColors.themeBlueColor
+            btnCustomeDate.backgroundColor = NavBarBGColor//themeColors.themeBlueColor
             //            btnCustomeDate.setTitleColor(.white, for: .normal)
             btnYearly.backgroundColor = UIColor.lightGray
             //            btnDay.setTitleColor(UIColor.darkGray, for: .normal)
@@ -392,7 +392,7 @@ class MyEarningsViewController: ParentViewController,IQDropDownTextFieldDelegate
         if btnMonth.isSelected == true
         {
             self.selectedReportType = "monthly"
-            btnMonth.backgroundColor = ThemeAppColor//themeColors.themeBlueColor
+            btnMonth.backgroundColor = NavBarBGColor//themeColors.themeBlueColor
             //            btnMonth.setTitleColor(.white, for: .normal)
             btnYearly.backgroundColor = UIColor.lightGray
             //            btnDay.setTitleColor(UIColor.darkGray, for: .normal)

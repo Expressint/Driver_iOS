@@ -93,7 +93,7 @@ class DriverRegistrationViewController: UIViewController, UIScrollViewDelegate /
 
             if pageNO == 0
             {
-                self.setCornertoView(View: viewOne, BGColor: ThemeAppMainColor, borderColor: ThemeAppMainColor, textcolor: UIColor.white, label: lblone)
+                self.setCornertoView(View: viewOne, BGColor: UIColor.white, borderColor: ThemeAppMainColor, textcolor: UIColor.black, label: lblone)
                 self.setCornertoView(View: viewTwo, BGColor: UIColor.white, borderColor: themeGrayTextColor, textcolor: themeGrayTextColor, label: lblTwo)
                 self.setCornertoView(View: viewThree, BGColor: UIColor.white, borderColor: themeGrayTextColor, textcolor: themeGrayTextColor, label: lblThree)
                 self.setCornertoView(View: viewFore, BGColor: UIColor.white, borderColor: themeGrayTextColor, textcolor: themeGrayTextColor, label: lblFore)

@@ -18,15 +18,14 @@ class ThemeTextField: UITextField {
         }
     }
     
-    
-    
     override func awakeFromNib()
     {
         self.font = UIFont.init(name: CustomeFontProximaNovaRegular, size: 14)
         self.textColor = UIColor.black
         self.backgroundColor = UIColor.init(white: 1, alpha: 0.8)
+        self.tintColor = ThemeAppSecondaryColor
         self.setValue(UIColor.black , forKeyPath: "placeholderLabel.textColor")
-            self.layer.cornerRadius = 2
+            self.layer.cornerRadius = 10
             self.layer.shadowRadius = 3.0
             self.layer.shadowColor = UIColor.black.withAlphaComponent(0.6).cgColor
             self.layer.shadowOffset = CGSize (width: 1.0, height: 1.0)
@@ -81,6 +80,7 @@ class ThemeTextField: UITextField {
         iconClick = !iconClick
     }
 }
+
 //
 extension UITextField {
     
@@ -97,24 +97,4 @@ extension UITextField {
         self.leftView = LeftView
         self.leftViewMode = .always
     }
-}
-//MARK:- UIFont
-
-extension UIFont {
-//    class func regular(ofSize size: CGFloat) -> UIFont {
-//        return UIFont(name:  AppRegularFont, size: manageFont(font: size))!
-//    }
-//    class func semiBold(ofSize size: CGFloat) -> UIFont {
-//        return UIFont(name: AppSemiboldFont, size: manageFont(font: size))!
-//    }
-//    class func bold(ofSize size: CGFloat) -> UIFont {
-//        return UIFont(name: AppBoldFont, size: manageFont(font: size))!
-//    }
-//    
-//    private class func manageFont(font : CGFloat) -> CGFloat {
-//        let cal  = windowHeight * font
-//        print(CGFloat(cal / CGFloat(screenHeightDeveloper)))
-//        return CGFloat(cal / CGFloat(screenHeightDeveloper))
-//    }
-    
 }

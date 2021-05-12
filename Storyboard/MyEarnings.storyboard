@@ -174,7 +174,7 @@
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dXq-jU-8W9">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="50"/>
                                                                                         <subviews>
-                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ok-sK-k5u" customClass="CustomLabel" customModule="Book_A_Ride_Driver" customModuleProvider="target">
+                                                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ok-sK-k5u" customClass="CustomLabel" customModule="Book_A_Ride_Driver" customModuleProvider="target">
                                                                                                 <rect key="frame" x="0.0" y="2" width="120" height="20"/>
                                                                                                 <constraints>
                                                                                                     <constraint firstAttribute="height" constant="20" id="J58-rU-Cne"/>
@@ -220,7 +220,7 @@
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kCO-di-AqO">
                                                                                         <rect key="frame" x="135" y="0.0" width="120" height="50"/>
                                                                                         <subviews>
-                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aV7-zM-vzF" customClass="CustomLabel" customModule="Book_A_Ride_Driver" customModuleProvider="target">
+                                                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aV7-zM-vzF" customClass="CustomLabel" customModule="Book_A_Ride_Driver" customModuleProvider="target">
                                                                                                 <rect key="frame" x="0.0" y="2" width="120" height="20"/>
                                                                                                 <constraints>
                                                                                                     <constraint firstAttribute="height" constant="20" id="J2I-1E-6xq"/>
@@ -313,7 +313,7 @@
                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="dk2-ct-G0V"/>
                                                                 </constraints>
                                                             </stackView>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sr1-Pg-fDF" customClass="CustomView" customModule="Book_A_Ride_Driver" customModuleProvider="target">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sr1-Pg-fDF">
                                                                 <rect key="frame" x="5" y="9" width="404" height="160"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="AAb-zl-AkR">
@@ -335,7 +335,7 @@
                                                                                         <rect key="frame" x="197" y="0.0" width="197" height="30"/>
                                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                                                                        <color key="textColor" red="0.69803921570000005" green="0.1764705882" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                         <userDefinedRuntimeAttributes>
                                                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isTextBlack" value="NO"/>
@@ -472,9 +472,6 @@
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                         <real key="value" value="5"/>
                                                                     </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                        <real key="value" value="2"/>
-                                                                    </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                                         <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </userDefinedRuntimeAttribute>
@@ -505,20 +502,20 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="177"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <subviews>
-                                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wXf-Li-dVT" customClass="CustomView" customModule="Book_A_Ride_Driver" customModuleProvider="target">
+                                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wXf-Li-dVT">
                                                                                     <rect key="frame" x="5" y="5" width="404" height="167"/>
                                                                                     <subviews>
                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hQ2-B9-4vi">
                                                                                             <rect key="frame" x="5" y="5" width="394" height="152"/>
                                                                                             <subviews>
-                                                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dTQ-0e-2RH">
+                                                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="dTQ-0e-2RH">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="394" height="152"/>
                                                                                                     <subviews>
                                                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="UcU-5y-mWa">
-                                                                                                            <rect key="frame" x="0.0" y="0.0" width="394" height="17"/>
+                                                                                                            <rect key="frame" x="0.0" y="0.0" width="394" height="19.5"/>
                                                                                                             <subviews>
                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking ID " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ysm-qR-yNY" customClass="CustomLabel" customModule="Book_A_Ride_Driver" customModuleProvider="target">
-                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="197" height="17"/>
+                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="197" height="19.5"/>
                                                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                                                     <nil key="highlightedColor"/>
@@ -527,7 +524,7 @@
                                                                                                                     </userDefinedRuntimeAttributes>
                                                                                                                 </label>
                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$10.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hB-Fl-sfb" customClass="CustomLabel" customModule="Book_A_Ride_Driver" customModuleProvider="target">
-                                                                                                                    <rect key="frame" x="197" y="0.0" width="197" height="17"/>
+                                                                                                                    <rect key="frame" x="197" y="0.0" width="197" height="19.5"/>
                                                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                                                     <nil key="highlightedColor"/>
@@ -536,15 +533,12 @@
                                                                                                                     </userDefinedRuntimeAttributes>
                                                                                                                 </label>
                                                                                                             </subviews>
-                                                                                                            <constraints>
-                                                                                                                <constraint firstAttribute="height" constant="30" id="nvn-oP-g0Y"/>
-                                                                                                            </constraints>
                                                                                                         </stackView>
                                                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="AaN-eq-8jr">
-                                                                                                            <rect key="frame" x="0.0" y="27" width="394" height="17"/>
+                                                                                                            <rect key="frame" x="0.0" y="26.5" width="394" height="19.5"/>
                                                                                                             <subviews>
                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Passenger Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2m4-aW-G67" customClass="CustomLabel" customModule="Book_A_Ride_Driver" customModuleProvider="target">
-                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="197" height="17"/>
+                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="197" height="19.5"/>
                                                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                                                     <nil key="highlightedColor"/>
@@ -553,7 +547,7 @@
                                                                                                                     </userDefinedRuntimeAttributes>
                                                                                                                 </label>
                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Bhavesh" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sAs-kj-vOv" customClass="CustomLabel" customModule="Book_A_Ride_Driver" customModuleProvider="target">
-                                                                                                                    <rect key="frame" x="197" y="0.0" width="197" height="17"/>
+                                                                                                                    <rect key="frame" x="197" y="0.0" width="197" height="19.5"/>
                                                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                                                     <nil key="highlightedColor"/>
@@ -564,10 +558,10 @@
                                                                                                             </subviews>
                                                                                                         </stackView>
                                                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="DDJ-Uj-ULl">
-                                                                                                            <rect key="frame" x="0.0" y="54" width="394" height="17"/>
+                                                                                                            <rect key="frame" x="0.0" y="53" width="394" height="19.5"/>
                                                                                                             <subviews>
                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date &amp; Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mow-mf-iqT" customClass="CustomLabel" customModule="Book_A_Ride_Driver" customModuleProvider="target">
-                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="197" height="17"/>
+                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="197" height="19.5"/>
                                                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                                                     <nil key="highlightedColor"/>
@@ -576,7 +570,7 @@
                                                                                                                     </userDefinedRuntimeAttributes>
                                                                                                                 </label>
                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oot-Qk-vQo" customClass="CustomLabel" customModule="Book_A_Ride_Driver" customModuleProvider="target">
-                                                                                                                    <rect key="frame" x="197" y="0.0" width="197" height="17"/>
+                                                                                                                    <rect key="frame" x="197" y="0.0" width="197" height="19.5"/>
                                                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                                                     <nil key="highlightedColor"/>
@@ -587,10 +581,10 @@
                                                                                                             </subviews>
                                                                                                         </stackView>
                                                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="yUd-fN-RxY">
-                                                                                                            <rect key="frame" x="0.0" y="81" width="394" height="17"/>
+                                                                                                            <rect key="frame" x="0.0" y="79.5" width="394" height="19.5"/>
                                                                                                             <subviews>
                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b7y-IL-b3A" customClass="CustomLabel" customModule="Book_A_Ride_Driver" customModuleProvider="target">
-                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="197" height="17"/>
+                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="197" height="19.5"/>
                                                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                                                     <nil key="highlightedColor"/>
@@ -599,7 +593,7 @@
                                                                                                                     </userDefinedRuntimeAttributes>
                                                                                                                 </label>
                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ZZ-bz-VPL" customClass="CustomLabel" customModule="Book_A_Ride_Driver" customModuleProvider="target">
-                                                                                                                    <rect key="frame" x="197" y="0.0" width="197" height="17"/>
+                                                                                                                    <rect key="frame" x="197" y="0.0" width="197" height="19.5"/>
                                                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                                                     <nil key="highlightedColor"/>
@@ -610,10 +604,10 @@
                                                                                                             </subviews>
                                                                                                         </stackView>
                                                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dx8-m6-CnE">
-                                                                                                            <rect key="frame" x="0.0" y="108" width="394" height="17"/>
+                                                                                                            <rect key="frame" x="0.0" y="106" width="394" height="19.5"/>
                                                                                                             <subviews>
                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IGi-xm-C8L" customClass="CustomLabel" customModule="Book_A_Ride_Driver" customModuleProvider="target">
-                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="197" height="17"/>
+                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="197" height="19.5"/>
                                                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                                                     <nil key="highlightedColor"/>
@@ -622,7 +616,7 @@
                                                                                                                     </userDefinedRuntimeAttributes>
                                                                                                                 </label>
                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="749" text="0.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqR-72-Txm" customClass="CustomLabel" customModule="Book_A_Ride_Driver" customModuleProvider="target">
-                                                                                                                    <rect key="frame" x="197" y="0.0" width="197" height="17"/>
+                                                                                                                    <rect key="frame" x="197" y="0.0" width="197" height="19.5"/>
                                                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                                                     <nil key="highlightedColor"/>
@@ -633,10 +627,10 @@
                                                                                                             </subviews>
                                                                                                         </stackView>
                                                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="tVY-92-mPE">
-                                                                                                            <rect key="frame" x="0.0" y="135" width="394" height="17"/>
+                                                                                                            <rect key="frame" x="0.0" y="132.5" width="394" height="19.5"/>
                                                                                                             <subviews>
                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Earn" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GDY-A8-tVb" customClass="CustomLabel" customModule="Book_A_Ride_Driver" customModuleProvider="target">
-                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="197" height="17"/>
+                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="197" height="19.5"/>
                                                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                                                     <nil key="highlightedColor"/>
@@ -645,7 +639,7 @@
                                                                                                                     </userDefinedRuntimeAttributes>
                                                                                                                 </label>
                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 0.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HdK-Qh-JAc" customClass="CustomLabel" customModule="Book_A_Ride_Driver" customModuleProvider="target">
-                                                                                                                    <rect key="frame" x="197" y="0.0" width="197" height="17"/>
+                                                                                                                    <rect key="frame" x="197" y="0.0" width="197" height="19.5"/>
                                                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                                                     <nil key="highlightedColor"/>
@@ -678,9 +672,14 @@
                                                                                         <constraint firstItem="hQ2-B9-4vi" firstAttribute="top" secondItem="wXf-Li-dVT" secondAttribute="top" constant="5" id="sQc-zj-kO4"/>
                                                                                     </constraints>
                                                                                     <userDefinedRuntimeAttributes>
-                                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isRoundedShadow" value="YES"/>
                                                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                            <real key="value" value="5"/>
+                                                                                            <real key="value" value="10"/>
+                                                                                        </userDefinedRuntimeAttribute>
+                                                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                            <color key="value" systemColor="systemGray4Color"/>
+                                                                                        </userDefinedRuntimeAttribute>
+                                                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                            <real key="value" value="1"/>
                                                                                         </userDefinedRuntimeAttribute>
                                                                                     </userDefinedRuntimeAttributes>
                                                                                 </view>
@@ -811,6 +810,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="tableCellGroupedBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

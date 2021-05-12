@@ -226,9 +226,12 @@ class MyJobsViewController: ParentViewController
         
         UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations:
             {
-                self.btnFutureBooking.setTitleColor(ThemeAppMainColor, for: .normal)
-                self.btnPendingJobs.setTitleColor(ThemeGrayColor, for: .normal)
-                self.btnPastJobs.setTitleColor(ThemeGrayColor, for: .normal)
+                self.btnFutureBooking.setTitleColor(UIColor.white, for: .normal)
+                self.btnPendingJobs.setTitleColor(ThemeGrayTextColorJob, for: .normal)
+                self.btnPastJobs.setTitleColor(ThemeGrayTextColorJob, for: .normal)
+                self.btnFutureBooking.backgroundColor = NavBarBGColor
+                self.btnPendingJobs.backgroundColor = ThemeGrayBGColorJob
+                self.btnPastJobs.backgroundColor = ThemeGrayBGColorJob
                 self.scrollView.contentOffset = CGPoint(x: 0, y: 0)
                 
                 self.view.layoutIfNeeded()
@@ -249,9 +252,12 @@ class MyJobsViewController: ParentViewController
         
         UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
             
-            self.btnFutureBooking.setTitleColor(ThemeGrayColor, for: .normal)
-            self.btnPendingJobs.setTitleColor(ThemeAppMainColor, for: .normal)
-            self.btnPastJobs.setTitleColor(ThemeGrayColor, for: .normal)
+            self.btnFutureBooking.setTitleColor(ThemeGrayTextColorJob, for: .normal)
+            self.btnPendingJobs.setTitleColor(UIColor.white, for: .normal)
+            self.btnPastJobs.setTitleColor(ThemeGrayTextColorJob, for: .normal)
+            self.btnFutureBooking.backgroundColor = ThemeGrayBGColorJob
+            self.btnPendingJobs.backgroundColor = NavBarBGColor
+            self.btnPastJobs.backgroundColor = ThemeGrayBGColorJob
             self.scrollView.contentOffset = CGPoint(x: self.view.frame.size.width, y: 0)
             self.view.layoutIfNeeded()
             
@@ -283,9 +289,12 @@ class MyJobsViewController: ParentViewController
         UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations:
             {
                 
-                self.btnFutureBooking.setTitleColor(ThemeGrayColor, for: .normal)
-                self.btnPendingJobs.setTitleColor(ThemeGrayColor, for: .normal)
-                self.btnPastJobs.setTitleColor(ThemeAppMainColor, for: .normal)
+                self.btnFutureBooking.setTitleColor(ThemeGrayTextColorJob, for: .normal)
+                self.btnPendingJobs.setTitleColor(ThemeGrayTextColorJob, for: .normal)
+                self.btnPastJobs.setTitleColor(UIColor.white, for: .normal)
+                self.btnFutureBooking.backgroundColor = ThemeGrayBGColorJob
+                self.btnPendingJobs.backgroundColor = ThemeGrayBGColorJob
+                self.btnPastJobs.backgroundColor = NavBarBGColor
                 self.scrollView.contentOffset = CGPoint(x: self.view.frame.size.width * 2, y: 0)
                 self.view.layoutIfNeeded()
                 for ChildViewPage in self.children {

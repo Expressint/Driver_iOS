@@ -259,7 +259,8 @@
     
     @IBAction func btnSignUP(_ sender: UIButton) {
 //        performSegue(withIdentifier: "SegueToRegisterVc", sender: self)
-        if self.strLatitude == 0.0 && self.strLongitude == 0.0 {
+//        if self.strLatitude == 0.0 && self.strLongitude == 0.0 {
+        if (CLLocationManager.locationServicesEnabled() == false || CLLocationManager.authorizationStatus() == .denied) {
             self.showAlertIfDenied()
         } else {
         

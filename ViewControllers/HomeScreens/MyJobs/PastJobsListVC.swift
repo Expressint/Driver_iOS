@@ -183,10 +183,10 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.lblTripDistance.text = "Distance Travel :".localized
         cell.lblWaitingTimes.text = "Waiting Time :".localized
         cell.lblWaitingTimecosts.text = "Waiting Cost :".localized
-        cell.lblDiscountInFo.text = "Discount :".localized
+//        cell.lblDiscountInFo.text = "Discount :".localized
         cell.lblBookingFare.text = "Booking Fee :".localized
         cell.lblTripFare.text = "Base Fare :".localized
-        cell.lblTollFees.text = "\("Tip".localized) :"
+//        cell.lblTollFees.text = "\("Tip".localized) :"
         cell.lblSubTotalTitle.text = "Sub Total :".localized
         cell.lblTaX.text = "Tax :".localized
         cell.lblPaymentTypeInfo.text = "Payment Type :".localized
@@ -205,8 +205,16 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         //                cell.selectionStyle = .none
         
         cell.selectionStyle = .none
-        cell.viewCell.layer.cornerRadius = 10
-        cell.viewCell.clipsToBounds = true
+
+//        cell.viewCell.layer.shadowColor = UIColor.black.withAlphaComponent(0.4).cgColor
+//        cell.viewCell.layer.shadowRadius = 3.0
+//        cell.viewCell.layer.shadowOpacity = 1.0
+//        cell.viewCell.layer.shadowOffset = CGSize (width: 1.0, height: 1.0)
+//        cell.viewCell.layer.cornerRadius = 10
+//        cell.viewCell.layer.masksToBounds = true
+        
+//        cell.viewCell.borderWidth = 1.0
+//        cell.viewCell.borderColor = UIColor.black.withAlphaComponent(0.6)
         
         cell.lblPassengerName.text = data.object(forKey: "PassengerName") as? String
 //        cell.lblDateTime.text = (checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PickupTime", isNotHave: strNotAvailable)).components(separatedBy: " ")[0]
