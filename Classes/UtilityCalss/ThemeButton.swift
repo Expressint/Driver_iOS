@@ -11,7 +11,8 @@ import UIKit
 class ThemeButton: UIButton {
     
     @IBInspectable public var isSubmitButton: Bool = false
-    
+    @IBInspectable public var isHalfRounded: Bool = false
+
     override func awakeFromNib() {
         self.titleLabel?.font = UIFont.init(name: CustomeFontProximaNovaSemibold, size: 15)
         self.layer.cornerRadius = 3.0
@@ -21,12 +22,21 @@ class ThemeButton: UIButton {
         {
             self.backgroundColor = ThemeAppMainColor
             setTitleColor(UIColor.black, for: .normal)
+            
         }
         else
         {
             self.backgroundColor = UIColor(red: 114.0/255.0, green: 114.0/255.0, blue: 114.0/255.0, alpha: 1.0)
             setTitleColor(UIColor.black, for: .normal)
         }
+        
+        
+        if isHalfRounded == true
+        {
+            self.layer.cornerRadius = self.frame.height/2
+            self.layer.masksToBounds = true
+        }
+        
     }
 }
 

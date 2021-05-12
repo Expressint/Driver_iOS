@@ -66,6 +66,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     @IBOutlet weak var btnHome: UIButton!
     var isSocketConnected = Bool()
     var isAlreadyPopView = Bool()
+
     //-------------------------------------------------------------
     // MARK: - Global Decelaration
     //-------------------------------------------------------------
@@ -89,6 +90,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     @IBOutlet var btnDirectionFourBTN: UIButton!
     @IBOutlet var btnCancelTrip: UIButton!
+    
     @IBOutlet var constrainLocationViewBottom: NSLayoutConstraint!
     let socket = (UIApplication.shared.delegate as! AppDelegate).SManager.defaultSocket
     
@@ -152,19 +154,21 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         super.viewDidLoad()
         let NavBarHeight = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
         if UIApplication.shared.statusBarFrame.height != 20 {
-            self.TopCurrentContraint.constant = NavBarHeight
+//            self.TopCurrentContraint.constant = NavBarHeight
         }
         else {
-            self.TopCurrentContraint.constant =  NavBarHeight
+//            self.TopCurrentContraint.constant =  NavBarHeight
         }
 //       self.title = "Home"
-      
+        self.btnWaiting2.setTitle("Stop Waiting Time", for: .selected)
+        self.btnWaiting2.setTitle("Start Waiting Time", for: .normal)
+        
         btnMyJob.layer.cornerRadius = btnHome.frame.size.height - 30
         btnMyJob.clipsToBounds = true
         btnHome.layer.cornerRadius = btnHome.frame.size.height - 30
         btnHome.clipsToBounds = true
-        btnMyJob.borderColor = UIColor.red// UIColor.init(red: 228/255, green: 132/255, blue: 40/255, alpha: 1.0)
-        btnHome.borderColor = UIColor.red//.init(red: 228/255, green: 132/255, blue: 40/255, alpha: 1.0)
+        btnMyJob.borderColor = UIColor.black// UIColor.init(red: 228/255, green: 132/255, blue: 40/255, alpha: 1.0)
+        btnHome.borderColor = UIColor.black//.init(red: 228/255, green: 132/255, blue: 40/255, alpha: 1.0)
         btnCurrentlocation.layer.cornerRadius = 5
         btnCurrentlocation.layer.masksToBounds = true
         //        viewLocationDetails.layer.cornerRadius = 5
@@ -184,14 +188,16 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         viewRound.layer.cornerRadius = viewRound.frame.size.height / 2
         viewRound.clipsToBounds = true
         
-        Utilities.setCornerRadiusButton(button: btnStartTrip, borderColor: ThemeAppSecondaryColor, bgColor: ThemeAppMainColor, textColor: UIColor.black)
-        Utilities.setCornerRadiusButton(button: btnPassengerInfo, borderColor: ThemeAppSecondaryColor, bgColor: UIColor.white, textColor: .black)
-        Utilities.setCornerRadiusButton(button: btnCancelTrip, borderColor: ThemeAppSecondaryColor, bgColor: UIColor.white, textColor: .black)
-        Utilities.setCornerRadiusButton(button: btnDirectionFourBTN, borderColor: ThemeAppSecondaryColor, bgColor: UIColor.white, textColor: .black)
-        Utilities.setCornerRadiusButton(button: btnCompleteTrip, borderColor: ThemeAppSecondaryColor, bgColor: ThemeAppMainColor, textColor: .black)
-        Utilities.setCornerRadiusButton(button: btnDirection, borderColor: ThemeAppSecondaryColor, bgColor: UIColor.white, textColor: .black)
-        Utilities.setCornerRadiusButton(button: btnWaiting, borderColor: ThemeAppSecondaryColor, bgColor: ThemeAppMainColor, textColor: .black)
-        
+        Utilities.setCornerRadiusButton(button: btnStartTrip, borderColor: UIColor.black, bgColor: ThemeAppMainColor, textColor: UIColor.black)
+        Utilities.setCornerRadiusButton(button: btnPassengerInfo, borderColor: UIColor.black, bgColor: UIColor.white, textColor: .black)
+        Utilities.setCornerRadiusButton(button: btnCancelTrip, borderColor: UIColor.black, bgColor: UIColor.white, textColor: .black)
+        Utilities.setCornerRadiusButton(button: btnDirectionFourBTN, borderColor: UIColor.black, bgColor: UIColor.white, textColor: .black)
+        Utilities.setCornerRadiusButton(button: btnCompleteTrip, borderColor: UIColor.black, bgColor: ThemeAppMainColor, textColor: .black)
+        Utilities.setCornerRadiusButton(button: btnDirection, borderColor: UIColor.black, bgColor: UIColor.white, textColor: .black)
+        Utilities.setCornerRadiusButton(button: btnWaiting, borderColor: UIColor.black, bgColor: ThemeAppMainColor, textColor: .black)
+        Utilities.setCornerRadiusButton(button: btnWaiting2, borderColor: UIColor.black, bgColor: ThemeAppMainColor, textColor: .black)
+        Utilities.setCornerRadiusButton(button: btnShowWaiting, borderColor: UIColor.black, bgColor: UIColor.white, textColor: UIColor(red: 170/255, green: 53/255, blue: 58/255, alpha: 1.0))
+
         NotificationCenter.default.addObserver(self, selector: #selector(btnHoldWaiting(_:)), name: NSNotification.Name(rawValue: "HoldCurrentTrip"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(btnCompleteTrip(_:)), name: NSNotification.Name(rawValue: "endTrip"), object: nil)
@@ -1201,7 +1207,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 self.StartTripView.isHidden = false
                 //                self.btnStartTrip.isHidden = false
                 self.viewLocationDetails.isHidden = false
-                self.constrainLocationViewBottom.constant = self.BottomButtonView.frame.height + self.view.safeAreaInsets.bottom
+                self.constrainLocationViewBottom.constant = self.BottomButtonView.frame.height + self.view.safeAreaFrame.height
                 Singletons.sharedInstance.MeterStatus = meterStatus.kIsMeterStart
                 
                 self.pickupPassengerFromLocation()
@@ -1263,19 +1269,19 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         let getBookingAndPassengerInfo = self.getBookingAndPassengerInfo(data: data)
         
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             
-            DispatchQueue.main.asyncAfter(deadline: .now()) { // change 2 to desired number of seconds
+//            DispatchQueue.main.asyncAfter(deadline: .now()) { // change 2 to desired number of seconds
                 self.BottomButtonView.isHidden = false
                 self.btnStartTrip.isHidden = false
                 self.btnStartTrip.layoutIfNeeded()
                 self.BottomButtonView.layoutIfNeeded()
                 self.viewHomeMyJobsBTN.isHidden = true
                 //                self.viewLocationDetails.isHidden = true
-                self.constrainLocationViewBottom.constant = self.BottomButtonView.frame.size.height + self.view.safeAreaInsets.bottom
-            }
+        self.constrainLocationViewBottom.constant = self.BottomButtonView.frame.size.height //+ (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? CGFloat(0.0))//self.view.safeAreaFrame.height
+//            }
             
-        }
+//        }
         
         let BookingInfo = getBookingAndPassengerInfo.0
         let PassengerInfo = getBookingAndPassengerInfo.1
@@ -1303,10 +1309,10 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         self.strDropoffLocation = BookingInfo.object(forKey: "DropoffLocation") as! String
         self.strPassengerName = PassengerInfo.object(forKey: "Fullname") as! String
         
-        var imgURL = String()
+//        var imgURL = String()
         
         self.strPassengerMobileNo = PassengerInfo.object(forKey: "MobileNo") as! String
-        imgURL = PassengerInfo.object(forKey: "Image") as! String
+//        imgURL = PassengerInfo.object(forKey: "Image") as! String
         
         let PickupLat = self.defaultLocation.coordinate.latitude
         let PickupLng = self.defaultLocation.coordinate.longitude
@@ -1598,7 +1604,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         Singletons.sharedInstance.aryPassengerInfo = data as NSArray
         self.viewHomeMyJobsBTN.isHidden = true
         //                self.viewLocationDetails.isHidden = true
-        self.constrainLocationViewBottom.constant = self.BottomButtonView.frame.size.height + self.view.safeAreaInsets.bottom
+        self.constrainLocationViewBottom.constant = self.BottomButtonView.frame.size.height + self.view.safeAreaFrame.height
         self.isAdvanceBooking = true
         
         let getBookingAndPassengerInfo = self.getBookingAndPassengerInfo(data: data)
@@ -2396,7 +2402,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             StartTripView.isHidden = false
             //            self.btnStartTrip.isHidden = true
             self.viewLocationDetails.isHidden = false
-            self.constrainLocationViewBottom.constant = self.StartTripView.frame.height + self.view.safeAreaInsets.bottom
+            self.constrainLocationViewBottom.constant = self.StartTripView.frame.height + self.view.safeAreaFrame.height
             self.pickupPassengerFromLocation()
             
             self.view.bringSubviewToFront(StartTripView)
@@ -2407,11 +2413,11 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             StartTripView.isHidden = false
             //            self.btnStartTrip.isHidden = true
             self.viewLocationDetails.isHidden = false
-            self.constrainLocationViewBottom.constant = self.StartTripView.frame.height + self.view.safeAreaInsets.bottom
+            self.constrainLocationViewBottom.constant = self.StartTripView.frame.height + self.view.safeAreaFrame.height
             self.view.bringSubviewToFront(StartTripView)
             self.pickupPassengerFromLocation()
         }
-        self.constrainLocationViewBottom.constant = self.StartTripView.frame.size.height + self.view.safeAreaInsets.bottom
+        self.constrainLocationViewBottom.constant = self.StartTripView.frame.size.height + self.view.safeAreaFrame.height
         Singletons.sharedInstance.MeterStatus = meterStatus.kIsMeterStart
 
     }
@@ -3004,7 +3010,9 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     @IBOutlet weak var btnCompleteTrip: UIButton!
     @IBOutlet weak var btnWaiting: UIButton!
-    
+    @IBOutlet weak var btnWaiting2 : UIButton!
+    @IBOutlet weak var btnShowWaiting : UIButton!
+
     // Holding Button
     @IBAction func btnHoldWaiting(_ sender: UIButton) {
         if isAdvanceBooking {
@@ -3153,6 +3161,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
 //                sender.isSelected = !sender.isSelected
             }
         }
+        self.btnWaiting2.isSelected = self.btnWaiting.isSelected
         NotificationCenter.default.removeObserver("HoldCurrentTrip")
     }
     
@@ -5074,6 +5083,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         App_Delegate.WaitingTime = "\(getStringFrom(seconds: h)):\(getStringFrom(seconds: m)):\(getStringFrom(seconds: s))"
         let meterVC = self.navigationController?.viewControllers.last as? MeterViewController
+        self.btnShowWaiting.setTitle("Waiting Time \(App_Delegate.WaitingTime)", for: .normal)
         meterVC?.updateTime()
         self.calculateDistanceAndPrice()
     }
@@ -5186,3 +5196,12 @@ extension Bool {
     }
 }
 
+
+extension UIView {
+    public var safeAreaFrame: CGRect {
+        if #available(iOS 11, *) {
+            return safeAreaLayoutGuide.layoutFrame
+        }
+        return bounds
+    }
+}

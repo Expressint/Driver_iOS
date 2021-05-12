@@ -82,6 +82,15 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
         setData()
         
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        btnChangePass.layer.cornerRadius = btnChangePass.frame.height/2
+        btnChangePass.layer.masksToBounds = true
+        btnSave.layer.cornerRadius = btnSave.frame.height/2
+        btnSave.layer.masksToBounds = true
+    }
+    
     func showDatePicker(){
         //Formate Date
         datePicker.datePickerMode = .date
