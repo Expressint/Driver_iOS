@@ -138,68 +138,69 @@ class FutureBookingVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-       
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "FutureBookingTableViewCell") as! FutureBookingTableViewCell
         
-//        let cell2 = tableView.dequeueReusableCell(withIdentifier: "NoDataFound") as! FutureBookingTableViewCell
+        //        let cell2 = tableView.dequeueReusableCell(withIdentifier: "NoDataFound") as! FutureBookingTableViewCell
         
         cell.selectionStyle = .none
         
         cell.lblPickUpTimeTitle.text = "Pick Up Time :".localized
         cell.lblTripDistance.text = "Distance Travel :".localized
         cell.lblpeymentType.text = "Payment Type :".localized
-       
-        cell.viewCell.layer.cornerRadius = 10
-        cell.viewCell.clipsToBounds = true
-//        cell2.selectionStyle = .none
-  
-//        if aryData.count != 0 {
         
-//            if indexPath.section == 0 {
-//
-                 let data = aryData.object(at: indexPath.row) as! NSDictionary
-               
-                cell.lblPassengerName.text = data.object(forKey: "PassengerName") as? String
+        //        cell.viewCell.layer.cornerRadius = 10
+        //        cell.viewCell.clipsToBounds = true
+        //        cell2.selectionStyle = .none
         
-
-//            if let TimeAndDate = data.object(forKey: "PickupDateTime") as? String {
-//                cell.lblTimeAndDateAtTop.text = setTimeStampToDate(timeStamp: TimeAndDate)
-//            }
-//            else {
-//                cell.lblTimeAndDateAtTop.text = strNotAvailable
-//            }
+        //        if aryData.count != 0 {
+        
+        //            if indexPath.section == 0 {
+        //
+        let data = aryData.object(at: indexPath.row) as! NSDictionary
+        
+        cell.lblPassengerName.text = data.object(forKey: "PassengerName") as? String
+        
+        
+        //            if let TimeAndDate = data.object(forKey: "PickupDateTime") as? String {
+        //                cell.lblTimeAndDateAtTop.text = setTimeStampToDate(timeStamp: TimeAndDate)
+        //            }
+        //            else {
+        //                cell.lblTimeAndDateAtTop.text = strNotAvailable
+        //            }
         
         cell.lblBookingId.text = "\("Booking Id".localized): \(checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "Id", isNotHave: strNotAvailable))"
-    
-
+        
+        
         cell.lblDate.text = (checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PickupDateTime", isNotHave: strNotAvailable)).components(separatedBy: " ")[0]
         
-//         checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PaymentType", isNotHave: strNotAvailable)
-
-                cell.lblDropOffLocationDesc.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "DropoffLocation", isNotHave: strNotAvailable) //data.object(forKey: "PickupLocation") as? String // DropoffLocation
-                cell.lblDateAndTime.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PickupDateTime", isNotHave: strNotAvailable)
-                cell.lblPickupTimeValue.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PickupDateTime", isNotHave: strNotAvailable)
-                //data.object(forKey: "PickupDateTime") as? String
-                cell.lblPickupLocation.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PickupLocation", isNotHave: strNotAvailable) // data.object(forKey: "DropoffLocation") as? String  // PickupLocation
-                cell.lblPassengerNoDesc.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PassengerContact", isNotHave: strNotAvailable) //data.object(forKey: "PassengerContact") as? String
-                cell.lblTripDestanceDesc.text = "\(checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "TripDistance", isNotHave: strNotAvailable)) km" //data.object(forKey: "TripDistance") as? String
-                cell.lblCarModelDesc.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "Model", isNotHave: strNotAvailable) //data.object(forKey: "Model") as? String
-                
-                cell.btnAction.tag = Int((data.object(forKey: "Id") as? String)!)!
-                cell.btnAction.addTarget(self, action: #selector(self.btnActionForSelectRecord(sender:)), for: .touchUpInside)
-                cell.lblFlightNumber.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "FlightNumber", isNotHave: strNotAvailable) // data.object(forKey: "FlightNumber") as? String
-                cell.lblNotes.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "Notes", isNotHave: strNotAvailable) //data.object(forKey: "Notes") as? String
+        //         checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PaymentType", isNotHave: strNotAvailable)
+        
+        cell.lblDropOffLocationDesc.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "DropoffLocation", isNotHave: strNotAvailable) //data.object(forKey: "PickupLocation") as? String // DropoffLocation
+        cell.lblDateAndTime.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PickupDateTime", isNotHave: strNotAvailable)
+        cell.lblPickupTimeValue.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PickupDateTime", isNotHave: strNotAvailable)
+        //data.object(forKey: "PickupDateTime") as? String
+        cell.lblPickupLocation.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PickupLocation", isNotHave: strNotAvailable) // data.object(forKey: "DropoffLocation") as? String  // PickupLocation
+        cell.lblPassengerNoDesc.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PassengerContact", isNotHave: strNotAvailable) //data.object(forKey: "PassengerContact") as? String
+        cell.lblTripDestanceDesc.text = "\(checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "TripDistance", isNotHave: strNotAvailable)) km" //data.object(forKey: "TripDistance") as? String
+        cell.lblCarModelDesc.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "Model", isNotHave: strNotAvailable) //data.object(forKey: "Model") as? String
+        
+        cell.btnAction.tag = Int((data.object(forKey: "Id") as? String)!)!
+        cell.btnAction.addTarget(self, action: #selector(self.btnActionForSelectRecord(sender:)), for: .touchUpInside)
+        cell.lblFlightNumber.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "FlightNumber", isNotHave: strNotAvailable) // data.object(forKey: "FlightNumber") as? String
+        cell.lblNotes.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "Notes", isNotHave: strNotAvailable) //data.object(forKey: "Notes") as? String
         
         
-                    cell.lblPaymentType.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: GetPaymentTypeKey(), isNotHave: strNotAvailable)
+        cell.lblPaymentType.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: GetPaymentTypeKey(), isNotHave: strNotAvailable)
         
-                 // data.object(forKey: "PaymentType") as? String
+        // data.object(forKey: "PaymentType") as? String
         
-                cell.viewSecond.isHidden = !expandedCellPaths.contains(indexPath)
- 
-//            }
+        cell.viewSecond.isHidden = !expandedCellPaths.contains(indexPath)
         
+        //            }
         
+//        cell.viewCell.layer.cornerRadius = 10.0
+//        cell.viewCell.layer.masksToBounds = true
         cell.lblDispatcherName.text = ""
         cell.lblDispatcherEmail.text = ""
         cell.lblDispatcherNumber.text = ""
@@ -228,14 +229,14 @@ class FutureBookingVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             cell.stackViewNumber.isHidden = false
         }
         
-            return cell
-//        }
-//        else {
-//
-//            cell2.frame.size.height = self.tableView.frame.size.height
-//
-//            return cell2
-//        }
+        return cell
+        //        }
+        //        else {
+        //
+        //            cell2.frame.size.height = self.tableView.frame.size.height
+        //
+        //            return cell2
+        //        }
         
     }
     

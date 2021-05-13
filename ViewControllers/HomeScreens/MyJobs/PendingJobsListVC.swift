@@ -152,12 +152,12 @@ class PendingJobsListVC: UIViewController, UITableViewDataSource, UITableViewDel
             
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"//this your string date format
-            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
             let date = dateFormatter.date(from: TimeAndDate)
             
             
             dateFormatter.dateFormat = "HH:mm dd/MM/YYYY"///this is what you want to convert format
-            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
             let timeStamp = dateFormatter.string(from: date!)
             
             //            cell.lblTimeAndDateAtTop.text = "\(timeStamp)"

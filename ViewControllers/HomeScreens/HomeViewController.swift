@@ -56,7 +56,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     @IBOutlet weak var BottomButtonView: UIView!
     @IBOutlet var subMapView: UIView!
     @IBOutlet var viewLocationDetails: UIView!
-    @IBOutlet weak var StartTripView: UIView!
+//    @IBOutlet weak var StartTripView: UIView!
     //label
     @IBOutlet weak var lblPickUpLocation: MarqueeLabel!
     @IBOutlet var lblLocationOnMap: MarqueeLabel!
@@ -67,6 +67,12 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     var isSocketConnected = Bool()
     var isAlreadyPopView = Bool()
 
+    
+    
+    @IBOutlet weak var stackViewOfWaitingTime: UIView!
+    @IBOutlet weak var stackViewOfStartTrip: UIView!
+    @IBOutlet weak var stackViewOfCompleteTrip: UIView!
+    @IBOutlet weak var stackViewOfCancelTrip: UIView!
     //-------------------------------------------------------------
     // MARK: - Global Decelaration
     //-------------------------------------------------------------
@@ -174,7 +180,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         //        viewLocationDetails.layer.cornerRadius = 5
         //        btnHome.b
         BottomButtonView.isHidden = true
-        StartTripView.isHidden = true
+//        StartTripView.isHidden = true
         btnStartTrip.isHidden = true
         viewHomeMyJobsBTN.isHidden = false
         self.constrainLocationViewBottom.constant = 0//self.viewHomeMyJobsBTN.frame.height
@@ -664,7 +670,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         //
         print("location history is \(String(describing: decodedTeams.count))")
         
-        for var i in 0..<decodedTeams.count
+        for i in 0..<decodedTeams.count
         {
             let location0 = decodedTeams[i]
             var location1 : CLLocation!
@@ -1060,7 +1066,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                     if UIApplication.shared.windows[0].rootViewController?.children[1].children.count == 1
                     {
                         print("called it after book later offline to online from Sidemenu")
-                        let VC = (UIApplication.shared.windows[0].rootViewController?.children[1].children[0] as? MyJobsViewController)
+//                        _ = (UIApplication.shared.windows[0].rootViewController?.children[1].children[0] as? MyJobsViewController)
                         let MyjobVC = ((UIApplication.shared.windows[0].rootViewController)?.children[1].children[0].children[0]) as? FutureBookingVC
                         MyjobVC?.webserviceOFFurureBooking()
                         //                        VC?.btnFutureBookingClicked(VC?.btnFutureBooking)
@@ -1203,8 +1209,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 UserDefaults.standard.set(Singletons.sharedInstance.isRequestAccepted, forKey: tripStatus.kisRequestAccepted)
                 UserDefaults.standard.set(Singletons.sharedInstance.isTripContinue, forKey: tripStatus.kisTripContinue)
                 
-                self.BottomButtonView.isHidden = true
-                self.StartTripView.isHidden = false
+//                self.BottomButtonView.isHidden = true
+//                self.StartTripView.isHidden = false
                 //                self.btnStartTrip.isHidden = false
                 self.viewLocationDetails.isHidden = false
                 self.constrainLocationViewBottom.constant = self.BottomButtonView.frame.height + self.view.safeAreaFrame.height
@@ -1269,19 +1275,24 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         let getBookingAndPassengerInfo = self.getBookingAndPassengerInfo(data: data)
         
-//        DispatchQueue.main.async {
-            
-//            DispatchQueue.main.asyncAfter(deadline: .now()) { // change 2 to desired number of seconds
-                self.BottomButtonView.isHidden = false
-                self.btnStartTrip.isHidden = false
-                self.btnStartTrip.layoutIfNeeded()
-                self.BottomButtonView.layoutIfNeeded()
-                self.viewHomeMyJobsBTN.isHidden = true
-                //                self.viewLocationDetails.isHidden = true
+        //        DispatchQueue.main.async {
+        
+        //            DispatchQueue.main.asyncAfter(deadline: .now()) { // change 2 to desired number of seconds
+        self.BottomButtonView.isHidden = false
+        self.btnStartTrip.isHidden = false
+        self.btnStartTrip.layoutIfNeeded()
+        self.BottomButtonView.layoutIfNeeded()
+        self.viewHomeMyJobsBTN.isHidden = true
+        
+        self.stackViewOfCompleteTrip.isHidden = true
+        self.stackViewOfStartTrip.isHidden = false
+        self.stackViewOfCancelTrip.isHidden = false
+        self.stackViewOfWaitingTime.isHidden = false
+        //                self.viewLocationDetails.isHidden = true
         self.constrainLocationViewBottom.constant = self.BottomButtonView.frame.size.height //+ (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? CGFloat(0.0))//self.view.safeAreaFrame.height
-//            }
-            
-//        }
+        //            }
+        
+        //        }
         
         let BookingInfo = getBookingAndPassengerInfo.0
         let PassengerInfo = getBookingAndPassengerInfo.1
@@ -1309,10 +1320,10 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         self.strDropoffLocation = BookingInfo.object(forKey: "DropoffLocation") as! String
         self.strPassengerName = PassengerInfo.object(forKey: "Fullname") as! String
         
-//        var imgURL = String()
+        //        var imgURL = String()
         
         self.strPassengerMobileNo = PassengerInfo.object(forKey: "MobileNo") as! String
-//        imgURL = PassengerInfo.object(forKey: "Image") as! String
+        //        imgURL = PassengerInfo.object(forKey: "Image") as! String
         
         let PickupLat = self.defaultLocation.coordinate.latitude
         let PickupLng = self.defaultLocation.coordinate.longitude
@@ -1532,7 +1543,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         let BookingInfo : NSDictionary!
         if((((self.aryPassengerData as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingInfo") as? NSDictionary) == nil)
         {
-            BookingInfo = (((self.aryPassengerData as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingInfo") as! NSArray).object(at: 0) as! NSDictionary
+            BookingInfo = (((self.aryPassengerData as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingInfo") as! NSArray).object(at: 0) as? NSDictionary
         }
         else
         {
@@ -1720,9 +1731,9 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         self.stopSound()
         
         
-        if Singletons.sharedInstance.strRideTypeFromAcceptRequest == "ShareRide" {
-            
-        }
+//        if Singletons.sharedInstance.strRideTypeFromAcceptRequest == "ShareRide" {
+//
+//        }
         
         Singletons.sharedInstance.isPickUPPasenger = false
         
@@ -2353,9 +2364,9 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 //needToCheck
                 UtilityClass.showAlert("App Name".localized, message: "Trip has been cancelled.".localized, vc: self )
                 self.resetMapView()
-                if let resDict = result as? NSDictionary {
-                    //                    UtilityClass.showAlert(appName.kAPPName, message: resDict.object(forKey: "message") as! String, vc: self)
-                }
+//                if result is NSDictionary {
+//                                        UtilityClass.showAlert(appName.kAPPName, message: resDict.object(forKey: "message") as! String, vc: self)
+//                }
                 
             }
             else {
@@ -2398,26 +2409,30 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         if isAdvanceBooking == true {
             
-            BottomButtonView.isHidden = true
-            StartTripView.isHidden = false
+//            BottomButtonView.isHidden = true
+//            StartTripView.isHidden = false
             //            self.btnStartTrip.isHidden = true
             self.viewLocationDetails.isHidden = false
-            self.constrainLocationViewBottom.constant = self.StartTripView.frame.height + self.view.safeAreaFrame.height
+            self.constrainLocationViewBottom.constant = self.BottomButtonView.frame.height + self.view.safeAreaFrame.height
             self.pickupPassengerFromLocation()
             
-            self.view.bringSubviewToFront(StartTripView)
+//            self.view.bringSubviewToFront(StartTripView)
             
         }
         else {
-            BottomButtonView.isHidden = true
-            StartTripView.isHidden = false
+            BottomButtonView.isHidden = false
+//            StartTripView.isHidden = false
             //            self.btnStartTrip.isHidden = true
+            self.stackViewOfCompleteTrip.isHidden = false
+            self.stackViewOfCancelTrip.isHidden = true
+            self.stackViewOfStartTrip.isHidden = true
+            
             self.viewLocationDetails.isHidden = false
-            self.constrainLocationViewBottom.constant = self.StartTripView.frame.height + self.view.safeAreaFrame.height
-            self.view.bringSubviewToFront(StartTripView)
+            self.constrainLocationViewBottom.constant = self.BottomButtonView.frame.height + self.view.safeAreaFrame.height
+//            self.view.bringSubviewToFront(StartTripView)
             self.pickupPassengerFromLocation()
         }
-        self.constrainLocationViewBottom.constant = self.StartTripView.frame.size.height + self.view.safeAreaFrame.height
+        self.constrainLocationViewBottom.constant = self.BottomButtonView.frame.size.height + self.view.safeAreaFrame.height
         Singletons.sharedInstance.MeterStatus = meterStatus.kIsMeterStart
 
     }
@@ -2998,7 +3013,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         self.mapView.clear()
         
         self.BottomButtonView.isHidden = true
-        self.StartTripView.isHidden = true
+//        self.StartTripView.isHidden = true
         self.btnStartTrip.isHidden = true
         self.sumOfFinalDistance = 0
         

@@ -45,7 +45,7 @@ class RatingViewController: UIViewController,FloatRatingViewDelegate {
 //        btnSubmit.layer.cornerRadius = 5
 //        btnSubmit.layer.masksToBounds = true
         
-        Utilities.setCornerRadiusButton(button: btnSubmit, borderColor: ThemeAppMainColor, bgColor: ThemeAppMainColor, textColor: UIColor.white)
+        Utilities.setCornerRadiusButton(button: btnSubmit, borderColor: ThemeAppMainColor, bgColor: ThemeAppMainColor, textColor: UIColor.black)
     }
     
     override func viewWillAppear(_ animated: Bool) {
