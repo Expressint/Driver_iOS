@@ -178,6 +178,10 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         //        let cell2 = tableView.dequeueReusableCell(withIdentifier: "NoDataFound") as! PastJobsListTableViewCell
         
         cell.selectionStyle = .none
+        
+    
+        
+        
         cell.lblpickUpTime.text = "Pick Up Time :".localized
         cell.lblDropTimeTitle.text = "Dropoff Time :".localized
         cell.lblTripDistance.text = "Distance Travel :".localized
@@ -204,6 +208,17 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         //        cell.viewAllDetails.isHidden = true
         //                cell.selectionStyle = .none
         
+        cell.callBackActionGetRec = {
+            
+            
+            let strContent = "Please download your receipt from the below link\n\n\(data["ShareUrl"])"
+            
+            let share = [strContent]
+            
+            let activityViewController = UIActivityViewController(activityItems: share as [Any], applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+        }
         cell.selectionStyle = .none
 
 //        cell.viewCell.layer.shadowColor = UIColor.black.withAlphaComponent(0.4).cgColor

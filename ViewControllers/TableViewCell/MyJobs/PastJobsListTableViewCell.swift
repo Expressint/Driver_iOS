@@ -9,6 +9,7 @@
 import UIKit
 
 class PastJobsListTableViewCell: UITableViewCell {
+    var callBackActionGetRec : (()->()) = { }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,6 +22,10 @@ class PastJobsListTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    @IBAction func btnGetReceipt(sender : UIButton)
+    {
+        callBackActionGetRec()
+    }
     
     //-------------------------------------------------------------
     // MARK: - Outlets
@@ -109,5 +114,7 @@ class PastJobsListTableViewCell: UITableViewCell {
     @IBOutlet weak var TripStatusStackView: UIStackView!
     
     
+    @IBOutlet weak var btnGetReceipt: UIButton!
     
+   
 }

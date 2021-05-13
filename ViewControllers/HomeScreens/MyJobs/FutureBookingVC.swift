@@ -18,7 +18,6 @@ class FutureBookingVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lblNodataFound: UILabel!
     
-    
     var strNotAvailable: String = "N/A"
     
 //    let hView = HeaderView()

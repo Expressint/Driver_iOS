@@ -3405,7 +3405,7 @@ EE15IEpvYnM
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G7J-uA-euB">
-                                <rect key="frame" x="16" y="63.5" width="288" height="441"/>
+                                <rect key="frame" x="16" y="61" width="288" height="446"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="pod-To-o9y">
                                         <rect key="frame" x="114" y="10" width="60" height="60"/>
@@ -3425,19 +3425,19 @@ EE15IEpvYnM
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New booking request arrived from TanTaxi" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fed-ZV-7ca">
-                                        <rect key="frame" x="6" y="111" width="276.5" height="15"/>
+                                        <rect key="frame" x="3.5" y="111" width="281.5" height="17.5"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grand Total is $ 0" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jbj-y5-VM5">
-                                        <rect key="frame" x="86" y="131" width="116" height="15"/>
+                                        <rect key="frame" x="85" y="133.5" width="118" height="17.5"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="XeX-3F-Kdl">
-                                        <rect key="frame" x="20" y="156" width="248" height="225"/>
+                                        <rect key="frame" x="20" y="161" width="248" height="225"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kup-Ee-oTD" customClass="SRCountdownTimer" customModule="SRCountdownTimer">
                                                 <rect key="frame" x="64" y="0.0" width="120" height="120"/>
@@ -3458,22 +3458,22 @@ EE15IEpvYnM
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Pickup Location:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="220-ov-5VT">
-                                                        <rect key="frame" x="35" y="15" width="213" height="24"/>
+                                                        <rect key="frame" x="35" y="15" width="213" height="18"/>
                                                         <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="12"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hzd-fX-bJ1" customClass="MarqueeLabel" customModule="MarqueeLabel">
-                                                        <rect key="frame" x="35" y="44" width="213" height="12"/>
+                                                        <rect key="frame" x="35" y="38" width="213" height="14"/>
                                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="12"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dropoff Location:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="peN-hf-BiK">
-                                                        <rect key="frame" x="35" y="66" width="213" height="12"/>
+                                                        <rect key="frame" x="35" y="62" width="213" height="14"/>
                                                         <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="12"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8w-ud-5XF" customClass="MarqueeLabel" customModule="MarqueeLabel">
-                                                        <rect key="frame" x="35" y="83" width="213" height="12"/>
+                                                        <rect key="frame" x="35" y="81" width="213" height="14"/>
                                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="12"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -3501,7 +3501,7 @@ EE15IEpvYnM
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="DrR-gi-vgZ">
-                                        <rect key="frame" x="20" y="391" width="248" height="40"/>
+                                        <rect key="frame" x="20" y="396" width="248" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AsY-IQ-Cjs" customClass="ThemeButton" customModule="Book_A_Ride_Driver" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="109" height="40"/>
@@ -4750,6 +4750,9 @@ EE15IEpvYnM
                                                             <state key="normal" title="Get Receipt">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="btnGetReceiptWithSender:" destination="IYW-Uz-b2o" eventType="touchUpInside" id="tLp-vD-KZa"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -4804,6 +4807,7 @@ EE15IEpvYnM
                                             <outlet property="TripStatusStackView" destination="Uen-j5-rap" id="ZtA-LJ-WWJ"/>
                                             <outlet property="WaitingTimeCostStackView" destination="dJT-R9-3BE" id="udg-Pi-rhf"/>
                                             <outlet property="WaitingTimeStackView" destination="HGp-g3-E9V" id="rt6-BQ-1U7"/>
+                                            <outlet property="btnGetReceipt" destination="fDO-pv-Efc" id="FWj-6S-wpg"/>
                                             <outlet property="lblBokingChargeDesc" destination="1Ca-Vw-NdY" id="W3J-bi-x8O"/>
                                             <outlet property="lblBooingId" destination="FUd-NE-5Bb" id="xYy-Wj-bC2"/>
                                             <outlet property="lblBookingFare" destination="Xnn-2s-TJQ" id="CqI-BE-yba"/>
@@ -7405,7 +7409,7 @@ EE15IEpvYnM
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5k2-O3-bkF">
-                                        <rect key="frame" x="107" y="80" width="66.5" height="15"/>
+                                        <rect key="frame" x="106.5" y="80" width="67" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="15" id="Suo-cv-diV"/>
                                         </constraints>
@@ -15229,7 +15233,7 @@ EE15IEpvYnM
     </scenes>
     <designables>
         <designable name="0OT-GC-O7g">
-            <size key="intrinsicContentSize" width="44" height="12"/>
+            <size key="intrinsicContentSize" width="44.5" height="14"/>
         </designable>
         <designable name="5nj-ak-QRe">
             <size key="intrinsicContentSize" width="118" height="17"/>
@@ -15238,10 +15242,10 @@ EE15IEpvYnM
             <size key="intrinsicContentSize" width="10" height="0.0"/>
         </designable>
         <designable name="E8w-ud-5XF">
-            <size key="intrinsicContentSize" width="44" height="12"/>
+            <size key="intrinsicContentSize" width="44.5" height="14"/>
         </designable>
         <designable name="Hzd-fX-bJ1">
-            <size key="intrinsicContentSize" width="44" height="12"/>
+            <size key="intrinsicContentSize" width="44.5" height="14"/>
         </designable>
         <designable name="WIU-sv-G2X">
             <size key="intrinsicContentSize" width="240" height="44"/>
@@ -15259,7 +15263,7 @@ EE15IEpvYnM
             <size key="intrinsicContentSize" width="118" height="17"/>
         </designable>
         <designable name="gmZ-IR-krA">
-            <size key="intrinsicContentSize" width="44" height="12"/>
+            <size key="intrinsicContentSize" width="44.5" height="14"/>
         </designable>
         <designable name="iOC-m5-7Oh">
             <size key="intrinsicContentSize" width="43" height="34"/>
