@@ -10,7 +10,7 @@ import UIKit
 import IQDropDownTextField
 
 
-class MyEarningsViewController: ParentViewController,IQDropDownTextFieldDelegate
+class MyEarningsViewController: ParentViewController, IQDropDownTextFieldDelegate
 {
     
     @IBOutlet weak var btnYearly: UIButton!
@@ -91,9 +91,9 @@ class MyEarningsViewController: ParentViewController,IQDropDownTextFieldDelegate
         txtSelectFromDate.delegate = self
         
         
-        self.txtSelectFromDate.isUserInteractionEnabled = false
+//        self.txtSelectFromDate.isUserInteractionEnabled = false
         self.txtSelectFromDate.alpha = 0.5
-        self.txtSelectToDate.isUserInteractionEnabled = false
+//        self.txtSelectToDate.isUserInteractionEnabled = false
         self.txtSelectToDate.alpha = 0.5
         
         self.viewYear.isHidden = true
@@ -139,12 +139,12 @@ class MyEarningsViewController: ParentViewController,IQDropDownTextFieldDelegate
     
     @objc func donSelectToDate(_ sender: UITextField) {
         
-        if !Utilities.isEmpty(str: self.txtSelectYear.selectedItem) && !Utilities.isEmpty(str: self.txtSelectFromDate.selectedItem) && !Utilities.isEmpty(str: self.txtSelectToDate.selectedItem) {
+//        if !Utilities.isEmpty(str: self.txtSelectYear.selectedItem) && !Utilities.isEmpty(str: self.txtSelectFromDate.selectedItem) && !Utilities.isEmpty(str: self.txtSelectToDate.selectedItem) {
             webserviceForGettingEarningwise(self.selectedReportType)
             self.txtSelectYear.resignFirstResponder()
             self.txtSelectFromDate.resignFirstResponder()
             self.txtSelectToDate.resignFirstResponder()
-        }
+//        }
     }
     
     func textField(_ textField: IQDropDownTextField, didSelect date: Date?) {
@@ -236,11 +236,11 @@ class MyEarningsViewController: ParentViewController,IQDropDownTextFieldDelegate
         
         if textField == txtSelectFromDate {
             
-            let selectedYear = Int(self.txtSelectYear.selectedItem!)
-            let dateComponents = DateComponents(year: selectedYear)
-            let calendar = Calendar.current
-            let date = calendar.date(from: dateComponents)!
-            self.txtSelectFromDate.datePicker.minimumDate = date
+//            let selectedYear = Int(self.txtSelectYear.selectedItem!)
+//            let dateComponents = DateComponents(year: selectedYear)
+//            let calendar = Calendar.current
+//            let date = calendar.date(from: dateComponents)!
+//            self.txtSelectFromDate.datePicker.minimumDate = date
             
             self.lblFromDateTitle.isHidden = false
         }
@@ -344,6 +344,11 @@ class MyEarningsViewController: ParentViewController,IQDropDownTextFieldDelegate
         btnCustomeDate.isSelected = true
         btnYearly.isSelected = false
         btnMonth.isSelected = false
+        
+        txtSelectToDate.selectedItem = ""
+        txtSelectFromDate.selectedItem = ""
+        lblFromDateTitle.isHidden = true
+        lblToDateTitle.isHidden = true
         
         if btnCustomeDate.isSelected == true
         {

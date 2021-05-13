@@ -139,8 +139,8 @@ class PendingJobsListVC: UIViewController, UITableViewDataSource, UITableViewDel
         cell.lblPaymentTypeTitle.text = "Payment Type :".localized
         cell.btnStartTrip.setTitle("Start Trip".localized, for: .normal)
        
-        cell.viewCell.layer.cornerRadius = 10
-        cell.viewCell.clipsToBounds = true
+//        cell.viewCell.layer.cornerRadius = 10
+//        cell.viewCell.clipsToBounds = true
         
         let data = aryPendingJobs.object(at: indexPath.row) as! NSDictionary
         
