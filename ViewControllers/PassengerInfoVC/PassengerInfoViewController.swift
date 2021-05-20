@@ -16,6 +16,7 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
     
     var strPickupLocation = String()
     var strDropoffLocation = String()
+    var strDropoffLocation2 = String()
     var imgURL = String()
     var strPassengerName = String()
     var strPassengerMobileNumber = String()
@@ -34,11 +35,14 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
     //label
     @IBOutlet weak var lblPickUpLocationInFo: UILabel!
     @IBOutlet weak var lblDroPoffLocationInFo: UILabel!
+    @IBOutlet weak var lblDroPoffLocation2InFo: UILabel!
     @IBOutlet weak var lblFlightNumberInFo: UILabel!
     @IBOutlet weak var lblNotesInFo: UILabel!
   
     @IBOutlet weak var lblPickupLocationDetails: UILabel!
     @IBOutlet weak var lblDropoffLocationDetails: UILabel!
+    @IBOutlet weak var lblDropoffLocation2Details: UILabel!
+
     @IBOutlet weak var lblContactNumber: UILabel!
     @IBOutlet weak var lblPassengerInfo: UILabel!
     @IBOutlet weak var lblPassengerName: UILabel!
@@ -119,6 +123,11 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
         else {
             stackViewNotes.isHidden = false
             lblNotesDetail.text = strNotes
+        }
+        if(strDropoffLocation2.trimmingCharacters(in: .whitespacesAndNewlines).count != 0)
+        {
+            lblDropoffLocation2Details.text = strDropoffLocation2
+            lblDroPoffLocation2InFo.text = "DropOff location 2 : "
         }
         
         

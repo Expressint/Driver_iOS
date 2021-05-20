@@ -19,9 +19,8 @@ struct WebSupport {
 
 struct WebserviceURLs {
     
-    static let kBaseURL = "http://3.83.58.5/Drvier_Api/"
-//    "https://www.tantaxitanzania.com/Drvier_Api/"//"https://pickngolk.info/web/Drvier_Api/" // "http://54.169.67.226/web/Drvier_Api/" //
-    static let kImageBaseURL                            = "https://www.tantaxitanzania.com/" // "http://54.169.67.226/web/" //
+    static let kBaseURL = "http://3.83.58.5/Drvier_Api2/"
+    static let kImageBaseURL                            = "https://3.83.58.5/"
     static let kOTPForDriverRegister                    = "OtpForRegister"
     static let kVehicalModelList                        = "TaxiModel/"
     static let kDriverRegister                          = "Register"
@@ -42,6 +41,7 @@ struct WebserviceURLs {
     static let kAcceptDispatchJobRequest                = "AcceptDispatchJobRequest/"
     static let kLogout                                  = "Logout/"
     static let kSubmitCompleteAdvancedBooking           = "SubmitCompleteAdvancedBooking"
+    static let kSubmitMultipleDropoff                   = "SubmitMultipleDropoff"
     static let kSubmitBookNowByDispatchJob              = "SubmitBookNowByDispatchJob"
     static let kSubmitBookLaterByDispatchJob            = "SubmitBookLaterByDispatchJob"
     static let kFutureBooking                           = "FutureBooking/"

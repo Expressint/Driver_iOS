@@ -158,7 +158,7 @@ class PendingJobsListVC: UIViewController, UITableViewDataSource, UITableViewDel
             
             dateFormatter.dateFormat = "HH:mm dd/MM/YYYY"///this is what you want to convert format
             dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
-            let timeStamp = dateFormatter.string(from: date!)
+//            let timeStamp = dateFormatter.string(from: date!)
             
             //            cell.lblTimeAndDateAtTop.text = "\(timeStamp)"
         }
@@ -171,7 +171,12 @@ class PendingJobsListVC: UIViewController, UITableViewDataSource, UITableViewDel
         //        cell.lblDropoffLocation.text = ""
         cell.lblDropoffLocationDescription.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "DropoffLocation", isNotHave: strNotAvailable) // data.object(forKey: "PickupLocation") as? String // DropoffLocation
         cell.lblDateAndTime.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "CreatedDate", isNotHave: strNotAvailable) //data.object(forKey: "CreatedDate") as? String
+        cell.lblDropoffLocation2.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "DropoffLocation2", isNotHave: strNotAvailable)
         
+        if(cell.lblDropoffLocation2.text == strNotAvailable)
+        {
+            cell.stackDropOffLocation2.isHidden = true
+        }
         cell.lblPickUpLocation.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PickupLocation", isNotHave: strNotAvailable)
         // data.object(forKey: "DropoffLocation") as? String // PickupLocation
         cell.lblpassengerEmailDesc.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PassengerEmail", isNotHave: strNotAvailable) // data.object(forKey: "PassengerEmail") as? String

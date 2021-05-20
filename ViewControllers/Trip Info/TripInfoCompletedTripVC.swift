@@ -27,6 +27,10 @@ class TripInfoCompletedTripVC: UIViewController {
 //    @IBOutlet weak var lblPickUPLocationInFo: UILabel!
     @IBOutlet var lblDate: UILabel!
     @IBOutlet var btnViewCompleteTripData: UIView!
+    
+    @IBOutlet var viewDropLocationFirst: UIView!
+    @IBOutlet var viewDropLocationSecond: UIView!
+    
     @IBOutlet weak var stackViewFlightNumber: UIStackView!
     @IBOutlet weak var stackViewNote: UIStackView!
     @IBOutlet weak var stackViewSpecialExtraCharge: UIStackView!
@@ -34,6 +38,7 @@ class TripInfoCompletedTripVC: UIViewController {
   
     @IBOutlet weak var lblPickupLocation: MarqueeLabel!
     @IBOutlet weak var lblDropOffLocation: MarqueeLabel!
+    @IBOutlet weak var lblDropOffLocation2: MarqueeLabel!
     
     @IBOutlet var lblPickupTimeTitle: UILabel!
     @IBOutlet var lblDropoffTimeTitle: UILabel!
@@ -202,6 +207,13 @@ class TripInfoCompletedTripVC: UIViewController {
         
         lblPickupLocation.text = dictData.object(forKey: "PickupLocation") as? String
         lblDropOffLocation.text = dictData.object(forKey: "DropoffLocation") as? String
+        
+        self.viewDropLocationSecond.isHidden = true
+        if((dictData["DropoffLocation2"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines).count != 0)
+        {
+            self.viewDropLocationSecond.isHidden = false
+            self.lblDropOffLocation2.text = (dictData["DropoffLocation2"] as? String) ?? ""
+        }
         
         /*
         let PickTime = Double(dictData.object(forKey: "PickupTime") as! String)

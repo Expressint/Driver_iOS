@@ -55,6 +55,7 @@ class PastJobsListTableViewCell: UITableViewCell {
     @IBOutlet weak var lblTripFare: UILabel!
     @IBOutlet weak var lblBookingId: UILabel!
     @IBOutlet weak var lblDropoffLocation: UILabel!
+    @IBOutlet weak var lblDropoffLocation2: UILabel!
     @IBOutlet weak var lblDropoffLocationDescription: UILabel!
     @IBOutlet weak var lblBooingId: UILabel!
     @IBOutlet weak var viewAllDetails: UIView! // HEIGHT IS : 215
@@ -93,6 +94,7 @@ class PastJobsListTableViewCell: UITableViewCell {
     @IBOutlet var stackViewEmail: UIStackView!
     @IBOutlet var stackViewName: UIStackView!
     @IBOutlet var stackViewNumber: UIStackView!
+    @IBOutlet var stackDropOffLocation2: UIView!
     @IBOutlet weak var lblBookingFare: UILabel!
     
     @IBOutlet var viewCell: UIView!

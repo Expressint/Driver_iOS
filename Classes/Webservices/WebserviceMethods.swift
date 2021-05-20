@@ -29,6 +29,7 @@ let SubmitBookNowByDispatchJob = WebserviceURLs.kSubmitBookNowByDispatchJob
 let SubmitBookLaterByDispatchJob = WebserviceURLs.kSubmitBookLaterByDispatchJob
 let GetDriverProfile = WebserviceURLs.kGetDriverProfile
 let GetDistanceFromBackend = WebserviceURLs.kGetDistaceFromBackend
+let SubmitMultipleDropoff = WebserviceURLs.kSubmitMultipleDropoff
 
 let UpdateDriverBasicInfo = WebserviceURLs.KUpdateDriverBasicInfo
 
@@ -610,3 +611,9 @@ func webserviceForMyEarnings(_ dictParams: AnyObject, completion: @escaping(_ re
 
 
 
+
+func webserviceForSubmitMultipleDropoff(dictParams: AnyObject, completion: @escaping (_ result: AnyObject, _ success: Bool)-> Void)
+{
+    let url = SubmitMultipleDropoff
+    postData(dictParams, nsURL: url, completion: completion)
+}

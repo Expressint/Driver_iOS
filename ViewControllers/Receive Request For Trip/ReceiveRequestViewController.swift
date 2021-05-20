@@ -12,7 +12,7 @@ import NVActivityIndicatorView
 import MarqueeLabel
 
 class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
-
+    
     //-------------------------------------------------------------
     // MARK: - Outlets
     //-------------------------------------------------------------
@@ -28,11 +28,13 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     @IBOutlet weak var lblPickupLocation: MarqueeLabel!
     @IBOutlet weak var lblDropoffLocationInfo: UILabel!
     @IBOutlet weak var lblDropoffLocation: MarqueeLabel!
+    @IBOutlet weak var lblDropoffLocation2Info: UILabel!
+    @IBOutlet weak var lblDropoffLocation2: MarqueeLabel!
     
     //    @IBOutlet weak var lblFlightNumber: UILabel!
     //    @IBOutlet weak var lblNotes: UILabel!
     
-    //    @IBOutlet weak var stackViewFlightNumber: UIStackView!
+    @IBOutlet weak var strackviewOfDropOffLocation2: UIStackView!
     
     //    @IBOutlet weak var stackViewNotes: UIStackView!
     
@@ -49,6 +51,7 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     
     var strPickupLocation = String()
     var strDropoffLocation = String()
+    var strDropoffLocation2 = String()
     var strGrandTotal = String()
     var strEstimateFare = String()
     var strRequestMessage = String()
@@ -63,7 +66,7 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         CountDownView()
         
         btnReject.layer.cornerRadius = 5
@@ -78,7 +81,7 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
         boolTimeEnd = false
         isAccept = false
         
-//        self.playSound()
+        //        self.playSound()
         
         fillAllFields()
         
@@ -93,7 +96,7 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     func setLocalization(){
         lblReceiveRequest.text = "Receive Request".localized
         lblMessage.text = "New booking request arrived".localized
-//        lblGrandTotal.text = "Grand Total is".localized
+        //        lblGrandTotal.text = "Grand Total is".localized
         lblPickUpLocationInfo.text = "Pick up location".localized
         lblDropoffLocationInfo.text = "Drop off location".localized
         btnReject.setTitle("Reject".localized, for: .normal)
@@ -116,55 +119,37 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
         viewCountdownTimer.labelTextColor = UIColor.black
         viewCountdownTimer.delegate = self
         viewCountdownTimer.start(beginingValue: 30, interval: 1)
-//        lblMessage.text = "New booking request arrived from \(appName.kAPPName)"
+        //        lblMessage.text = "New booking request arrived from \(appName.kAPPName)"
         
     }
     
     func fillAllFields() {
         
-//        if Singletons.sharedInstance.passengerType == "" {
-//
-//            viewDetails.isHidden = true
-//
-//            lblGrandTotal.isHidden = true
-////            constratintHorizontalSpaceBetweenButtonAndTimer.priority = 1000
-////            stackViewFlightNumber.isHidden = true
-////            stackViewNotes.isHidden = true
-//        }
-//        else {
-            viewDetails.isHidden = false
-            print(strGrandTotal)
-            print(strPickupLocation)
-            print(strDropoffLocation)
-            print(strFlightNumber)
-            print(strNotes)
-//            if strGrandTotal != "0" {
-//                lblGrandTotal.text = "Grand Total : \(strGrandTotal) \(currency)"
-//            } else if strEstimateFare != "0" {
-                lblGrandTotal.text = "\("Estimate Fare".localized) : \(strEstimateFare) \(currency)"
-//            }
+        viewDetails.isHidden = false
+        //            print(strGrandTotal)
+        //            print(strPickupLocation)
+        //            print(strDropoffLocation)
+        //            print(strFlightNumber)
+        //            print(strNotes)
+        //            if strGrandTotal != "0" {
+        //                lblGrandTotal.text = "Grand Total : \(strGrandTotal) \(currency)"
+        //            } else if strEstimateFare != "0" {
+        lblGrandTotal.text = "\("Estimate Fare".localized) : \(strEstimateFare) \(currency)"
+        //            }
         
-            lblMessage.text = strRequestMessage
-            lblPickupLocation.text = strPickupLocation
-            lblDropoffLocation.text = strDropoffLocation
-            
-//            if strFlightNumber.count == 0 {
-//                stackViewFlightNumber.isHidden = true
-//            }
-//            else {
-//                stackViewFlightNumber.isHidden = false
-//                lblFlightNumber.text = strFlightNumber
-//            }
-//
-//            if strNotes.count == 0 {
-//                stackViewNotes.isHidden = true
-//            }
-//            else {
-//                stackViewNotes.isHidden = false
-//                lblNotes.text = strNotes
-//            }
-//        }
-        
+        lblMessage.text = strRequestMessage
+        lblPickupLocation.text = strPickupLocation
+        lblDropoffLocation.text = strDropoffLocation
+        if(strDropoffLocation2.trimmingCharacters(in: .whitespacesAndNewlines) .count == 0)
+        {
+            strackviewOfDropOffLocation2.isHidden = true
+        }
+        else
+        {
+            lblDropoffLocation2Info.text = "Additional Dropoff location"
+            lblDropoffLocation2.text = strDropoffLocation2
+
+        }
     }
     
     func timerDidEnd() {
@@ -191,39 +176,39 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     
     func playSound() {
         
-//        guard let url = Bundle.main.url(forResource: "\(RingToneSound)", withExtension: "mp3") else { return }
-//
-//        do {
-//            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-//            try AVAudioSession.sharedInstance().setActive(true)
-//
-//            //            audioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
-//            audioPlayer = try AVAudioPlayer(contentsOf: url)
-//            audioPlayer.numberOfLoops = 4
-//            audioPlayer.play()
-//        }
-//        catch let error {
-//            print(error.localizedDescription)
-//        }
+        //        guard let url = Bundle.main.url(forResource: "\(RingToneSound)", withExtension: "mp3") else { return }
+        //
+        //        do {
+        //            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        //            try AVAudioSession.sharedInstance().setActive(true)
+        //
+        //            //            audioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+        //            audioPlayer = try AVAudioPlayer(contentsOf: url)
+        //            audioPlayer.numberOfLoops = 4
+        //            audioPlayer.play()
+        //        }
+        //        catch let error {
+        //            print(error.localizedDescription)
+        //        }
     }
     
     func stopSound() {
         
-//        guard let url = Bundle.main.url(forResource: "\(RingToneSound)", withExtension: "mp3") else { return }
-//        
-//        do {
-//            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-//            try AVAudioSession.sharedInstance().setActive(true)
-//            
-//            audioPlayer = try AVAudioPlayer(contentsOf: url)
-//            audioPlayer.stop()
-//        }
-//        catch let error {
-//            print(error.localizedDescription)
-//        }
+        //        guard let url = Bundle.main.url(forResource: "\(RingToneSound)", withExtension: "mp3") else { return }
+        //
+        //        do {
+        //            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        //            try AVAudioSession.sharedInstance().setActive(true)
+        //
+        //            audioPlayer = try AVAudioPlayer(contentsOf: url)
+        //            audioPlayer.stop()
+        //        }
+        //        catch let error {
+        //            print(error.localizedDescription)
+        //        }
     }
     
-
+    
     
     //-------------------------------------------------------------
     // MARK: - Actions
@@ -237,12 +222,12 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
             return
         }
         
-         Singletons.sharedInstance.firstRequestIsAccepted = false
+        Singletons.sharedInstance.firstRequestIsAccepted = false
         isAccept = false
         boolTimeEnd = true
         delegate.didRejectedRequest()
         self.viewCountdownTimer.end()
-//        self.stopSound()
+        //        self.stopSound()
         self.dismiss(animated: true, completion: nil)
         
     }
@@ -264,7 +249,7 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     }
     // ------------------------------------------------------------
     
-
     
-
+    
+    
 }

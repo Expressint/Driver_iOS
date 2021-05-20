@@ -232,6 +232,8 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
     // ------------------------------------------------------------
     
     func createHeaderView() {
+        self.headerView?.btnSwitch.imageView?.contentMode = .scaleAspectFill
+
         let screenRect: CGRect = UIScreen.main.bounds
         let screenWidth: CGFloat = screenRect.size.width
         let hView = HeaderView.headerView(withDelegate: self)
@@ -325,7 +327,6 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
                     
                     print(result)
                     self.headerView?.btnSwitch.isEnabled = true
-                    
                     if ((result as! NSDictionary).object(forKey: "duty") as! String == "off")
                     {
                         self.headerView?.btnSwitch.setImage(UIImage(named: "iconSwitchOff"), for: .normal)

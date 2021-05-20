@@ -211,7 +211,7 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.callBackActionGetRec = {
             
             
-            let strContent = "Please download your receipt from the below link\n\n\(data["ShareUrl"])"
+            let strContent = "Please download your receipt from the below link\n\n\(data["ShareUrl"] ?? "")"
             
             let share = [strContent]
             
@@ -339,7 +339,12 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.lbltripDurationDesc.text = strTripDuration // data.object(forKey: "TripDuration") as? String
         cell.lblCarModelDesc.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "Model", isNotHave: strNotAvailable) //  data.object(forKey: "Model") as? String
         cell.lblNightFareDesc.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "NightFare", isNotHave: strNotAvailable) //  data.object(forKey: "NightFare") as? String
+        cell.lblDropoffLocation2.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "DropoffLocation2", isNotHave: strNotAvailable)
         
+        if(cell.lblDropoffLocation2.text == strNotAvailable)
+        {
+            cell.stackDropOffLocation2.isHidden = true
+        }
         let strTripFare = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "TripFare", isNotHave: strNotAvailable)
         cell.lblTripFareDesc.text = "\(strTripFare) \(currency)" //  data.object(forKey: "TripFare") as? String
         

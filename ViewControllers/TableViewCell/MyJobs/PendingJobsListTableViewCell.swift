@@ -37,7 +37,10 @@ class PendingJobsListTableViewCell: UITableViewCell {
     @IBOutlet var lblPickupLocationTitle: UILabel!
     @IBOutlet weak var lblPickUpLocation: UILabel!
     @IBOutlet weak var btnStartTrip: UIButton!
-    
+    @IBOutlet weak var lblDropoffLocation2: UILabel!
+
+    @IBOutlet var stackDropOffLocation2: UIView!
+
     @IBOutlet var lblDropOffLoationTitle: UILabel!
     @IBOutlet weak var lblDispatcherEmailTitle: UILabel!
     @IBOutlet weak var lblPaymentTypeTitle: UILabel!
