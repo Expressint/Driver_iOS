@@ -218,7 +218,7 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     
     @IBAction func btnRejected(_ sender: UIButton) {
         if Connectivity.isConnectedToInternet() == false {
-            UtilityClass.showAlert("App Name".localized, message: "Sorry! Not connected to internet".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             return
         }
         
@@ -234,7 +234,7 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     
     @IBAction func btnAcceped(_ sender: UIButton) {
         if Connectivity.isConnectedToInternet() == false {
-            UtilityClass.showAlert("App Name".localized, message: "Sorry! Not connected to internet".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             return
         }
         

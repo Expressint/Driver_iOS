@@ -72,6 +72,42 @@ class UtilityClass: NSObject {
         
     }
     
+    /// Response may be Any Type
+    class func showAlertOfAPIResponse(param: Any, vc: UIViewController) {
+        
+        if let res = param as? String {
+            UtilityClass.showAlert(appName.kAPPName, message: res, vc: vc)
+        }
+        else if let resDict = param as? NSDictionary {
+            if let msg = resDict.object(forKey: "message") as? String {
+                UtilityClass.showAlert(appName.kAPPName, message: msg, vc: vc)
+            }
+            else if let msg = resDict.object(forKey: "msg") as? String {
+                UtilityClass.showAlert(appName.kAPPName, message: msg, vc: vc)
+            }
+            else if let msg = resDict.object(forKey: "message") as? [String] {
+                UtilityClass.showAlert(appName.kAPPName, message: msg.first ?? "", vc: vc)
+            }
+        }
+        else if let resAry = param as? NSArray {
+            
+            if let dictIndxZero = resAry.firstObject as? NSDictionary {
+                if let message = dictIndxZero.object(forKey: "message") as? String {
+                    UtilityClass.showAlert(appName.kAPPName, message: message, vc: vc)
+                }
+                else if let msg = dictIndxZero.object(forKey: "msg") as? String {
+                    UtilityClass.showAlert(appName.kAPPName, message: msg, vc: vc)
+                }
+                else if let msg = dictIndxZero.object(forKey: "message") as? [String] {
+                    UtilityClass.showAlert(appName.kAPPName, message: msg.first ?? "", vc: vc)
+                }
+            }
+            else if let msg = resAry as? [String] {
+                UtilityClass.showAlert(appName.kAPPName, message: msg.first ?? "", vc: vc)
+            }
+        }
+    }
+    
     // Alert
     
     class func showAlert(_ title: String, message: String, vc: UIViewController) -> Void

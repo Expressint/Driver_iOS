@@ -259,6 +259,8 @@ class DriverRegistrationViewController: UIViewController, UIScrollViewDelegate /
         if DeviceType.IS_IPHONE_4_OR_LESS || DeviceType.IS_IPAD {
             constraintHeightOfPagingView.constant = 50
         }
+        
+        scrollObj.isScrollEnabled = true
 
     }
     

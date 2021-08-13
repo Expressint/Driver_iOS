@@ -25,7 +25,7 @@ class SplashViewController: UIViewController {
         }
         else
         {
-            UtilityClass.showAlert("App Name".localized, message: "Sorry! Not connected to internet".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             //                UtilityClass.showAlert("App Name".localized, message: "Sorry! Not connected to internet".localized, vc: self)
             return
         }
@@ -43,8 +43,8 @@ class SplashViewController: UIViewController {
         
         var param = String()
         
-        param = version + "/" + "IOSDriver"
-        
+        param = version + "/" + "IOSDriver" + "/" + Singletons.sharedInstance.strDriverID
+
         webserviceForAppSetting(param as AnyObject) { (result, status) in
             
             if(status) {
@@ -57,6 +57,24 @@ class SplashViewController: UIViewController {
                  }
                  */
                 //                self.viewMain.isHidden = true
+                
+                if let dictData = result["driver"] as? [String:Any], let profile = dictData["profile"] as? [String:Any]
+                {
+                    var status = String()
+                    if let strStatus = profile["Status"] as? String
+                    {
+                        status = strStatus
+                    }
+                    else if let intStatus = profile["Status"] as? Int
+                    {
+                        status = "\(intStatus)"
+                    }
+                    
+                    if(status == "0")
+                    {
+                        Appdelegate.webserviceOFSignOut()
+                    }
+                }
                 
                 if ((result as! NSDictionary).object(forKey: "update") as? Bool) != nil {
                     

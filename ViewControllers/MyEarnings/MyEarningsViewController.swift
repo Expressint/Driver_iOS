@@ -154,7 +154,7 @@ class MyEarningsViewController: ParentViewController, IQDropDownTextFieldDelegat
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss +zzzz"
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        let year = self.txtSelectYear.selectedItem
+        _ = self.txtSelectYear.selectedItem
         let fromDate = self.txtSelectFromDate.selectedItem
         let toDate = self.txtSelectToDate.selectedItem
         

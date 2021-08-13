@@ -19,8 +19,8 @@ struct WebSupport {
 
 struct WebserviceURLs {
     
-    static let kBaseURL = "http://3.83.58.5/Drvier_Api2/"
-    static let kImageBaseURL                            = "https://3.83.58.5/"
+    static let kBaseURL                                 = "http://3.83.58.5/Drvier_Api2/"
+    static let kImageBaseURL                            = "http://3.83.58.5/"
     static let kOTPForDriverRegister                    = "OtpForRegister"
     static let kVehicalModelList                        = "TaxiModel/"
     static let kDriverRegister                          = "Register"
@@ -204,6 +204,12 @@ struct socketApiKeys {
     static let kReceiveBookingRequest = "AriveBookingRequest"
     static let kRejectBookingRequest = "ForwardBookingRequestToAnother"
     static let kAcceptBookingRequest = "AcceptBookingRequest"
+    static let kUpdateDropoffLocation = "UpdateDropoffLocationNotification"
+    static let kCurrentLat = "CurLat"
+    static let kCurrentLong = "CurLong"
+    static let kPassengerId = "PassengerId"
+    static let kPickUpLat = "PickupLat"
+    static let kPickUpLong = "PickupLong"
     
     static let kLat = "Lat"
     static let kLong = "Long"
@@ -215,11 +221,15 @@ struct socketApiKeys {
     static let kGetBookingDetailsAfterBookingRequestAccepted = "BookingInfo"
     static let kPickupPassengerByDriver = "PickupPassenger"
     
+    static let kDriverArrivedCheck = "DriverArrivedCheck"
+    static let kOnDriverArrivedCheck = "DriverArrivedCheck"
+
+    
     static let kStartHoldTrip = "StartHoldTrip"
     static let kEndHoldTrip = "EndHoldTrip"
     
     static let kDriverCancelTripNotification = "DriverCancelTripNotification"
-    static let kSendDriverLocationRequestByPassenger        = "DriverLocation"
+    static let kSendDriverLocationRequestByPassenger = "DriverLocation"
 
     static let kAriveAdvancedBookingRequest = "AriveAdvancedBookingRequest"
     static let kForwardAdvancedBookingRequestToAnother = "ForwardAdvancedBookingRequestToAnother"

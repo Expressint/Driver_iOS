@@ -528,7 +528,10 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     {
         
         let driverId = Singletons.sharedInstance.strDriverID //+ "/" + "\(index)"
-        
+        if(index == 1)
+        {
+            self.aryData.removeAllObjects()
+        }
         webserviceForPastBookingList(driverId as AnyObject, PageNumber: index as AnyObject) { (result, status) in
             if (status) {
                 DispatchQueue.main.async {

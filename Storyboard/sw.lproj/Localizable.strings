@@ -136,7 +136,7 @@
 "How was your Ride?" = "Safari ilikuwaje?";
 "How was your Ride with" = "Safari ilikuwaje na";
 "Write a comment" = "Andika mawazo yako";
-"Are you sure you want to cancel the trip?" = "Una uhakika unataka kukatiza safari?";
+"message_cancelTrip" = "Una uhakika unataka kukatiza safari?";
 "Profile Update" = "Boresha Taarifa";
 "Full Name" = "Jina kamili";
 "Profile" = "Taarifa";
@@ -301,4 +301,4 @@
 "Thanks for feedback." = "Asante kwa mrejesho.";
 "Please install Google Maps." = "Tafadhali Pakua Google Map.";
 "Are you sure you want to logout?" = "Unataka Kutoka?";
-"Please stop trip waiting time first." = "Tafadhali Zuia Kwanza Muda wa Kusubiri Safari.";
+"message_StopWaitingTime" = "Tafadhali Zuia Kwanza Muda wa Kusubiri Safari.";

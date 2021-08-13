@@ -32,11 +32,6 @@ let googlPlacesApiKey = googlApiKey
     var Speed  = ""
     
     var RoadPickupTimer = Timer()
-//    let Smanager = SocketManager(socketURL: URL(string: socketApiKeys.kSocketBaseURL)!, config: SocketIOClientConfiguration())
-//        SocketManager(socketURL: URL(string: socketApiKeys.kSocketBaseURL)!, config: [.log(false), .compress])
-//    lazy var SocketManager = Smanager.defaultSocket
-//    lazy var manager = SocketIOClient(manager: <#T##SocketManagerSpec#>, nsp: <#T##String#>)
-//    let SocketManager = SocketIOClient(manager: URL(string: socketApiKeys.kSocketBaseURL)!, nsp: [.log(false), .compress])
     let SManager = SocketManager(socketURL: URL(string: socketApiKeys.kSocketBaseURL)!)
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -45,10 +40,10 @@ let googlPlacesApiKey = googlApiKey
         UserDefaults.standard.set(false, forKey: kIsSocketEmited)
         UserDefaults.standard.synchronize()
         
-        if UserDefaults.standard.value(forKey: "i18n_language") == nil {
-            UserDefaults.standard.set("en", forKey: "i18n_language")
-            UserDefaults.standard.synchronize()
-        }
+//        if UserDefaults.standard.value(forKey: "i18n_language") == nil {
+//            UserDefaults.standard.set("en", forKey: "i18n_language")
+//            UserDefaults.standard.synchronize()
+//        }
         
 //        Fabric.with([Crashlytics.self])
         
@@ -95,7 +90,7 @@ let googlPlacesApiKey = googlApiKey
         
         if remoteNotif != nil
         {
-            let key = (remoteNotif as! NSDictionary).object(forKey: "gcm.notification.type")!
+            let key = remoteNotif?.object(forKey: "gcm.notification.type")!
             NSLog("\n Custom: \(String(describing: key))")
             self.pushAfterReceiveNotification(typeKey: key as! String, applicationObject: application)
         }
@@ -192,33 +187,16 @@ let googlPlacesApiKey = googlApiKey
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        
         print("App is in Background mode")
         SManager.defaultSocket.connect()
         SManager.defaultSocket.on(clientEvent: .connect) {data, ack in
             print ("socket connected")
-            
         }
-        //        //  Converted to Swift 4 by Swiftify v4.1.6600 - https://objectivec2swift.com/
-        //        bgTask = application.beginBackgroundTask(withName: "MyTask", expirationHandler: {() -> Void in
-        //            // Clean up any unfinished task business by marking where you
-        //            // stopped or ending the task outright.
-        //
-        //            application.endBackgroundTask(self.bgTask)
-        //            self.bgTask = UIBackgroundTaskInvalid
-        //        })
-        //        // Start the long-running task and return immediately.
-        //        DispatchQueue.global(qos: .default).async(execute: {() -> Void in
-        //            // Do the work associated with the task, preferably in chunks.
-        //            application.endBackgroundTask(self.bgTask)
-        //            self.bgTask = UIBackgroundTaskInvalid
-        //        })
-        
-        
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        webserviceOfAppSetting()
         if let isSwitchOn = UserDefaults.standard.object(forKey: "isPasscodeON") as? Bool {
             Singletons.sharedInstance.isPasscodeON = isSwitchOn
         }
@@ -246,14 +224,100 @@ let googlPlacesApiKey = googlApiKey
         //        SocketManager.disconnect()
     }
     
+    func webserviceOfAppSetting() {
+        let nsObject: AnyObject? = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as AnyObject
+        let version = nsObject as! String
+        
+        var param = String()
+        
+        param = version + "/" + "IOSDriver" + "/" + Singletons.sharedInstance.strDriverID
+        
+        webserviceForAppSetting(param as AnyObject,showHud: false) { (result, status) in
+            print(result)
+            if let dictData = result["driver"] as? [String:Any], let profile = dictData["profile"] as? [String:Any]
+            {
+                var status = String()
+                if let strStatus = profile["Status"] as? String
+                {
+                    status = strStatus
+                }
+                else if let intStatus = profile["Status"] as? Int
+                {
+                    status = "\(intStatus)"
+                }
+                
+                if(status == "0")
+                {
+                    self.webserviceOFSignOut()
+                }
+            }
+        }
+    }
     
+    func webserviceOFSignOut()
+    {
+        let srtDriverID = Singletons.sharedInstance.strDriverID
+        if (srtDriverID == "")
+        {
+            return
+        }
+        
+        let param = srtDriverID + "/" + Singletons.sharedInstance.deviceToken
+        
+        webserviceForSignOut(param as AnyObject) { (result, status) in
+            
+            if (status) {
+                print(result)
+                
+                let socket = (UIApplication.shared.delegate as! AppDelegate).SManager.defaultSocket
+                
+                socket.off(socketApiKeys.kReceiveBookingRequest)
+                socket.off(socketApiKeys.kBookLaterDriverNotify)
+                
+                socket.off(socketApiKeys.kGetBookingDetailsAfterBookingRequestAccepted)
+                socket.off(socketApiKeys.kAdvancedBookingInfo)
+                
+                socket.off(socketApiKeys.kReceiveMoneyNotify)
+                socket.off(socketApiKeys.kAriveAdvancedBookingRequest)
+                
+                socket.off(socketApiKeys.kDriverCancelTripNotification)
+                socket.off(socketApiKeys.kAdvancedBookingDriverCancelTripNotification)
+                Singletons.sharedInstance.setPasscode = ""
+                Singletons.sharedInstance.isPasscodeON = false
+                socket.disconnect()
+                
+                for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
+                    print("\(key) = \(value) \n")
+                    
+                    if(key != "Token" && key != "i18n_language") {
+                        UserDefaults.standard.removeObject(forKey: key)
+                    }
+                }
+                UserDefaults.standard.set(false, forKey: "isTripDestinationShow")
+                UserDefaults.standard.set(false, forKey: kIsSocketEmited)
+                //  UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+                Singletons.sharedInstance.isDriverLoggedIN = false
+                Utilities.findtopViewController()?.performSegue(withIdentifier: "SignOutFromSideMenu", sender: (Any).self)
+                
+            }
+            else {
+                print(result)
+                if let res = result as? String {
+                    UtilityClass.showAlert("App Name".localized, message: res, vc: Utilities.findtopViewController() ?? UIViewController())
+                }
+                else if let resDict = result as? NSDictionary {
+                    UtilityClass.showAlert("App Name".localized, message: resDict.object(forKey: GetResponseMessageKey()) as! String, vc: Utilities.findtopViewController() ?? UIViewController())
+                }
+                else if let resAry = result as? NSArray {
+                    UtilityClass.showAlert("App Name".localized, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, vc:  Utilities.findtopViewController() ?? UIViewController())
+                }
+            }
+        }
+    }
     // Push Notification Methods
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
-        _ = deviceToken.map({ (data)-> String in
-            return String(format: "%0.2.2hhx", data)
-        })
-        //        let token = toketParts.joined()
+       
         Messaging.messaging().apnsToken = deviceToken as Data
         
         if let fcmToken = Messaging.messaging().fcmToken
@@ -261,7 +325,7 @@ let googlPlacesApiKey = googlApiKey
             Singletons.sharedInstance.deviceToken = fcmToken
         }
         UserDefaults.standard.set(Singletons.sharedInstance.deviceToken, forKey: "Token")
-        
+        UserDefaults.standard.synchronize()
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -324,7 +388,17 @@ let googlPlacesApiKey = googlApiKey
     }
     
     
-    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("the data is \(notification.request.content.userInfo)")
+        if let key = (notification.request.content.userInfo["gcm.notification.type"]) as? String
+        {
+            if(key.lowercased() == "logout")
+            {
+                self.webserviceOFSignOut()
+            }
+        }
+        completionHandler([.alert,.sound])
+    }
     
     //-------------------------------------------------------------
     // MARK: - Push Notification Methods

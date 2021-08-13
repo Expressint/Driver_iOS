@@ -374,12 +374,12 @@ class PendingJobsListVC: UIViewController, UITableViewDataSource, UITableViewDel
         //        else
         //        {
         if Connectivity.isConnectedToInternet() == false {
-            UtilityClass.showAlert("App Name".localized, message: "Sorry! Not connected to internet".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             return
         }
         
         if(Singletons.sharedInstance.driverDuty != "1") {
-            UtilityClass.showAlert("App Name".localized, message: "Get online First.".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "message_getOnline".localized, vc: self)
             return
         }
         let bookingID = String((sender.tag))

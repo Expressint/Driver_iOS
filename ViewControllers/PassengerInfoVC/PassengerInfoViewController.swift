@@ -139,9 +139,10 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
         if(imgURL != "" )
         {
 //            imgPassengerProfile.sd_setIndicatorStyle(UIActivityIndicatorView.Style.gray)
-            imgPassengerProfile.sd_setImage(with: URL(string:  WebserviceURLs.kImageBaseURL + imgURL)) { (image, error, cacheType, url) in
+            imgPassengerProfile.sd_setImage(with: URL(string:  WebserviceURLs.kImageBaseURL + imgURL), placeholderImage: UIImage(named: "iconUsers"), options: .progressiveLoad, completed: nil)
+//            imgPassengerProfile.sd_setImage(with: URL(string:  WebserviceURLs.kImageBaseURL + imgURL)) { (image, error, cacheType, url) in
 //                self.imgPassengerProfile.sd_removeActivityIndicator()
-            }
+//            }
         }
         
         if strPassengerMobileNumber == "" {

@@ -142,7 +142,7 @@ class TripToDestinationViewController: ParentViewController, GMSAutocompleteView
     {
         if SingletonsForTripToDestination.sharedInstance.isFirstDestinationSelected == false
         {
-            UtilityClass.showAlert("", message: "Please select First Destination", vc: self)
+            UtilityClass.showAlert("", message: "message_selectDestination", vc: self)
         }
         else
         {
@@ -150,7 +150,7 @@ class TripToDestinationViewController: ParentViewController, GMSAutocompleteView
             SingletonsForTripToDestination.sharedInstance.isSecondDestinationSelected = true
             SingletonsForTripToDestination.sharedInstance.strSecondDestination = "CTM"
             SingletonsForTripToDestination.sharedInstance.isTripDestinationHide = true
-             UtilityClass.showAlert("", message: "Your second destination selected.", vc: self)
+             UtilityClass.showAlert("", message: "message_secondDestinationSelected", vc: self)
             UserDefaults.standard.set(SingletonsForTripToDestination.sharedInstance.isTripDestinationHide, forKey: "isTripDestinationShow")
 
         }
@@ -167,7 +167,7 @@ class TripToDestinationViewController: ParentViewController, GMSAutocompleteView
     }
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        txtDestination.text = "\(place.name) \(place.formattedAddress)"
+        txtDestination.text = "\(place.name ?? "") \(place.formattedAddress ?? "")"
         doubleLat = place.coordinate.latitude
         doubleLng = place.coordinate.longitude
         dismiss(animated: true, completion: nil)
@@ -227,7 +227,7 @@ class TripToDestinationViewController: ParentViewController, GMSAutocompleteView
 
         let strAddress = txtDestination.text!
         if strAddress == "" {
-            UtilityClass.showAlert("App Name".localized, message: "Please enter a Destination.".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "message_enterDestination".localized, vc: self)
         } else {
             var dictParam = [String:AnyObject]()
             let driverID = Singletons.sharedInstance.strDriverID

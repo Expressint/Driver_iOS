@@ -50,6 +50,7 @@ class Utilities: NSObject
         vc.present(alert, animated: true, completion: nil)
         
     }
+
     class func checkEmptyString(str: String?) -> String
     {
         var newString : String?

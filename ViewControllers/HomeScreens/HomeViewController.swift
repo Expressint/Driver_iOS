@@ -9,7 +9,7 @@
 import UIKit
 import SideMenuController
 import GooglePlaces
-import GooglePlacePicker
+//import GooglePlacePicker
 import GoogleMaps
 import CoreLocation
 import SocketIO
@@ -153,6 +153,14 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     
     lazy var geocoder = CLGeocoder()
+    
+    //MARK:- Holding Button
+    
+    @IBOutlet weak var btnCompleteTrip: UIButton!
+    @IBOutlet weak var btnWaiting: UIButton!
+    @IBOutlet weak var btnWaiting2 : UIButton!
+    @IBOutlet weak var btnShowWaiting : UIButton!
+
     
     //-------------------------------------------------------------
     // MARK: - Base Methods
@@ -837,10 +845,13 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             self.cancelTripByPassenger()                                // DriverCancelTripNotification
             self.NewBookLaterRequestArrivedNotification()   // AdvancedBookingDriverCancelTripNotification
             self.getNotificationForReceiveMoneyNotify()     // ReceiveMoneyNotify
-            self.onSessionError()                           // SessionError
+            self.onSessionError()// SessionError
+            self.onUpdateDropoffLocation()
             self.getTimeOfStartTrip()                       // StartTripTimeError
             self.getNotificationforReceiveTip()
             self.getNotificationforReceiveTipForBookLater()
+            self.checkIfDriverIsInPickupLocationRadius()
+//            self.getNotificationforUpdateBookingDetails()
             self.onAdvancedBookingPickupPassengerNotification() // AdvancedBookingPickupPassengerNotification
         }
         
@@ -1261,7 +1272,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     func zoomoutCamera(PickupLat: CLLocationDegrees, PickupLng: CLLocationDegrees, DropOffLat : String, DropOffLon: String)
     {
-        let bounds = GMSCoordinateBounds(coordinate: CLLocationCoordinate2D(latitude: Double(PickupLat), longitude: Double(PickupLng)), coordinate: CLLocationCoordinate2D(latitude: Double(DropOffLat)!, longitude: Double(DropOffLon)!))
+        let bounds = GMSCoordinateBounds(coordinate: CLLocationCoordinate2D(latitude: Double(PickupLat), longitude: Double(PickupLng)), coordinate: CLLocationCoordinate2D(latitude: (Double(DropOffLat) ?? Double(0)), longitude: (Double(DropOffLon) ?? Double(0))))
         
         let update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(40))
         
@@ -1298,6 +1309,20 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         let BookingInfo = getBookingAndPassengerInfo.0
         let PassengerInfo = getBookingAndPassengerInfo.1
         
+        
+        if let isArrived = BookingInfo.object(forKey: "IsArrived") as? String {
+            if(isArrived == "0" || isArrived == "")
+            {
+                self.btnStartTrip.setTitle("Arrived", for: .normal)
+
+            }
+            else
+            {
+                self.btnStartTrip.setTitle("Start Trip", for: .normal)
+
+            }
+        }
+
         if let paymentType = BookingInfo.object(forKey: "PaymentType") as? String {
             Singletons.sharedInstance.passengerPaymentType = paymentType
         }
@@ -1310,6 +1335,28 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         }
         if let passengerNote = BookingInfo.object(forKey: "Notes") as? String {
             Singletons.sharedInstance.passengerNote = passengerNote
+        }
+        
+        
+        let strBookingAry = data
+        if let strBookingFirstDict = strBookingAry.firstObject as? NSDictionary {
+            if let strBookingType = strBookingFirstDict.object(forKey: "BookingType") as? String {
+                Singletons.sharedInstance.strBookingType = strBookingType
+            }
+            else {
+                Singletons.sharedInstance.strBookingType = "BookLater"
+            }
+        }
+//        else {
+//            Singletons.sharedInstance.strBookingType = "BookLater"
+//        }
+        
+        
+        
+        if(Singletons.sharedInstance.strBookingType == "BookLater")
+        {
+            let strID = BookingInfo.object(forKey: "Id") as AnyObject
+            self.advanceBookingID = String(describing: strID)
         }
         
         
@@ -1883,6 +1930,9 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             
         })
     }
+    
+    
+  
     func gettopMostViewController() -> UIViewController?
     {
         
@@ -2035,6 +2085,36 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             
             //            self.performSegue(withIdentifier: "segueReceiveRequest", sender: nil)
         })
+    }
+    
+    //
+    //-------------------------------------------------------------
+    // MARK: - Update Drop Location
+    //-------------------------------------------------------------
+    
+    
+    func onUpdateDropoffLocation() {
+        
+        self.socket.on(socketApiKeys.kUpdateDropoffLocation) { (data, ack) in
+            print(#function,": \(data)")
+            
+            if let aryData = data as? [[String:Any]] {
+                if aryData.count != 0 {
+                    if let dictData = aryData.first {
+                        Singletons.sharedInstance.bookingId = "\(dictData["BookingId"]!)"
+                        
+                        let messages = "\(dictData["message"]!)"
+                        let alert = UIAlertController(title: appName.kAPPName, message: messages, preferredStyle: .alert)
+                        let ok = UIAlertAction(title: "OK", style: .default) { (action) in
+                            self.webserviceOfRunningTripTrack()
+                        }
+                        
+                        alert.addAction(ok)
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
     }
     
     //
@@ -2236,7 +2316,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     @IBAction func btnCurrentLocation(_ sender: UIButton) {
         if Connectivity.isConnectedToInternet() == false {
-            UtilityClass.showAlert("App Name".localized, message: "Sorry! Not connected to internet".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             return
         }
         
@@ -2248,6 +2328,17 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     @IBAction func btnReached(_ sender: UIButton) {
         
+        
+        
+        UIView.animate(withDuration: 0.6,
+                       animations: {
+                        sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+                       },
+                       completion: { _ in
+                        UIView.animate(withDuration: 0.6) {
+                            sender.transform = CGAffineTransform.identity
+                        }
+                       })
         
         let BookingInfo : NSDictionary!
         
@@ -2280,7 +2371,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         {
             strTempBookingId = "\(IntbookingID)"
         }
-         if(currentCount == "0")
+        if(currentCount == "0")
         {
             webserviceOfSubmitMultipleDropoff(bookingId: strTempBookingId, dropOffCount: "1", skip: "1")
         }
@@ -2289,36 +2380,36 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             webserviceOfSubmitMultipleDropoff(bookingId: strTempBookingId, dropOffCount: "2", skip: "0")
         }
         
-      /*  aryBookingDropoffsData = aryBookingDropoffsData.filter{($0["Status"] as! String) == ""}
-        
-        if aryBookingDropoffsData.count != 0 {
-            filteredBookingDropoffs = aryBookingDropoffsData.first!
-            strTempBookingId = "\(filteredBookingDropoffs["BookingId"]!)"
-            strTempDropOffCount = "\(filteredBookingDropoffs["DropoffCount"]!)"
-            
-            if sender.tag == 1 {
-                webserviceOfSubmitMultipleDropoff(bookingId: strTempBookingId, dropOffCount: strTempDropOffCount, skip: "1")
-            } else {
-                webserviceOfSubmitMultipleDropoff(bookingId: strTempBookingId, dropOffCount: strTempDropOffCount, skip: "0")
-            }
-        }
-        else {
-            btnReached.isHidden = true
-        }*/
+        /*  aryBookingDropoffsData = aryBookingDropoffsData.filter{($0["Status"] as! String) == ""}
+         
+         if aryBookingDropoffsData.count != 0 {
+         filteredBookingDropoffs = aryBookingDropoffsData.first!
+         strTempBookingId = "\(filteredBookingDropoffs["BookingId"]!)"
+         strTempDropOffCount = "\(filteredBookingDropoffs["DropoffCount"]!)"
+         
+         if sender.tag == 1 {
+         webserviceOfSubmitMultipleDropoff(bookingId: strTempBookingId, dropOffCount: strTempDropOffCount, skip: "1")
+         } else {
+         webserviceOfSubmitMultipleDropoff(bookingId: strTempBookingId, dropOffCount: strTempDropOffCount, skip: "0")
+         }
+         }
+         else {
+         btnReached.isHidden = true
+         }*/
     }
     
     @IBAction func btnStartTrip(_ sender: UIButton) {
         
         if Connectivity.isConnectedToInternet() == false {
-            UtilityClass.showAlert("App Name".localized, message: "Sorry! Not connected to internet".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             return
         }
         
         if(Singletons.sharedInstance.driverDuty != "1") {
-            UtilityClass.showAlert("App Name".localized, message: "Get Online first.".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "message_getOnline".localized, vc: self)
             return
         } else if self.btnWaiting.isSelected == true {
-            UtilityClass.showAlert("App Name".localized, message: "Please stop trip waiting time first.".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "message_StopWaitingTime".localized, vc: self)
             return
         }
         
@@ -2353,28 +2444,93 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 
             }
             else {
-                
-                self.startTrip()
-                self.btnStartTripAction()
+                if(self.btnStartTrip.title(for: .normal) == "Arrived")
+                {
+                    driverClickedArrived()
+                }
+                else
+                {
+                    self.startTrip()
+                    self.btnStartTripAction()
+                }
             }
         }
     }
     
+    func driverClickedArrived()
+    {
+        //        btnStartTrip.setTitle("Start Trip", for: .normal)
+        //        Singletons.sharedInstance.isRequestAccepted = true
+        
+        
+        
+        if Singletons.sharedInstance.bookingId == "" {
+            Singletons.sharedInstance.bookingId = bookingID
+        }
+        let BookingInfo : NSDictionary!
+        
+        if((((self.aryPassengerData as NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "BookingInfo") as? NSDictionary) == nil)
+        {
+            // print ("Yes its  array ")
+            BookingInfo = (((self.aryPassengerData as NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "BookingInfo") as? NSArray)?.object(at: 0) as? NSDictionary
+        }
+        else
+        {
+            // print (Yes its dictionary")
+            BookingInfo = (((self.aryPassengerData as NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "BookingInfo") as? NSDictionary) //.object(at: 0) as! NSDictionary
+        }
+        
+        let myJSON = [socketApiKeys.kCurrentLat : "\(self.defaultLocation.coordinate.latitude)",
+                      socketApiKeys.kCurrentLong : "\(self.defaultLocation.coordinate.longitude)",
+                      socketApiKeys.kPickUpLat : BookingInfo.object(forKey: "PickupLat") ?? "",
+                      socketApiKeys.kPickUpLong : BookingInfo.object(forKey: "PickupLng") ?? "",
+                      socketApiKeys.kBookingType : Singletons.sharedInstance.strBookingType,
+                      socketApiKeys.kPassengerId : BookingInfo.object(forKey: "PassengerId") ?? "",
+                      socketApiKeys.kBookingId : BookingInfo.object(forKey: "Id") ?? "",
+                      profileKeys.kDriverId : driverID] as [String : Any]
+        socket.emit(socketApiKeys.kDriverArrivedCheck, with: [myJSON])
+        print ("driverClickedArrived : \(myJSON)")
+
+        
+    }
+    
+    func checkIfDriverIsInPickupLocationRadius() {
+        
+        self.socket.on(socketApiKeys.kDriverArrivedCheck, callback: { (data, ack) in
+            print (#function, data)
+            if let isArrived = (data.first as? [String:Any])?["IsArrived"] as? String
+            {
+                if(isArrived == "1")
+                {
+                    self.btnStartTrip.setTitle("Start Trip", for: .normal)
+                }
+                else
+                {
+                    if let strMessage = (data.first as? [String:Any])?["message"] as? String
+                    {
+                        UtilityClass.showAlert(appName.kAPPName, message: strMessage, vc: self)
+                    }
+                }
+               
+            }
+        })
+    }
+    
     @IBAction func btnCancelTrip(_ sender: Any) {
         if Connectivity.isConnectedToInternet() == false {
-            UtilityClass.showAlert("App Name".localized, message: "Sorry! Not connected to internet".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             return
         }
         
         if(Singletons.sharedInstance.driverDuty != "1") {
-            UtilityClass.showAlert("App Name".localized, message: "Get online First.".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "message_getOnline".localized, vc: self)
             return
         } else if self.btnWaiting.isSelected == true {
-            UtilityClass.showAlert("App Name".localized, message: "Please stop trip waiting time first.".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "message_StopWaitingTime".localized, vc: self)
             return
         }
         
-        let CancelTripAlert = UIAlertController(title: "App Name".localized, message: "Are you sure you want to cancel the trip?".localized, preferredStyle: .alert)
+        let CancelTripAlert = UIAlertController(title: "App Name".localized, message: "message_cancelTrip".localized, preferredStyle: .alert)
         CancelTripAlert.addAction(UIAlertAction(title: "Yes".localized, style: .default , handler: { (UIAlertAction) in
             self.cancelTrip()
         }))
@@ -2458,7 +2614,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     func btnStartTripAction() {
         if Connectivity.isConnectedToInternet() == false {
-            UtilityClass.showAlert("App Name".localized, message: "Sorry! Not connected to internet".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             return
         }
         
@@ -2475,10 +2631,13 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         if isAdvanceBooking == true {
             
-//            BottomButtonView.isHidden = true
+            BottomButtonView.isHidden = false
 //            StartTripView.isHidden = false
             //            self.btnStartTrip.isHidden = true
-            self.viewLocationDetails.isHidden = false
+            self.stackViewOfCompleteTrip.isHidden = false
+            self.stackViewOfCancelTrip.isHidden = true
+            self.stackViewOfStartTrip.isHidden = true
+//            self.viewLocationDetails.isHidden = false
             self.constrainLocationViewBottom?.priority = UILayoutPriority(rawValue: 800)
             self.pickupPassengerFromLocation()
             
@@ -2708,15 +2867,15 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     @IBAction func btnCompleteTrip(_ sender: UIButton)
     {
         if Connectivity.isConnectedToInternet() == false {
-            UtilityClass.showAlert("App Name".localized, message: "Sorry! Not connected to internet".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             return
         }
         
         if(Singletons.sharedInstance.driverDuty != "1") {
-            UtilityClass.showAlert("App Name".localized, message: "Get online First.".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "message_getOnline".localized, vc: self)
             return
         } else if self.btnWaiting.isSelected == true {
-            UtilityClass.showAlert("App Name".localized, message: "Please stop trip waiting time first.".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "message_StopWaitingTime".localized, vc: self)
             return
         }
         
@@ -3169,12 +3328,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
     }
     
-    //MARK:- Holding Button
-    
-    @IBOutlet weak var btnCompleteTrip: UIButton!
-    @IBOutlet weak var btnWaiting: UIButton!
-    @IBOutlet weak var btnWaiting2 : UIButton!
-    @IBOutlet weak var btnShowWaiting : UIButton!
 
     // Holding Button
     @IBAction func btnHoldWaiting(_ sender: UIButton) {
@@ -3334,7 +3487,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     @IBAction func btnAcceptRequest(_ sender: UIButton) {
         
         if Connectivity.isConnectedToInternet() == false {
-            UtilityClass.showAlert("App Name".localized, message: "Sorry! Not connected to internet".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             return
         }
         
@@ -3353,7 +3506,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     @IBAction func btnRejectRequest(_ sender: UIButton) {
         if Connectivity.isConnectedToInternet() == false {
-            UtilityClass.showAlert("App Name".localized, message: "Sorry! Not connected to internet".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             return
         }
         
@@ -3415,8 +3568,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         let PickupLat = self.defaultLocation.coordinate.latitude
         let PickupLng = self.defaultLocation.coordinate.longitude
         
-        let dummyLatitude = Double(PickupLat) - Double(DropOffLat)!
-        let dummyLongitude = Double(PickupLng) - Double(DropOffLon)!
+        let dummyLatitude = Double(PickupLat) - (Double(DropOffLat) ?? Double(0))
+        let dummyLongitude = Double(PickupLng) - (Double(DropOffLon) ?? Double(0))
         
         let waypointLatitude = self.defaultLocation.coordinate.latitude - dummyLatitude
         let waypointSetLongitude = self.defaultLocation.coordinate.longitude - dummyLongitude
@@ -4479,7 +4632,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                             
                             Singletons.sharedInstance.isPickUPPasenger = false
                             
-                            self.bookingtypeBookLater()
+                            self.bookingTypeIsBookNow()
                             
                         }
                         else if statusOfRequest == "traveling" {
@@ -4765,7 +4918,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                     self.btnReached.isHidden = true
                 }
             } else {
-                //                UtilityClass.showAlertOfAPIResponse(param: result, vc: self)
+                                UtilityClass.showAlertOfAPIResponse(param: result, vc: self)
             }
         }
     }
@@ -5107,7 +5260,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                     Singletons.sharedInstance.dictTripDestinationLocation["location"] = resultData["location"] as AnyObject
                     Singletons.sharedInstance.dictTripDestinationLocation["trip_to_destin"] = resultData["trip_to_destin"] as AnyObject
                     
-                    Singletons.sharedInstance.strCurrentBalance = Double(resultData.object(forKey: "balance") as! String)!
+                    Singletons.sharedInstance.strCurrentBalance = (Double(resultData.object(forKey: "balance") as? String ?? "0.0")) ?? Double(0.0)
                     
                     if let shareRide = resultData["share_ride"] as? String {
                         if shareRide == "1" {
@@ -5209,7 +5362,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     @IBAction func getDirections(_ sender: Any) {
         if Connectivity.isConnectedToInternet() == false {
-            UtilityClass.showAlert("App Name".localized, message: "Sorry! Not connected to internet".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             return
         }
         

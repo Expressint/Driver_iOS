@@ -265,7 +265,7 @@ class FutureBookingVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 
     @objc func btnActionForSelectRecord(sender: UIButton) {
         if Connectivity.isConnectedToInternet() == false {
-            UtilityClass.showAlert("App Name".localized, message: "Sorry! Not connected to internet".localized, vc: self)
+            UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             return
         }
         

@@ -109,6 +109,7 @@
         super.viewDidLoad()
         manager.delegate = self
         txtMobile.delegate = self
+        txtPassword.delegate = self
         lblLaungageName.layer.cornerRadius = 5
         lblLaungageName.backgroundColor = ThemeAppMainColor
         lblLaungageName.layer.borderColor = UIColor.black.cgColor
@@ -125,8 +126,8 @@
             }
         }
         
-        txtMobile.text = "9898989898"//"1111111111"
-        txtPassword.text = "12345678"
+//        txtMobile.text = "9898989898"//"1111111111"
+//        txtPassword.text = "12345678"
         
         Utilities.setStatusBarColor(color: UIColor.clear)
       
@@ -384,6 +385,7 @@
     
     func webserviceForLoginDrivers()
     {
+        self.view.endEditing(true)
         dictData["Username"] = txtMobile.text as AnyObject
         dictData["Password"] = txtPassword.text as AnyObject
         
@@ -494,8 +496,8 @@
         
         var param = String()
         
-        param = version + "/" + "IOSDriver"
-        
+        param = version + "/" + "IOSDriver" + "/" + Singletons.sharedInstance.strDriverID
+
         webserviceForAppSetting(param as AnyObject) { (result, status) in
             
             if(status) {
@@ -508,6 +510,24 @@
                  }
                  */
                 //                self.viewMain.isHidden = true
+                
+                if let dictData = result["driver"] as? [String:Any], let profile = dictData["profile"] as? [String:Any]
+                {
+                    var status = String()
+                    if let strStatus = profile["Status"] as? String
+                    {
+                        status = strStatus
+                    }
+                    else if let intStatus = profile["Status"] as? Int
+                    {
+                        status = "\(intStatus)"
+                    }
+                    
+                    if(status == "0")
+                    {
+                        Appdelegate.webserviceOFSignOut()
+                    }
+                }
                 
                 if ((result as! NSDictionary).object(forKey: "update") as? Bool) != nil {
                     
@@ -607,16 +627,9 @@
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        if textField == txtMobile {
-//            let resultText: String? = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
-//
-//            if resultText!.count >= 11 {
-//                return false
-//            }
-//            else {
-//                return true
-//            }
-//        }
+        if (string == " ") {
+            return false
+        }
         return true
     }
     //-------------------------------------------------------------

@@ -7,9 +7,9 @@
 */
 
 "App Name" = "Book A Ride Driver";
-"Currency" = "TZS";
+"Currency" = "$";
 "Internet Error" = "Internet Error";
-"Sorry! Not connected to internet" = "Sorry! Not connected to internet";
+"messageNotConnectedToInternet" = "Sorry! Not connected to internet";
 "Something is wrong, try again later" = "Something is wrong, try again later";
 "Permission Denied, You cannot access location data." = "Permission Denied, You cannot access location data.";
 "Location" = "Location";
@@ -127,7 +127,7 @@
 "Booking Charge" = "Booking Charge:";
 "Grand Total" = "Grand Total";
 "Current Location" = "Current Location";
-"Get online First." = "Get online First.";
+"message_getOnline" = "Get online First.";
 "You" = "You";
 "Passenger" = "Passenger";
 "Destination Location" = "Destination Location";
@@ -138,7 +138,7 @@
 "How was your Ride?" = "How was your Ride?";
 "How was your Ride with" = "How was your Ride with";
 "Write a comment" = "Write a comment";
-"Are you sure you want to cancel the trip?" = "Are you sure you want to cancel the trip?";
+"message_cancelTrip" = "Are you sure you want to cancel the trip?";
 "Profile Update" = "Profile Update";
 "Full Name" = "Full Name";
 "Profile" = "Profile";
@@ -283,7 +283,7 @@
 "Please enter Customer Name." = "Please enter Customer Name.";
 "Please enter Customer Mobile No." = "Please enter Customer Mobile No.";
 "Please enter Pick Up Location." = "Please enter Pick Up Location.";
-"Please enter a Destination." = "Please enter a Destination.";
+"message_enterDestination" = "Please enter a Destination.";
 "Please enter Fare Amount." = "Please enter Fare Amount.";
 "Please select Model Type." = "Please select Model Type.";
 "Please select Date and Time." = "Please select Date and Time.";
@@ -301,4 +301,6 @@
 "Thanks for feedback." = "Thanks for feedback.";
 "Please install Google Maps." = "Please install Google Maps.";
 "Are you sure you want to logout?" = "Are you sure you want to logout?";
-"Please stop trip waiting time first." = "Please stop trip waiting time first.";
+"message_StopWaitingTime" = "Please stop trip waiting time first.";
+"message_selectDestination" = "Please select First Destination";
+"message_secondDestinationSelected" = "Your second destination selected";

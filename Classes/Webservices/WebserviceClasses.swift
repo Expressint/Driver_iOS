@@ -33,7 +33,7 @@ func postData(_ dictParams: AnyObject, nsURL: String, completion: @escaping (_ r
     print("The webservice call is \(url) and the params are \(dictParams)")
     
     if Connectivity.isConnectedToInternet() == false {
-         completion("Sorry! Not connected to internet".localized as AnyObject, false)
+         completion("messageNotConnectedToInternet".localized as AnyObject, false)
         return
     }
     
@@ -76,7 +76,7 @@ func postData(_ dictParams: AnyObject, nsURL: String, completion: @escaping (_ r
 // MARK: - Webservice For GetData Method
 //-------------------------------------------------------------
 
-func getData(_ dictParams: AnyObject, nsURL: String,  completion: @escaping (_ result: AnyObject, _ success: Bool) -> Void)
+func getData(_ dictParams: AnyObject, nsURL: String, showHud : Bool = true,  completion: @escaping (_ result: AnyObject, _ success: Bool) -> Void)
 {
     let url = BaseURL + nsURL
 //    HUD.dimsBackground = false
@@ -84,12 +84,13 @@ func getData(_ dictParams: AnyObject, nsURL: String,  completion: @escaping (_ r
 //    HUD.show(.systemActivity)
     
     if Connectivity.isConnectedToInternet() == false {
-        completion("Sorry! Not connected to internet".localized as AnyObject, false)
+        completion("messageNotConnectedToInternet".localized as AnyObject, false)
         return
     }
-    
-    UtilityClass.showACProgressHUD()
-   
+    if(showHud)
+    {
+        UtilityClass.showACProgressHUD()
+    }
 //    DispatchQueue.main.async {
 //            let activityData = ActivityData()
 //        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
@@ -139,7 +140,7 @@ func getDataOfHistory(_ dictParams: AnyObject, nsURL: String,  completion: @esca
  
     let url = BaseURL + nsURL
     if Connectivity.isConnectedToInternet() == false {
-        completion("Sorry! Not connected to internet".localized as AnyObject, false)
+        completion("messageNotConnectedToInternet".localized as AnyObject, false)
         return
     }
     
@@ -191,7 +192,7 @@ func sendImage(_ dictParams: [String:AnyObject], image1: UIImage, image2: UIImag
     let url = BaseURL + nsURL
     
     if Connectivity.isConnectedToInternet() == false {
-        completion("Sorry! Not connected to internet".localized as AnyObject, false)
+        completion("messageNotConnectedToInternet".localized as AnyObject, false)
         return
     }
     
@@ -301,7 +302,7 @@ func DeiverInfo(_ dictParams: [String:AnyObject], image1: UIImage, nsURL: String
     
     let url = BaseURL + nsURL
     if Connectivity.isConnectedToInternet() == false {
-        completion("Sorry! Not connected to internet".localized as AnyObject, false)
+        completion("messageNotConnectedToInternet".localized as AnyObject, false)
         return
     }
     
@@ -384,7 +385,7 @@ func sendUpdateDriverDocument(_ dictParams: [String:AnyObject], image: UIImage, 
     let url = BaseURL + nsURL
     
     if Connectivity.isConnectedToInternet() == false {
-        completion("Sorry! Not connected to internet".localized as AnyObject, false)
+        completion("messageNotConnectedToInternet".localized as AnyObject, false)
         return
     }
 //    let headers: HTTPHeaders = ["key": "TicktocApp123*"]

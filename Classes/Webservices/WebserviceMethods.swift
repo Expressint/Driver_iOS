@@ -492,10 +492,10 @@ func webserviceForTransferMoneyToBank(_ dictParams: AnyObject, completion: @esca
 // MARK: - Webservice For App Setting
 //-------------------------------------------------------------
 
-func webserviceForAppSetting(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+func webserviceForAppSetting(_ dictParams: AnyObject, showHud : Bool = true, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
     let url = AppSetting + "\(dictParams)"
-    getData("" as AnyObject, nsURL: url, completion: completion)
+    getData("" as AnyObject, nsURL: url,showHud: showHud, completion: completion)
 }
 
 

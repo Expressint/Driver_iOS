@@ -56,6 +56,9 @@ class DriverEmailViewController: UIViewController, UIScrollViewDelegate, NVActiv
             constraintHeightOfAllTextFields.constant = 30
         }
         txtMobile.delegate = self
+        txtPassword.delegate = self
+        txtEmail.delegate = self
+        txtConPassword.delegate = self
         txtOTP.keyboardType = .numberPad
 //        txtMobile.text = "5500990033"
 //        txtEmail.text = "djhfs@sjhdf.com"
@@ -352,6 +355,10 @@ class DriverEmailViewController: UIViewController, UIScrollViewDelegate, NVActiv
 
 extension DriverEmailViewController : UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if (string == " ") {
+            return false
+        }
         if textField == txtMobile {
             let resultText: String? = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
             
