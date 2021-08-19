@@ -733,6 +733,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
     }
     @IBAction func btnMyJob(_ sender: UIButton) {
+        sender.LoadButtonAnimation()
         performSegue(withIdentifier: "segueToMyJob", sender: self)
     }
     
@@ -2315,6 +2316,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     //-------------------------------------------------------------
     
     @IBAction func btnCurrentLocation(_ sender: UIButton) {
+        sender.LoadButtonAnimation()
         if Connectivity.isConnectedToInternet() == false {
             UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             return
@@ -2327,18 +2329,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     
     @IBAction func btnReached(_ sender: UIButton) {
-        
-        
-        
-        UIView.animate(withDuration: 0.6,
-                       animations: {
-                        sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
-                       },
-                       completion: { _ in
-                        UIView.animate(withDuration: 0.6) {
-                            sender.transform = CGAffineTransform.identity
-                        }
-                       })
+        sender.LoadButtonAnimation()
+      
         
         let BookingInfo : NSDictionary!
         
@@ -2371,14 +2363,14 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         {
             strTempBookingId = "\(IntbookingID)"
         }
-        if(currentCount == "0")
-        {
-            webserviceOfSubmitMultipleDropoff(bookingId: strTempBookingId, dropOffCount: "1", skip: "1")
-        }
-        else
-        {
-            webserviceOfSubmitMultipleDropoff(bookingId: strTempBookingId, dropOffCount: "2", skip: "0")
-        }
+//        if(currentCount == "0")
+//        {
+//            webserviceOfSubmitMultipleDropoff(bookingId: strTempBookingId, dropOffCount: "1", skip: "1")
+//        }
+//        else
+//        {
+//            webserviceOfSubmitMultipleDropoff(bookingId: strTempBookingId, dropOffCount: "2", skip: "0")
+//        }
         
         /*  aryBookingDropoffsData = aryBookingDropoffsData.filter{($0["Status"] as! String) == ""}
          
@@ -2397,7 +2389,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
          btnReached.isHidden = true
          }*/
     }
-    
+   
     @IBAction func btnStartTrip(_ sender: UIButton) {
         
         if Connectivity.isConnectedToInternet() == false {
@@ -2430,7 +2422,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 
             }
             else {
-                
+                sender.LoadButtonAnimation()
                 self.PickupPassengerByDriverInBookLaterRequest()
                 
                 //                self.btnStartTripAction()
@@ -2444,6 +2436,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 
             }
             else {
+                sender.LoadButtonAnimation()
                 if(self.btnStartTrip.title(for: .normal) == "Arrived")
                 {
                     driverClickedArrived()
@@ -2516,7 +2509,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         })
     }
     
-    @IBAction func btnCancelTrip(_ sender: Any) {
+    @IBAction func btnCancelTrip(_ sender: UIButton) {
+        sender.LoadButtonAnimation()
         if Connectivity.isConnectedToInternet() == false {
             UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             return
@@ -2703,45 +2697,46 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     }
     
     @IBAction func btnShowPassengerInfo(_ sender: UIButton) {
-        
+        sender.LoadButtonAnimation()
+       
         let data: NSArray = self.aryBookingData
-        
+
         UserDefaults.standard.set(data, forKey: "BookNowInformation")
         UserDefaults.standard.synchronize()
-        
+
         self.aryPassengerData = NSArray(array: data)
         self.BottomButtonView.isHidden = false
         self.btnStartTrip.isHidden = false
         let getPassengerInfo = getBookingAndPassengerInfo(data: self.aryPassengerData)
-        
+
         let BookingInfo = getPassengerInfo.0
         let PassengerInfo = getPassengerInfo.1
         var imgURL = String()
-        
+
         //        self.lblLocationOnMap.text = BookingInfo.object(forKey: "PickupLocation") as? String
         self.strPickupLocation = BookingInfo.object(forKey: "PickupLocation") as! String
         self.strDropoffLocation = BookingInfo.object(forKey: "DropoffLocation") as! String
         self.strPassengerName = PassengerInfo.object(forKey: "Fullname") as! String
         self.strPassengerMobileNo = PassengerInfo.object(forKey: "MobileNo") as! String
-        
+
         if let img =  PassengerInfo.object(forKey: "Image") as? String {
             imgURL = img
         }
         else {
             imgURL = ""
         }
-        
+
         if let PassengerType = BookingInfo.object(forKey: "PassengerType") as? String {
             Singletons.sharedInstance.passengerType = PassengerType
         }
         if Singletons.sharedInstance.passengerType == "other" || Singletons.sharedInstance.passengerType == "others" {
-            
+
             if let contactNumber = BookingInfo.object(forKey: "PassengerContact") as? String {
-                
+
                 self.strPassengerMobileNo = contactNumber
             }
         }
-        
+
         if let strDropoffLocation2 = BookingInfo.object(forKey: "DropoffLocation2") as? String {
             self.strDropoffLocation2 = strDropoffLocation2
         }
@@ -2866,6 +2861,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     @IBAction func btnCompleteTrip(_ sender: UIButton)
     {
+        sender.LoadButtonAnimation()
         if Connectivity.isConnectedToInternet() == false {
             UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             return
@@ -3331,6 +3327,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
 
     // Holding Button
     @IBAction func btnHoldWaiting(_ sender: UIButton) {
+        sender.LoadButtonAnimation()
         if isAdvanceBooking {
             if advanceBookingID == "" {
                 UtilityClass.showAlert("App Name".localized, message: "Booking Id".localized, vc: self)
@@ -3485,7 +3482,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     @IBOutlet weak var btnAcceptRequest: UIButton!
     
     @IBAction func btnAcceptRequest(_ sender: UIButton) {
-        
+        sender.LoadButtonAnimation()
         if Connectivity.isConnectedToInternet() == false {
             UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             return
@@ -3505,6 +3502,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     }
     
     @IBAction func btnRejectRequest(_ sender: UIButton) {
+        sender.LoadButtonAnimation()
         if Connectivity.isConnectedToInternet() == false {
             UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             return
@@ -3520,7 +3518,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     }
     
     @IBAction func btnPassengerInfoOK(_ sender: UIButton) {
-        
+        sender.LoadButtonAnimation()
     }
     
     func pickupPassengerFromLocation() {
@@ -5326,9 +5324,9 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     // MARK: - Trip Bookings
     //-------------------------------------------------------------
     
-    @IBAction func btnRoadPickUp(_ sender: Any)
+    @IBAction func btnRoadPickUp(_ sender: UIButton)
     {
-        
+        sender.LoadButtonAnimation()
         //        self.performSegue(withIdentifier: "segueToTRoadPickup", sender: nil)
         
         
@@ -5360,7 +5358,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         btnStartTripAction()
     }
     
-    @IBAction func getDirections(_ sender: Any) {
+    @IBAction func getDirections(_ sender: UIButton) {
+        sender.LoadButtonAnimation()
         if Connectivity.isConnectedToInternet() == false {
             UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
             return
@@ -5592,5 +5591,61 @@ extension UIView {
             return safeAreaLayoutGuide.layoutFrame
         }
         return bounds
+    }
+}
+class loaderButton: UIButton {
+    private var originalButtonText: String?
+
+    var activityIndicator: UIActivityIndicatorView!
+
+    func showLoading() {
+        originalButtonText = self.titleLabel?.text
+        self.setTitle("", for: .normal)
+        
+        if (activityIndicator == nil) {
+            activityIndicator = createActivityIndicator()
+        }
+        
+        showSpinning()
+    }
+
+    func hideLoading() {
+        self.setTitle(originalButtonText, for: .normal)
+        activityIndicator.stopAnimating()
+    }
+    
+    private func createActivityIndicator() -> UIActivityIndicatorView {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = .lightGray
+        return activityIndicator
+    }
+
+    private func showSpinning() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(activityIndicator)
+        centerActivityIndicatorInButton()
+        activityIndicator.startAnimating()
+    }
+
+    private func centerActivityIndicatorInButton() {
+        let xCenterConstraint = NSLayoutConstraint(item: self, attribute: .centerX, relatedBy: .equal, toItem: activityIndicator, attribute: .centerX, multiplier: 1, constant: 0)
+        self.addConstraint(xCenterConstraint)
+        
+        let yCenterConstraint = NSLayoutConstraint(item: self, attribute: .centerY, relatedBy: .equal, toItem: activityIndicator, attribute: .centerY, multiplier: 1, constant: 0)
+        self.addConstraint(yCenterConstraint)
+    }
+}
+extension UIView {
+    func LoadButtonAnimation(){
+        UIView.animate(withDuration: 0.3, animations: {
+            self.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        }, completion: {_ in
+            UIView.animate(withDuration: 0.3, animations: {
+                self.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            }, completion: {_ in
+                
+            })
+        })
     }
 }
