@@ -57,6 +57,49 @@ class UtilityClass: NSObject {
         
         return (loadUI!, loadBG)
     }
+    
+    class func showAlertWithCompletion(_ title: String, message: String, okTitle : String = "", otherTitle : String = "", vc: UIViewController,completionHandler: @escaping CompletionHandler) -> Void
+    {
+        let alert = UIAlertController(title: appName.kAPPName,
+                                      message: message,
+                                      preferredStyle: UIAlertController.Style.alert)
+        
+        
+      
+        
+        if(okTitle != "")
+        {
+            alert.addAction(UIAlertAction(title: okTitle.localized, style: .default, handler: { (action) in
+                completionHandler(true)
+            }))
+        }
+        else
+        {
+            alert.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: { (action) in
+                completionHandler(true)
+            }))
+            
+        }
+        
+        
+        if(otherTitle != "")
+        {
+            alert.addAction(UIAlertAction(title: otherTitle.localized, style: .default, handler: { (action) in
+                completionHandler(false)
+            }))
+        }
+        
+        if((UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.presentedViewController != nil)
+        {
+            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.dismiss(animated: true, completion: {
+                 (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+            })
+        }
+        else {
+            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+        }
+
+    }
 
     class func setImage(url : String, imageView : UIImageView)
     {

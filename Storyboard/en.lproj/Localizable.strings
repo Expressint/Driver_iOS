@@ -304,3 +304,5 @@
 "message_StopWaitingTime" = "Please stop trip waiting time first.";
 "message_selectDestination" = "Please select First Destination";
 "message_secondDestinationSelected" = "Your second destination selected";
+"message_turnDuty_off" = "Are you sure you want to turn off duty?";
+"message_turnDuty_on" = "Are you sure you want to turn on duty?";

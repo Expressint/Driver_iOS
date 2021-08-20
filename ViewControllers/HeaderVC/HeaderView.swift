@@ -88,17 +88,29 @@ class HeaderView: UIView {
     
     @IBAction func btnSwitch(_ sender: UIButton)
     {
-        sender.isSelected = !sender.isSelected
-        btnSwitch.isEnabled = false
-        
-        if (sender.isSelected)
+        var message : String? = "message_turnDuty_on"
+        if(Singletons.sharedInstance.driverDuty == "1")
         {
-            delegate?.didSwitchOnOFFClicked(isOn: true)
+            message = "message_turnDuty_off"
         }
-        else
-        {
-            delegate?.didSwitchOnOFFClicked(isOn: false)
+        print("\(sender.isSelected)")
+        UtilityClass.showAlertWithCompletion(appName.kAPPName, message: message?.localized ?? "", okTitle: "OK", otherTitle: "Cancel", vc: self.topMostController() ?? UIViewController()) { (status) in
+            if(status)
+            {
+                sender.isSelected = !sender.isSelected
+                self.btnSwitch.isEnabled = false
+                
+                if (sender.isSelected)
+                {
+                    self.delegate?.didSwitchOnOFFClicked(isOn: true)
+                }
+                else
+                {
+                    self.delegate?.didSwitchOnOFFClicked(isOn: false)
+                }
+            }
         }
+      
         
         
     }
