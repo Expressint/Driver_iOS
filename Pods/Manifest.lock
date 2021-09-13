@@ -118,10 +118,10 @@ PODS:
     - SDWebImage/Core (= 5.10.4)
   - SDWebImage/Core (5.10.4)
   - SideMenuController (0.2.4)
-  - Socket.IO-Client-Swift (15.1.0):
-    - Starscream (~> 3.1)
+  - Socket.IO-Client-Swift (16.0.1):
+    - Starscream (~> 4.0)
   - SRCountdownTimer (1.1)
-  - Starscream (3.1.1)
+  - Starscream (4.0.4)
 
 DEPENDENCIES:
   - ACFloatingTextfield-Swift
@@ -145,7 +145,7 @@ DEPENDENCIES:
   - NVActivityIndicatorView
   - SDWebImage
   - SideMenuController
-  - Socket.IO-Client-Swift (= 15.1.0)
+  - Socket.IO-Client-Swift
   - SRCountdownTimer
 
 SPEC REPOS:
@@ -221,10 +221,10 @@ SPEC CHECKSUMS:
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
   SideMenuController: b463d2b3aa58e2afe57f57a07938fa9a647894ca
-  Socket.IO-Client-Swift: 7cb44c0ffb86e158cee32d0642d30ec5fdcf8f61
+  Socket.IO-Client-Swift: c116d6dc9fd6be9c259bacfe143f8725bce7d79e
   SRCountdownTimer: 9c92e444b5403c92f01dd6610299b8c634bc8562
-  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
+  Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
 
-PODFILE CHECKSUM: 31b6c190dcb9288f223cda3e8a83823378e8dec2
+PODFILE CHECKSUM: 5087b109b55b28bd909a350602faa6db0dd8dea8
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1

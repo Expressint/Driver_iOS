@@ -32,7 +32,7 @@ let googlPlacesApiKey = googlApiKey
     var Speed  = ""
     
     var RoadPickupTimer = Timer()
-    let SManager = SocketManager(socketURL: URL(string: socketApiKeys.kSocketBaseURL)!)
+    let SManager = SocketManager(socketURL: URL(string: socketApiKeys.kSocketBaseURL)!,config: [.log(true), .compress,.version(.two)])
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -324,6 +324,10 @@ let googlPlacesApiKey = googlApiKey
         {
             Singletons.sharedInstance.deviceToken = fcmToken
         }
+        
+        #if targetEnvironment(simulator)
+            Singletons.sharedInstance.deviceToken = "alshklashdkladlkasdhklahd"
+        #endif
         UserDefaults.standard.set(Singletons.sharedInstance.deviceToken, forKey: "Token")
         UserDefaults.standard.synchronize()
     }
@@ -442,6 +446,9 @@ let googlPlacesApiKey = googlApiKey
         
         let token = Messaging.messaging().fcmToken
         Singletons.sharedInstance.deviceToken = token!
+        #if targetEnvironment(simulator)
+            Singletons.sharedInstance.deviceToken = "alshklashdkladlkasdhklahd"
+        #endif
         UserDefaults.standard.set(Singletons.sharedInstance.deviceToken, forKey: "Token")
         print("FCM token: \(token ?? "")")
         
