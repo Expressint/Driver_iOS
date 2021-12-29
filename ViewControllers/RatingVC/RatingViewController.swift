@@ -21,7 +21,7 @@ class RatingViewController: UIViewController,FloatRatingViewDelegate {
     @IBOutlet var viewRating: UIView!
     @IBOutlet var lblDetail: UILabel!
 
-    @IBOutlet var viewStarsRating: HCSStarRatingView!
+    @IBOutlet var viewStarsRating: FloatRatingView!
     
     
     var delegate: delegateRatingIsSubmitSuccessfully?
@@ -36,7 +36,7 @@ class RatingViewController: UIViewController,FloatRatingViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        viewStarsRating.rating = 0.0
-        viewStarsRating.value = 0.0
+        viewStarsRating.rating = 0.0
 //        viewStarsRating.delegate = self
         strBookingID = (dictData["details"]! as! [String : AnyObject])["Id"] as! String
         lblDetail.text = "\("How was your Ride with".localized) \((dictPassengerInfo!.object(forKey: "Fullname") as! String))?"// (dictPassengerInfo!.object(forKey: "Fullname") as! String)
@@ -81,7 +81,7 @@ class RatingViewController: UIViewController,FloatRatingViewDelegate {
         
         var param = [String:AnyObject]()
         
-        ratingToDriver = Float(viewStarsRating.value)
+        ratingToDriver = Float(viewStarsRating.rating)
         param["BookingId"] = strBookingID as AnyObject
         param["Rating"] = ratingToDriver as AnyObject
         param["Comment"] = txtFeedback.text as AnyObject

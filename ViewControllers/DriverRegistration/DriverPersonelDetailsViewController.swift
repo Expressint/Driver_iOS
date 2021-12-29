@@ -9,6 +9,8 @@
 import UIKit
 import CoreLocation
 import PhotosUI
+import MobileCoreServices
+
 class DriverPersonelDetailsViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, UITextFieldDelegate  {
     
     @IBOutlet var btnNext: UIButton!

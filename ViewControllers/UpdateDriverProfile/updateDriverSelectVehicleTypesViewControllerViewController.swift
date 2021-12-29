@@ -8,6 +8,7 @@
 
 import UIKit
 import IQDropDownTextField
+import MobileCoreServices
 
 class updateDriverSelectVehicleTypesViewControllerViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UITextFieldDelegate,IQDropDownTextFieldDelegate
 {
@@ -108,7 +109,6 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
         txtVehicleModel.placeholder = "Vehicle Model".localized
         txtCompany.placeholder = "Vehicle Make".localized
         
-//        txtCompany.placeholder = "".localized
         txtCarType.placeholder = "Vehicle Type".localized
         txtNoOfPassenger.placeholder = "Number Of Passenger".localized
         btnSave.setTitle("Save".localized, for: .normal)

@@ -9,7 +9,7 @@
 import UIKit
 import FormTextField
 
-class PayViewController: ParentViewController, UIPickerViewDataSource, UIPickerViewDelegate, CardIOPaymentViewControllerDelegate, UITextFieldDelegate {
+class PayViewController: ParentViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
 
     
     @IBOutlet var textFields: [UITextField]!
@@ -415,15 +415,7 @@ class PayViewController: ParentViewController, UIPickerViewDataSource, UIPickerV
         
     }
 
-    
-    @IBAction func btnScanCard(_ sender: UIButton) {
-        
-        let cardIOVC = CardIOPaymentViewController(paymentDelegate: self)
-        cardIOVC?.modalPresentationStyle = .formSheet
-        present(cardIOVC!, animated: true, completion: nil)
-        
-    }
-    
+   
     var currentMonth = String()
     var currentYear = String()
     
@@ -443,67 +435,7 @@ class PayViewController: ParentViewController, UIPickerViewDataSource, UIPickerV
         currentYear = curYear
         
     }
-    
-    //-------------------------------------------------------------
-    // MARK: - Scan Card Methods
-    //-------------------------------------------------------------
-    
-    func userDidCancel(_ paymentViewController: CardIOPaymentViewController!) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func userDidProvide(_ cardInfo: CardIOCreditCardInfo!, in paymentViewController: CardIOPaymentViewController!) {
-        
-        print("CardInfo : \(cardInfo)")
-        
-        if let info = cardInfo {
-            _ = NSString(format: "Received card info.\n Number: %@\n expiry: %02lu/%lu\n cvv: %@.", info.redactedCardNumber, info.expiryMonth, info.expiryYear, info.cvv)
-            //            resultLabel.text = str as String
-            
-           
-            
-            print("Card Number : \(info.cardNumber)")
-            print("Redacted Card Number : \(customStringFormatting(of: info.redactedCardNumber))")
-            print("Month : \(info.expiryMonth)")
-            print("Year : \(info.expiryYear)")
-            print("CVV : \(info.cvv)")
-            
-            var years = String(info.expiryYear)
-            years.removeFirst(2)
-//            customStringFormatting(of: info.redactedCardNumber)
-            
-            print("Removed Year : \(years)")
-            
-            txtCardNumber.text = customStringFormatting(of: info.redactedCardNumber)
-            txtExpiryDate.text = "\(info.expiryMonth)/\(years)"
-            txtCVV.text = info.cvv
-            
-            CardNumber = String(info.cardNumber)
-            strMonth = String(info.expiryMonth)
-            strYear = String(years)
-            strCVV = String(info.cvv)
-            
-            
-            
-        }
-        paymentViewController?.dismiss(animated: true, completion: nil)
-        
-    }
-    
-    func userDidCancelPaymentViewController(paymentViewController: CardIOPaymentViewController!) {
-//        resultLabel.text = "user canceled"
-        paymentViewController?.dismiss(animated: true, completion: nil)
-    }
-    
-    func userDidProvideCreditCardInfo(cardInfo: CardIOCreditCardInfo!, inPaymentViewController paymentViewController: CardIOPaymentViewController!) {
-        if let info = cardInfo {
-            _ = NSString(format: "Received card info.\n Number: %@\n expiry: %02lu/%lu\n cvv: %@.", info.redactedCardNumber, info.expiryMonth, info.expiryYear, info.cvv)
-//            resultLabel.text = str as String
-            txtCardNumber.text = info.redactedCardNumber
-            txtExpiryDate.text = "\(info.expiryMonth)/\(info.expiryYear)"
-        }
-        paymentViewController?.dismiss(animated: true, completion: nil)
-    }
+  
     
     func customStringFormatting(of str: String) -> String {
         return str.chunk(n: 4)

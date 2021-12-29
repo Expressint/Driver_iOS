@@ -9,32 +9,19 @@
 import UIKit
 //import BFKit
 import QuartzCore
+import Alamofire
+
 
 class Utilities: NSObject
 {
-    class func isInternetConnectionAvailable() -> Bool
-    {
-        let networkReachability = Reachability.forInternetConnection()
-        let networkStatus : NetworkStatus = (networkReachability?.currentReachabilityStatus())!
-        
-        if networkStatus != .NotReachable
-        {
-            return true
-        }
-        else
-        {
-            return false
-        }
-    }
-    class func showActivityIndicator()
-    {
-        SVProgressHUD.show()
-    }
-    class func hideActivityIndicator()
-    {
-        SVProgressHUD.dismiss()
-    }
     
+    
+    class Connectivity {
+        class func isConnectedToInternet() ->Bool {
+            return NetworkReachabilityManager()!.isReachable
+        }
+    }
+
     class func showAlertWithCompletion(_ title: String, message: String, vc: UIViewController,completionHandler: @escaping CompletionHandler) -> Void
     {
         //        title = "TickToc"
@@ -249,11 +236,11 @@ class Utilities: NSObject
         button.layer.borderWidth = 1.0
     }
     
-    class func showToastMSG(MSG: String)
-    {
-        CSToastManager.setQueueEnabled(false)
-        Appdelegate.window?.makeToast(MSG)
-    }
+//    class func showToastMSG(MSG: String)
+//    {
+//        CSToastManager.setQueueEnabled(false)
+//        Appdelegate.window?.makeToast(MSG)
+//    }
     
     
     func sizeForText(text : String , font : UIFont, width : CGFloat) -> CGSize

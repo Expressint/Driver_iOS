@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension UIViewController {
     
@@ -17,7 +18,7 @@ extension UIViewController {
     /// Convert Any data to String From Dictionary
     func convertAnyToStringFromDictionary(dictData: [String:AnyObject], shouldConvert paramString: String) -> String {
         
-        var currentData = dictData
+        let currentData = dictData
         
         if currentData[paramString] == nil {
             return ""
@@ -40,7 +41,7 @@ extension UIViewController {
     /// Convert Any data to String From Dictionary
     func checkDictionaryHaveValue(dictData: [String:AnyObject], didHaveValue paramString: String, isNotHave: String) -> String {
         
-        var currentData = dictData
+        let currentData = dictData
         
         if currentData[paramString] == nil {
             return isNotHave

@@ -162,11 +162,11 @@ class MyRatingViewController : ParentViewController,UITableViewDataSource, UITab
         let arrDate = strDate.components(separatedBy: " ")
 
         cell.lblDateTime.text = arrDate[0]
-        var intRating = Float()
+        var intRating = Double()
         let str = data["Rating"] as? String
-        if let n = NumberFormatter().number(from: str!)
+        if let n = NumberFormatter().number(from: str ?? "0")
         {
-            intRating = Float(n)
+            intRating = Double(truncating: n)
         }
         //
         //
@@ -182,7 +182,7 @@ class MyRatingViewController : ParentViewController,UITableViewDataSource, UITab
             cell.lblComments.text = strComment
              cell.lblCommentTitle.text = "Comment".localized
         }
-        cell.viewRating.value = CGFloat(intRating)//CGFloat((data.object(forKey: "Rating") as? String)!)
+        cell.viewRating.rating = CGFloat(intRating)//CGFloat((data.object(forKey: "Rating") as? String)!)
         cell.lblPickUpAddress.text = (data.object(forKey: "PickupLocation") as? String)  // PickupLocation
         //
         

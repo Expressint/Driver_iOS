@@ -1,8 +1,7 @@
 PODS:
   - ACFloatingTextfield-Swift (1.8)
-  - ACProgressHUD-Swift (1.4)
   - Alamofire (4.6.0)
-  - CardIO (5.4.1)
+  - CountryPickerView (3.3.0)
   - CreditCardForm (0.2.0)
   - DropDown (2.3.13)
   - Firebase/Core (6.27.0):
@@ -61,7 +60,6 @@ PODS:
     - Protobuf (>= 3.9.2, ~> 3.9)
   - FloatRatingView (4.0)
   - FormTextField (3.0.0)
-  - GoogleAnalytics (3.17.0)
   - GoogleAppMeasurement (6.6.1):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -77,9 +75,6 @@ PODS:
   - GoogleMaps/Base (3.1.0)
   - GoogleMaps/Maps (3.1.0):
     - GoogleMaps/Base
-  - GooglePlacePicker (3.1.0):
-    - GoogleMaps (= 3.1.0)
-    - GooglePlaces (= 3.1.0)
   - GooglePlaces (3.1.0):
     - GoogleMaps/Base (= 3.1.0)
   - GoogleUtilities/AppDelegateSwizzler (6.7.2):
@@ -109,9 +104,9 @@ PODS:
     - nanopb/encode (= 1.30905.0)
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
-  - NVActivityIndicatorView (4.8.0):
-    - NVActivityIndicatorView/Presenter (= 4.8.0)
-  - NVActivityIndicatorView/Presenter (4.8.0)
+  - NVActivityIndicatorView (4.1.1):
+    - NVActivityIndicatorView/Presenter (= 4.1.1)
+  - NVActivityIndicatorView/Presenter (4.1.1)
   - PromisesObjC (1.2.11)
   - Protobuf (3.12.0)
   - SDWebImage (5.10.4):
@@ -125,9 +120,8 @@ PODS:
 
 DEPENDENCIES:
   - ACFloatingTextfield-Swift
-  - ACProgressHUD-Swift
   - Alamofire (= 4.6.0)
-  - CardIO
+  - CountryPickerView
   - CreditCardForm
   - DropDown
   - Firebase/Core
@@ -135,14 +129,12 @@ DEPENDENCIES:
   - Firebase/Messaging
   - FloatRatingView
   - FormTextField
-  - GoogleAnalytics
   - GoogleMaps
-  - GooglePlacePicker
   - GooglePlaces
   - IQDropDownTextField
   - IQKeyboardManagerSwift
   - MarqueeLabel/Swift
-  - NVActivityIndicatorView
+  - NVActivityIndicatorView (= 4.1.1)
   - SDWebImage
   - SideMenuController
   - Socket.IO-Client-Swift
@@ -151,9 +143,8 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - ACFloatingTextfield-Swift
-    - ACProgressHUD-Swift
     - Alamofire
-    - CardIO
+    - CountryPickerView
     - CreditCardForm
     - DropDown
     - Firebase
@@ -166,12 +157,10 @@ SPEC REPOS:
     - FirebaseMessaging
     - FloatRatingView
     - FormTextField
-    - GoogleAnalytics
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleMaps
-    - GooglePlacePicker
     - GooglePlaces
     - GoogleUtilities
     - IQDropDownTextField
@@ -189,9 +178,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   ACFloatingTextfield-Swift: c3212cef9548ae58fa914ea1c26a2f9a4f7cd7df
-  ACProgressHUD-Swift: 52a40fe3377959cfe84316dc0cf523c5d790bbe8
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
-  CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
+  CountryPickerView: 6322ada32a80b0cd721b0267282a5c24f406f263
   CreditCardForm: bba4aad545236f97f2dc45ea3bed0cb57d5e0e99
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   Firebase: fc4cbf6f1592636431821ef9a3c557e4dfd9f268
@@ -204,19 +192,17 @@ SPEC CHECKSUMS:
   FirebaseMessaging: ad9e1a80ea64905e01a0ce1b3eb76a2944544151
   FloatRatingView: bb6bdddfbeec51b1d387b4bd50abc27b4dfccd48
   FormTextField: fd5dc441ad40ba12d08ef66aeb0453ee9bf55e6d
-  GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
   GoogleAppMeasurement: 2fd5c5a56c069db635c8e7b92d4809a9591d0a69
   GoogleDataTransport: 9a8a16f79feffc7f42096743de2a7c4815e84020
   GoogleDataTransportCCTSupport: 489c1265d2c85b68187a83a911913d190012158d
   GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
-  GooglePlacePicker: fa975116ac202ac29822c0a79758ea1c4db5a95f
   GooglePlaces: e874db179f2675c4f3eeda0b686b540273a578b0
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   IQDropDownTextField: 79293d19042b6f2ee6f02decf4a0e68e59e4f327
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   MarqueeLabel: 2daf039bf916937c8a4c9adfc13577cc5e51b4ce
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
-  NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
+  NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
@@ -225,6 +211,6 @@ SPEC CHECKSUMS:
   SRCountdownTimer: 9c92e444b5403c92f01dd6610299b8c634bc8562
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
 
-PODFILE CHECKSUM: 5087b109b55b28bd909a350602faa6db0dd8dea8
+PODFILE CHECKSUM: 4e8750add2b4ce0f914e32ca287b078bba7f5add
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2

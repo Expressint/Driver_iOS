@@ -261,7 +261,8 @@ class DriverRegistrationViewController: UIViewController, UIScrollViewDelegate /
         }
         
         scrollObj.isScrollEnabled = true
-
+//        self.btn
+        self.lblTitle.textColor = .white
     }
     
     

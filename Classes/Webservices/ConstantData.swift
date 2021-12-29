@@ -7,20 +7,21 @@
 //
 
 import Foundation
+import UIKit
 
 //let helpLineNumber = "1234567890"
 
 struct WebSupport {
     static let HelplineNumber = "0777115054"
-    static let SupportURL = "https://www.tantaxitanzania.com/page/support-tantaxi"
-    static let TermsNConditionsURL = "https://www.tantaxitanzania.com/page/terms-conditions-drivers"
-    static let PrivacyPolicyURL = "https://www.tantaxitanzania.com/page/privacy-policy"
+//    static let SupportURL = "https://www.tantaxitanzania.com/page/support-tantaxi"
+    static let TermsNConditionsURL = "https://www.bookaridegy.com/TermsAndCondition"
+    static let PrivacyPolicyURL = "https://www.bookaridegy.com/PrivacyPolicy"
 }
 
 struct WebserviceURLs {
     
-    static let kBaseURL                                 = "http://3.83.58.5/Drvier_Api2/"
-    static let kImageBaseURL                            = "http://3.83.58.5/"
+    static let kBaseURL                                 = "https://www.bookaridegy.com/Drvier_Api/"
+    static let kImageBaseURL                            = "https://www.bookaridegy.com/"
     static let kOTPForDriverRegister                    = "OtpForRegister"
     static let kVehicalModelList                        = "TaxiModel/"
     static let kDriverRegister                          = "Register"
@@ -196,10 +197,8 @@ struct RegistrationFinalKeys {
 
 struct socketApiKeys {
     
-    static let kSocketBaseURL = "http://3.83.58.5:8080"
-    
-//    "https://www.tantaxitanzania.com:8081"//"http://3.120.161.225:8080" //"http://13.237.0.107:8080/" //http://3.120.161.225:8080"//"https://pickngolk.info:8081" // "https://pickngolk.info:8081"   // "http://54.169.67.226:8080"  //
-    
+    static let kSocketBaseURL = "https://www.bookaridegy.com:8080"
+ 
     static let kUpdateDriverLocation = "UpdateDriverLatLong"
     static let kReceiveBookingRequest = "AriveBookingRequest"
     static let kRejectBookingRequest = "ForwardBookingRequestToAnother"
@@ -258,7 +257,7 @@ struct socketApiKeys {
 struct appName {
     static let kAPPName = "App Name".localized
 //    "TanTaxi Driver"
-    static let kAPPUrl = "itms-apps://itunes.apple.com/app/id1445179587"
+    static let kAPPUrl = "itms-apps://itunes.apple.com/app/apple-store/id1541296701?mt=8"
     
 }
 

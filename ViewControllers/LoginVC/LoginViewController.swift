@@ -224,35 +224,35 @@
     @IBAction func btnForgotPassword(_ sender: UIButton) {
         
         //1. Create the alert controller.
-        let alert = UIAlertController(title: "Forgot Password?".localized, message: "Please enter email".localized, preferredStyle: .alert)
-        
-        //2. Add the text field. You can configure it however you need.
-        alert.addTextField { (textField) in
-            textField.placeholder = "Email".localized
-        }
-        
-        // 3. Grab the value from the text field, and print it when the user clicks OK.
-        alert.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: { [weak alert] (_) in
-            let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
-            print("Text field: \(String(describing: textField?.text))")
-            
-            self.strEmailForForgotPassword = (textField?.text)!
-            
-            if self.strEmailForForgotPassword == "" {
-                NotificationCenter.default.post(name: Notification.Name("checkForgotPassword"), object: nil)
-            }
-            else {
-                self.webserviceForgotPassword()
-            }
-            
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Cancel".localized, style: .default, handler: { [weak alert] (_) in
-            
-        }))
-        
-        // 4. Present the alert.
-        self.present(alert, animated: true, completion: nil)
+//        let alert = UIAlertController(title: "Forgot Password?".localized, message: "Please enter email".localized, preferredStyle: .alert)
+//
+//        //2. Add the text field. You can configure it however you need.
+//        alert.addTextField { (textField) in
+//            textField.placeholder = "Email".localized
+//        }
+//
+//        // 3. Grab the value from the text field, and print it when the user clicks OK.
+//        alert.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: { [weak alert] (_) in
+//            let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
+//            print("Text field: \(String(describing: textField?.text))")
+//
+//            self.strEmailForForgotPassword = (textField?.text)!
+//
+//            if self.strEmailForForgotPassword == "" {
+//                NotificationCenter.default.post(name: Notification.Name("checkForgotPassword"), object: nil)
+//            }
+//            else {
+//                self.webserviceForgotPassword()
+//            }
+//
+//        }))
+//
+//        alert.addAction(UIAlertAction(title: "Cancel".localized, style: .default, handler: { [weak alert] (_) in
+//
+//        }))
+//
+//        // 4. Present the alert.
+//        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func btnFaceBook(_ sender: UIButton) {
@@ -485,6 +485,10 @@
             }
         }
     }
+     
+     @IBAction func unwindToLoginVC(segue: UIStoryboardSegue) {
+
+        }
     // ----------------------------------------------------------------------
     
     func webserviceOfAppSetting() {
@@ -534,7 +538,7 @@
                     let alert = UIAlertController(title: "App Name".localized, message: (result as! NSDictionary).object(forKey: GetResponseMessageKey()) as? String, preferredStyle: .alert)
                     let UPDATE = UIAlertAction(title: "Update".localized, style: .default, handler: { ACTION in
                         
-                        UIApplication.shared.openURL(NSURL(string: appName.kAPPUrl)! as URL)
+                        UIApplication.shared.canOpenURL(URL(string: appName.kAPPUrl) ?? URL(fileURLWithPath: ""))//openURL(NSURL(string: appName.kAPPUrl)! as URL)
                     })
                     let Cancel = UIAlertAction(title: "Cancel".localized, style: .default, handler: { ACTION in
                         

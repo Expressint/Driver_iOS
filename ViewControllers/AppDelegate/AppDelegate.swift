@@ -32,7 +32,7 @@ let googlPlacesApiKey = googlApiKey
     var Speed  = ""
     
     var RoadPickupTimer = Timer()
-    let SManager = SocketManager(socketURL: URL(string: socketApiKeys.kSocketBaseURL)!,config: [.log(true), .compress,.version(.two)])
+    let SManager = SocketManager(socketURL: URL(string: socketApiKeys.kSocketBaseURL)!,config: [.log(false), .compress,.version(.two)])
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

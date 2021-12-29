@@ -8,6 +8,7 @@
 
 import UIKit
 import NVActivityIndicatorView
+import CountryPickerView
 //import ACFloatingTextfield_Swift
 
 class DriverEmailViewController: UIViewController, UIScrollViewDelegate, NVActivityIndicatorViewable 
@@ -16,7 +17,9 @@ class DriverEmailViewController: UIViewController, UIScrollViewDelegate, NVActiv
     var userDefault = UserDefaults.standard
     var otpCode = Int()
 
+    
     @IBOutlet var btnNext: UIButton!
+    @IBOutlet var txtCountryCode: UITextField!
     @IBOutlet var constrainViewOTPLeadingPosition: NSLayoutConstraint!
     
     @IBOutlet var viewOTP: UIView!
@@ -33,8 +36,10 @@ class DriverEmailViewController: UIViewController, UIScrollViewDelegate, NVActiv
     
     @IBOutlet weak var constraintHeightOfLogo: NSLayoutConstraint! // 80
     @IBOutlet weak var constraintHeightOfAllTextFields: NSLayoutConstraint! // 48
-    
-    
+    let countryPicker = CountryPickerView()
+//    var pickerViewCountryPicker = UIPickerView()
+     var arrCountries = [Country]()
+    @IBOutlet var btnCountryCode : UIButton!
     var isOTPSent:Bool = false
     
     //-------------------------------------------------------------
@@ -60,11 +65,20 @@ class DriverEmailViewController: UIViewController, UIScrollViewDelegate, NVActiv
         txtEmail.delegate = self
         txtConPassword.delegate = self
         txtOTP.keyboardType = .numberPad
-//        txtMobile.text = "5500990033"
-//        txtEmail.text = "djhfs@sjhdf.com"
-//        txtPassword.text = "12345678"
-//        txtConPassword.text = "12345678"
+        
+        countryPicker.delegate = self
+        countryPicker.dataSource = self
+        
+//        pickerViewCountryPicker.delegate = self
+//        pickerViewCountryPicker.dataSource = self
+//        arrCountries = countryPicker.countries
+//        self.pickerViewCountryPicker.reloadAllComponents()
+//        txtCountryCode.inputView = pickerViewCountryPicker
+//        txtCountryCode.text = "+592"
+        btnCountryCode.setTitle("+592", for: .normal)
+//        print(arrCountries)
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         btnNext.layer.cornerRadius = btnNext.frame.size.height/2
@@ -102,6 +116,13 @@ class DriverEmailViewController: UIViewController, UIScrollViewDelegate, NVActiv
 //        lblHaveAccount.text = "".localized
 //        btnLogin.setTitle("".localized, for: normal)
     }
+    @IBAction func btnCountryCodePicker(_ sender: Any)
+    {
+        
+        countryPicker.showPhoneCodeInView = true
+        countryPicker.showCountriesList(from: self)
+    }
+    
     @IBOutlet weak var lblPleaseCheckYourEmail: UILabel!
     @IBOutlet weak var btnResentOtp: UIButton!
     
@@ -168,11 +189,11 @@ class DriverEmailViewController: UIViewController, UIScrollViewDelegate, NVActiv
             UtilityClass.showAlert("App Name".localized, message: "Please enter mobile number".localized, vc: self)
             return false
         }
-        else if txtMobile.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count != 10
-        {
-            UtilityClass.showAlert("App Name".localized, message: "Please enter valid mobile number".localized, vc: self)
-            return false
-        }
+//        else if txtMobile.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count != 10
+//        {
+//            UtilityClass.showAlert("App Name".localized, message: "Please enter valid mobile number".localized, vc: self)
+//            return false
+//        }
         
         else if txtEmail.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count == 0
         {
@@ -241,8 +262,8 @@ class DriverEmailViewController: UIViewController, UIScrollViewDelegate, NVActiv
     {
         var dictData = [String:AnyObject]()
         dictData["Email"] = txtEmail.text as AnyObject
-        dictData[RegistrationFinalKeys.kMobileNo] = txtMobile.text as AnyObject
-        
+        dictData[RegistrationFinalKeys.kMobileNo] = "\(txtMobile.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "")" as AnyObject
+        dictData["CountryCode"] = btnCountryCode.titleLabel?.text as AnyObject
         webserviceForOTPDriverRegister(dictData as AnyObject) { (result, status) in
             
             if (status)
@@ -293,10 +314,24 @@ class DriverEmailViewController: UIViewController, UIScrollViewDelegate, NVActiv
             else
             {
                 print(result)
-                let alert = UIAlertController(title: "App Name".localized, message: result.object(forKey: GetResponseMessageKey()) as? String, preferredStyle: .alert)
-                let ok = UIAlertAction(title: "Dismiss".localized, style: .default, handler: nil)
-                alert.addAction(ok)
-                self.present(alert, animated: true, completion: nil)
+                
+                if let results = result as? [String:Any]
+                {
+                    
+                    
+                    let alert = UIAlertController(title: "App Name".localized, message: (results[GetResponseMessageKey()] as? String), preferredStyle: .alert)
+                    let ok = UIAlertAction(title: "Dismiss".localized, style: .default, handler: nil)
+                    alert.addAction(ok)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                else if let results = result as? String
+                {
+                    let alert = UIAlertController(title: "App Name".localized, message: results, preferredStyle: .alert)
+                    let ok = UIAlertAction(title: "Dismiss".localized, style: .default, handler: nil)
+                    alert.addAction(ok)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                
             }
             //
             //            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
@@ -359,16 +394,41 @@ extension DriverEmailViewController : UITextFieldDelegate {
         if (string == " ") {
             return false
         }
-        if textField == txtMobile {
-            let resultText: String? = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
-            
-            if resultText!.count >= 11 {
-                return false
-            }
-            else {
-                return true
-            }
-        }
+
         return true
+    }
+}
+
+
+
+
+
+extension DriverEmailViewController: CountryPickerViewDelegate {
+    func countryPickerView(_ countryPickerView: CountryPickerView, didSelectCountry country: Country) {
+        btnCountryCode.setTitle(country.phoneCode, for: .normal)
+
+    }
+    
+//    func countryPickerView(_ countryPickerView: CountryPickerView, didSelectCountry country: Country) {
+//        btnCountryCode.setTitle(country.phoneCode, for: .normal)
+//    }
+}
+
+extension DriverEmailViewController: CountryPickerViewDataSource {
+
+    func navigationTitle(in countryPickerView: CountryPickerView) -> String? {
+        return "Select a Country"
+    }
+        
+    func searchBarPosition(in countryPickerView: CountryPickerView) -> SearchBarPosition {
+        return .tableViewHeader
+    }
+    
+    func showPhoneCodeInList(in countryPickerView: CountryPickerView) -> Bool {
+        return true
+    }
+    
+    func showCountryCodeInList(in countryPickerView: CountryPickerView) -> Bool {
+       return false
     }
 }

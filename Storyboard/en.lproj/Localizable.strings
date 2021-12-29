@@ -1,10 +1,3 @@
-/*
-  Localizable.strings
-  TanTaxi-Driver
-
-  Created by Mayur iMac on 11/02/19.
-  Copyright © 2019 Excellent Webworld. All rights reserved.
-*/
 
 "App Name" = "Book A Ride Driver";
 "Currency" = "$";
@@ -306,3 +299,4 @@
 "message_secondDestinationSelected" = "Your second destination selected";
 "message_turnDuty_off" = "Are you sure you want to turn off duty?";
 "message_turnDuty_on" = "Are you sure you want to turn on duty?";
+"message_getOnline" = "Please get online";

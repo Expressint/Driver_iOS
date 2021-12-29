@@ -9,7 +9,7 @@
 import UIKit
 import SideMenuController
 import GooglePlaces
-import GooglePlacePicker
+//import GooglePlacePicker
 import GoogleMaps
 import CoreLocation
 

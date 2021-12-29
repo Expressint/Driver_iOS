@@ -18,7 +18,7 @@ class MyRatingViewCell: UITableViewCell {
     @IBOutlet var imgProfile: UIImageView!
     @IBOutlet var viewCell: UIView!
     
-    @IBOutlet var viewRating: HCSStarRatingView!
+    @IBOutlet var viewRating: FloatRatingView!
     @IBOutlet var lblDateTime: UILabel!
     
 //    @IBOutlet var viewRating: FloatRatingView!//HCSStarRatingView!

@@ -222,9 +222,9 @@ class MyEarningsViewController: ParentViewController, IQDropDownTextFieldDelegat
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
-        let year = self.txtSelectYear.selectedItem
+//        _ = self.txtSelectYear.selectedItem
         let fromDate = self.txtSelectFromDate.selectedItem
-        let toDate = self.txtSelectToDate.selectedItem
+//        _ = self.txtSelectToDate.selectedItem
         
         if textField == txtSelectToDate {
             
@@ -427,7 +427,7 @@ class MyEarningsViewController: ParentViewController, IQDropDownTextFieldDelegat
         {
             if ReportType == "datewise"
             {
-                let date = Date()
+//                let date = Date()
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" //+zzzz"
 //                dateFormatter.dateFormat = "yyyy-MM-dd"

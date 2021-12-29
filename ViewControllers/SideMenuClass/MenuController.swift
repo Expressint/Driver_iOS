@@ -49,9 +49,9 @@ class  MenuController: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         strSelectedLaungage = KEnglish
       
-        arrMenuTitle = [kMyJobs,kPaymentOption]
+        arrMenuTitle = [kMyJobs,kPaymentOption,kHelp]
                
-        arrMenuIcons = [kiconMyJobs,kiconPaymentOption]
+        arrMenuIcons = [kiconMyJobs,kiconPaymentOption,kIconHelp]
         /*
         arrMenuTitle = [kMyJobs,kPaymentOption,kWallet,kMyRating,kInviteFriend,kSettings,kLegal,kSupport,kLogout]
         
@@ -81,9 +81,9 @@ class  MenuController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     func giveGradientColor() {
         
-        let colorTop =  UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0).cgColor//(red: 0, green: 0, blue: 0, alpha: 1.0).cgColor
-        let colorMiddle =  UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0).cgColor//UIColor(red: 36/255, green: 24/255, blue: 3/255, alpha: 0.5).cgColor
-        let colorBottom = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0).cgColor//UIColor(red: 64/255, green: 43/255, blue: 6/255, alpha: 0.8).cgColor
+//        let colorTop =  UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0).cgColor//(red: 0, green: 0, blue: 0, alpha: 1.0).cgColor
+//        let colorMiddle =  UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0).cgColor//UIColor(red: 36/255, green: 24/255, blue: 3/255, alpha: 0.5).cgColor
+//        let colorBottom = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0).cgColor//UIColor(red: 64/255, green: 43/255, blue: 6/255, alpha: 0.8).cgColor
         //
         //        let gradientLayer = CAGradientLayer()
         //        gradientLayer.colors = [ colorTop, colorMiddle, colorBottom]
@@ -513,6 +513,9 @@ extension MenuController : UICollectionViewDataSource, UICollectionViewDelegate,
             self.navigationController?.pushViewController(viewController, animated: true)
             sideMenuController?.toggle()
         }
+        else if arrMenuTitle[indexPath.row] == kHelp {
+            self.dialNumber(number: "0987654321")
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
@@ -533,6 +536,19 @@ extension MenuController : UICollectionViewDataSource, UICollectionViewDelegate,
         
         let CollectionCellWidth = (MenuWidth! - 80.0) / 2
         return CGSize(width: CollectionCellWidth, height: CollectionCellWidth)
+    }
+    func dialNumber(number : String) {
+
+     if let url = URL(string: "tel://\(number)"),
+       UIApplication.shared.canOpenURL(url) {
+          if #available(iOS 10, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler:nil)
+           } else {
+               UIApplication.shared.openURL(url)
+           }
+       } else {
+                // add error message here
+       }
     }
 }
 class SideMenuCollectionViewCell: UICollectionViewCell {
