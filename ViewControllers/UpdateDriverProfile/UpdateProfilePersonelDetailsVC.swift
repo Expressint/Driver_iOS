@@ -308,22 +308,23 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
     }
     
     @IBAction func btnEditProfileIPic(_ sender: UIButton) {
-        
-        let alert = UIAlertController(title: "Choose Photo".localized, message: nil, preferredStyle: .alert)
-        
-        let Gallery = UIAlertAction(title: "Select photo from gallery".localized, style: .default, handler: { ACTION in
-            self.PickingImageFromGallery()
-        })
-        let Camera  = UIAlertAction(title: "Select photo from camera".localized, style: .default, handler: { ACTION in
-            self.PickingImageFromCamera()
-        })
-        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
-        
-        alert.addAction(Gallery)
-        alert.addAction(Camera)
-        alert.addAction(cancel)
-        self.present(alert, animated: true, completion: nil)
-        
+        UtilityClass.showAlertWithCompletion("Info Message!", message: "Please take a clear passport sized picture!", vc: self) { success in
+            
+            let alert = UIAlertController(title: "Choose Photo".localized, message: nil, preferredStyle: .alert)
+            
+            let Gallery = UIAlertAction(title: "Select photo from gallery".localized, style: .default, handler: { ACTION in
+                self.PickingImageFromGallery()
+            })
+            let Camera  = UIAlertAction(title: "Select photo from camera".localized, style: .default, handler: { ACTION in
+                self.PickingImageFromCamera()
+            })
+            let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
+            
+            alert.addAction(Gallery)
+            alert.addAction(Camera)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     //-------------------------------------------------------------

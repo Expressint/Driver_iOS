@@ -76,8 +76,8 @@ class DriverBankDetailsViewController: UIViewController
     */
     @IBAction func btnNext(_ sender: Any) {
         
-        let validator = CheckValidation()
-        if validator.0 == true {
+//        let validator = CheckValidation()
+//        if validator.0 == true {
             let driverVC = self.navigationController?.viewControllers.last as! DriverRegistrationViewController
             
             //        let personalDetailsVC = driverVC.children[2] as! DriverPersonelDetailsViewController
@@ -94,12 +94,12 @@ class DriverBankDetailsViewController: UIViewController
             self.userDefault.set(self.txtAccountNumber.text, forKey: RegistrationFinalKeys.kBankAccountNo)
             self.userDefault.set(3, forKey: savedDataForRegistration.kPageNumber)
             driverVC.viewDidLayoutSubviews()
-        } else {
-            
-            let ValidationAlert = UIAlertController(title: "App Name".localized, message: validator.1, preferredStyle: UIAlertController.Style.alert)
-            ValidationAlert.addAction(UIAlertAction(title: "Dismiss".localized, style: .cancel, handler: nil))
-            self.present(ValidationAlert, animated: true, completion: nil)
-        }
+//        } else {
+//
+//            let ValidationAlert = UIAlertController(title: "App Name".localized, message: validator.1, preferredStyle: UIAlertController.Style.alert)
+//            ValidationAlert.addAction(UIAlertAction(title: "Dismiss".localized, style: .cancel, handler: nil))
+//            self.present(ValidationAlert, animated: true, completion: nil)
+//        }
         
     }
     

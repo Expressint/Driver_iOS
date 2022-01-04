@@ -699,18 +699,22 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
        
         
         
-        let BSB: String = userDefault.object(forKey: RegistrationFinalKeys.kBSB) as! String
-        dictData[RegistrationFinalKeys.kBSB] = BSB as AnyObject
-        //
-        let BankName: String = userDefault.object(forKey: RegistrationFinalKeys.kBankName) as! String
-        dictData[RegistrationFinalKeys.kBankName] = BankName as AnyObject
-        
-        let BankAccountNo: String = userDefault.object(forKey: RegistrationFinalKeys.kBankAccountNo) as! String
-        dictData[RegistrationFinalKeys.kBankAccountNo] = BankAccountNo as AnyObject
-
-        let bankHolederName: String = userDefault.object(forKey: RegistrationFinalKeys.kbankHolderName) as! String
-        dictData[RegistrationFinalKeys.kbankHolderName] = bankHolederName as AnyObject
-        
+        if let BSB: String = userDefault.object(forKey: RegistrationFinalKeys.kBSB) as? String
+        {
+            dictData[RegistrationFinalKeys.kBSB] = BSB as AnyObject
+        }
+        if let BankName: String = userDefault.object(forKey: RegistrationFinalKeys.kBankName) as? String
+        {
+            dictData[RegistrationFinalKeys.kBankName] = BankName as AnyObject
+        }
+        if let BankAccountNo: String = userDefault.object(forKey: RegistrationFinalKeys.kBankAccountNo) as? String
+        {
+            dictData[RegistrationFinalKeys.kBankAccountNo] = BankAccountNo as AnyObject
+        }
+        if let bankHolederName: String = userDefault.object(forKey: RegistrationFinalKeys.kbankHolderName) as? String
+        {
+            dictData[RegistrationFinalKeys.kbankHolderName] = bankHolederName as AnyObject
+        }
         
         
         
