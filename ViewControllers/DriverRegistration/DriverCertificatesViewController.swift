@@ -72,7 +72,7 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
     func setLocalizable()
     {
         self.title = "App Name".localized
-        lblDriverLicence.text = "Driver Licence (Front only)".localized
+        lblDriverLicence.text = "Driver Licence (Front & Back)".localized
         txtDriverLicence.placeholder =  "Select driver licence expiry date".localized
         lblAccreditation.text = "TIN Certificate".localized
 //            "Revenue Licence".localized
@@ -110,6 +110,7 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
     // ------------------------------------------------------------
     
     @IBOutlet weak var imgDriverLicence: UIImageView!
+    @IBOutlet weak var imgDriverLicenceBack: UIImageView!
     @IBOutlet weak var imgAccreditationCertifi: UIImageView!
     @IBOutlet weak var imgCarRegistration: UIImageView!
     @IBOutlet weak var imgVehicleInsurience: UIImageView!
@@ -128,6 +129,7 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
     
     // ------------------------------------------------------------
     @IBOutlet var btnDriverLicence: UIButton!
+    @IBOutlet var btnDriverLicenceBack: UIButton!
     @IBOutlet var btnAccreditationCerti: UIButton!
     @IBOutlet var btnCarRegis: UIButton!
     @IBOutlet var btnVehicleInsu: UIButton!
@@ -147,6 +149,45 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
     
     
     @IBAction func btnDriverLicenceView(_ sender: UIButton) {
+        
+//        self.PickingImageFromGallery()
+//        self.selectDate()
+        
+        let alert = UIAlertController(title: "Choose Photo".localized, message: nil, preferredStyle: .alert)
+        
+        let Gallery = UIAlertAction(title: "Select photo from gallery".localized
+            , style: .default, handler: { ACTION in
+            
+            self.imagePicker.allowsEditing = false
+            self.imagePicker.sourceType = .photoLibrary
+            self.imagePicker.mediaTypes = [kUTTypeImage as String]
+//                UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+            
+            self.imagePicked = sender.tag
+            self.present(self.imagePicker, animated: true)
+    
+        })
+        let Camera  = UIAlertAction(title: "Select photo from camera".localized, style: .default, handler: { ACTION in
+            
+            self.imagePicker.allowsEditing = false
+            self.imagePicker.sourceType = UIImagePickerController.SourceType.camera
+            self.imagePicker.cameraCaptureMode = .photo
+ 
+            self.imagePicked = sender.tag
+            self.present(self.imagePicker, animated: true)
+                
+           
+        })
+        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
+        
+        alert.addAction(Gallery)
+        alert.addAction(Camera)
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
+   
+   
+    }
+    @IBAction func btnDriverLicenceBackView(_ sender: UIButton) {
         
 //        self.PickingImageFromGallery()
 //        self.selectDate()
@@ -366,6 +407,9 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     self.present(selector, animated: true, completion: nil)
                 }
+            } else if imagePicked == 5 {
+                imgDriverLicenceBack.image = pickedImage
+               
             } else if imagePicked == 2 {
                 imgAccreditationCertifi.image = pickedImage
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -475,6 +519,8 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
     @IBAction func btnNext(_ sender: Any) {
         
         if imgDriverLicence.image!.isEqualToImage(UIImage(named: "iconPlaceholderVehicle")!) {
+            UtilityClass.showAlert("App Name".localized, message: "Please enter all document\'s detail.".localized, vc: self)
+        } else if imgDriverLicenceBack.image!.isEqualToImage(UIImage(named: "iconPlaceholderVehicle")!) {
             UtilityClass.showAlert("App Name".localized, message: "Please enter all document\'s detail.".localized, vc: self)
         }else if imgCarRegistration.image!.isEqualToImage(UIImage(named: "iconPlaceholderVehicle")!) {
             UtilityClass.showAlert("App Name".localized, message: "Please enter all document\'s detail.".localized, vc: self)
@@ -616,7 +662,7 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
     func webserviceForRegistration()
     {
    
-        webserviceForRegistrationForDriver(dictData as AnyObject, image1: imgDriverLicence.image!, image2: imgAccreditationCertifi.image!, image3: imgCarRegistration.image!, image4: imgVehicleInsurience.image!, image5: imgDriver, image6: imgVehicle) { (result, status) in
+        webserviceForRegistrationForDriver(dictData as AnyObject, image1: imgDriverLicence.image!, image2: imgAccreditationCertifi.image!, image3: imgCarRegistration.image!, image4: imgVehicleInsurience.image!, image5: imgDriver, image6: imgVehicle,image7: imgDriverLicenceBack.image!) { (result, status) in
             
             
             // ------------------------------------------------------------
@@ -686,8 +732,11 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
         let password: String = (userDefault.object(forKey: RegistrationFinalKeys.kPassword) as? String)!
             dictData[RegistrationFinalKeys.kPassword] = password as AnyObject
         
-        let fullName: String = (userDefault.object(forKey: RegistrationFinalKeys.kFullname) as? String)!
-            dictData[RegistrationFinalKeys.kFullname] = fullName as AnyObject
+        let firstname: String = (userDefault.object(forKey: RegistrationFinalKeys.kFirstname) as? String)!
+            dictData[RegistrationFinalKeys.kFirstname] = firstname as AnyObject
+        
+        let lastname: String = (userDefault.object(forKey: RegistrationFinalKeys.kLastName) as? String)!
+            dictData[RegistrationFinalKeys.kLastName] = lastname as AnyObject
        
         let gender: String = (userDefault.object(forKey: RegistrationFinalKeys.kGender) as? String)!
             dictData[RegistrationFinalKeys.kGender] = gender as AnyObject
@@ -725,6 +774,8 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
         let vehicleCompanyModel: String = userDefault.object(forKey: RegistrationFinalKeys.kCompanyModel) as! String
         dictData[RegistrationFinalKeys.kCompanyModel] = vehicleCompanyModel as AnyObject
         
+        
+        
         let vehicleClass: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleClass) as! String
         dictData[RegistrationFinalKeys.kVehicleClass] = vehicleClass as AnyObject
         
@@ -735,8 +786,8 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
            dictData[RegistrationFinalKeys.kNumberOfPasssenger] = passenger as AnyObject
         
         
-        let vehicleColor: String = userDefault.object(forKey: RegistrationFinalKeys.kCarThreeTypeName) as! String
-        dictData[RegistrationFinalKeys.kCarThreeTypeName] = vehicleColor as AnyObject
+        let vehicleColor: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleColor) as! String
+        dictData[RegistrationFinalKeys.kVehicleColor] = vehicleColor as AnyObject
 //        let suburd: String = (userDefault.object(forKey: RegistrationFinalKeys.kSuburb) as? String)!
 //            dictData[RegistrationFinalKeys.kSuburb] = suburd as AnyObject
         

@@ -143,7 +143,8 @@ struct RegistrationFinalKeys {
     static let kKeyDOB = "DOB"
 
     static let kMobileNo = "MobileNo"// Done
-    static let kFullname = "Fullname"// Done
+    static let kFirstname = "Firstname"// Done
+    static let kLastName = "Lastname"// Done
     static let kGender = "Gender"// Done
     static let kPassword = "Password"// Done
     static let kAddress = "Address"// Done
@@ -157,6 +158,7 @@ struct RegistrationFinalKeys {
     static let kZipcode = "Zipcode"
     static let kDriverImage = "DriverImage" //Done
     static let kDriverLicence = "DriverLicence" //Done
+    static let kDriverLicenseBackside = "DriverLicenseBackside"
     static let kAccreditationCertificate = "AccreditationCertificate" //Done
     static let kDriverLicenceExpiryDate = "DriverLicenseExpire" //Done
     static let kAccreditationCertificateExpiryDate = "AccreditationCertificateExpire" //Done
@@ -166,7 +168,7 @@ struct RegistrationFinalKeys {
     static let kABN = "ABN"// Done
     static let kBSB = "BSB"// Done
     static let kServiceDescription = "Description"
-    static let kVehicleColor = "VehicleColor" //Done
+    static let kVehicleColor = "Color" //Done
     static let kCarRegistrationCertificate = "CarRegistrationCertificate" //Done
     static let kVehicleInsuranceCertificate = "VehicleInsuranceCertificate" //Done
     static let kCarRegistrationExpiryDate = "RegistrationCertificateExpire" //Done

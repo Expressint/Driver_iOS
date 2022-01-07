@@ -18,7 +18,7 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
     var aryDataCarsAndTaxiIDs = [String]()
     var aryDataDeliveryServicesIDs = [String]()
     var aryDataCarsAndTaxi = [[String : AnyObject]]()
-
+    
     var aryDataCarsAndTaxiVehicleTypes = [String]()
     var aryDataDeliveryServicesVehicleTypes = [String]()
     var strVehicleClass = String()
@@ -38,38 +38,38 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
             self.TopNavBarConstraint.constant = -UIApplication.shared.statusBarFrame.height
         }
         
-//    btnSave.layer.cornerRadius = btnSave.frame.height / 2
-//    btnSave.layer.masksToBounds = true
+        //    btnSave.layer.cornerRadius = btnSave.frame.height / 2
+        //    btnSave.layer.masksToBounds = true
         
         Singletons.sharedInstance.isFromRegistration = false
         
         getData()
         txtNoOfPassenger.isOptionalDropDown = true
         txtNoOfPassenger.itemList = ["1","2","3","4","5","6","7","8","9","10"]
-
-//        viewbtnCarsAndTexis.layer.borderWidth = 1
-//        viewbtnDeliveryService.layer.borderWidth = 1
         
-//        viewbtnCarsAndTexis.layer.cornerRadius = 3
-//        viewbtnDeliveryService.layer.cornerRadius = 3
-//
-//        viewbtnCarsAndTexis.layer.masksToBounds = true
-//        viewbtnDeliveryService.layer.masksToBounds = true
+        //        viewbtnCarsAndTexis.layer.borderWidth = 1
+        //        viewbtnDeliveryService.layer.borderWidth = 1
         
-//        let profileData = Singletons.sharedInstance.dictDriverProfile
-//        if let carType = (profileData?.object(forKey: "profile") as! NSDictionary).object(forKey: "CategoryId") as? String
-//        {
-//            if carType == "1" {
-//                CarAndTexis()
-//            }
-//            else {
-//                 DeliveryService()
-//            }
-//        }
+        //        viewbtnCarsAndTexis.layer.cornerRadius = 3
+        //        viewbtnDeliveryService.layer.cornerRadius = 3
+        //
+        //        viewbtnCarsAndTexis.layer.masksToBounds = true
+        //        viewbtnDeliveryService.layer.masksToBounds = true
         
-//        let driverVehicleVC = self.children.first as! updateDriverVehicleTypesViewController
-//        driverVehicleVC.setupVehicleSelection()
-
+        //        let profileData = Singletons.sharedInstance.dictDriverProfile
+        //        if let carType = (profileData?.object(forKey: "profile") as! NSDictionary).object(forKey: "CategoryId") as? String
+        //        {
+        //            if carType == "1" {
+        //                CarAndTexis()
+        //            }
+        //            else {
+        //                 DeliveryService()
+        //            }
+        //        }
+        
+        //        let driverVehicleVC = self.children.first as! updateDriverVehicleTypesViewController
+        //        driverVehicleVC.setupVehicleSelection()
+        
         self.webserviceforGetCarModels()
         
         NotificationCenter.default.addObserver(self, selector: #selector(setDataInCarTypeUpdate), name: Notification.Name("setCarTypeUpdate"), object: nil)
@@ -81,7 +81,7 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
         {
             let carType = UserDefaults.standard.object(forKey: RegistrationFinalKeys.kCarThreeTypeName) as! String
             txtCarType.text = carType
-//            Singletons.sharedInstance.vehicleClass = carType
+                        Singletons.sharedInstance.vehicleClass = carType
         }
         
     }
@@ -108,7 +108,7 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
         txtVehicleRegistrationNumber.placeholder = "Vehicle Plate Number".localized
         txtVehicleModel.placeholder = "Vehicle Model".localized
         txtCompany.placeholder = "Vehicle Make".localized
-        
+        txtVehicleColor.placeholder = "Vehicle Color".localized
         txtCarType.placeholder = "Vehicle Type".localized
         txtNoOfPassenger.placeholder = "Number Of Passenger".localized
         btnSave.setTitle("Save".localized, for: .normal)
@@ -138,10 +138,12 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
     @IBOutlet weak var txtVehicleRegistrationNumber: UITextField!
     @IBOutlet weak var txtCompany: UITextField!
     @IBOutlet weak var txtCarType: UITextField!
-
+    
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet var txtNoOfPassenger: IQDropDownTextField!
     @IBOutlet var txtVehicleModel: UITextField!
+    @IBOutlet var txtVehicleColor: UITextField!
+
     
     @IBOutlet weak var btnCarsAndTexis: UIButton!
     @IBOutlet weak var btnDeliveryService: UIButton!
@@ -180,7 +182,7 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
         //        driverVC.scrollObj.setContentOffset(CGPoint(x:x, y:0), animated: true)
         
     }
-
+    
     @IBAction func btnDELIVERYservice(_ sender: UIButton) {
         
         Singletons.sharedInstance.boolTaxiModel = false
@@ -188,7 +190,7 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
         
         let validator = self.isValidateForDeliveryService()
         if validator.0 == true {
-                DeliveryService()
+            DeliveryService()
         }  else {
             
             let ValidationAlert = UIAlertController(title: "App Name".localized, message: validator.1, preferredStyle: UIAlertController.Style.alert)
@@ -209,24 +211,24 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
         var isValidate:Bool = true
         var ValidatorMessage:String = ""
         
-//        let sb = Snackbar()
+        //        let sb = Snackbar()
         if txtCompany.text == "" {
-//            sb.createWithAction(text: "Enter Company Name", actionTitle: "OK".localized, action: { print("Button is push") })
-//            sb.show()
+            //            sb.createWithAction(text: "Enter Company Name", actionTitle: "OK".localized, action: { print("Button is push") })
+            //            sb.show()
             isValidate = false
             ValidatorMessage = "Enter Company Name"
         }
         else if txtCarType.text == "" {
             isValidate = false
             ValidatorMessage = "Vehicle Type".localized
-//            sb.createWithAction(text: "Vehicle Type".localized, actionTitle: "OK".localized, action: { print("Button is push") })
-//            sb.show()
+            //            sb.createWithAction(text: "Vehicle Type".localized, actionTitle: "OK".localized, action: { print("Button is push") })
+            //            sb.show()
         }
         else if txtVehicleRegistrationNumber.text == "" {
             isValidate = false
             ValidatorMessage = "Enter Vehicle Registration No."
-//            sb.createWithAction(text: "Enter Vehicle Registration No.", actionTitle: "OK".localized, action: { print("Button is push") })
-//            sb.show()
+            //            sb.createWithAction(text: "Enter Vehicle Registration No.", actionTitle: "OK".localized, action: { print("Button is push") })
+            //            sb.show()
         }
         
         return (isValidate,ValidatorMessage)
@@ -236,26 +238,26 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
         var isValidate:Bool = true
         var ValidatorMessage:String = ""
         
-//        let sb = Snackbar()
+        //        let sb = Snackbar()
         
         if txtCompany.text == "" {
             isValidate = false
             ValidatorMessage = "Enter Company Name"
-//            sb.createWithAction(text: "Enter Company Name", actionTitle: "OK".localized, action: { print("Button is push") })
-//            sb.show()
+            //            sb.createWithAction(text: "Enter Company Name", actionTitle: "OK".localized, action: { print("Button is push") })
+            //            sb.show()
         }
         else if txtCarType.text == ""
         {
             isValidate = false
             ValidatorMessage = "Enter Car Type"
-//            sb.createWithAction(text: "Enter Car Type", actionTitle: "OK".localized, action: { print("Button is push") })
-//            sb.show()
+            //            sb.createWithAction(text: "Enter Car Type", actionTitle: "OK".localized, action: { print("Button is push") })
+            //            sb.show()
         }
         else if txtVehicleRegistrationNumber.text == "" {
             isValidate = false
             ValidatorMessage = "Enter Vehicle Registration No."
-//            sb.createWithAction(text: "Enter Vehicle Registration No.", actionTitle: "OK".localized, action: { print("Button is push") })
-//            sb.show()
+            //            sb.createWithAction(text: "Enter Vehicle Registration No.", actionTitle: "OK".localized, action: { print("Button is push") })
+            //            sb.show()
         }
         
         
@@ -265,12 +267,12 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
     func CarAndTexis()
     {
         
-//        setData()
-//        btnCarsAndTexis.setImage(UIImage(named: "iconCheckMarkSelected"), for: .normal)
-//        btnDeliveryService.setImage(UIImage(named: "iconCheckMarkUnSelected"), for: .normal)
-//
-//        viewCarsAndTexis.isHidden = false
-//        viewDeliveryService.isHidden = true
+        //        setData()
+        //        btnCarsAndTexis.setImage(UIImage(named: "iconCheckMarkSelected"), for: .normal)
+        //        btnDeliveryService.setImage(UIImage(named: "iconCheckMarkUnSelected"), for: .normal)
+        //
+        //        viewCarsAndTexis.isHidden = false
+        //        viewDeliveryService.isHidden = true
         
         self.performSegue(withIdentifier: "segueCarsAndTaxi", sender: nil)
         
@@ -287,17 +289,18 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
         viewDeliveryService.isHidden = false
     }
     
-
+    
     func setData()
     {
         let vehicleNumber = txtVehicleRegistrationNumber.text
         let VehiclaName = txtCompany.text
-        let vehicleColor = txtCarType.text
-    
+        let vehicleType = txtCarType.text
+        
         
         userDefault.set(vehicleNumber, forKey: RegistrationFinalKeys.kVehicleRegistrationNo)
         userDefault.set(VehiclaName, forKey: RegistrationFinalKeys.kCompanyModel)
-        userDefault.set(vehicleColor, forKey: RegistrationFinalKeys.kCarThreeTypeName)
+        userDefault.set(vehicleType, forKey: RegistrationFinalKeys.kCarThreeTypeName)
+        userDefault.set(txtVehicleColor.text, forKey: RegistrationFinalKeys.kVehicleColor)
         
     }
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
@@ -319,11 +322,14 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
         
         txtVehicleRegistrationNumber.text = Vehicle.object(forKey: "VehicleRegistrationNo") as? String
         txtVehicleModel.text = Vehicle.object(forKey: "VehicleModelName") as? String
+        txtVehicleColor.text = Vehicle.object(forKey: "Color") as? String
         
         txtCompany.text = Vehicle.object(forKey: "Company") as? String
         let carType = Vehicle.object(forKey: "VehicleClass") as? String
         txtCarType.text = carType
-
+        
+        
+        
         txtNoOfPassenger.selectedItem = Vehicle.object(forKey: "NoOfPassenger") as? String
         imgVehicle.sd_setImage(with: URL.init(string: Vehicle.object(forKey: "VehicleImage") as! String), completed: nil)
     }
@@ -370,7 +376,7 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
         
         // picker.stopVideoCapture()
         picker.mediaTypes = [kUTTypeImage as String]
-//            UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        //            UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
         present(picker, animated: true, completion: nil)
     }
     
@@ -416,38 +422,41 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
                 
                 //            (Singletons.sharedInstance.dictDriverProfile.object(forKey: "profile"))!.object(forKey: "profile") as! NSMutableDictionary
                 
-                let strVehicleClass = Singletons.sharedInstance.vehicleClass
+             
                 
                 dictData["DriverId"] = profile.object(forKey: "Id") as? String as AnyObject
-                dictData["VehicleClass"] = strVehicleClass as AnyObject
+             
                 dictData["CompanyModel"] = txtCompany.text as AnyObject
                 dictData["VehicleRegistrationNo"] = txtVehicleRegistrationNumber.text as AnyObject
                 dictData["NoOfPassenger"] = txtNoOfPassenger.selectedItem as AnyObject
                 dictData["VehicleModelName"] = txtVehicleModel.text as AnyObject
+                dictData["Color"] = txtVehicleColor.text as AnyObject
+                let vehicleClass: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleClass) as! String
+                dictData[RegistrationFinalKeys.kVehicleClass] = vehicleClass as AnyObject
                 // DriverId,VehicleClass,VehicleColor,CompanyModel,VehicleRegistrationNo
                 
                 
                 self.webserviceCallForProfileUpdate()
             }
-           
+            
         }
         
     }
     
     func Validations() -> Bool {
         
-//        if (txtVehicleRegistrationNumber.text!.count == 0) {
-//            UtilityClass.showAlert("App Name".localized, message: "Enter Vehicle Registration Number", vc: self)
-//            return false
-//        }
-//        else if (txtCompany.text!.count == 0) {
-//            UtilityClass.showAlert(appName.kAPPName, message: "Enter Company", vc: self)
-//            return false
-//        }
-//        else if (txtCarType.text!.count == 0) {
-//            UtilityClass.showAlert(appName.kAPPName, message: "Enter Car Type", vc: self)
-//            return false
-//        }
+        //        if (txtVehicleRegistrationNumber.text!.count == 0) {
+        //            UtilityClass.showAlert("App Name".localized, message: "Enter Vehicle Registration Number", vc: self)
+        //            return false
+        //        }
+        //        else if (txtCompany.text!.count == 0) {
+        //            UtilityClass.showAlert(appName.kAPPName, message: "Enter Company", vc: self)
+        //            return false
+        //        }
+        //        else if (txtCarType.text!.count == 0) {
+        //            UtilityClass.showAlert(appName.kAPPName, message: "Enter Car Type", vc: self)
+        //            return false
+        //        }
         if txtVehicleRegistrationNumber.text == "" {
             
             UtilityClass.showAlert("App Name".localized, message: "Vehicle Plate Number".localized, vc: self)
@@ -468,9 +477,14 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
             UtilityClass.showAlert("App Name".localized, message: "Vehicle Type".localized, vc: self)
             return false
         }
+        else if txtVehicleColor.text == "" {
+            
+            UtilityClass.showAlert("App Name".localized, message: "Vehicle Color".localized, vc: self)
+            return false
+        }
         else if txtNoOfPassenger.selectedItem == nil ||  txtNoOfPassenger.selectedItem == "" || txtNoOfPassenger.selectedItem == "Number of Passenger"
         {
-
+            
             UtilityClass.showAlert("App Name".localized, message: "Number Of Passenger".localized, vc: self)
             return false
         }
@@ -478,7 +492,7 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
         return true
     }
     
-  
+    
     //-------------------------------------------------------------
     // MARK: - Webservice Methods
     //-------------------------------------------------------------
@@ -508,7 +522,7 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
                 
                 
                 
-//                self.getVehicleName()
+                //                self.getVehicleName()
                 
             }
             else
@@ -533,15 +547,15 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
         {
             destinationOfCarAndTaxi.aryData = self.aryDataCarsAndTaxi as NSArray
             
-//            let profile: NSMutableDictionary = NSMutableDictionary(dictionary: (Singletons.sharedInstance.dictDriverProfile.object(forKey: "profile") as! NSDictionary))
-//            let Vehicle: NSMutableDictionary = NSMutableDictionary(dictionary: profile.object(forKey: "Vehicle") as! NSDictionary )
-//
-//            let carType = Vehicle.object(forKey: "VehicleClass") as? String
-//            let carTypeID = Vehicle.object(forKey: "VehicleModel") as? String
-//            let arryCarName = carType?.components(separatedBy: ",")
-//            let arryCarID = carTypeID?.components(separatedBy: ",")
-//            destinationOfCarAndTaxi.aryChooseCarName = arryCarName!
-//            destinationOfCarAndTaxi.aryChooseCareModel = arryCarID!
+            //            let profile: NSMutableDictionary = NSMutableDictionary(dictionary: (Singletons.sharedInstance.dictDriverProfile.object(forKey: "profile") as! NSDictionary))
+            //            let Vehicle: NSMutableDictionary = NSMutableDictionary(dictionary: profile.object(forKey: "Vehicle") as! NSDictionary )
+            //
+            //            let carType = Vehicle.object(forKey: "VehicleClass") as? String
+            //            let carTypeID = Vehicle.object(forKey: "VehicleModel") as? String
+            //            let arryCarName = carType?.components(separatedBy: ",")
+            //            let arryCarID = carTypeID?.components(separatedBy: ",")
+            //            destinationOfCarAndTaxi.aryChooseCarName = arryCarName!
+            //            destinationOfCarAndTaxi.aryChooseCareModel = arryCarID!
         }
     }
     func webserviceCallForProfileUpdate()
@@ -550,21 +564,21 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
         webserviceForUpdateDriverProfileUpdateVehicleInfoDetails(dictData as AnyObject) { (result, status) in
             
             if (status) {
-//                print(result)
+                //                print(result)
                 
-//                The webservice call is https://www.tantaxitanzania.com/web/Drvier_Api/UpdateVehicleInfo and the params are {
-//                CompanyModel = "0,0";
-//                DriverId = 10;
-//                NoOfPassenger = 2;
-//                VehicleClass = "Standard,Premium";
-//                VehicleModelName = "0,0";
-//                VehicleRegistrationNo = "Gj 27";
-//            }
+                //                The webservice call is https://www.tantaxitanzania.com/web/Drvier_Api/UpdateVehicleInfo and the params are {
+                //                CompanyModel = "0,0";
+                //                DriverId = 10;
+                //                NoOfPassenger = 2;
+                //                VehicleClass = "Standard,Premium";
+                //                VehicleModelName = "0,0";
+                //                VehicleRegistrationNo = "Gj 27";
+                //            }
                 
                 
                 Singletons.sharedInstance.dictDriverProfile = NSMutableDictionary(dictionary: (result as! NSDictionary))
                 
-//                UserDefaults.standard.set(Singletons.sharedInstance.dictDriverProfile, forKey: driverProfileKeys.kKeyDriverProfile)
+                //                UserDefaults.standard.set(Singletons.sharedInstance.dictDriverProfile, forKey: driverProfileKeys.kKeyDriverProfile)
                 
                 Utilities.encodeDatafromDictionary(KEY: driverProfileKeys.kKeyDriverProfile, Param: Singletons.sharedInstance.dictDriverProfile)
                 let alert = UIAlertController(title: "App Name".localized, message: "Updated successfully.".localized, preferredStyle: .alert)
@@ -597,7 +611,7 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
     @IBAction func btnBack(_ sender: Any) {
         
         self.navigationController?.popViewController(animated: true)
-//        self.dismiss(animated: true, completion: nil)
+        //        self.dismiss(animated: true, completion: nil)
     }
     
 }

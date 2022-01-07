@@ -29,7 +29,9 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet var lblEmail: UILabel!
-    @IBOutlet var lblName: UILabel!
+    @IBOutlet var lblFirstName: UILabel!
+    
+
     @IBOutlet weak var imgProfile: UIImageView!
     @IBOutlet var btnMale: UIButton!
     @IBOutlet var btnFemale: UIButton!
@@ -39,7 +41,9 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
     @IBOutlet weak var btnSave: ThemeButton!
     @IBOutlet weak var txtCompanyID: UITextField!
     @IBOutlet weak var txtMobile: ACFloatingTextfield!
-    @IBOutlet weak var txtFullName: ACFloatingTextfield!
+    @IBOutlet weak var txtFirstName: ACFloatingTextfield!
+    @IBOutlet weak var txtLastName: ACFloatingTextfield!
+
     @IBOutlet weak var txtDOB: UITextField!
     @IBOutlet weak var txtAddress: ACFloatingTextfield!
     @IBOutlet weak var txtPostCode: UITextField!
@@ -153,7 +157,8 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
     func setLocalizable()
     {
         lblTitle.text = "Profile".localized
-        txtFullName.placeholder = "Full Name".localized
+        txtFirstName.placeholder = "First Name".localized
+        txtLastName.placeholder = "Last Name".localized
         txtAddress.placeholder = "Address".localized
         txtMobile.placeholder = "Mobile Number".localized
         lblGender.text = "Gender".localized
@@ -366,8 +371,9 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
 
             
         txtMobile.text          = profile.object(forKey: "MobileNo") as? String
-        txtFullName.text        = profile.object(forKey: "Fullname") as? String
-        lblName.text  = profile.object(forKey: "Fullname") as? String
+        txtFirstName.text        = profile.object(forKey: "Firstname") as? String
+        txtLastName.text        = profile.object(forKey: "Lastname") as? String
+        lblFirstName.text  = "\(profile.object(forKey: "Firstname") as? String ?? "") \(profile.object(forKey: "Lastname") as? String ?? "")" //profile.object(forKey: "Firstname") as? String 
         lblEmail.text  = profile.object(forKey: "Email") as? String
         txtDOB.text             = profile.object(forKey: "DOB") as? String
         txtAddress.text         = profile.object(forKey: "Address") as? String
@@ -436,7 +442,8 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
         
         dictData["DriverId"] = driverID as AnyObject
       //  dictData["CompanyId"] = companyID as AnyObject
-        dictData["Fullname"] = txtFullName.text as AnyObject
+        dictData["Firstname"] = txtFirstName.text as AnyObject
+        dictData["Lastname"] = txtLastName.text as AnyObject
         dictData["Gender"] = genderSet as AnyObject
         dictData["Address"] = txtAddress.text as AnyObject
         dictData["DOB"] = txtDOB.text as AnyObject
@@ -543,8 +550,15 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
     
     func validations() -> Bool
     {
-
-        if (txtAddress.text?.count == 0)
+         if (txtFirstName.text?.count == 0)
+        {
+            UtilityClass.showAlert("App Name".localized, message: "Please enter first name".localized, vc: self)
+            return false
+        }else if (txtLastName.text?.count == 0)
+        {
+            UtilityClass.showAlert("App Name".localized, message: "Please enter last name".localized, vc: self)
+            return false
+        }else if (txtAddress.text?.count == 0)
         {
             UtilityClass.showAlert("App Name".localized, message: "Please enter address".localized, vc: self)
             return false
@@ -554,11 +568,7 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
             UtilityClass.showAlert("App Name".localized, message: "Please enter date of birth".localized, vc: self)
             return false
         }
-        else if (txtFullName.text?.count == 0)
-        {
-            UtilityClass.showAlert("App Name".localized, message: "Please enter user name".localized, vc: self)
-            return false
-        }
+        
 //        else if (txtPostCode.text?.count == 0)
 //        {
 //            UtilityClass.showAlert("App Name".localized, message: "Enter Post Code", vc: self)

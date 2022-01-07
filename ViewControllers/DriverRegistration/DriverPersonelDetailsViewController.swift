@@ -40,7 +40,8 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
     @IBOutlet weak var viewGender: UIView!
     @IBOutlet weak var imgProfile: UIImageView!
     
-    @IBOutlet weak var txtFullName: UITextField!
+    @IBOutlet weak var txtFirstName: UITextField!
+    @IBOutlet weak var txtLastName: UITextField!
     @IBOutlet weak var txtDOB: UITextField!
     @IBOutlet weak var txtAddress: UITextField!
     @IBOutlet weak var txtPostCode: UITextField!
@@ -65,7 +66,8 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
     {
         self.title = "App Name".localized
 
-        txtFullName.placeholder = "User Name".localized
+        txtFirstName.placeholder = "First Name".localized
+        txtLastName.placeholder = "Last Name".localized
         txtAddress.placeholder = "Address".localized
         lblMale.text = "Male".localized
         lblFemale.text = "Female".localized
@@ -371,7 +373,7 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
         let arrData = NSMutableArray()
         let dictData = NSMutableDictionary()
         
-            dictData.setObject(txtFullName.text!, forKey: RegistrationProfileKeys.kKeyFullName as NSCopying)
+            dictData.setObject(txtFirstName.text!, forKey: RegistrationProfileKeys.kKeyFullName as NSCopying)
             dictData.setObject(txtDOB.text!, forKey: RegistrationProfileKeys.kKeyDOB as NSCopying)
             dictData.setObject(txtAddress.text!, forKey: RegistrationProfileKeys.kKeyAddress as NSCopying)
             dictData.setObject(txtPostCode.text!, forKey: RegistrationProfileKeys.kKeyPostCode as NSCopying)
@@ -406,7 +408,7 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
             isValidate = false
             ValidatorMessage = "Choose Photo".localized
         }
-       else if txtFullName.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
+       else if txtFirstName.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
             isValidate = false
             ValidatorMessage = "Please enter user name".localized
 //            sb.createWithAction(text: "Please enter user name".localized, actionTitle: "Dismiss".localized, action: { print("Button is push") })
@@ -461,7 +463,9 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
         imgProfile.image = image
         
         userDefault.set(txtDOB.text, forKey: RegistrationFinalKeys.kKeyDOB)
-        userDefault.set(txtFullName.text, forKey: RegistrationFinalKeys.kFullname)
+        
+        userDefault.set(txtFirstName.text, forKey: RegistrationFinalKeys.kFirstname)
+        userDefault.set(txtLastName.text, forKey: RegistrationFinalKeys.kLastName)
         userDefault.set(txtAddress.text, forKey: RegistrationFinalKeys.kAddress)
         userDefault.set(txtInviteCode.text, forKey: RegistrationFinalKeys.kReferralCode)
         userDefault.set(strLatitude, forKey: RegistrationFinalKeys.kLat)

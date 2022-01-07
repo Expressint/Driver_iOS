@@ -182,7 +182,7 @@ class MyRatingViewController : ParentViewController,UITableViewDataSource, UITab
             cell.lblComments.text = strComment
              cell.lblCommentTitle.text = "Comment".localized
         }
-        cell.viewRating.rating = CGFloat(intRating)//CGFloat((data.object(forKey: "Rating") as? String)!)
+        cell.viewRating.rating = Double(CGFloat(intRating))//CGFloat((data.object(forKey: "Rating") as? String)!)
         cell.lblPickUpAddress.text = (data.object(forKey: "PickupLocation") as? String)  // PickupLocation
         //
         

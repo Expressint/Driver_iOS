@@ -157,6 +157,7 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
         if UserDefaults.standard.object(forKey: RegistrationFinalKeys.kCarThreeTypeName) != nil
         {
             let carType: String = UserDefaults.standard.object(forKey: RegistrationFinalKeys.kCarThreeTypeName) as! String
+            
             txtCarType.text = carType
         }
     }
@@ -518,23 +519,27 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
     
     
     @IBAction func btnChoosePicture(_ sender: UIButton) {
+        UtilityClass.showAlertWithCompletion("Info Message!", message: "Please take a front picture of the car with the license plate clearly visible.", vc: self) { success in
+            
+            let alert = UIAlertController(title: "Choose Photo".localized, message: nil, preferredStyle: .alert)
+            
+            let Gallery = UIAlertAction(title: "Select photo from gallery".localized
+                                        , style: .default, handler: { ACTION in
+                                            self.PickingImageFromGallery()
+                                        })
+            let Camera  = UIAlertAction(title: "Select photo from camera".localized
+                                        , style: .default, handler: { ACTION in
+                                            self.PickingImageFromCamera()
+                                        })
+            let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
+            
+            alert.addAction(Gallery)
+            alert.addAction(Camera)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+        }
         
-        let alert = UIAlertController(title: "Choose Photo".localized, message: nil, preferredStyle: .alert)
         
-        let Gallery = UIAlertAction(title: "Select photo from gallery".localized
-, style: .default, handler: { ACTION in
-            self.PickingImageFromGallery()
-        })
-        let Camera  = UIAlertAction(title: "Select photo from camera".localized
-, style: .default, handler: { ACTION in
-            self.PickingImageFromCamera()
-        })
-        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
-        
-        alert.addAction(Gallery)
-        alert.addAction(Camera)
-        alert.addAction(cancel)
-        self.present(alert, animated: true, completion: nil)
         
     }
     
@@ -606,9 +611,9 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
         
         let vehicleRegistrationNumber = txtVehicleRegistrationNumber.text
         let VehiclaCompanyModelName = txtCompany.text // CompanyModel
-        let vehicleClasscarType = txtCarType.text
         let VehiclaMakeCompanyModel = txtVehicleMake.text
         let vehiclePassenger = txtNumberPassenger.selectedItem
+        let vehicleColor = txtVehicleColor.text
         
         if imgVehicle.image != nil
         {
@@ -621,11 +626,12 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
         
         userDefault.set(vehicleRegistrationNumber, forKey: RegistrationFinalKeys.kVehicleRegistrationNo)
         userDefault.set(VehiclaMakeCompanyModel, forKey: RegistrationFinalKeys.kCompanyModel)
-        userDefault.set(vehicleClasscarType, forKey: RegistrationFinalKeys.kVehicleClass)
+       
+        
         userDefault.set(VehiclaCompanyModelName, forKey: RegistrationFinalKeys.kVehicleModelName)
         userDefault.set(vehiclePassenger, forKey: RegistrationFinalKeys.kNumberOfPasssenger)
+        userDefault.set(vehicleColor, forKey: RegistrationFinalKeys.kVehicleColor)
        
-        userDefault.set(txtVehicleColor.text, forKey: RegistrationFinalKeys.kVehicleColor)
     }
     
     

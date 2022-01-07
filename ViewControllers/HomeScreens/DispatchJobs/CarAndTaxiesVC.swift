@@ -34,6 +34,7 @@ class CarAndTaxiesVC: UIViewController, UITableViewDataSource, UITableViewDelega
     //-------------------------------------------------------------
     // MARK: - Global Declaration
     //-------------------------------------------------------------
+    var carTypeID = [String]()
     var aryChooseCareModel = [String]()
     var aryChooseCarName = [String]()
     var aryData = NSArray()
@@ -146,7 +147,11 @@ class CarAndTaxiesVC: UIViewController, UITableViewDataSource, UITableViewDelega
         let dictData = aryData.object(at: indexPath.row) as! NSDictionary
         
         cell.lblCarModelClass.text = dictData.object(forKey: "Name") as? String
-        
+        cell.closourBtnInfo = {
+            UtilityClass.showAlertWithCompletion("Info Message!", message: dictData.object(forKey: "Description") as? String ?? "", vc: self) { success in
+            
+            }
+        }
         cell.btnTickMark.imageView?.contentMode = .scaleAspectFit
         cell.btnTickMark.setImage(UIImage.init(named: "Unchecked"), for: .normal)
 
@@ -222,7 +227,7 @@ class CarAndTaxiesVC: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var btnOK: UIButton!
     @IBAction func btnOK(_ sender: UIButton)
     {
- 
+        
         let joined = aryChooseCareModel.joined(separator: ",")
         UserDefaults.standard.set(joined, forKey: RegistrationFinalKeys.kVehicleClass)
         

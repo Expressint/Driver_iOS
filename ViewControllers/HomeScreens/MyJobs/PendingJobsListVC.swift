@@ -193,16 +193,16 @@ class PendingJobsListVC: UIViewController, UITableViewDataSource, UITableViewDel
         
         cell.viewAllDetails.isHidden = !expandedCellPaths.contains(indexPath)
         
-        var tripDistance = String()
-        if let strTripDistance = data.object(forKey: "TripDistance") as? String {
-            tripDistance = strTripDistance
-        } else if let intTripDistance = data.object(forKey: "TripDistance") as? Int {
-            tripDistance = "\(intTripDistance)"
-        }
+//        var tripDistance = String()
+//        if let strTripDistance = data.object(forKey: "TripDistance") as? String {
+//            tripDistance = strTripDistance
+//        } else if let intTripDistance = data.object(forKey: "TripDistance") as? Int {
+//            tripDistance = "\(intTripDistance)"
+//        }
         
-        let strStatus = data.object(forKey: "Status") as! String
-        Singletons.sharedInstance.DriverTripCurrentStatus = strStatus
-        let strBookingStatus = data.object(forKey: "BookingType") as! String
+        let strStatus = data.object(forKey: "Status") as? String
+        Singletons.sharedInstance.DriverTripCurrentStatus = strStatus ?? ""
+        let strBookingStatus = data.object(forKey: "BookingType") as? String
         let strOntheWay = data.object(forKey: "OnTheWay") as? String
         if strBookingStatus == "Book Now"
         {
@@ -218,6 +218,7 @@ class PendingJobsListVC: UIViewController, UITableViewDataSource, UITableViewDel
             else //if strStatus == kAcceptTripStatus && strOntheWay! == 0 //|| strStatus == kPendingTripStatus //kPendingJob
             {
                 cell.btnStartTrip.isHidden = false
+                cell.btnStartTrip.setTitle("On the way!", for: .normal)
                 cell.btnStartTrip.tag = Int((data.object(forKey: "Id") as? String)!)!
                 cell.btnStartTrip.addTarget(self, action: #selector(self.strtTrip(sender:)), for: .touchUpInside)
             }

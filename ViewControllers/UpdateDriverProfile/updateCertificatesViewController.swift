@@ -60,7 +60,9 @@ class updateCertificatesViewController: UIViewController, UIImagePickerControlle
     func setLocalizable()
     {
         lblTitle.text = "Documents".localized
-        lblDriverLicence.text = "Driver Licence (Front only)".localized
+        lblDriverLicence.text = "Driver Licence (Front)".localized
+        lblDriverLicenceBack.text = "Driver Licence (Back)".localized
+
         lblDriverLicenceExpiryDate.text = "Select driver licence expiry date".localized
         lblAccreditationCerti.text = "TIN Certificate".localized
         lblAccreditationCertiExpiryDate.text = "Select TIN Certificate expiry date".localized
@@ -93,6 +95,10 @@ class updateCertificatesViewController: UIViewController, UIImagePickerControlle
     @IBOutlet weak var imgDriverLicence: UIImageView!
     @IBOutlet weak var lblDriverLicence: UILabel!
     @IBOutlet weak var lblDriverLicenceExpiryDate: UILabel!
+    
+    @IBOutlet weak var viewDriversLicenceBack: UIView!
+@IBOutlet weak var imgDriverLicenceBack: UIImageView!
+    @IBOutlet weak var lblDriverLicenceBack: UILabel!
   
     @IBOutlet weak var imgAccreditationCerti: UIImageView!
     @IBOutlet weak var lblAccreditationCerti: UILabel!
@@ -111,6 +117,42 @@ class updateCertificatesViewController: UIViewController, UIImagePickerControlle
     // MARK:- Driver Licence Expire
     
     @IBAction func btnDriverLicenceExpiryDate(_ sender: UIButton) {
+        
+        let alert = UIAlertController(title: "Choose Photo".localized, message: nil, preferredStyle: .alert)
+        
+        let Gallery = UIAlertAction(title: "Select photo from gallery".localized, style: .default, handler: { ACTION in
+            
+            self.imagePicker.allowsEditing = false
+            self.imagePicker.sourceType = .photoLibrary
+            self.imagePicker.mediaTypes = [kUTTypeImage as String]
+//                UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+            
+            self.imagePicked = sender.tag
+            self.present(self.imagePicker, animated: true)
+            
+        })
+        let Camera  = UIAlertAction(title: "Select photo from camera".localized, style: .default, handler: { ACTION in
+            
+//           DispatchQueue.main.async {
+            
+                self.imagePicked = sender.tag
+                self.imagePicker.allowsEditing = false
+                self.imagePicker.sourceType = .camera
+                self.imagePicker.cameraCaptureMode = .photo
+//            }
+            self.present(self.imagePicker, animated: true)
+            
+            
+        })
+        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
+        
+        alert.addAction(Gallery)
+        alert.addAction(Camera)
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    @IBAction func btnDriverLicenceExpiryDateBack(_ sender: UIButton) {
         
         let alert = UIAlertController(title: "Choose Photo".localized, message: nil, preferredStyle: .alert)
         
@@ -188,38 +230,41 @@ class updateCertificatesViewController: UIViewController, UIImagePickerControlle
 
     
     @IBAction func btnCarRegistration(_ sender: UIButton) {
-        
-        let alert = UIAlertController(title: "Choose Photo".localized ,message: nil, preferredStyle: .alert)
-        
-        let Gallery = UIAlertAction(title: "Select photo from gallery".localized, style: .default, handler: { ACTION in
+      
             
-            self.imagePicker.allowsEditing = false
-            self.imagePicker.sourceType = .photoLibrary
-            self.imagePicker.mediaTypes = [kUTTypeImage as String]
-//                UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+            let alert = UIAlertController(title: "Choose Photo".localized ,message: nil, preferredStyle: .alert)
             
-            self.imagePicked = sender.tag
-            self.present(self.imagePicker, animated: true)
-            
-        })
-        let Camera  = UIAlertAction(title: "Select photo from camera".localized, style: .default, handler: { ACTION in
-//            DispatchQueue.main.async {
-            
-                self.imagePicked = sender.tag
+            let Gallery = UIAlertAction(title: "Select photo from gallery".localized, style: .default, handler: { ACTION in
+                
                 self.imagePicker.allowsEditing = false
-                self.imagePicker.sourceType = .camera
-                self.imagePicker.cameraCaptureMode = .photo
-//            }
-            self.present(self.imagePicker, animated: true)
+                self.imagePicker.sourceType = .photoLibrary
+                self.imagePicker.mediaTypes = [kUTTypeImage as String]
+    //                UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+                
+                self.imagePicked = sender.tag
+                self.present(self.imagePicker, animated: true)
+                
+            })
+            let Camera  = UIAlertAction(title: "Select photo from camera".localized, style: .default, handler: { ACTION in
+    //            DispatchQueue.main.async {
+                
+                    self.imagePicked = sender.tag
+                    self.imagePicker.allowsEditing = false
+                    self.imagePicker.sourceType = .camera
+                    self.imagePicker.cameraCaptureMode = .photo
+    //            }
+                self.present(self.imagePicker, animated: true)
+                
+                
+            })
+            let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
             
-            
-        })
-        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
+            alert.addAction(Gallery)
+            alert.addAction(Camera)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
         
-        alert.addAction(Gallery)
-        alert.addAction(Camera)
-        alert.addAction(cancel)
-        self.present(alert, animated: true, completion: nil)
+       
         
     }
     
@@ -228,6 +273,8 @@ class updateCertificatesViewController: UIViewController, UIImagePickerControlle
         let vehicleImage = ((Singletons.sharedInstance.dictDriverProfile.object(forKey: "profile") as! NSDictionary).object(forKey: "Vehicle") as! NSDictionary).object(forKey: "VehicleImage") as! String
         
          let driverLicenceImage = (Singletons.sharedInstance.dictDriverProfile.object(forKey: "profile") as! NSDictionary).object(forKey: "DriverLicense") as! String
+        
+        var driverLicenceImageBack = (Singletons.sharedInstance.dictDriverProfile.object(forKey: "profile") as! NSDictionary).object(forKey: "DriverLicenseBackside") as! String
 //
          let AccreditationCertificateImage = (Singletons.sharedInstance.dictDriverProfile.object(forKey: "profile") as! NSDictionary).object(forKey: "AccreditationCertificate") as! String
 //
@@ -243,11 +290,17 @@ class updateCertificatesViewController: UIViewController, UIImagePickerControlle
 
         
         let VehicleInsuranceCertificateImage = ((Singletons.sharedInstance.dictDriverProfile.object(forKey: "profile") as! NSDictionary).object(forKey: "Vehicle") as! NSDictionary).object(forKey: "VehicleInsuranceCertificate") as! String
-
+print("ATDebug :: VehicleInsuranceCertificateImage \(VehicleInsuranceCertificateImage)")
         setImage(url: vehicleImage, imageView: self.imgVehicleImage)
-
+       
         setImage(url: driverLicenceImage, imageView: self.imgDriverLicence)
         
+        if driverLicenceImageBack.contains(WebserviceURLs.kImageBaseURL) {
+            setImage(url: driverLicenceImageBack, imageView: self.imgDriverLicenceBack)
+        } else {
+            driverLicenceImageBack = WebserviceURLs.kImageBaseURL + driverLicenceImageBack
+            setImage(url: driverLicenceImageBack, imageView: self.imgDriverLicenceBack)
+        }
         setImage(url: AccreditationCertificateImage, imageView: self.imgAccreditationCerti)
 
         setImage(url: RegistrationCertificateImage, imageView: self.imgCarRegistration)
@@ -328,27 +381,27 @@ class updateCertificatesViewController: UIViewController, UIImagePickerControlle
 
     
     @IBAction func btnUploadVehicleImage(_ sender: Any) {
-        
-        let alert = UIAlertController(title:  "Choose Photo".localized, message: nil, preferredStyle: .alert)
-        
-        let Gallery = UIAlertAction(title: "Select photo from gallery".localized, style: .default, handler: { ACTION in
-           
-            self.boolImgVehicle = true
-            self.PickingImageFromGallery()
-        })
-        let Camera  = UIAlertAction(title: "Select photo from camera".localized, style: .default, handler: { ACTION in
+        UtilityClass.showAlertWithCompletion("Info Message!", message: "Please take a front picture of the car with the license plate clearly visible.", vc: self) { success in
+            let alert = UIAlertController(title:  "Choose Photo".localized, message: nil, preferredStyle: .alert)
             
-            self.boolImgVehicle = true
-            self.PickingImageFromCamera()
+            let Gallery = UIAlertAction(title: "Select photo from gallery".localized, style: .default, handler: { ACTION in
+                
+                self.boolImgVehicle = true
+                self.PickingImageFromGallery()
+            })
+            let Camera  = UIAlertAction(title: "Select photo from camera".localized, style: .default, handler: { ACTION in
+                
+                self.boolImgVehicle = true
+                self.PickingImageFromCamera()
+                
+            })
+            let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
             
-        })
-        let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
-        
-        alert.addAction(Gallery)
-        alert.addAction(Camera)
-        alert.addAction(cancel)
-        self.present(alert, animated: true, completion: nil)
-        
+            alert.addAction(Gallery)
+            alert.addAction(Camera)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+        }
         
     }
     
@@ -407,6 +460,10 @@ class updateCertificatesViewController: UIViewController, UIImagePickerControlle
                 self.imgVehicleInsurance.contentMode = .scaleToFill
                 self.imgVehicleInsurance.image = pickedImage
                 self.SelectedDocImage = pickedImage!
+            }else if self.imagePicked == 5 {
+                self.imgDriverLicenceBack.contentMode = .scaleToFill
+                self.imgDriverLicenceBack.image = pickedImage
+                self.SelectedDocImage = pickedImage!
             }
 //        }
         dismiss(animated: true, completion: nil)
@@ -427,7 +484,10 @@ class updateCertificatesViewController: UIViewController, UIImagePickerControlle
             //            dismiss(animated: true)
             if self.imagePicked == 3 {
                   webserviceCallToUploaDocs(imageToUpload: self.SelectedDocImage, strParam: "CarRegistrationCertificate", expireDate: "", expireDateKey: "")
-            } else {
+            }  else if imagePicked == 5 {
+                webserviceCallToUploaDocs(imageToUpload: self.SelectedDocImage, strParam: "DriverLicenseBackside", expireDate: "", expireDateKey: "")
+
+            }else {
                 self.perform(#selector(self.OpenDateTimePicker), with: nil, afterDelay: 0.5)
                 /*
                 let when = DispatchTime.now() + 1 // change 2 to desired number of seconds

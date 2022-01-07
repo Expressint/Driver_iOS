@@ -28,7 +28,7 @@ class CarAndTaxiesTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+    var closourBtnInfo:(() -> ())?
     
     //-------------------------------------------------------------
     // MARK: - Outlets
@@ -42,12 +42,20 @@ class CarAndTaxiesTableViewCell: UITableViewCell {
     @IBOutlet weak var viewBackground: UIView!
     
     
+    @IBOutlet weak var btnInfo: UIButton!
     
     
     
     
-    
-    
+    @IBAction func btnInfoClick(_ sender: UIButton) {
+       
+        if let click = self.closourBtnInfo {
+            click()
+        }
+       
+        
+        
+    }
     
 
 }

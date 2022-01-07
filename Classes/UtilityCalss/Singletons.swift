@@ -9,7 +9,7 @@
 import UIKit
 
 class Singletons: NSObject {
-    
+    var helpLineNumber = ""
     static let sharedInstance = Singletons()
 
 //    var isOnTabbarView = Bool()

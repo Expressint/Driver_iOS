@@ -458,7 +458,8 @@ class DriverRegistrationViewController: UIViewController, UIScrollViewDelegate /
 //                }
                 
                 personalVC.txtDOB.text = UserDefaults.standard.value(forKey: RegistrationFinalKeys.kKeyDOB) as? String
-                personalVC.txtFullName.text = UserDefaults.standard.value(forKey: RegistrationFinalKeys.kFullname) as? String
+                personalVC.txtFirstName.text = UserDefaults.standard.value(forKey: RegistrationFinalKeys.kFirstname) as? String
+                personalVC.txtLastName.text = UserDefaults.standard.value(forKey: RegistrationFinalKeys.kLastName) as? String
                 personalVC.txtAddress.text = UserDefaults.standard.value(forKey: RegistrationFinalKeys.kAddress) as? String
                 personalVC.txtInviteCode.text = UserDefaults.standard.value(forKey: RegistrationFinalKeys.kReferralCode) as? String
                 let sreGender = UserDefaults.standard.value(forKey: RegistrationFinalKeys.kGender) as! String

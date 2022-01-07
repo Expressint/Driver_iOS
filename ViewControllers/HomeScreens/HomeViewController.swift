@@ -188,6 +188,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         viewHomeMyJobsBTN.isHidden = false
         self.constrainLocationViewBottom?.priority = UILayoutPriority(rawValue: 600)
         isAdvanceBooking = false
+        self.advanceBookingID = ""
         Singletons.sharedInstance.isFirstTimeDidupdateLocation = true;
         moveMent = ARCarMovement()
         moveMent.delegate = self
@@ -890,6 +891,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             print ("kReceiveBookingRequest : \(data)")
             
             self.isAdvanceBooking = false
+            self.advanceBookingID = ""
             self.isNowBooking = true
             
             self.bookingID = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingId") as! String
@@ -1238,7 +1240,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 
                 //                ((self.aryPassengerData as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingInfo") as? NSDictionary
                 
-                self.btnStartTripAction()
+//                self.btnStartTripAction()
+             
                 self.mapView.clear()
                 self.driverMarker = nil
                 self.UpdateDriverLocation()
@@ -1257,6 +1260,21 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 Singletons.sharedInstance.MeterStatus = meterStatus.kIsMeterStart
                 
                 self.pickupPassengerFromLocation()
+                
+                // ontheway == 1 and status == accepted = travelling to pick passenger
+                //ontheway == 1 and status == travelling = start trip
+                if let onTheWay = ((((self.aryPassengerData as NSArray)[0] as? NSDictionary)?["BookingInfo"] as? NSDictionary)?["OnTheWay"] as? String), let status = ((((self.aryPassengerData as NSArray)[0] as? NSDictionary)?["BookingInfo"] as? NSDictionary)?["Status"] as? String)
+                {
+                    
+                    if (onTheWay == "1" && status.lowercased() == "travelling")
+                    {
+                        self.btnStartTripAction()
+                    }
+                    else  if (onTheWay == "1" && status.lowercased() == "accepted")
+                    {
+                        self.stackViewOfStartTrip.isHidden = false
+                    }
+                }
             }
             else
             {
@@ -1648,10 +1666,11 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 
                 // print ("GetAdvanceBookingDetailsAfterBookingRequestAccepted()")
                 
-                if !(Singletons.sharedInstance.isBookNowOrBookLater) {
-                    self.methodAfterDidAcceptBookingLaterRequest(data: data as NSArray)
-                    
-                }
+//                if !(Singletons.sharedInstance.isBookNowOrBookLater) {
+//                    self.methodAfterDidAcceptBookingLaterRequest(data: data as NSArray)
+                self.isAdvanceBooking = true
+                self.methodAfterDidAcceptBooking(data: data as NSArray)
+//                }
                 
                 UtilityClass.hideACProgressHUD()
                 
@@ -2449,9 +2468,15 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             }
             else {
                 sender.LoadButtonAnimation()
-                self.PickupPassengerByDriverInBookLaterRequest()
-                
-                //                self.btnStartTripAction()
+                if(self.btnStartTrip.title(for: .normal) == "Pick up")
+                {
+                    driverClickedArrived()
+                }
+                else
+                {
+                    self.startTrip()
+                    self.btnStartTripAction()
+                }
             }
         }
         else {
@@ -2718,9 +2743,16 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             Singletons.sharedInstance.bookingId = bookingID
         }
         
-        let myJSON = [socketApiKeys.kBookingId : Singletons.sharedInstance.bookingId,  profileKeys.kDriverId : driverID] as [String : Any]
-        socket.emit(socketApiKeys.kPickupPassengerByDriver, with: [myJSON], completion: nil)
         
+        if isAdvanceBooking
+        {
+            PickupPassengerByDriverInBookLaterRequest()
+        }
+        else
+        {
+            let myJSON = [socketApiKeys.kBookingId : Singletons.sharedInstance.bookingId,  profileKeys.kDriverId : driverID] as [String : Any]
+            socket.emit(socketApiKeys.kPickupPassengerByDriver, with: [myJSON], completion: nil)
+        }
     }
     
     @IBAction func btnShowPassengerInfo(_ sender: UIButton) {

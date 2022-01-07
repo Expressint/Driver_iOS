@@ -83,10 +83,10 @@ let DriverEarningReport = WebserviceURLs.kDriverEarningReport
 // MARK: - Webservice For Registration
 //-------------------------------------------------------------
 
-func webserviceForRegistrationForDriver(_ dictParams: AnyObject, image1: UIImage, image2: UIImage, image3: UIImage, image4: UIImage, image5: UIImage, image6: UIImage, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+func webserviceForRegistrationForDriver(_ dictParams: AnyObject, image1: UIImage, image2: UIImage, image3: UIImage, image4: UIImage, image5: UIImage, image6: UIImage,image7: UIImage, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
     let url = Registration
-    sendImage(dictParams as! [String : AnyObject], image1: image1, image2: image2, image3: image3, image4: image4, image5: image5, image6: image6, nsURL: url, completion: completion)
+    sendImage(dictParams as! [String : AnyObject], image1: image1, image2: image2, image3: image3, image4: image4, image5: image5, image6: image6,image7: image7, nsURL: url, completion: completion)
   
 }
 

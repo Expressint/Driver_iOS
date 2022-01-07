@@ -186,7 +186,7 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
     
     func CallButtonClicked()     //  Call Button
     {
-        let contactNumber = WebSupport.HelplineNumber
+        let contactNumber = Singletons.sharedInstance.helpLineNumber
         
         if contactNumber == "" {
             

@@ -452,7 +452,7 @@ class  MenuController: UIViewController, UITableViewDataSource, UITableViewDeleg
     {
         let profile =  NSMutableDictionary(dictionary: (Singletons.sharedInstance.dictDriverProfile.object(forKey: "profile") as! NSDictionary))
         
-        driverFullName = profile.object(forKey: "Fullname") as! String
+        driverFullName = "\(profile.object(forKey: "Firstname") as! String) \(profile.object(forKey: "Lastname") as! String)" 
         driverMobileNo = profile.object(forKey: "Email") as! String
         strImagPath = profile.object(forKey: "Image") as! String
         
@@ -514,7 +514,7 @@ extension MenuController : UICollectionViewDataSource, UICollectionViewDelegate,
             sideMenuController?.toggle()
         }
         else if arrMenuTitle[indexPath.row] == kHelp {
-            self.dialNumber(number: "0987654321")
+            self.dialNumber(number: Singletons.sharedInstance.helpLineNumber)
         }
     }
     

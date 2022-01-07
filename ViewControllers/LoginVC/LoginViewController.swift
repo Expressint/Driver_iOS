@@ -514,7 +514,7 @@
                  }
                  */
                 //                self.viewMain.isHidden = true
-                
+                Singletons.sharedInstance.helpLineNumber = result["contact_number"] as? String ?? "0000000000"
                 if let dictData = result["driver"] as? [String:Any], let profile = dictData["profile"] as? [String:Any]
                 {
                     var status = String()
