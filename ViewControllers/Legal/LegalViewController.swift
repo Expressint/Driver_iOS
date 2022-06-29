@@ -35,7 +35,7 @@ class LegalViewController: ParentViewController {
     }
     @IBAction func btnPrivacyPolice(_ sender: UIButton)
     {
-        let next = self.storyboard?.instantiateViewController(withIdentifier: "LegalWebView") as! LegalWebPage
+        let next = self.storyboard?.instantiateViewController(withIdentifier: "LegalWebPages") as! LegalWebPage
         next.headerName = "Privacy Policy".localized
         next.strURL = WebSupport.PrivacyPolicyURL
 //        "https://www.tantaxitanzania.com/front/privacypolicy"
@@ -45,7 +45,7 @@ class LegalViewController: ParentViewController {
     
     @IBAction func btnTumsAndCondition(_ sender: UIButton)
     {
-        let next = self.storyboard?.instantiateViewController(withIdentifier: "LegalWebView") as! LegalWebPage
+        let next = self.storyboard?.instantiateViewController(withIdentifier: "LegalWebPage") as! LegalWebPage
         next.headerName = "Terms & Conditions".localized
         next.strURL = WebSupport.TermsNConditionsURL
 //        "https://www.tantaxitanzania.com/front/termsconditions"

@@ -11,6 +11,8 @@ import UIKit
 //import BFKit
 
 let App_Delegate = UIApplication.shared.delegate as! AppDelegate
+let themeYellowColor: UIColor =  UIColor.init(hex: "02a64d")//themeAppMainColor //UIColor.init(hex: "005f99")//"ef4036") /// Nav Color
+
 let ThemeAppColor = UIColor.init(hex: "E48428") // E48428  // fcee21 yellowish // 02a64d green  //  be212e red  //     //
 let ThemeAppMainColor : UIColor = UIColor.init(hex: "fcee21") // bba739
 let ThemeAppSecondaryColor : UIColor = UIColor.init(hex: "be212e")
@@ -134,7 +136,7 @@ let kiconMyJobs : String = "iconMyjobInactive"
 let kiconPaymentOption : String = "iconPaymentInactive"
 let kiconWallet : String = "iconWalletInactive"
 let kiconMyRating : String = "iconRatingInactive"
-let kiconInviteFriend : String = "iconAddress"
+let kiconInviteFriend : String = "iconInviteFrndInactive"
 let kiconSettings : String = "iconSettingUnselect"
 //let klegalicon : String = "iconlegall"
 let klegal : String = "iconlegall"

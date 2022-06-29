@@ -32,7 +32,12 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
     var imgDriver = UIImage()
     var imgVehicle = UIImage()
     
-    
+    @IBOutlet weak var btnTermsSignUp: UIButton!
+    @IBOutlet weak var txtTermsAndPrivacy: UITextView!
+
+    var termsLink = "https://www.bookaridegy.com/TermsAndCondition"
+    var PrivacyLink = "https://www.bookaridegy.com/PrivacyPolicy"
+
     //-------------------------------------------------------------
     // MARK: - Base Methods
     //-------------------------------------------------------------
@@ -47,7 +52,7 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
         }
         
         imagePicker.delegate = self
-       
+        setupTextview()
 /*
         imgDriverLicence.layer.cornerRadius = imgDriverLicence.frame.size.width / 2
         imgDriverLicence.layer.masksToBounds = true
@@ -61,6 +66,17 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
         
         
         
+    }
+    
+    func setupTextview()
+    {
+        txtTermsAndPrivacy.text = "I agree with Terms & conditions and Privacy Policy"
+                self.txtTermsAndPrivacy.hyperLink(originalText: "I agree with Terms & conditions and Privacy Policy",
+                                                  linkTextsAndTypes: [("Terms & conditions"): termsLink,("Privacy Policy"): PrivacyLink])
+                
+                self.txtTermsAndPrivacy.delegate = self
+                self.txtTermsAndPrivacy.textColor = .white
+                self.txtTermsAndPrivacy.font = UIFont.regular(ofSize: 14)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -225,6 +241,11 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
         self.present(alert, animated: true, completion: nil)
    
    
+    }
+    
+    @IBAction func btnClickTerms(_ sender : UIButton)
+    {
+        btnTermsSignUp.isSelected = !btnTermsSignUp.isSelected
     }
     
     @IBAction func btnAccreditationCertiView(_ sender: UIButton) {
@@ -528,7 +549,13 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
             
             UtilityClass.showAlert("App Name".localized, message: "Please enter all document\'s detail.".localized, vc: self)
             
-        } else{
+        }
+        else if (self.btnTermsSignUp.isSelected == false) {
+            
+            UtilityClass.showAlert("App Name".localized, message: "Please accept terms & condition and privacy policy".localized, vc: self)
+            
+        }
+        else{
             getAllRegistrationData()
             self.webserviceForRegistration()
         }
@@ -700,7 +727,7 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
                 {
                     UtilityClass.showAlert("App Name".localized, message: res, vc: self)
                 }
-                else if let resDict = result as? NSDictionary
+                else if result is NSDictionary
                 {
                     UtilityClass.showAlert("App Name".localized, message: (((result as! [String:AnyObject])[GetResponseMessageKey()] as! NSArray).firstObject as! String), vc: self)//resDict.object(forKey: "message") as! String, vc: self)
                 }
@@ -723,29 +750,35 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
     
     func getAllRegistrationData()
     {
-        let mobileNo: String = (userDefault.object(forKey: RegistrationFinalKeys.kMobileNo) as? String)!
+        if let mobileNo: String = (userDefault.object(forKey: RegistrationFinalKeys.kMobileNo) as? String)
+        {
             dictData[RegistrationFinalKeys.kMobileNo] = mobileNo as AnyObject
-        
+        }
         if let email: String = userDefault.object(forKey: RegistrationFinalKeys.kEmail) as? String {
             dictData[RegistrationFinalKeys.kEmail] = email as AnyObject
         }
-        let password: String = (userDefault.object(forKey: RegistrationFinalKeys.kPassword) as? String)!
+        if let password: String = (userDefault.object(forKey: RegistrationFinalKeys.kPassword) as? String)
+        {
             dictData[RegistrationFinalKeys.kPassword] = password as AnyObject
-        
-        let firstname: String = (userDefault.object(forKey: RegistrationFinalKeys.kFirstname) as? String)!
+        }
+        if let firstname: String = (userDefault.object(forKey: RegistrationFinalKeys.kFirstname) as? String)
+        {
             dictData[RegistrationFinalKeys.kFirstname] = firstname as AnyObject
-        
-        let lastname: String = (userDefault.object(forKey: RegistrationFinalKeys.kLastName) as? String)!
+        }
+        if let lastname: String = (userDefault.object(forKey: RegistrationFinalKeys.kLastName) as? String)
+        {
             dictData[RegistrationFinalKeys.kLastName] = lastname as AnyObject
-       
-        let gender: String = (userDefault.object(forKey: RegistrationFinalKeys.kGender) as? String)!
+        }
+        if let gender: String = (userDefault.object(forKey: RegistrationFinalKeys.kGender) as? String)
+        {
             dictData[RegistrationFinalKeys.kGender] = gender as AnyObject
-       
-     
-      
-        let address: String = (userDefault.object(forKey: RegistrationFinalKeys.kAddress) as? String)!
+        }
+        
+        
+        if let address: String = (userDefault.object(forKey: RegistrationFinalKeys.kAddress) as? String)
+        {
             dictData[RegistrationFinalKeys.kAddress] = address as AnyObject
-       
+        }
         
         
         if let BSB: String = userDefault.object(forKey: RegistrationFinalKeys.kBSB) as? String
@@ -768,90 +801,102 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
         
         
         
-        let vehicleRegistrationNumber: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleRegistrationNo) as! String
-        dictData[RegistrationFinalKeys.kVehicleRegistrationNo] = vehicleRegistrationNumber as AnyObject
-        
-        let vehicleCompanyModel: String = userDefault.object(forKey: RegistrationFinalKeys.kCompanyModel) as! String
-        dictData[RegistrationFinalKeys.kCompanyModel] = vehicleCompanyModel as AnyObject
-        
-        
-        
-        let vehicleClass: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleClass) as! String
-        dictData[RegistrationFinalKeys.kVehicleClass] = vehicleClass as AnyObject
-        
-        let vehicleModelName: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleModelName) as! String
-        dictData[RegistrationFinalKeys.kVehicleModelName] = vehicleModelName as AnyObject
-        
-        let passenger: String = userDefault.object(forKey: RegistrationFinalKeys.kNumberOfPasssenger) as! String
-           dictData[RegistrationFinalKeys.kNumberOfPasssenger] = passenger as AnyObject
+        if let vehicleRegistrationNumber: String = userDefault.object(forKey:
+                                                                        RegistrationFinalKeys.kVehicleRegistrationNo) as? String
+        {
+            dictData[RegistrationFinalKeys.kVehicleRegistrationNo] = vehicleRegistrationNumber as AnyObject
+        }
+        if let vehicleCompanyModel: String = userDefault.object(forKey: RegistrationFinalKeys.kCompanyModel) as? String
+        {
+            dictData[RegistrationFinalKeys.kCompanyModel] = vehicleCompanyModel as AnyObject
+        }
         
         
-        let vehicleColor: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleColor) as! String
-        dictData[RegistrationFinalKeys.kVehicleColor] = vehicleColor as AnyObject
-//        let suburd: String = (userDefault.object(forKey: RegistrationFinalKeys.kSuburb) as? String)!
-//            dictData[RegistrationFinalKeys.kSuburb] = suburd as AnyObject
+        if let vehicleClass: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleClass) as? String
+        {
+            dictData[RegistrationFinalKeys.kVehicleClass] = vehicleClass as AnyObject
+        }
+        if let vehicleModelName: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleModelName) as? String
+        {
+            dictData[RegistrationFinalKeys.kVehicleModelName] = vehicleModelName as AnyObject
+        }
+        if let passenger: String = userDefault.object(forKey: RegistrationFinalKeys.kNumberOfPasssenger) as? String
+        {
+            dictData[RegistrationFinalKeys.kNumberOfPasssenger] = passenger as AnyObject
+        }
         
-         let postcode: String = userDefault.object(forKey: RegistrationFinalKeys.kZipcode) as! String
+        if let vehicleColor: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleColor) as? String
+        {
+            dictData[RegistrationFinalKeys.kVehicleColor] = vehicleColor as AnyObject
+        }
+        //   }     let suburd: String = (userDefault.object(forKey: RegistrationFinalKeys.kSuburb) as? String)!
+        //            dictData[RegistrationFinalKeys.kSuburb] = suburd as AnyObject
+        
+        if  let postcode: String = userDefault.object(forKey: RegistrationFinalKeys.kZipcode) as? String
+        {
             dictData[RegistrationFinalKeys.kZipcode] = postcode as AnyObject
-      
-
-        
-     
-        
-//
-        
-//        message =     (
-//            "Please upload Vehicle Image",
-//            "Please enter no of passenger",
-//            "Please enter vehicle model name"
-//        );
-//        status = 0;
+        }
         
         
-//         let state: String = userDefault.object(forKey: RegistrationFinalKeys.kState) as! String
-//            dictData[RegistrationFinalKeys.kState] = state as AnyObject
-//
-//         let Country: String = userDefault.object(forKey: RegistrationFinalKeys.kCountry) as! String
-//            dictData[RegistrationFinalKeys.kCountry] = Country as AnyObject
-      
         
         
-         let DOB: String = userDefault.object(forKey: RegistrationFinalKeys.kKeyDOB) as! String
+        //
+        
+        //        message =     (
+        //            "Please upload Vehicle Image",
+        //            "Please enter no of passenger",
+        //            "Please enter vehicle model name"
+        //        );
+        //        status = 0;
+        
+        
+        //         let state: String = userDefault.object(forKey: RegistrationFinalKeys.kState) as! String
+        //            dictData[RegistrationFinalKeys.kState] = state as AnyObject
+        //
+        //         let Country: String = userDefault.object(forKey: RegistrationFinalKeys.kCountry) as! String
+        //            dictData[RegistrationFinalKeys.kCountry] = Country as AnyObject
+        
+        
+        
+        if let DOB: String = userDefault.object(forKey: RegistrationFinalKeys.kKeyDOB) as? String
+        {
             dictData[RegistrationFinalKeys.kKeyDOB] = DOB as AnyObject
-//
-//         let ABN: String = userDefault.object(forKey: RegistrationFinalKeys.kABN) as! String
-//            dictData[RegistrationFinalKeys.kABN] = ABN as AnyObject
-//
-//        let ServiceDescription = userDefault.object(forKey: RegistrationFinalKeys.kServiceDescription) as! String
-//            dictData[RegistrationFinalKeys.kServiceDescription] = ServiceDescription as AnyObject
+        }
+        //
+        //         let ABN: String = userDefault.object(forKey: RegistrationFinalKeys.kABN) as! String
+        //            dictData[RegistrationFinalKeys.kABN] = ABN as AnyObject
+        //
+        //        let ServiceDescription = userDefault.object(forKey: RegistrationFinalKeys.kServiceDescription) as! String
+        //            dictData[RegistrationFinalKeys.kServiceDescription] = ServiceDescription as AnyObject
         
         
-        let referralCode: String = userDefault.object(forKey: RegistrationFinalKeys.kReferralCode) as! String
-        dictData[RegistrationFinalKeys.kReferralCode] = referralCode as AnyObject
+        if let referralCode: String = userDefault.object(forKey: RegistrationFinalKeys.kReferralCode) as? String
+        {
+            dictData[RegistrationFinalKeys.kReferralCode] = referralCode as AnyObject
+        }
+        //        if let lat: String = userDefault.object(forKey: RegistrationFinalKeys.kLat) as? String {
+        //             dictData[RegistrationFinalKeys.kLat] = lat as AnyObject
+        //        } else {
         
-//        if let lat: String = userDefault.object(forKey: RegistrationFinalKeys.kLat) as? String {
-//             dictData[RegistrationFinalKeys.kLat] = lat as AnyObject
-//        } else {
+        //        }
         
-//        }
-       
-//        if let lng: String = userDefault.object(forKey: RegistrationFinalKeys.kLng) as? String {
-//            dictData[RegistrationFinalKeys.kLng] = lng as AnyObject
-//        } else {
+        //        if let lng: String = userDefault.object(forKey: RegistrationFinalKeys.kLng) as? String {
+        //            dictData[RegistrationFinalKeys.kLng] = lng as AnyObject
+        //        } else {
         
-//        }
-        if let registerContainer = self.navigationController?.children[(self.navigationController?.children.count as! Int) - 1] as? DriverRegistrationViewController {
+        //        }
+        if self.navigationController?.children[(self.navigationController?.children.count ?? 0) - 1] is DriverRegistrationViewController {
             dictData[RegistrationFinalKeys.kLat] = "22.0236514" as AnyObject
             dictData[RegistrationFinalKeys.kLat] = "72.0236514" as AnyObject
         }
-       
-       
-//         let carModel: String = userDefault.object(forKey: profileKeys.kCarModel) as! String
-//            dictData[profileKeys.kCarModel] = carModel as AnyObject
-       
         
         
-    
+        //         let carModel: String = userDefault.object(forKey: profileKeys.kCarModel) as! String
+        //            dictData[profileKeys.kCarModel] = carModel as AnyObject
+        
+        
+        
+        
         
         
         
@@ -867,9 +912,9 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
             imgVehicle = imgageVehicle
         }
         
-//        let placesArray = NSKeyedUnarchiver.unarchiveObject(with: userDefault.object(forKey: RegistrationFinalKeys.kDriverImage) as! Data) as! NSData
-//        let image = UIImage(data: placesArray as Data)
-       
+        //        let placesArray = NSKeyedUnarchiver.unarchiveObject(with: userDefault.object(forKey: RegistrationFinalKeys.kDriverImage) as! Data) as! NSData
+        //        let image = UIImage(data: placesArray as Data)
+        
         
         SetVehicleExpiryDates()
         
@@ -910,4 +955,51 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
     }
   
     // ------------------------------------------------------------
+}
+
+
+
+//MARK: - TextView Delegate
+extension DriverCertificatesViewController : UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let next = mainStoryboard.instantiateViewController(withIdentifier: "LegalWebPage") as! LegalWebPage
+        next.headerName = "\(appName.kAPPName)"
+        next.strURL = URL.absoluteString
+//        next.isFromRegister = true
+        next.navigationController?.isNavigationBarHidden = false
+//        let myNavigationController = UINavigationController(rootViewController: next)
+        self.navigationController?.pushViewController(next, animated: true)
+
+        return false
+    }
+    
+}
+
+public extension UITextView {
+    
+    func hyperLink(originalText: String, linkTextsAndTypes: [String: String]) {
+        
+        let style = NSMutableParagraphStyle()
+        style.alignment = .left
+        
+        let attributedOriginalText = NSMutableAttributedString(string: originalText)
+        
+        for linkTextAndType in linkTextsAndTypes {
+            let linkRange = attributedOriginalText.mutableString.range(of: linkTextAndType.key)
+            let fullRange = NSRange(location: 0, length: attributedOriginalText.length)
+            attributedOriginalText.addAttribute(NSAttributedString.Key.link, value: linkTextAndType.value, range: linkRange)
+            attributedOriginalText.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: fullRange)
+            attributedOriginalText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.white, range: fullRange)
+            attributedOriginalText.addAttribute(NSAttributedString.Key.font, value: UIFont.regular(ofSize: 14.0), range: fullRange)
+        }
+        
+        self.linkTextAttributes = [
+            kCTForegroundColorAttributeName: UIColor.blue,
+            kCTUnderlineStyleAttributeName: NSUnderlineStyle.single.rawValue
+        ] as [NSAttributedString.Key: Any]
+        
+        self.attributedText = attributedOriginalText
+    }
 }

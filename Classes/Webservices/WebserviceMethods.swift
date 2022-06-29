@@ -79,6 +79,10 @@ let TrackRunningTrip = WebserviceURLs.kTrackRunningTrip
 let PrivateMeterBooking = WebserviceURLs.kPrivateMeterBooking
 let DriverEarningReport = WebserviceURLs.kDriverEarningReport
 
+
+let HelpOptions = WebserviceURLs.kHelpOptions
+let Help = WebserviceURLs.kHelp
+
 //-------------------------------------------------------------
 // MARK: - Webservice For Registration
 //-------------------------------------------------------------
@@ -608,12 +612,30 @@ func webserviceForMyEarnings(_ dictParams: AnyObject, completion: @escaping(_ re
     postData(dictParams, nsURL: url, completion: completion)
 }
 
-
-
-
-
 func webserviceForSubmitMultipleDropoff(dictParams: AnyObject, completion: @escaping (_ result: AnyObject, _ success: Bool)-> Void)
 {
     let url = SubmitMultipleDropoff
+    postData(dictParams, nsURL: url, completion: completion)
+}
+
+//-------------------------------------------------------------
+// MARK: - Webservice For Help options
+//-------------------------------------------------------------
+
+func webserviceForHelpOptions(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = HelpOptions
+    getData("" as AnyObject, nsURL: url, completion: completion)
+}
+
+//-------------------------------------------------------------
+// MARK: - Webservice For Sending Help Request
+//-------------------------------------------------------------
+
+
+
+func webserviceForSendingHelpRequest(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = Help
     postData(dictParams, nsURL: url, completion: completion)
 }

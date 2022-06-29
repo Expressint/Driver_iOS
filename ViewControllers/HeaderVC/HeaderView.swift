@@ -14,7 +14,8 @@ protocol HeaderViewDelegate: NSObjectProtocol {
     func didBackButtonClicked()     //  Back Button
     func didSignOutClicked()        //  SignOut
     func didSwitchOnOFFClicked(isOn : Bool)    //  Switch On/OFF
-       func didCallClicked()           // Call Button
+    func didCallClicked()           // Call Button
+    func didCallSOS()
 }
 
 
@@ -43,10 +44,12 @@ class HeaderView: UIView {
     @IBOutlet var btnSwitch: UIButton!
     @IBOutlet var btnMenu: UIButton!
     @IBOutlet var btnBack: UIButton!
+    @IBOutlet var btnSOS: UIButton!
     @IBOutlet var lblTitle: UILabel!
 
     @IBOutlet var viewSwitchIcon: UIView!
     @IBOutlet var viewCallIcon: UIView!
+    @IBOutlet var viewSOSIcon: UIView!
     //    @IBOutlet var btnCall: UIButton!
     @IBOutlet var imgBottomLine: UIImageView!
     
@@ -113,6 +116,11 @@ class HeaderView: UIView {
       
         
         
+    }
+    
+    
+    @IBAction func btnSOS(_ sender: UIButton) {
+        delegate?.didCallSOS()
     }
     
     @IBAction func btnBack(_ sender: UIButton) {

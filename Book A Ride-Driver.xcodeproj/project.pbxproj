@@ -192,6 +192,8 @@
 		3F438ADB25920BCB00441E1B /* MyEarningsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F438AD925920BCB00441E1B /* MyEarningsTableViewCell.swift */; };
 		3F438ADC25920BCB00441E1B /* MyEarningsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F438ADA25920BCB00441E1B /* MyEarningsViewController.swift */; };
 		543D9BF0272C2E040000EB39 /* ForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543D9BEF272C2E030000EB39 /* ForgetPasswordViewController.swift */; };
+		54C447D628003FD70094ACD5 /* CancelAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C447D428003FD70094ACD5 /* CancelAlertViewController.swift */; };
+		54C447D728003FD70094ACD5 /* CancelAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54C447D528003FD70094ACD5 /* CancelAlertViewController.xib */; };
 		54E8B88D272190F800DD46FD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E8B88C272190F800DD46FD /* MobileCoreServices.framework */; };
 		63209117218AD80600A1241C /* MyRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63209116218AD80600A1241C /* MyRatingViewController.swift */; };
 		63F23F752188690400FB629F /* LegalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F23F742188690400FB629F /* LegalViewController.swift */; };
@@ -399,6 +401,8 @@
 		3F438AD925920BCB00441E1B /* MyEarningsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEarningsTableViewCell.swift; sourceTree = "<group>"; };
 		3F438ADA25920BCB00441E1B /* MyEarningsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEarningsViewController.swift; sourceTree = "<group>"; };
 		543D9BEF272C2E030000EB39 /* ForgetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewController.swift; sourceTree = "<group>"; };
+		54C447D428003FD70094ACD5 /* CancelAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelAlertViewController.swift; sourceTree = "<group>"; };
+		54C447D528003FD70094ACD5 /* CancelAlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CancelAlertViewController.xib; sourceTree = "<group>"; };
 		54E8B88C272190F800DD46FD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		63209116218AD80600A1241C /* MyRatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRatingViewController.swift; sourceTree = "<group>"; };
 		63F23F742188690400FB629F /* LegalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalViewController.swift; sourceTree = "<group>"; };
@@ -489,6 +493,7 @@
 		00E928E3202AE2BF00A399E2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				54C447D328003FD70094ACD5 /* CancelAlert */,
 				3F438AD825920BCB00441E1B /* MyEarnings */,
 				3AF9136621C9199F00E2C08A /* MyRatingViewCell.swift */,
 				EECDB7DA203D48B20079F78B /* Trip Info */,
@@ -1217,6 +1222,15 @@
 			path = MyEarnings;
 			sourceTree = "<group>";
 		};
+		54C447D328003FD70094ACD5 /* CancelAlert */ = {
+			isa = PBXGroup;
+			children = (
+				54C447D428003FD70094ACD5 /* CancelAlertViewController.swift */,
+				54C447D528003FD70094ACD5 /* CancelAlertViewController.xib */,
+			);
+			path = CancelAlert;
+			sourceTree = "<group>";
+		};
 		63209113218AD79100A1241C /* My Rating */ = {
 			isa = PBXGroup;
 			children = (
@@ -1386,6 +1400,7 @@
 				21A65EDB216614630037E40E /* proxima-nova-semibold-italic.otf in Resources */,
 				3F438AD7259208D000441E1B /* MyEarnings.storyboard in Resources */,
 				21A65EDC216614630037E40E /* proxima-nova-bold.otf in Resources */,
+				54C447D728003FD70094ACD5 /* CancelAlertViewController.xib in Resources */,
 				21A65EDD216614630037E40E /* proxima-nova-semibold.otf in Resources */,
 				21A65EDE216614630037E40E /* proxima-nova-extrabold.otf in Resources */,
 				21A65EDF216614630037E40E /* proxima-nova.otf in Resources */,
@@ -1572,6 +1587,7 @@
 				00E92A5F202AE2C100A399E2 /* UpdateProfileAccountVC.swift in Sources */,
 				00E92A02202AE2C100A399E2 /* ChangePasswordViewController.swift in Sources */,
 				63F23F752188690400FB629F /* LegalViewController.swift in Sources */,
+				54C447D628003FD70094ACD5 /* CancelAlertViewController.swift in Sources */,
 				00E92A0F202AE2C100A399E2 /* PendingJobsListTableViewCell.swift in Sources */,
 				00E92A59202AE2C100A399E2 /* DriverVehicleListViewController.swift in Sources */,
 				00E92A6B202AE2C100A399E2 /* webPageVC.swift in Sources */,
@@ -1895,13 +1911,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2.0;
+				CURRENT_PROJECT_VERSION = 1.2.8;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AQ5BYLK3P7;
 				INFOPLIST_FILE = "$(SRCROOT)/Other Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eww.BookARideDriver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1921,12 +1937,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2.0;
+				CURRENT_PROJECT_VERSION = 1.2.8;
 				DEVELOPMENT_TEAM = AQ5BYLK3P7;
 				INFOPLIST_FILE = "$(SRCROOT)/Other Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eww.BookARideDriver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

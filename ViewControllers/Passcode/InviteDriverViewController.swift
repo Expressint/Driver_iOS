@@ -145,28 +145,15 @@ class InviteDriverViewController : ParentViewController,MFMailComposeViewControl
     //-------------------------------------------------------------
     @IBAction func btnMoreOption(_ sender: UIButton) {
         
-//        let text = codeToSend()
-//        let textShare = [ text ]
-//        let activityViewController = UIActivityViewController(activityItems: textShare , applicationActivities: nil)
-//        activityViewController.popoverPresentationController?.sourceView = self.view
-//        self.present(activityViewController, animated: true, completion: nil)
         let decodeResults = Singletons.sharedInstance.dictDriverProfile
-//        print(decodeResults)
         var strName = String()
 
         if decodeResults!.count != 0
         {
-//            let profile = decodeResults!.object(forKey: "Profile")
-            strName = ((decodeResults as! NSDictionary).object(forKey: "profile") as! NSDictionary).object(forKey: "Fullname") as! String
+            strName = ((decodeResults!).object(forKey: "profile") as! NSDictionary).object(forKey: "Fullname") as! String
         }
-        let strContent = "\(strName)  \("has invited you to become a".localized) \("App Name".localized).\n \n \("click here".localized) \("https://itunes.apple.com/us/app/TanTaxi/id1445179587?ls=1&mt=8") \n\n \("Your invite code is :".localized) \(strReferralCode)"
-        
-        // \n https://www.facebook.com/tesluxe \n https://www.instagram.com/teslux3 \n https://www.instagram.com/teslux3 \n https://twitter.com/TESLUX3"
-        //        name + " has invited you to become a Tesluxe Passenger.\n" +
-        //            "\n" +
-        //        click here (https://play.google.com/store/apps/details?id=com.Tesluxe) + "\n\n Your invite code is: "+ iniviteCode + "\n" + https://www.facebook.com/tesluxe
-        //            + "\n" + https://www.instagram.com/teslux3
-        //            + "\n" +https://twitter.com/TESLUX3
+        let strContent = "\(strName)  \("has invited you to become a".localized) \("App Name".localized).\n \n \("click here".localized) \(appName.kAPPUrl) \n\n \("Your invite code is :".localized) \(strReferralCode)"
+
         let share = [strContent]
         
         let activityViewController = UIActivityViewController(activityItems: share, applicationActivities: nil)

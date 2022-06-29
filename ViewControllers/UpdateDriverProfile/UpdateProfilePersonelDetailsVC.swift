@@ -105,12 +105,12 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
         toolbar.sizeToFit()
         
         //done button & cancel button
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.bordered, target: self, action: "donedatePicker")
+        let doneButton = UIBarButtonItem(title: "Done", style:UIBarButtonItem.Style.plain, target: self, action: "donedatePicker")
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.bordered, target: self, action: "cancelDatePicker")
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: "cancelDatePicker")
         toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
         
-        // add toolbar to textField
+        // add toolbar to textFiel
         txtDOB.inputAccessoryView = toolbar
         // add datepicker to textField
         txtDOB.inputView = datePicker

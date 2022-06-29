@@ -49,13 +49,13 @@ class  MenuController: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         strSelectedLaungage = KEnglish
       
-        arrMenuTitle = [kMyJobs,kPaymentOption,kHelp]
+        arrMenuTitle = [kMyJobs,kPaymentOption,kHelp,kInviteFriend]
                
-        arrMenuIcons = [kiconMyJobs,kiconPaymentOption,kIconHelp]
+        arrMenuIcons = [kiconMyJobs,kiconPaymentOption,kIconHelp,kiconInviteFriend]
         /*
         arrMenuTitle = [kMyJobs,kPaymentOption,kWallet,kMyRating,kInviteFriend,kSettings,kLegal,kSupport,kLogout]
         
-        arrMenuIcons = [kiconMyJobs,kiconPaymentOption,kiconWallet,kiconMyRating,kiconInviteFriend,kiconSettings,klegal
+        arrMenuIcons = [kiconMyJobs,kiconPaymentOption,kiconWallet,kiconMyRating,kInviteFriend,kiconSettings,klegal
             ,kiconSupport,kIconLogout]
         */
      /*
@@ -316,8 +316,25 @@ class  MenuController: UIViewController, UITableViewDataSource, UITableViewDeleg
         self.navigationController?.pushViewController(viewController, animated: true)
     }
     @objc func InviteFriend(){
-        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "InviteDriverViewController") as! InviteDriverViewController
-        self.navigationController?.pushViewController(viewController, animated: true)
+        let decodeResults = Singletons.sharedInstance.dictDriverProfile
+        var strName = String()
+
+        if decodeResults!.count != 0
+        {
+            strName = ((decodeResults!).object(forKey: "profile") as! NSDictionary).object(forKey: "Fullname") as! String
+        }
+        var strReferralCode = String()
+
+        if let ReferralCode = (decodeResults?.object(forKey: "profile") as! NSDictionary).object(forKey: "ReferralCode") as? String {
+            strReferralCode = ReferralCode
+        }
+        let strContent = "\(strName)  \("has invited you to become a".localized) \("App Name".localized).\n \n\("click here".localized) \(appName.kAPPUrl) " //\n\n \("Your invite code is :".localized) \(strReferralCode)
+
+        let share = [strContent]
+        
+        let activityViewController = UIActivityViewController(activityItems: share, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        self.present(activityViewController, animated: true, completion: nil)
     }
     @objc func setting(){
         
@@ -493,10 +510,15 @@ extension MenuController : UICollectionViewDataSource, UICollectionViewDelegate,
         customCell.imgDetail?.image = UIImage.init(named:  "\(arrMenuIcons[indexPath.row])")
         customCell.lblTitle.text = arrMenuTitle[indexPath.row].localized
 //        customCell.lblTitle.font = UIFont.regular(ofSize: 12.0)
-        
+        if(arrMenuTitle[indexPath.row].localized == "SOS")
+        {
+            customCell.lblTitle.textColor = .red
+        }
+        else
+        {
         customCell.imgDetail?.tintColor = UIColor.black
         customCell.lblTitle.textColor = UIColor.black
-        
+        }
         return customCell
     }
     
@@ -513,9 +535,26 @@ extension MenuController : UICollectionViewDataSource, UICollectionViewDelegate,
             self.navigationController?.pushViewController(viewController, animated: true)
             sideMenuController?.toggle()
         }
-        else if arrMenuTitle[indexPath.row] == kHelp {
-            self.dialNumber(number: Singletons.sharedInstance.helpLineNumber)
+        else if arrMenuTitle[indexPath.row] == kInviteFriend {
+            self.InviteFriend()
+            sideMenuController?.toggle()
         }
+        else if arrMenuTitle[indexPath.row] == kHelp {
+//            self.dialNumber(number: Singletons.sharedInstance.helpLineNumber)
+            self.alertForHelpOptions()
+        }
+    }
+    
+    func alertForHelpOptions()
+    {
+        let reasonsVC = CancelAlertViewController(nibName: "CancelAlertViewController", bundle: nil)
+        
+        reasonsVC.isHelp = true
+        reasonsVC.okPressedClosure = { (reason) in
+            
+        }
+        reasonsVC.modalPresentationStyle = .overCurrentContext
+        self.present(reasonsVC, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
@@ -524,9 +563,13 @@ extension MenuController : UICollectionViewDataSource, UICollectionViewDelegate,
     }
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        let customCell = collectionView.cellForItem(at: indexPath) as! SideMenuCollectionViewCell
-        customCell.imgDetail?.tintColor = UIColor.black
-        customCell.lblTitle.textColor = UIColor.black
+        
+        if(arrMenuTitle[indexPath.row].localized != "SOS")
+        {
+            let customCell = collectionView.cellForItem(at: indexPath) as! SideMenuCollectionViewCell
+            customCell.imgDetail?.tintColor = UIColor.black
+            customCell.lblTitle.textColor = UIColor.black
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

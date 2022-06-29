@@ -196,7 +196,7 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.lblPaymentTypeInfo.text = "Payment Type :".localized
         cell.lblGrandTotalTitle.text = "Total Paid to Driver :".localized
         cell.lblTripStatusTitle.text = "Trip Status :".localized
-        
+        cell.lblTripCancelReasonTitle.text = "Trip cancel reason".localized
         //        cell2.selectionStyle = .none
         
         //        if aryPastJobs.count != 0 {
@@ -243,6 +243,14 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.lblDropoffLocation.text = data.object(forKey: "DropoffLocation") as? String // PickupLocation
         cell.lblpassengerEmail.text = data.object(forKey: "PassengerEmail") as? String
         cell.lblPassengerNo.text = data.object(forKey: "PassengerMobileNo") as? String
+        cell.lblTripCancelReason.text = data.object(forKey: "Reason") as? String
+        
+        cell.TripCancelReasonStackView.isHidden = false
+        if(cell.lblTripCancelReason.text == "")
+        {
+            cell.TripCancelReasonStackView.isHidden = true
+        }
+
         //                cell.lblPickupTime.text = data.object(forKey: "PickupTime") as? String
         
         

@@ -184,6 +184,10 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
         CallButtonClicked()
     }
     
+    func didCallSOS() {
+        sosButtonClicked()
+    }
+    
     func CallButtonClicked()     //  Call Button
     {
         let contactNumber = Singletons.sharedInstance.helpLineNumber
@@ -200,6 +204,13 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
         {
             callNumber(phoneNumber: contactNumber)
         }
+    }
+    
+    func sosButtonClicked()
+    {
+        
+        let contentVC = self.navigationController?.children.first as? HomeViewController
+        contentVC?.socketEmitForSOS()
     }
     
     private func callNumber(phoneNumber:String) {
@@ -237,6 +248,7 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
         let screenRect: CGRect = UIScreen.main.bounds
         let screenWidth: CGFloat = screenRect.size.width
         let hView = HeaderView.headerView(withDelegate: self)
+        hView.btnSOS.imageView?.contentMode = .scaleAspectFit
         let NavBarHeight = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
 //        var frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: screenWidth, height: CGFloat(heightWithoutLabel))
         var frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: screenWidth, height: CGFloat(NavBarHeight))

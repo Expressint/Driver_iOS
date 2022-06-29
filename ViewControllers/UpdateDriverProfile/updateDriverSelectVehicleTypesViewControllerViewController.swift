@@ -431,7 +431,7 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
                 dictData["NoOfPassenger"] = txtNoOfPassenger.selectedItem as AnyObject
                 dictData["VehicleModelName"] = txtVehicleModel.text as AnyObject
                 dictData["Color"] = txtVehicleColor.text as AnyObject
-                let vehicleClass: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleClass) as! String
+                let vehicleClass: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleClass) as? String ?? ""
                 dictData[RegistrationFinalKeys.kVehicleClass] = vehicleClass as AnyObject
                 // DriverId,VehicleClass,VehicleColor,CompanyModel,VehicleRegistrationNo
                 
@@ -598,10 +598,10 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
                         UtilityClass.showAlert("App Name".localized, message: res, vc: self)
                     }
                     else if let resDict = result as? NSDictionary {
-                        UtilityClass.showAlert("App Name".localized, message: resDict.object(forKey: GetResponseMessageKey()) as! String, vc: self)
+                        UtilityClass.showAlert("App Name".localized, message: resDict.object(forKey: GetResponseMessageKey()) as? String ?? "Something went wrong", vc: self)
                     }
                     else if let resAry = result as? NSArray {
-                        UtilityClass.showAlert("App Name".localized, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, vc: self)
+                        UtilityClass.showAlert("App Name".localized, message: (resAry.object(at: 0) as? NSDictionary)?.object(forKey: GetResponseMessageKey()) as? String ?? "Something went wrong", vc: self)
                     }
                 }
             }

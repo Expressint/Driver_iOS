@@ -97,6 +97,9 @@ class PastJobsListTableViewCell: UITableViewCell {
     @IBOutlet var stackDropOffLocation2: UIView!
     @IBOutlet weak var lblBookingFare: UILabel!
     
+    @IBOutlet weak var lblTripCancelReasonTitle: UILabel!
+    @IBOutlet weak var lblTripCancelReason: UILabel!
+
     @IBOutlet var viewCell: UIView!
     
     
@@ -114,7 +117,7 @@ class PastJobsListTableViewCell: UITableViewCell {
     @IBOutlet weak var TotalStackView: UIStackView!
     @IBOutlet weak var PaymentTypeStackView: UIStackView!
     @IBOutlet weak var TripStatusStackView: UIStackView!
-    
+    @IBOutlet weak var TripCancelReasonStackView: UIStackView!
     
     @IBOutlet weak var btnGetReceipt: UIButton!
     

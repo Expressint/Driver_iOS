@@ -76,7 +76,9 @@ struct WebserviceURLs {
     static let kTrackRunningTrip                        = "TrackRunningTrip/"
     static let kPrivateMeterBooking                     = "PrivateMeterBooking"
     static let kDriverEarningReport                     = "driverEarningReport"
-    
+    static let kHelpOptions                             = "HelpOptions"
+    static let kHelp                                    = "Help"
+
 //    https://www.tantaxitanzania.com/Drvier_Api/FeedbackList/9
     static let kFeedbackList                     = "FeedbackList/"
 }
@@ -211,13 +213,15 @@ struct socketApiKeys {
     static let kPassengerId = "PassengerId"
     static let kPickUpLat = "PickupLat"
     static let kPickUpLong = "PickupLong"
-    
+    static let SOS = "SOS"
     static let kLat = "Lat"
     static let kLong = "Long"
     static let kBookingId = "BookingId"
     static let kBookingType = "BookingType"
     
     static let kAdvanceBookingID = "BookingId"
+    
+    static let kUserType = "UserType"
     
     static let kGetBookingDetailsAfterBookingRequestAccepted = "BookingInfo"
     static let kPickupPassengerByDriver = "PickupPassenger"
@@ -259,7 +263,7 @@ struct socketApiKeys {
 struct appName {
     static let kAPPName = "App Name".localized
 //    "TanTaxi Driver"
-    static let kAPPUrl = "itms-apps://itunes.apple.com/app/apple-store/id1541296701?mt=8"
+    static let kAPPUrl = "itms-apps://itunes.apple.com/app/apple-store/id1541299485?mt=8"
     
 }
 

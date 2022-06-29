@@ -23,7 +23,7 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
     
     var strFlightNumber = String()
     var strNotes = String()
-    
+    var homeVC : HomeViewController?
     
     //-------------------------------------------------------------
     // MARK: - Outlets
@@ -57,6 +57,9 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
     //button
     @IBOutlet weak var btnOK: UIButton!
     @IBOutlet weak var btnCall: UIButton!
+    
+    
+    
     
     //-------------------------------------------------------------
     // MARK: - Base Methods
@@ -187,24 +190,26 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
     //-------------------------------------------------------------
 
     @IBAction func btnMessage(_ sender: Any) {
-        if (MFMessageComposeViewController.canSendText()) {
-            
-            
-            let contactNumber = strPassengerMobileNumber
-            
-            if contactNumber == "" {
-                UtilityClass.showAlert("App Name".localized, message: "Contact number  is not available", vc: self)
-            }
-            else {
-                let controller = MFMessageComposeViewController()
-                controller.body = ""
-                controller.recipients = [strPassengerMobileNumber]
-                controller.messageComposeDelegate = self
-                self.present(controller, animated: true, completion: nil)
-                
-            }
-           
-        }
+        homeVC?.socketEmitForSOS()
+        
+//        if (MFMessageComposeViewController.canSendText()) {
+//
+//
+//            let contactNumber = strPassengerMobileNumber
+//
+//            if contactNumber == "" {
+//                UtilityClass.showAlert("App Name".localized, message: "Contact number  is not available", vc: self)
+//            }
+//            else {
+//                let controller = MFMessageComposeViewController()
+//                controller.body = ""
+//                controller.recipients = [strPassengerMobileNumber]
+//                controller.messageComposeDelegate = self
+//                self.present(controller, animated: true, completion: nil)
+//
+//            }
+//
+//        }
     }
     
     

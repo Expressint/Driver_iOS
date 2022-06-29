@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,11 +22,19 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgSplashBackground" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d4s-fc-4m1">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kuN-ym-7aK">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.80338642039999997" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="kuN-ym-7aK" firstAttribute="leading" secondItem="d4s-fc-4m1" secondAttribute="leading" id="9V6-AJ-6AI"/>
+                            <constraint firstItem="kuN-ym-7aK" firstAttribute="bottom" secondItem="d4s-fc-4m1" secondAttribute="bottom" id="Bge-vZ-vvI"/>
                             <constraint firstAttribute="trailing" secondItem="d4s-fc-4m1" secondAttribute="trailing" id="Hc9-dD-Rri"/>
+                            <constraint firstItem="kuN-ym-7aK" firstAttribute="top" secondItem="d4s-fc-4m1" secondAttribute="top" id="Z39-vm-jZO"/>
                             <constraint firstItem="d4s-fc-4m1" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="fGu-Xa-sg0"/>
+                            <constraint firstItem="kuN-ym-7aK" firstAttribute="trailing" secondItem="d4s-fc-4m1" secondAttribute="trailing" id="oMa-3k-K4R"/>
                             <constraint firstItem="d4s-fc-4m1" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="rKB-qj-w2u"/>
                             <constraint firstAttribute="bottom" secondItem="d4s-fc-4m1" secondAttribute="bottom" id="zDa-1Z-9Nv"/>
                         </constraints>
@@ -38,6 +46,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="imgSplashBackground" width="375" height="812"/>
+        <image name="imgSplashBackground" width="426" height="284"/>
     </resources>
 </document>

@@ -19,6 +19,9 @@ class LegalWebPage: ParentViewController, WKUIDelegate, WKNavigationDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.headerView?.lblTitle.text = "Support".localized
+        if headerName != "" {
+            headerView?.lblTitle.text = headerName
+        }
     }
     
     override func viewDidLoad() {
@@ -53,9 +56,7 @@ class LegalWebPage: ParentViewController, WKUIDelegate, WKNavigationDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if headerName != "" {
-            headerView?.lblTitle.text = headerName
-        }
+       
         
         let url = strURL
         
@@ -82,7 +83,9 @@ class LegalWebPage: ParentViewController, WKUIDelegate, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         UtilityClass.hideACProgressHUD()
     }
-    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        UtilityClass.hideACProgressHUD()
+    }
 }
 
 class termsConditionWebviewVc: ParentViewController, WKNavigationDelegate, WKUIDelegate  {
@@ -106,8 +109,9 @@ class termsConditionWebviewVc: ParentViewController, WKNavigationDelegate, WKUID
             self.TopConstraint.constant =  NavBarHeight
         }
         UtilityClass.showACProgressHUD()
+        webView.navigationDelegate = self
         //
-        strURL = "https://www.tantaxitanzania.com/web/front/termsconditions"
+//        strURL = "https://www.tantaxitanzania.com/web/front/termsconditions"
     }
     
     @IBAction func btnBack(_ sender: UIButton) {
@@ -135,5 +139,8 @@ class termsConditionWebviewVc: ParentViewController, WKNavigationDelegate, WKUID
         UtilityClass.hideACProgressHUD()
     }
     
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        UtilityClass.hideACProgressHUD()
+    }
     
 }

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "b72f4dba-55ee-4134-a692-e517edd0b6e9.jpg",
+      "filename" : "ic_sos_select.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "b72f4dba-55ee-4134-a692-e517edd0b6e9@2x.jpg",
+      "filename" : "ic_sos_select@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "b72f4dba-55ee-4134-a692-e517edd0b6e9@3x.jpg",
+      "filename" : "ic_sos_select@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
