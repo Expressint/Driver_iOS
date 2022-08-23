@@ -24,18 +24,20 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     
     @IBOutlet weak var lblMessage: UILabel!
     
-    @IBOutlet weak var lblGrandTotal: UILabel!
+    //@IBOutlet weak var lblGrandTotal: UILabel!
     @IBOutlet weak var lblPickUpLocationInfo: UILabel!
     @IBOutlet weak var lblPickupLocation: MarqueeLabel!
     @IBOutlet weak var lblDropoffLocationInfo: UILabel!
     @IBOutlet weak var lblDropoffLocation: MarqueeLabel!
     @IBOutlet weak var lblDropoffLocation2Info: UILabel!
     @IBOutlet weak var lblDropoffLocation2: MarqueeLabel!
+    @IBOutlet weak var lblPaymentType: UILabel!
     
     //    @IBOutlet weak var lblFlightNumber: UILabel!
     //    @IBOutlet weak var lblNotes: UILabel!
     
     @IBOutlet weak var strackviewOfDropOffLocation2: UIStackView!
+    @IBOutlet weak var strackviewOfDropOffLocation: UIStackView!
     
     //    @IBOutlet weak var stackViewNotes: UIStackView!
     
@@ -57,6 +59,7 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     var strEstimateFare = String()
     var strRequestMessage = String()
     var strFlightNumber = String()
+    var strPaymentType: String = ""
     var strNotes = String()
     
     
@@ -67,6 +70,9 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.strackviewOfDropOffLocation.isHidden = true
+        self.strackviewOfDropOffLocation2.isHidden = true
         
         CountDownView()
         
@@ -135,9 +141,10 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
         //            if strGrandTotal != "0" {
         //                lblGrandTotal.text = "Grand Total : \(strGrandTotal) \(currency)"
         //            } else if strEstimateFare != "0" {
-        lblGrandTotal.text = "\("Estimate Fare".localized) : \(strEstimateFare) \(currency)"
+       // lblGrandTotal.text = "\("Estimate Fare".localized) : \(strEstimateFare) \(currency)"
         //            }
         
+        self.lblPaymentType.text = "Payment Type : \(strPaymentType)"
         lblMessage.text = strRequestMessage
         lblPickupLocation.text = strPickupLocation
         lblDropoffLocation.text = strDropoffLocation

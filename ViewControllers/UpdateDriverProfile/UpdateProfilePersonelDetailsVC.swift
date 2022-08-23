@@ -10,6 +10,7 @@ import UIKit
 import SDWebImage
 import ACFloatingTextfield_Swift
 import MobileCoreServices
+import DropDown
 
 class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIPickerViewDelegate,UITextFieldDelegate {
     
@@ -22,6 +23,9 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
     @IBOutlet weak var lblFemale: UILabel!
     let thePicker = UIPickerView()
     let datePicker = UIDatePicker()
+    
+    var arrDistrictData = [[String:AnyObject]]()
+    var arrDistrictMainData : [String] = []
     
     //-------------------------------------------------------------
     // MARK: - Outlets
@@ -46,6 +50,7 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
 
     @IBOutlet weak var txtDOB: UITextField!
     @IBOutlet weak var txtAddress: ACFloatingTextfield!
+    @IBOutlet weak var txtDistrict: ACFloatingTextfield!
     @IBOutlet weak var txtPostCode: UITextField!
     @IBOutlet weak var txtCity: UITextField!
     @IBOutlet weak var txtState: UITextField!
@@ -64,6 +69,12 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
     //-------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.txtDistrict.delegate = self
+        txtDistrict.inputView = UIView()
+        txtDistrict.inputAccessoryView = UIView()
+        txtDistrict.tintColor = .white
+        
         self.NavBarHeightConstraint.constant = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
         self.vwTopConstraint.constant = self.NavBarHeightConstraint.constant
         if UIApplication.shared.statusBarFrame.height == 20 {
@@ -83,6 +94,7 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
         txtMobile.delegate = self
         txtPostCode.delegate = self
         
+        webserviceCallToGetDistrictList()
         webserviceCallToGetCompanyList()
         setData()
         
@@ -160,6 +172,7 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
         txtFirstName.placeholder = "First Name".localized
         txtLastName.placeholder = "Last Name".localized
         txtAddress.placeholder = "Address".localized
+        txtDistrict.placeholder = "District".localized
         txtMobile.placeholder = "Mobile Number".localized
         lblGender.text = "Gender".localized
         lblmale.text = "Male".localized
@@ -170,6 +183,20 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
         
     }
 
+    func DistrictDropdownSetup() {
+        let dropDown = DropDown()
+        dropDown.anchorView = self.txtDistrict
+        dropDown.dataSource = self.arrDistrictMainData
+        dropDown.show()
+        
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            self.txtDistrict.text = self.arrDistrictMainData[index]
+            dropDown.hide()
+        }
+        dropDown.width = self.txtDistrict.frame.width
+        self.view.endEditing(true)
+    }
     
    
     @IBOutlet weak var lblGender: UILabel!
@@ -245,7 +272,9 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
     // For Mobile Number
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
-        
+        if textField == txtDistrict {
+            return false
+        }
 //        if textField == txtMobileNumber {
 //            let resultText: String? = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
 ////            return (resultText?.count ?? 0) <= 10
@@ -272,10 +301,11 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
         return true
     }
 
-    
-
-    
-    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == txtDistrict {
+            self.DistrictDropdownSetup()
+        }
+    }
     
     //-------------------------------------------------------------
     // MARK: - Actions
@@ -377,6 +407,7 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
         lblEmail.text  = profile.object(forKey: "Email") as? String
         txtDOB.text             = profile.object(forKey: "DOB") as? String
         txtAddress.text         = profile.object(forKey: "Address") as? String
+        txtDistrict.text        = profile.object(forKey: "District") as? String
         txtPostCode.text        = profile.object(forKey: "ZipCode") as? String
         //            txtCity.text            = profile.object(forKey: "City") as? String
 //            txtState.text           = profile.object(forKey: "State") as? String
@@ -446,6 +477,7 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
         dictData["Lastname"] = txtLastName.text as AnyObject
         dictData["Gender"] = genderSet as AnyObject
         dictData["Address"] = txtAddress.text as AnyObject
+        dictData["District"] = txtDistrict.text as AnyObject
         dictData["DOB"] = txtDOB.text as AnyObject
         dictData["MobileNo"] = txtMobile.text as AnyObject
         dictData["Zipcode"] = txtPostCode.text as AnyObject
@@ -562,6 +594,10 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
         {
             UtilityClass.showAlert("App Name".localized, message: "Please enter address".localized, vc: self)
             return false
+        }else if (txtDistrict.text?.count == 0)
+        {
+            UtilityClass.showAlert("App Name".localized, message: "Please enter district".localized, vc: self)
+            return false
         }
         else if (txtDOB.text?.count == 0)
         {
@@ -581,4 +617,31 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
     
     
     
+}
+
+extension UpdateProfilePersonelDetailsVC {
+    func webserviceCallToGetDistrictList() {
+        webserviceForDistrictList([] as AnyObject) { (data, status) in
+            if(status)
+            {
+                self.arrDistrictData = (data as! NSDictionary).object(forKey: "details") as! [[String : AnyObject]]
+                let count = self.arrDistrictData.count
+                for i in (0 ..< count - 1){
+                    self.arrDistrictMainData.append(self.arrDistrictData[i]["Name"] as? String ?? "")
+                }
+                print(self.arrDistrictMainData)
+                
+            } else  {
+                if let res = data as? String {
+                    UtilityClass.showAlert("App Name".localized, message: res, vc: self)
+                }
+                else if let resDict = data as? NSDictionary {
+                    UtilityClass.showAlert("App Name".localized, message: resDict.object(forKey: GetResponseMessageKey()) as! String, vc: self)
+                }
+                else if let resAry = data as? NSArray {
+                    UtilityClass.showAlert("App Name".localized, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, vc: self)
+                }
+            }
+        }
+    }
 }

@@ -13,7 +13,7 @@ import MapKit
 let KEnglish : String = "EN"
 let KSwiley : String = "SW"
 
-class  MenuController: UIViewController, UITableViewDataSource, UITableViewDelegate
+class MenuController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
     
     var aryItemNames = [String]()
@@ -30,6 +30,7 @@ class  MenuController: UIViewController, UITableViewDataSource, UITableViewDeleg
     var arrMenuTitle = [String]()
     
     // MARK: IBOutlets -
+   // @IBOutlet weak var btnLiveHelp: UIButton!
     @IBOutlet weak var CollectionView: UICollectionView!
     @IBOutlet weak var lblDriverName: UILabel!
     @IBOutlet weak var imgProfile: UIImageView!
@@ -46,7 +47,7 @@ class  MenuController: UIViewController, UITableViewDataSource, UITableViewDeleg
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+      //  btnLiveHelp.underline()
         strSelectedLaungage = KEnglish
       
         arrMenuTitle = [kMyJobs,kPaymentOption,kHelp,kInviteFriend]
@@ -125,6 +126,11 @@ class  MenuController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     //Mark: tableview method
+    @IBAction func btnLiveHelpAction(_ sender: Any) {
+        //sideMenuController?.toggle()
+        
+       
+    }
     
     @IBOutlet var tableView: UITableView!
     
@@ -316,25 +322,27 @@ class  MenuController: UIViewController, UITableViewDataSource, UITableViewDeleg
         self.navigationController?.pushViewController(viewController, animated: true)
     }
     @objc func InviteFriend(){
-        let decodeResults = Singletons.sharedInstance.dictDriverProfile
-        var strName = String()
-
-        if decodeResults!.count != 0
-        {
-            strName = ((decodeResults!).object(forKey: "profile") as! NSDictionary).object(forKey: "Fullname") as! String
-        }
-        var strReferralCode = String()
-
-        if let ReferralCode = (decodeResults?.object(forKey: "profile") as! NSDictionary).object(forKey: "ReferralCode") as? String {
-            strReferralCode = ReferralCode
-        }
-        let strContent = "\(strName)  \("has invited you to become a".localized) \("App Name".localized).\n \n\("click here".localized) \(appName.kAPPUrl) " //\n\n \("Your invite code is :".localized) \(strReferralCode)
-
-        let share = [strContent]
-        
-        let activityViewController = UIActivityViewController(activityItems: share, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view
-        self.present(activityViewController, animated: true, completion: nil)
+        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "InviteDriverViewController") as! InviteDriverViewController
+        self.navigationController?.pushViewController(viewController, animated: true)
+//        let decodeResults = Singletons.sharedInstance.dictDriverProfile
+//        var strName = String()
+//
+//        if decodeResults!.count != 0
+//        {
+//            strName = ((decodeResults!).object(forKey: "profile") as! NSDictionary).object(forKey: "Fullname") as! String
+//        }
+//        var strReferralCode = String()
+//
+//        if let ReferralCode = (decodeResults?.object(forKey: "profile") as! NSDictionary).object(forKey: "ReferralCode") as? String {
+//            strReferralCode = ReferralCode
+//        }
+//        let strContent = "\(strName)  \("has invited you to become a".localized) \("App Name".localized).\n \n\("For iOS Click Here : ".localized) \(appName.kAPPUrliOS) \n \n\("For Android Click Here : ".localized) \(appName.kAPPUrlAndroid)" //\n\n \("Your invite code is :".localized) \(strReferralCode)
+//
+//        let share = [strContent]
+//
+//        let activityViewController = UIActivityViewController(activityItems: share, applicationActivities: nil)
+//        activityViewController.popoverPresentationController?.sourceView = self.view
+//        self.present(activityViewController, animated: true, completion: nil)
     }
     @objc func setting(){
         
@@ -365,7 +373,45 @@ class  MenuController: UIViewController, UITableViewDataSource, UITableViewDeleg
 //        self.webserviceOFSignOut()
         
     }
+    
+    func webserviceOFDeleteAccount() {
+        webserviceForDeleteAccount(Singletons.sharedInstance.strDriverID as AnyObject) { (result, status) in
+            if (status) {
+                self.webserviceOFSignOut()
+            }
+            else
+            {
+                print(result)
+                if let res = result as? String {
+                    UtilityClass.showAlert("App Name".localized, message: res, vc: self)
+                }
+                else if let resDict = result as? NSDictionary {
+                    UtilityClass.showAlert("App Name".localized, message: resDict.object(forKey: GetResponseMessageKey()) as! String, vc: self)
+                }
+                else if let resAry = result as? NSArray {
+                    UtilityClass.showAlert("App Name".localized, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, vc: self)
+                }
+            }
+        }
+    }
+    
     //MARK: Button Action
+    @IBAction func btnDeleteAction(_ sender: UIButton) {
+        let refreshAlert = UIAlertController(title: "Delete Account", message: "Are you sure you want to delete your account?", preferredStyle: UIAlertController.Style.alert)
+
+        refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+            self.sideMenuController?.toggle()
+            self.webserviceOFDeleteAccount()
+        }))
+
+        refreshAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
+            self.sideMenuController?.toggle()
+        }))
+
+        present(refreshAlert, animated: true, completion: nil)
+       
+    }
+    
     @IBAction func settingsClick(_ sender: UIButton) {
          let profile = UIStoryboard(name: "Profile", bundle: nil)
                let viewController = profile.instantiateViewController(withIdentifier: "EditDriverProfileVC") as! EditDriverProfileVC
@@ -373,11 +419,11 @@ class  MenuController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     @IBAction func logoutClick(_ sender: UIButton) {
         let LogoutConfirmation = UIAlertController(title: "App Name".localized, message: "Are you sure you want to logout?".localized, preferredStyle: .alert)
-               LogoutConfirmation.addAction(UIAlertAction(title: "Logout".localized, style: .destructive, handler: { (UIAlertAction) in
-                   self.webserviceOFSignOut()
-               }))
-               LogoutConfirmation.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
-               self.present(LogoutConfirmation, animated: true, completion: nil)
+        LogoutConfirmation.addAction(UIAlertAction(title: "Logout".localized, style: .destructive, handler: { (UIAlertAction) in
+            self.webserviceOFSignOut()
+        }))
+        LogoutConfirmation.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
+        self.present(LogoutConfirmation, animated: true, completion: nil)
     }
     
     func webserviceOFSignOut()

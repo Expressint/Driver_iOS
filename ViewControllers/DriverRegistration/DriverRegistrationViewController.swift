@@ -461,6 +461,7 @@ class DriverRegistrationViewController: UIViewController, UIScrollViewDelegate /
                 personalVC.txtFirstName.text = UserDefaults.standard.value(forKey: RegistrationFinalKeys.kFirstname) as? String
                 personalVC.txtLastName.text = UserDefaults.standard.value(forKey: RegistrationFinalKeys.kLastName) as? String
                 personalVC.txtAddress.text = UserDefaults.standard.value(forKey: RegistrationFinalKeys.kAddress) as? String
+                personalVC.txtDistrict.text = UserDefaults.standard.value(forKey: RegistrationFinalKeys.kDistrict) as? String
                 personalVC.txtInviteCode.text = UserDefaults.standard.value(forKey: RegistrationFinalKeys.kReferralCode) as? String
                 let sreGender = UserDefaults.standard.value(forKey: RegistrationFinalKeys.kGender) as! String
                 if sreGender == "Male"
@@ -513,7 +514,7 @@ class DriverRegistrationViewController: UIViewController, UIScrollViewDelegate /
                 VehicleVC.txtCompany.text = UserDefaults.standard.value(forKey: RegistrationFinalKeys.kVehicleModelName) as? String
                 VehicleVC.txtCarType.text = UserDefaults.standard.value(forKey: RegistrationFinalKeys.kVehicleClass) as? String
                 VehicleVC.txtVehicleMake.text = UserDefaults.standard.value(forKey: RegistrationFinalKeys.kCompanyModel) as? String
-                VehicleVC.txtNumberPassenger.selectedItem = UserDefaults.standard.value(forKey: RegistrationFinalKeys.kNumberOfPasssenger) as? String
+                VehicleVC.txtNumberPassenger.selectedItem = UserDefaults.standard.value(forKey: RegistrationFinalKeys.kNumberOfPasssenger) as? String ?? ""
                 
 
             }

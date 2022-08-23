@@ -240,6 +240,10 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
     {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    func showWhatsApp() {
+        self.headerView?.viewWhatsappIcon.isHidden = false
+    }
     // ------------------------------------------------------------
     
     func createHeaderView() {
@@ -295,7 +299,6 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
         {
             hView.lblTitle.isHidden = false
             hView.lblTitle.text = strTitle
-            hView.imgHeaderImage.isHidden = true
         }
         hView.viewSwitchIcon.isHidden = !hideSwitchButton
         

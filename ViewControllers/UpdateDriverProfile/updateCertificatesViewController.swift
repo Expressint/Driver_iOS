@@ -7,6 +7,7 @@
 //
 import MobileCoreServices
 import UIKit
+import SDWebImage
 
 class updateCertificatesViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, WWCalendarTimeSelectorProtocol {
 
@@ -44,6 +45,9 @@ class updateCertificatesViewController: UIViewController, UIImagePickerControlle
         imgVehicleImage.image = UIImage.init(named: "iconCarPlaceholder")
         imgDriverLicence.image = UIImage.init(named: "iconEditProfile")
         imgCarRegistration.image = UIImage.init(named: "iconEditProfile")
+        imgPoliceClearance.image = UIImage.init(named: "iconEditProfile")
+        imgFitness.image = UIImage.init(named: "iconEditProfile")
+        imgRoadService.image = UIImage.init(named: "iconEditProfile")
         imgVehicleInsurance.image = UIImage.init(named: "iconEditProfile")
         imgAccreditationCerti.image = UIImage.init(named: "iconEditProfile")
         // Do any additional setup after loading the view.
@@ -67,6 +71,7 @@ class updateCertificatesViewController: UIViewController, UIImagePickerControlle
         lblAccreditationCerti.text = "TIN Certificate".localized
         lblAccreditationCertiExpiryDate.text = "Select TIN Certificate expiry date".localized
         lblCarRegistration.text = "Vehicle Registration Document".localized
+        lblPoliceClearance.text = "Police Clearance Document".localized
 //        lblCarRegistrationExpiryDate.text = "Select car registration expiry date".localized
         lblVehicleInsurance.text = "Vehicle Insurance Policy/Certificate".localized
         lblVehicleInsuranceExpiryDate.text = "Select vehicle insurance/policy expiry date".localized
@@ -111,6 +116,15 @@ class updateCertificatesViewController: UIViewController, UIImagePickerControlle
     @IBOutlet weak var imgVehicleInsurance: UIImageView!
     @IBOutlet weak var lblVehicleInsurance: UILabel!
     @IBOutlet weak var lblVehicleInsuranceExpiryDate: UILabel!
+    
+    @IBOutlet weak var imgPoliceClearance: UIImageView!
+    @IBOutlet weak var lblPoliceClearance: UILabel!
+    
+    @IBOutlet weak var imgFitness: UIImageView!
+    @IBOutlet weak var lblFitness: UILabel!
+    
+    @IBOutlet weak var imgRoadService: UIImageView!
+    @IBOutlet weak var lblRoadServiice: UILabel!
 
     @IBOutlet weak var lblTitle: UILabel!
     
@@ -268,6 +282,111 @@ class updateCertificatesViewController: UIViewController, UIImagePickerControlle
         
     }
     
+    @IBAction func btnPoliceClearance(_ sender: UIButton) {
+      
+            let alert = UIAlertController(title: "Choose Photo".localized ,message: nil, preferredStyle: .alert)
+            let Gallery = UIAlertAction(title: "Select photo from gallery".localized, style: .default, handler: { ACTION in
+                
+                self.imagePicker.allowsEditing = false
+                self.imagePicker.sourceType = .photoLibrary
+                self.imagePicker.mediaTypes = [kUTTypeImage as String]
+    //                UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+                
+                self.imagePicked = sender.tag
+                self.present(self.imagePicker, animated: true)
+                
+            })
+            let Camera  = UIAlertAction(title: "Select photo from camera".localized, style: .default, handler: { ACTION in
+    //            DispatchQueue.main.async {
+                
+                    self.imagePicked = sender.tag
+                    self.imagePicker.allowsEditing = false
+                    self.imagePicker.sourceType = .camera
+                    self.imagePicker.cameraCaptureMode = .photo
+    //            }
+                self.present(self.imagePicker, animated: true)
+                
+                
+            })
+            let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
+            
+            alert.addAction(Gallery)
+            alert.addAction(Camera)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    @IBAction func btnFitness(_ sender: UIButton) {
+      
+            let alert = UIAlertController(title: "Choose Photo".localized ,message: nil, preferredStyle: .alert)
+            let Gallery = UIAlertAction(title: "Select photo from gallery".localized, style: .default, handler: { ACTION in
+                
+                self.imagePicker.allowsEditing = false
+                self.imagePicker.sourceType = .photoLibrary
+                self.imagePicker.mediaTypes = [kUTTypeImage as String]
+    //                UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+                
+                self.imagePicked = sender.tag
+                self.present(self.imagePicker, animated: true)
+                
+            })
+            let Camera  = UIAlertAction(title: "Select photo from camera".localized, style: .default, handler: { ACTION in
+    //            DispatchQueue.main.async {
+                
+                    self.imagePicked = sender.tag
+                    self.imagePicker.allowsEditing = false
+                    self.imagePicker.sourceType = .camera
+                    self.imagePicker.cameraCaptureMode = .photo
+    //            }
+                self.present(self.imagePicker, animated: true)
+                
+                
+            })
+            let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
+            
+            alert.addAction(Gallery)
+            alert.addAction(Camera)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    @IBAction func btnRoadService(_ sender: UIButton) {
+      
+            let alert = UIAlertController(title: "Choose Photo".localized ,message: nil, preferredStyle: .alert)
+            let Gallery = UIAlertAction(title: "Select photo from gallery".localized, style: .default, handler: { ACTION in
+                
+                self.imagePicker.allowsEditing = false
+                self.imagePicker.sourceType = .photoLibrary
+                self.imagePicker.mediaTypes = [kUTTypeImage as String]
+    //                UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+                
+                self.imagePicked = sender.tag
+                self.present(self.imagePicker, animated: true)
+                
+            })
+            let Camera  = UIAlertAction(title: "Select photo from camera".localized, style: .default, handler: { ACTION in
+    //            DispatchQueue.main.async {
+                
+                    self.imagePicked = sender.tag
+                    self.imagePicker.allowsEditing = false
+                    self.imagePicker.sourceType = .camera
+                    self.imagePicker.cameraCaptureMode = .photo
+    //            }
+                self.present(self.imagePicker, animated: true)
+                
+                
+            })
+            let cancel = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
+            
+            alert.addAction(Gallery)
+            alert.addAction(Camera)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+        
+    }
+    
     func setData()
     {
         let vehicleImage = ((Singletons.sharedInstance.dictDriverProfile.object(forKey: "profile") as! NSDictionary).object(forKey: "Vehicle") as! NSDictionary).object(forKey: "VehicleImage") as! String
@@ -279,6 +398,10 @@ class updateCertificatesViewController: UIViewController, UIImagePickerControlle
          let AccreditationCertificateImage = (Singletons.sharedInstance.dictDriverProfile.object(forKey: "profile") as! NSDictionary).object(forKey: "AccreditationCertificate") as! String
 //
          let RegistrationCertificateImage = ((Singletons.sharedInstance.dictDriverProfile.object(forKey: "profile") as! NSDictionary).object(forKey: "Vehicle") as! NSDictionary).object(forKey: "RegistrationCertificate") as! String
+        let PoliceClearance = ((Singletons.sharedInstance.dictDriverProfile.object(forKey: "profile") as! NSDictionary).object(forKey: "Vehicle") as! NSDictionary).object(forKey: "PoliceClearance") as! String
+        
+        let Fitness = ((Singletons.sharedInstance.dictDriverProfile.object(forKey: "profile") as! NSDictionary).object(forKey: "Vehicle") as! NSDictionary).object(forKey: "Fitness") as! String
+        let RoadService = ((Singletons.sharedInstance.dictDriverProfile.object(forKey: "profile") as! NSDictionary).object(forKey: "Vehicle") as! NSDictionary).object(forKey: "RoadService") as! String
    
         
         let strDriverLicenceExpireDate = (Singletons.sharedInstance.dictDriverProfile.object(forKey: "profile") as! NSDictionary).object(forKey: "DriverLicenseExpire") as! String
@@ -302,9 +425,10 @@ print("ATDebug :: VehicleInsuranceCertificateImage \(VehicleInsuranceCertificate
             setImage(url: driverLicenceImageBack, imageView: self.imgDriverLicenceBack)
         }
         setImage(url: AccreditationCertificateImage, imageView: self.imgAccreditationCerti)
-
         setImage(url: RegistrationCertificateImage, imageView: self.imgCarRegistration)
-        
+        setImage(url: PoliceClearance, imageView: self.imgPoliceClearance)
+        setImage(url: Fitness, imageView: self.imgFitness)
+        setImage(url: RoadService, imageView: self.imgRoadService)
         setImage(url: VehicleInsuranceCertificateImage, imageView: self.imgVehicleInsurance)
         
         lblDriverLicenceExpiryDate.text = strDriverLicenceExpireDate
@@ -313,17 +437,13 @@ print("ATDebug :: VehicleInsuranceCertificateImage \(VehicleInsuranceCertificate
         lblVehicleInsuranceExpiryDate.text = strVehicleInsuranceCertificate
     }
     
-    func setImage(url : String, imageView : UIImageView)
-    {
-//        imageView.sd_addActivityIndicator()
-//        imageView.sd_setShowActivityIndicatorView(true)
-//        imageView.sd_setIndicatorStyle(.gray)
-        imageView.sd_setImage(with: URL(string: url)) { (image, error, cacheType, url) in
-//        imageView.layer.cornerRadius = imageView.frame.size.width/2
-//        imageView.layer.masksToBounds = true
-            
-        }
-        
+    func setImage(url : String, imageView : UIImageView) {
+        imageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+        imageView.sd_setImage(with: URL(string: url), placeholderImage: UIImage(named: "iconPlaceholderVehicle"), options: [.continueInBackground], progress: nil, completed: { (image, error, cache, url) in
+            if (error == nil) {
+                imageView.image = image
+            }
+        })
     }
     
     // MARK:- Driver Vehicle Insurance
@@ -464,6 +584,18 @@ print("ATDebug :: VehicleInsuranceCertificateImage \(VehicleInsuranceCertificate
                 self.imgDriverLicenceBack.contentMode = .scaleToFill
                 self.imgDriverLicenceBack.image = pickedImage
                 self.SelectedDocImage = pickedImage!
+            }else if self.imagePicked == 6 {
+                self.imgPoliceClearance.contentMode = .scaleToFill
+                self.imgPoliceClearance.image = pickedImage
+                self.SelectedDocImage = pickedImage!
+            }else if self.imagePicked == 7 {
+                self.imgFitness.contentMode = .scaleToFill
+                self.imgFitness.image = pickedImage
+                self.SelectedDocImage = pickedImage!
+            }else if self.imagePicked == 8 {
+                self.imgRoadService.contentMode = .scaleToFill
+                self.imgRoadService.image = pickedImage
+                self.SelectedDocImage = pickedImage!
             }
 //        }
         dismiss(animated: true, completion: nil)
@@ -484,7 +616,13 @@ print("ATDebug :: VehicleInsuranceCertificateImage \(VehicleInsuranceCertificate
             //            dismiss(animated: true)
             if self.imagePicked == 3 {
                   webserviceCallToUploaDocs(imageToUpload: self.SelectedDocImage, strParam: "CarRegistrationCertificate", expireDate: "", expireDateKey: "")
-            }  else if imagePicked == 5 {
+            }else if self.imagePicked == 6 {
+                webserviceCallToUploaDocs(imageToUpload: self.SelectedDocImage, strParam: "PoliceClearance", expireDate: "", expireDateKey: "")
+          }  else if self.imagePicked == 7 {
+              webserviceCallToUploaDocs(imageToUpload: self.SelectedDocImage, strParam: "Fitness", expireDate: "", expireDateKey: "")
+        }  else if self.imagePicked == 8 {
+            webserviceCallToUploaDocs(imageToUpload: self.SelectedDocImage, strParam: "RoadService", expireDate: "", expireDateKey: "")
+      } else if imagePicked == 5 {
                 webserviceCallToUploaDocs(imageToUpload: self.SelectedDocImage, strParam: "DriverLicenseBackside", expireDate: "", expireDateKey: "")
 
             }else {

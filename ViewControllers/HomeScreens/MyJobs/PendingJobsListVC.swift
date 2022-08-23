@@ -144,6 +144,20 @@ class PendingJobsListVC: UIViewController, UITableViewDataSource, UITableViewDel
         
         let data = aryPendingJobs.object(at: indexPath.row) as! NSDictionary
         
+        let pickDate = data.object(forKey: "PickupDateTime") as? String ?? ""
+        if(pickDate.contains(" ")){
+            let date = pickDate.components(separatedBy: " ")
+            cell.lblProcessingDate.text = date[0]
+        }
+        
+        let CreatedDate = data.object(forKey: "CreatedDate") as? String ?? ""
+        if(CreatedDate.contains(" ")){
+            let date = CreatedDate.components(separatedBy: " ")
+            cell.lblBookingDate.text = date[0]
+        }
+        
+        
+        
         cell.lblPassengerName.text = data.object(forKey: "PassengerName") as? String
         cell.lblDateTime.text = (checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PickupDateTime", isNotHave: strNotAvailable)).components(separatedBy: " ")[0]
 //            data.object(forKey: "CreatedDate") as? String
@@ -169,14 +183,14 @@ class PendingJobsListVC: UIViewController, UITableViewDataSource, UITableViewDel
         //        checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PickupLocation", isNotHave: strNotAvailable) //
         
         //        cell.lblDropoffLocation.text = ""
-        cell.lblDropoffLocationDescription.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "DropoffLocation", isNotHave: strNotAvailable) // data.object(forKey: "PickupLocation") as? String // DropoffLocation
+     //   cell.lblDropoffLocationDescription.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "DropoffLocation", isNotHave: strNotAvailable) // data.object(forKey: "PickupLocation") as? String // DropoffLocation
         cell.lblDateAndTime.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "CreatedDate", isNotHave: strNotAvailable) //data.object(forKey: "CreatedDate") as? String
-        cell.lblDropoffLocation2.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "DropoffLocation2", isNotHave: strNotAvailable)
+     //   cell.lblDropoffLocation2.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "DropoffLocation2", isNotHave: strNotAvailable)
         
-        if(cell.lblDropoffLocation2.text == strNotAvailable)
-        {
-            cell.stackDropOffLocation2.isHidden = true
-        }
+//        if(cell.lblDropoffLocation2.text == strNotAvailable)
+//        {
+//            cell.stackDropOffLocation2.isHidden = true
+//        }
         cell.lblPickUpLocation.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PickupLocation", isNotHave: strNotAvailable)
         // data.object(forKey: "DropoffLocation") as? String // PickupLocation
         cell.lblpassengerEmailDesc.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PassengerEmail", isNotHave: strNotAvailable) // data.object(forKey: "PassengerEmail") as? String

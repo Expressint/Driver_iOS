@@ -11,19 +11,19 @@ import MessageUI
 
 class PassengerInfoViewController: UIViewController,MFMessageComposeViewControllerDelegate {
   
-    
-
-    
+        
     var strPickupLocation = String()
     var strDropoffLocation = String()
     var strDropoffLocation2 = String()
     var imgURL = String()
     var strPassengerName = String()
     var strPassengerMobileNumber = String()
+    var paymentType: String = ""
     
     var strFlightNumber = String()
     var strNotes = String()
     var homeVC : HomeViewController?
+    var delegate: deleagateGoToChat?
     
     //-------------------------------------------------------------
     // MARK: - Outlets
@@ -50,6 +50,8 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
     @IBOutlet weak var lblNotes: UILabel!
     @IBOutlet weak var lblFlightNumberDetail: UILabel!
     @IBOutlet weak var lblNotesDetail: UILabel!
+    @IBOutlet weak var lblPaymentType: UILabel!
+    @IBOutlet weak var btnChat: UIButton!
     
     //stackview
     @IBOutlet weak var stackViewFlightNumber: UIStackView!
@@ -133,7 +135,7 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
             lblDroPoffLocation2InFo.text = "DropOff location 2 : "
         }
         
-        
+        lblPaymentType.text = self.paymentType
         lblPickupLocationDetails.text = strPickupLocation
         lblDropoffLocationDetails.text = strDropoffLocation
         lblPassengerName.text = strPassengerName
@@ -175,6 +177,9 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
         
     }
     
+    func goToChat() {
+        delegate?.btndeleagateGoToChat()
+    }
     
     //-------------------------------------------------------------
     // MARK: - Message delegate Method
@@ -188,7 +193,14 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
     //-------------------------------------------------------------
     // MARK: - Actions
     //-------------------------------------------------------------
-
+    @IBAction func btnChatAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.goToChat()
+            }
+        })
+    }
+    
     @IBAction func btnMessage(_ sender: Any) {
         homeVC?.socketEmitForSOS()
         
@@ -227,7 +239,7 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
     
     @IBAction func btnCall(_ sender: UIButton) {
         
-        let contactNumber = strPassengerMobileNumber
+        let contactNumber = Singletons.sharedInstance.helpLineNumber //strPassengerMobileNumber
         
         if contactNumber == "" {
             UtilityClass.showAlert("App Name".localized, message: "Contact number  is not available", vc: self)

@@ -78,6 +78,10 @@ class SplashViewController: UIViewController {
                 
                 if ((result as! NSDictionary).object(forKey: "update") as? Bool) != nil {
                     
+                    UserDefaults.standard.set(true, forKey: kIsUpdateAvailable)
+                    UserDefaults.standard.set((result as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, forKey: kIsUpdateMessage)
+                    UserDefaults.standard.synchronize()
+                    
                     let alert = UIAlertController(title: "App Name".localized, message: (result as! NSDictionary).object(forKey: GetResponseMessageKey()) as? String, preferredStyle: .alert)
                     let UPDATE = UIAlertAction(title: "Update".localized, style: .default, handler: { ACTION in
                         
@@ -101,6 +105,10 @@ class SplashViewController: UIViewController {
                 }
                 else
                 {
+                    
+                    UserDefaults.standard.set(false, forKey: kIsUpdateAvailable)
+                    UserDefaults.standard.set("", forKey: kIsUpdateMessage)
+                    UserDefaults.standard.synchronize()
                     
 //                    if(Singletons.sharedInstance.isDriverLoggedIN)
 //                    {

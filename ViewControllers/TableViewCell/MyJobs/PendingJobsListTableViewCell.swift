@@ -80,6 +80,10 @@ class PendingJobsListTableViewCell: UITableViewCell {
     
     @IBOutlet var lblPaymentType: UILabel!
     
+    
+    @IBOutlet var lblBookingDate: UILabel!
+    @IBOutlet var lblProcessingDate: UILabel!
+    
 //    @IBOutlet weak var lblDispatcherNum: UILabel!
 //    @IBOutlet weak var lblPassengerEmailInfo: UILabel!
 //    

@@ -40,13 +40,14 @@ class HeaderView: UIView {
     // MARK: - Outlets
     //-------------------------------------------------------------
     //HeaderView 1
-    @IBOutlet var imgHeaderImage: UIImageView!
     @IBOutlet var btnSwitch: UIButton!
     @IBOutlet var btnMenu: UIButton!
     @IBOutlet var btnBack: UIButton!
     @IBOutlet var btnSOS: UIButton!
+    @IBOutlet var btnWhatsapp: UIButton!
     @IBOutlet var lblTitle: UILabel!
 
+    @IBOutlet var viewWhatsappIcon: UIView!
     @IBOutlet var viewSwitchIcon: UIView!
     @IBOutlet var viewCallIcon: UIView!
     @IBOutlet var viewSOSIcon: UIView!
@@ -79,6 +80,11 @@ class HeaderView: UIView {
         {
             hView?.btnSwitch.setImage(UIImage(named: "iconSwitchOff"), for: .normal)
         }
+        
+        if UIApplication.topViewController()!.isKind(of: CustomSideMenuViewController.self) {
+            hView?.viewWhatsappIcon.isHidden = false
+        }
+        
         return hView!
     }
     
@@ -139,6 +145,27 @@ class HeaderView: UIView {
      delegate?.didCallClicked()
     }
     
+    @IBAction func btnWhatsappAction(_ sender: Any) {
+        NotificationCenter.default.post(name: GoToDispatcherChatScreen, object: nil)
+        
+        
+        
+//        let phoneNumber = Singletons.sharedInstance.DispatchWhatsapp
+//        let textMsg = ""
+//        let appURL = URL(string: "https://api.whatsapp.com/send?phone=\(phoneNumber)&text=\(textMsg)")!
+//        if UIApplication.shared.canOpenURL(appURL) {
+//            if #available(iOS 10.0, *) {
+//                UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
+//            }
+//            else {
+//                UIApplication.shared.openURL(appURL)
+//            }
+//        }else{
+//            print("Whatsapp is not installed on this device. Please install Whatsapp and try again.")
+//        }
+    }
+    
+    
     // ------------------------------------------------------------
     
     //HeaderView 2
@@ -146,7 +173,7 @@ class HeaderView: UIView {
     
     // ------------------------------------------------------------
     
-    
+
     
     
     

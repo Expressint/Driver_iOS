@@ -21,6 +21,9 @@ let googlPlacesApiKey = googlApiKey
 
 @UIApplicationMain class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, UNUserNotificationCenterDelegate,MessagingDelegate
 {
+    static var shared: AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
     
     var window: UIWindow?
     let manager = CLLocationManager()
@@ -31,13 +34,21 @@ let googlPlacesApiKey = googlApiKey
     var DistanceKiloMeter  = ""
     var Speed  = ""
     
+    var isChatVisible: Bool = false
+    var currentChatID: String = ""
+    static var pushNotificationObj : NotificationObjectModel?
+    static var pushNotificationType : String?
+    
     var RoadPickupTimer = Timer()
     let SManager = SocketManager(socketURL: URL(string: socketApiKeys.kSocketBaseURL)!,config: [.log(false), .compress,.version(.two)])
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+       
+
         // Override point for customization after application launch.
         IQKeyboardManager.shared.enable = true
         UserDefaults.standard.set(false, forKey: kIsSocketEmited)
+        UserDefaults.standard.set(false, forKey: kIsUpdateAvailable)
         UserDefaults.standard.synchronize()
         
 //        if UserDefaults.standard.value(forKey: "i18n_language") == nil {
@@ -217,6 +228,26 @@ let googlPlacesApiKey = googlApiKey
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        if UIApplication.topViewController()!.isKind(of: LoginViewController.self) {
+            if UserDefaults.standard.bool(forKey: kIsUpdateAvailable) == true {
+                print("Update app...")
+                if !UIApplication.topViewController()!.isKind(of: UIAlertController.self) {
+                    
+                    let alert = UIAlertController(title: "App Name".localized, message: UserDefaults.standard.string(forKey: kIsUpdateMessage) ?? "", preferredStyle: .alert)
+                    let UPDATE = UIAlertAction(title: "Update".localized, style: .default, handler: { ACTION in
+                        UIApplication.shared.open((NSURL(string: appName.kAPPUrl)! as URL), options: [:], completionHandler: { (status) in
+
+                        })
+                    })
+                    let Cancel = UIAlertAction(title: "Register".localized, style: .default, handler: { ACTION in
+                        NotificationCenter.default.post(name: Notification.Name("goToRegister"), object: nil, userInfo: nil)
+                    })
+                    alert.addAction(UPDATE)
+                    alert.addAction(Cancel)
+                    self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
@@ -326,7 +357,7 @@ let googlPlacesApiKey = googlApiKey
         }
         
         #if targetEnvironment(simulator)
-            Singletons.sharedInstance.deviceToken = "alshklashdkladlkasdhklahd"
+            Singletons.sharedInstance.deviceToken = "11111111"
         #endif
         UserDefaults.standard.set(Singletons.sharedInstance.deviceToken, forKey: "Token")
         UserDefaults.standard.synchronize()
@@ -388,20 +419,98 @@ let googlPlacesApiKey = googlApiKey
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Swift.Void) {
+        let userInfo = response.notification.request.content.userInfo
+        print("USER INFo : ",userInfo)
+        
+        if let mainDic = userInfo as? [String: Any]{
+            
+            let pushObj = NotificationObjectModel()
+            if let bookingId = mainDic["gcm.notification.id"]{
+                pushObj.booking_id = bookingId as? String ?? ""
+            }
+            if let sender = mainDic["gcm.notification.sender_id"]{
+                pushObj.sender_id = sender as? String ?? ""
+            }
+            if let type = mainDic["gcm.notification.type"]{
+                pushObj.type = type as? String ?? ""
+            }
+            if let title = mainDic["title"]{
+                pushObj.title = title as? String ?? ""
+            }
+            if let text = mainDic["text"]{
+                pushObj.text = text as? String ?? ""
+            }
+            
+            AppDelegate.pushNotificationObj = pushObj
+            AppDelegate.pushNotificationType = pushObj.type
+          
+            if pushObj.type == NotificationTypes.newMeassage.rawValue {
+                if(!isChatVisible){
+                    NotificationCenter.default.post(name: GoToChatScreen, object: nil)
+                }else{
+                    var DataDict: [String: AnyObject] = [:]
+                    DataDict["booking_id"] = mainDic["gcm.notification.id"] as AnyObject
+                    DataDict["receiver_Id"] = mainDic["gcm.notification.sender_id"] as AnyObject
+                    let isDispacherChat = ("\(mainDic["gcm.notification.id"] as AnyObject)" == "" || "\(mainDic["gcm.notification.id"] as AnyObject)" == "0") ? true : false
+                    DataDict["isDispacherChat"] = isDispacherChat as AnyObject
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ReloadChatScreen"), object: nil, userInfo: DataDict)
+                }
+            }
+        }
+        
+        
         completionHandler()
     }
     
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        print("the data is \(notification.request.content.userInfo)")
-        if let key = (notification.request.content.userInfo["gcm.notification.type"]) as? String
-        {
-            if(key.lowercased() == "logout")
-            {
+    
+        print(#function, notification)
+        let content = notification.request.content
+        let userInfo = notification.request.content.userInfo
+  
+        if let mainDic = userInfo as? [String: Any]{
+            
+            let pushObj = NotificationObjectModel()
+            if let bookingId = mainDic["gcm.notification.booking_id"]{
+                pushObj.booking_id = bookingId as? String ?? ""
+            }
+            if let sender = mainDic["gcm.notification.sender_id"]{
+                pushObj.sender_id = sender as? String ?? ""
+            }
+            if let type = mainDic["gcm.notification.type"]{
+                pushObj.type = type as? String ?? ""
+            }
+            if let title = mainDic["title"]{
+                pushObj.title = title as? String ?? ""
+            }
+            if let text = mainDic["text"]{
+                pushObj.text = text as? String ?? ""
+            }
+            
+            AppDelegate.pushNotificationObj = pushObj
+            AppDelegate.pushNotificationType = pushObj.type
+            
+            if pushObj.type == NotificationTypes.newMeassage.rawValue {
+                do {
+                    if(isChatVisible){
+                        let currentID = mainDic["gcm.notification.sender_id"] as? String ?? ""
+                        if(currentID == AppDelegate.shared.currentChatID){
+                            completionHandler([])
+                        }
+                    }
+                }catch{
+                    print("Error : detected")
+                }
+            }
+            
+            if pushObj.type == NotificationTypes.logout.rawValue {
                 self.webserviceOFSignOut()
             }
-        }
+            
         completionHandler([.alert,.sound])
+        }
+        
     }
     
     //-------------------------------------------------------------
@@ -447,7 +556,7 @@ let googlPlacesApiKey = googlApiKey
         let token = Messaging.messaging().fcmToken
         Singletons.sharedInstance.deviceToken = token!
         #if targetEnvironment(simulator)
-            Singletons.sharedInstance.deviceToken = "alshklashdkladlkasdhklahd"
+            Singletons.sharedInstance.deviceToken = "11111111"
         #endif
         UserDefaults.standard.set(Singletons.sharedInstance.deviceToken, forKey: "Token")
         print("FCM token: \(token ?? "")")
@@ -564,3 +673,16 @@ func setLayoutForenglishLanguage()
     UserDefaults.standard.synchronize()
 }
 
+class NotificationObjectModel: Codable {
+    var booking_id: String?
+    var sender_id: String?
+    var type: String?
+    var title: String?
+    var text: String?
+}
+
+enum NotificationTypes : String {
+    case newMeassage = "Chat"
+    case logout = "logout"
+    
+}

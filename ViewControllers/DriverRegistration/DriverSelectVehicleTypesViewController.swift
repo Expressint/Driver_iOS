@@ -38,6 +38,7 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
     
     var aryDataCarsAndTaxiVehicleTypes = [String]()
     var aryDataDeliveryServicesVehicleTypes = [String]()
+    var aryDataDeliveryCapacity = [String]()
     var strVehicleClass = String()
     //-------------------------------------------------------------
     // MARK: - Base Methods
@@ -376,13 +377,12 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
 //            sb.createWithAction(text: "Please select vehicle type".localized, actionTitle: "Dismiss".localized, action: { print("Button is push") })
 //            sb.show()
         }
-        else if txtNumberPassenger.selectedItem == nil ||  txtNumberPassenger.selectedItem == "" || txtNumberPassenger.selectedItem == "Number Of Passenger".localized
-        {
-            isValidate = false
-            validatorMessage = "Please enter no of passenger".localized
-//            sb.createWithAction(text: "Please enter no of passenger".localized, actionTitle: "Dismiss".localized, action: { print("Button is push") })
-//            sb.show()
-        }
+//        else if txtNumberPassenger.selectedItem == nil ||  txtNumberPassenger.selectedItem == "" || txtNumberPassenger.selectedItem == "Number Of Passenger".localized
+//        {
+//            isValidate = false
+//            validatorMessage = "Please enter no of passenger".localized
+//        }
+        
         else if imgVehicle.image == UIImage(named: "iconCARPlaceholder") || imgVehicle.image == nil //UIImage.init(named: "")
         {
             isValidate = false
@@ -440,6 +440,7 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
 //        viewDeliveryService.isHidden = true
         self.performSegue(withIdentifier: "segueCarsAndTaxi", sender: nil)
     }
+    
     func webserviceforGetCarModels() {
         
         webserviceForVehicalModelList("" as AnyObject) { (result, status) in
@@ -457,8 +458,10 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
                     var dataOFCars = self.aryDataCarsAndTaxi[i]
                     let CarModelID = dataOFCars["Id"] as! String
                     let strCarModelNames = dataOFCars["Name"] as! String
+                    let CarModelCapacity = dataOFCars["Capacity"] as! String
                     self.aryDataCarsAndTaxiIDs.append(CarModelID)
                     self.aryDataCarsAndTaxiVehicleTypes.append(strCarModelNames)
+                    self.aryDataDeliveryCapacity.append(CarModelCapacity)
                 }
                 
                 self.getVehicleName()

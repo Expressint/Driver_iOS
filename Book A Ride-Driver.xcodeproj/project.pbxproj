@@ -199,6 +199,11 @@
 		63F23F752188690400FB629F /* LegalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F23F742188690400FB629F /* LegalViewController.swift */; };
 		63F23F77218890D300FB629F /* LegalWebPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F23F76218890D300FB629F /* LegalWebPage.swift */; };
 		7A1BAADB2567CFFF0080B549 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A1BAADA2567CFFF0080B549 /* GoogleService-Info.plist */; };
+		88BBE2152891405E0024F935 /* SenderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88BBE20F2891405E0024F935 /* SenderCell.xib */; };
+		88BBE2162891405E0024F935 /* SenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BBE2102891405E0024F935 /* SenderCell.swift */; };
+		88BBE2172891405E0024F935 /* ReceiverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BBE2122891405E0024F935 /* ReceiverCell.swift */; };
+		88BBE2182891405E0024F935 /* ReceiverCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88BBE2132891405E0024F935 /* ReceiverCell.xib */; };
+		88BBE2192891405E0024F935 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BBE2142891405E0024F935 /* ChatVC.swift */; };
 		AC084A2BD8A878D89746BE5D /* Pods_Book_A_Ride_Driver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B93BD9688C29F5F64A4A5492 /* Pods_Book_A_Ride_Driver.framework */; };
 		EECDB7D9203D48AE0079F78B /* MeterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECDB7D8203D48AE0079F78B /* MeterViewController.swift */; };
 		EEFEA5942211839600D88655 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEFEA5962211839600D88655 /* Main.storyboard */; };
@@ -409,6 +414,11 @@
 		63F23F76218890D300FB629F /* LegalWebPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalWebPage.swift; sourceTree = "<group>"; };
 		7A1BAADA2567CFFF0080B549 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7AEF3A4F2567A854006CE291 /* Book A Ride-Driver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Book A Ride-Driver.entitlements"; sourceTree = "<group>"; };
+		88BBE20F2891405E0024F935 /* SenderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SenderCell.xib; sourceTree = "<group>"; };
+		88BBE2102891405E0024F935 /* SenderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SenderCell.swift; sourceTree = "<group>"; };
+		88BBE2122891405E0024F935 /* ReceiverCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiverCell.swift; sourceTree = "<group>"; };
+		88BBE2132891405E0024F935 /* ReceiverCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReceiverCell.xib; sourceTree = "<group>"; };
+		88BBE2142891405E0024F935 /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		B93BD9688C29F5F64A4A5492 /* Pods_Book_A_Ride_Driver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Book_A_Ride_Driver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDDC1B10AC9C8273482F8CC6 /* Pods-Book A Ride-Driver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Book A Ride-Driver.release.xcconfig"; path = "Target Support Files/Pods-Book A Ride-Driver/Pods-Book A Ride-Driver.release.xcconfig"; sourceTree = "<group>"; };
 		EECDB7D8203D48AE0079F78B /* MeterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeterViewController.swift; sourceTree = "<group>"; };
@@ -493,6 +503,7 @@
 		00E928E3202AE2BF00A399E2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				88BBE20C2891405E0024F935 /* Chat */,
 				54C447D328003FD70094ACD5 /* CancelAlert */,
 				3F438AD825920BCB00441E1B /* MyEarnings */,
 				3AF9136621C9199F00E2C08A /* MyRatingViewCell.swift */,
@@ -537,16 +548,8 @@
 				00E928ED202AE2BF00A399E2 /* DriverSelectVehicleTypesViewController.swift */,
 				00E928EE202AE2BF00A399E2 /* DriverVehiclesViewController.swift */,
 				00E928EF202AE2BF00A399E2 /* DriverVehicleTypesViewController.swift */,
-				00E928F0202AE2BF00A399E2 /* ServiceProvider */,
 			);
 			path = DriverRegistration;
-			sourceTree = "<group>";
-		};
-		00E928F0202AE2BF00A399E2 /* ServiceProvider */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ServiceProvider;
 			sourceTree = "<group>";
 		};
 		00E928F5202AE2BF00A399E2 /* HeaderVC */ = {
@@ -1265,6 +1268,42 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		88BBE20C2891405E0024F935 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				88BBE2142891405E0024F935 /* ChatVC.swift */,
+				88BBE20D2891405E0024F935 /* Cells */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		88BBE20D2891405E0024F935 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				88BBE20E2891405E0024F935 /* SenderCell */,
+				88BBE2112891405E0024F935 /* ReceiverCell */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		88BBE20E2891405E0024F935 /* SenderCell */ = {
+			isa = PBXGroup;
+			children = (
+				88BBE20F2891405E0024F935 /* SenderCell.xib */,
+				88BBE2102891405E0024F935 /* SenderCell.swift */,
+			);
+			path = SenderCell;
+			sourceTree = "<group>";
+		};
+		88BBE2112891405E0024F935 /* ReceiverCell */ = {
+			isa = PBXGroup;
+			children = (
+				88BBE2122891405E0024F935 /* ReceiverCell.swift */,
+				88BBE2132891405E0024F935 /* ReceiverCell.xib */,
+			);
+			path = ReceiverCell;
+			sourceTree = "<group>";
+		};
 		E96FE3B5A4454BE12479DF46 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1330,7 +1369,6 @@
 				45E1862B52B878E7BD74258F /* [CP] Embed Pods Frameworks */,
 				BC2BBE68F542D67E9F20D53C /* [CP] Copy Pods Resources */,
 				7A6173FC256F713300901256 /* ShellScript */,
-				5429D50D26612BD200BE7C0C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1406,6 +1444,7 @@
 				21A65EDF216614630037E40E /* proxima-nova.otf in Resources */,
 				21A65EE0216614630037E40E /* proxima-nova-light-italic.otf in Resources */,
 				00E92A6F202AE2C100A399E2 /* ringTone.mp3 in Resources */,
+				88BBE2152891405E0024F935 /* SenderCell.xib in Resources */,
 				7A1BAADB2567CFFF0080B549 /* GoogleService-Info.plist in Resources */,
 				00E929F1202AE2C100A399E2 /* ExpandDispatchedJobsViewController.xib in Resources */,
 				EEFEA5B1221184F900D88655 /* Localizable.strings in Resources */,
@@ -1420,6 +1459,7 @@
 				EEFEA5A82211841000D88655 /* Registration.storyboard in Resources */,
 				EEFEA599221183DB00D88655 /* TripToDestination.storyboard in Resources */,
 				EEFEA5A32211840700D88655 /* LaunchScreen.storyboard in Resources */,
+				88BBE2182891405E0024F935 /* ReceiverCell.xib in Resources */,
 				00E929D3202AE2C100A399E2 /* Main.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1505,23 +1545,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Book A Ride-Driver/Pods-Book A Ride-Driver-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5429D50D26612BD200BE7C0C /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${PODS_ROOT}/FirebaseCrashlytics/upload-symbols -gsp ${PROJECT_DIR}/Other\\ Resources/GoogleService-Info.plist -p ios ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\n";
-		};
 		7A6173FC256F713300901256 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1570,6 +1593,7 @@
 			files = (
 				00E92A57202AE2C100A399E2 /* WWCalendarTimeSelector.swift in Sources */,
 				00E92A55202AE2C100A399E2 /* String+Timepiece.swift in Sources */,
+				88BBE2172891405E0024F935 /* ReceiverCell.swift in Sources */,
 				00E929E8202AE2C100A399E2 /* DispatchJobsBookLaterViewController.swift in Sources */,
 				00E92A06202AE2C100A399E2 /* MenuController.swift in Sources */,
 				00E92A0D202AE2C100A399E2 /* DispatchedJobsForMyJobsTableViewCell.swift in Sources */,
@@ -1585,6 +1609,7 @@
 				3AC13C5621C8C80100DA3FE6 /* Extensions.swift in Sources */,
 				00E92A03202AE2C100A399E2 /* ContentViewController.swift in Sources */,
 				00E92A5F202AE2C100A399E2 /* UpdateProfileAccountVC.swift in Sources */,
+				88BBE2162891405E0024F935 /* SenderCell.swift in Sources */,
 				00E92A02202AE2C100A399E2 /* ChangePasswordViewController.swift in Sources */,
 				63F23F752188690400FB629F /* LegalViewController.swift in Sources */,
 				54C447D628003FD70094ACD5 /* CancelAlertViewController.swift in Sources */,
@@ -1623,6 +1648,7 @@
 				00E92A73202AE2C100A399E2 /* WebserviceClasses.swift in Sources */,
 				00E929EE202AE2C100A399E2 /* DispatchedJobsForMyJobsVC.swift in Sources */,
 				00E92A27202AE2C100A399E2 /* SPAudioPlayer.swift in Sources */,
+				88BBE2192891405E0024F935 /* ChatVC.swift in Sources */,
 				00E92A05202AE2C100A399E2 /* DriverNewsViewController.swift in Sources */,
 				00E92A0A202AE2C100A399E2 /* DriverNewsTableViewCell.swift in Sources */,
 				00E929D9202AE2C100A399E2 /* DriverPersonelDetailsViewController.swift in Sources */,
@@ -1908,16 +1934,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Book A Ride-Driver.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2.8;
+				CURRENT_PROJECT_VERSION = 1.4.9;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AQ5BYLK3P7;
 				INFOPLIST_FILE = "$(SRCROOT)/Other Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eww.BookARideDriver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1934,15 +1960,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Book A Ride-Driver.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2.8;
+				CURRENT_PROJECT_VERSION = 1.4.9;
 				DEVELOPMENT_TEAM = AQ5BYLK3P7;
 				INFOPLIST_FILE = "$(SRCROOT)/Other Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eww.BookARideDriver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

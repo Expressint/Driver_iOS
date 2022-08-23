@@ -159,6 +159,18 @@ class FutureBookingVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         //
         let data = aryData.object(at: indexPath.row) as! NSDictionary
         
+        let pickDate = data.object(forKey: "PickupDateTime") as? String ?? ""
+        if(pickDate.contains(" ")){
+            let date = pickDate.components(separatedBy: " ")
+            cell.lblProcessingDate.text = date[0]
+        }
+        
+        let CreatedDate = data.object(forKey: "CreatedDate") as? String ?? ""
+        if(CreatedDate.contains(" ")){
+            let date = CreatedDate.components(separatedBy: " ")
+            cell.lblBookingDate.text = date[0]
+        }
+        
         cell.lblPassengerName.text = data.object(forKey: "PassengerName") as? String
         
         
@@ -176,7 +188,7 @@ class FutureBookingVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         //         checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PaymentType", isNotHave: strNotAvailable)
         
-        cell.lblDropOffLocationDesc.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "DropoffLocation", isNotHave: strNotAvailable) //data.object(forKey: "PickupLocation") as? String // DropoffLocation
+       // cell.lblDropOffLocationDesc.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "DropoffLocation", isNotHave: strNotAvailable) //data.object(forKey: "PickupLocation") as? String // DropoffLocation
         cell.lblDateAndTime.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PickupDateTime", isNotHave: strNotAvailable)
         cell.lblPickupTimeValue.text = checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PickupDateTime", isNotHave: strNotAvailable)
         //data.object(forKey: "PickupDateTime") as? String

@@ -482,12 +482,12 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
             UtilityClass.showAlert("App Name".localized, message: "Vehicle Color".localized, vc: self)
             return false
         }
-        else if txtNoOfPassenger.selectedItem == nil ||  txtNoOfPassenger.selectedItem == "" || txtNoOfPassenger.selectedItem == "Number of Passenger"
-        {
-            
-            UtilityClass.showAlert("App Name".localized, message: "Number Of Passenger".localized, vc: self)
-            return false
-        }
+//        else if txtNoOfPassenger.selectedItem == nil ||  txtNoOfPassenger.selectedItem == "" || txtNoOfPassenger.selectedItem == "Number of Passenger"
+//        {
+//            
+//            UtilityClass.showAlert("App Name".localized, message: "Number Of Passenger".localized, vc: self)
+//            return false
+//        }
         
         return true
     }

@@ -65,6 +65,10 @@ class FutureBookingTableViewCell: UITableViewCell {
     @IBOutlet var lblDispatcherNameTitle: UILabel!
     @IBOutlet var lblDispatcherEmailTitle: UILabel!
     @IBOutlet var lblDispatcherNumberTitle: UILabel!
+    
+    @IBOutlet weak var lblBookingDate: UILabel!
+    @IBOutlet weak var lblProcessingDate: UILabel!
+    
     @IBOutlet var stackViewEmail: UIStackView!
     @IBOutlet var stackViewName: UIStackView!
     @IBOutlet var stackViewNumber: UIStackView!

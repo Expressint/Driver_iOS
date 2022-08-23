@@ -10,7 +10,8 @@ import UIKit
 
 class PastJobsListTableViewCell: UITableViewCell {
     var callBackActionGetRec : (()->()) = { }
-
+    var callBackActionViewRec : (()->())?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -26,6 +27,13 @@ class PastJobsListTableViewCell: UITableViewCell {
     {
         callBackActionGetRec()
     }
+    
+    @IBAction func BtnViewReceiptAction(_ sender: Any) {
+        if let obj = self.callBackActionViewRec{
+            obj()
+        }
+    }
+    
     
     //-------------------------------------------------------------
     // MARK: - Outlets
@@ -99,7 +107,12 @@ class PastJobsListTableViewCell: UITableViewCell {
     
     @IBOutlet weak var lblTripCancelReasonTitle: UILabel!
     @IBOutlet weak var lblTripCancelReason: UILabel!
-
+    
+    @IBOutlet weak var lblBookingDate: UILabel!
+    @IBOutlet weak var lblProcessingDate: UILabel!
+    @IBOutlet weak var lblAuthorizationNumber: UILabel!
+    
+    
     @IBOutlet var viewCell: UIView!
     
     
@@ -120,6 +133,7 @@ class PastJobsListTableViewCell: UITableViewCell {
     @IBOutlet weak var TripCancelReasonStackView: UIStackView!
     
     @IBOutlet weak var btnGetReceipt: UIButton!
-    
+    @IBOutlet weak var BtnViewReceipt: UIButton!
+   
    
 }

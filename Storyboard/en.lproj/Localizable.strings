@@ -1,5 +1,7 @@
 
-"App Name" = "Book A Ride Driver";
+"App Name" = "";//"Book A Ride Driver";
+"Share App Name Driver" = "Book A Ride Driver";
+"Share App Name Passenger" = "Book A Ride Passenger";
 "Currency" = "$";
 "Internet Error" = "Internet Error";
 "messageNotConnectedToInternet" = "Sorry! Not connected to internet";
@@ -24,6 +26,7 @@
 "Sign In" = "Sign In";
 //"Login" = "Login";
 "Don't have an Account?" = "Don't have an Account?";
+"Police Clearance Document" = "Police Clearance Document";
 "Sign Up" = "Sign Up";
 "Forgot Password" = "Forgot Password!";
 "Forgot Password?" = "Forgot Password?";
@@ -44,6 +47,7 @@
 "Select date of birth" = "Select date of birth";
 "Please enter date of birth" = "Please enter date of birth";
 "Please enter address" = "Please enter address";
+"Please enter district" = "Please enter district";
 "Please select profile picture again" = "Please select profile picture again";
 "Male" = "Male";
 "Female" = "Female";
@@ -114,10 +118,11 @@
 "Grand Total :" = "Grand Total:";
 "Trip Info" = "Trip Info";
 "Base Fare" = "Base Fare";
-"Trip Distance" = "Trip Distance";
+"Trip Fare" = "Trip Fare";
+"Trip Distance" = "Distance";
 "Distance Fare" = "Distance Fare";
 "Special Extra Charge" = "Special Extra Charge";
-"Booking Charge" = "Booking Charge:";
+"Booking Charge" = "Booking Fee:";
 "Grand Total" = "Grand Total";
 "Current Location" = "Current Location";
 "message_getOnline" = "Get online First.";
@@ -155,6 +160,8 @@
 "Share Your Invite Code" = "Share Your Invite Code";
 "Share" = "Share";
 "click here" = "click here";
+"For iOS Click Here : " = "For iOS Click Here : ";
+"For Android Click Here : " = "For Android Click Here : ";
 "has invited you to become a" = "has invited you to become a";
 "Your invite code is :" = "Your invite code is:";
 "Need camera permission!" = "Need camera permission!";
@@ -174,7 +181,7 @@
 "Add New Card" = "Add New Card";
 "Ex" = "Ex";
 "Scan" = "Scan";
-"Tax" = "Tax";
+"Tax" = "Tax(Included)";
 "Please enter Send amount." = "Please enter Send amount.";
 "Please tab to activate Scanner." = "Please tab to activate Scanner.";
 "Send Money" = "Send Money";
@@ -196,7 +203,7 @@
 "Pending Jobs" = "Pending Jobs";
 "Past Jobs" = "Past Jobs";
 "No data found." = "No data found.";
-"Booking Id" = "Booking Id";
+"Booking Id" = "Order Number/Booking Number";
 "Pick Up Time :" = "Pick Up Time:";
 "Pick Up Time" = "Pick Up Time";
 "Dropoff Time :" = "Dropoff Time:";
@@ -210,7 +217,7 @@
 "Payment Type :" = "Payment Type:";
 "Promo credit used:" = "Promo credit used:";
 "Total Paid to Driver :" = "Total Paid to Driver:";
-"Tax :" = "Tax:";
+"Tax :" = "Tax(Included)";
 "Waiting Time :" = "Waiting Time:";
 "Waiting Cost :" = "Waiting Cost:";
 "Discount :" = "Discount:";
@@ -223,6 +230,7 @@
 "Enter Mobile OTP" = "Enter Mobile OTP";
 "Date Of Birth" = "Date Of Birth";
 "Address" = "Address";
+"District" = "District";
 "Bsb" = "Bsb";
 "Branch Code" = "Branch Code";
 "Vehicle Plate Number" = "Vehicle Plate Number";
@@ -241,6 +249,7 @@
 "Please try again later." = "Please try again later.";
 "Cancel" = "Cancel";
 "Home" = "Home";
+"Register" = "Register";
 "Dispatch" = "Dispatch";
 "My Job" = "My Job";
 "Hailed Fare" = "Hailed Fare";

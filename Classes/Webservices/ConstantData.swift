@@ -18,6 +18,8 @@ struct WebSupport {
     static let PrivacyPolicyURL = "https://www.bookaridegy.com/PrivacyPolicy"
 }
 
+//Live: https://www.bookaridegy.com/Drvier_Api/
+//Development: http://52.23.45.119/
 struct WebserviceURLs {
     
     static let kBaseURL                                 = "https://www.bookaridegy.com/Drvier_Api/"
@@ -32,6 +34,7 @@ struct WebserviceURLs {
     static let kForgotPassword                          = "ForgotPassword"
     static let kPastBooking                             = "PastJobs"
     static let kCompany                                 = "Company"
+    static let kDistrict                                = "districtList"
     static let KUpdateDriverBasicInfo                   = "UpdateDriverBasicInfo"
     static let KUpdateBankInfo                          = "UpdateBankInfo"
     static let kUpdateVehicleInfo                       = "UpdateVehicleInfo"
@@ -42,6 +45,7 @@ struct WebserviceURLs {
     static let kAcceptDispatchJobRequest                = "AcceptDispatchJobRequest/"
     static let kLogout                                  = "Logout/"
     static let kSubmitCompleteAdvancedBooking           = "SubmitCompleteAdvancedBooking"
+    static let kChatHistory                             = "chat_history"
     static let kSubmitMultipleDropoff                   = "SubmitMultipleDropoff"
     static let kSubmitBookNowByDispatchJob              = "SubmitBookNowByDispatchJob"
     static let kSubmitBookLaterByDispatchJob            = "SubmitBookLaterByDispatchJob"
@@ -52,6 +56,7 @@ struct WebserviceURLs {
     static let kCurrentBooking                          = "CurrentBooking/"
     static let kAddNewCard                              = "AddNewCard"
     static let kCards                                   = "Cards/"
+    static let kDeleteAccount                           = "deleteAccount/"//
     static let kAddMoney                                = "AddMoney"
     static let kTransactionHistory                      = "TransactionHistory/"
     static let kSendMoney                               = "SendMoney"
@@ -115,6 +120,7 @@ struct RegistrationProfileKeys {
     static let kKeyMobileNumber = "mobileNumber"
     static let kKeyPassword = "password"
     static let kKeyAddress = "address"
+    static let kKeyDistrict = "district"
     static let kKeyPostCode = "postCode"
     static let kKeyState = "state"
     static let kKeyCountry = "country"
@@ -150,6 +156,7 @@ struct RegistrationFinalKeys {
     static let kGender = "Gender"// Done
     static let kPassword = "Password"// Done
     static let kAddress = "Address"// Done
+    static let kDistrict = "District"// Done
     
      static let kSuburb = "Suburb"// Done
     
@@ -172,8 +179,14 @@ struct RegistrationFinalKeys {
     static let kServiceDescription = "Description"
     static let kVehicleColor = "Color" //Done
     static let kCarRegistrationCertificate = "CarRegistrationCertificate" //Done
+    static let kPoliceClearanceCertificate = "PoliceClearance" //Done
+    static let kFitnessCertificate = "Fitness" //Done
+    static let kRoadServiceCertificate = "RoadService" //Done
     static let kVehicleInsuranceCertificate = "VehicleInsuranceCertificate" //Done
     static let kCarRegistrationExpiryDate = "RegistrationCertificateExpire" //Done
+    static let kPoliceClearanceExpiryDate = "PoliceClearanceCertificateExpire" //Done
+    static let kFitnessExpiryDate = "FitnessCertificateExpire" //Done
+    static let kRoadServiceExpiryDate = "RoadServiceExpire" //Done
     static let kVehicleInsuranceCertificateExpiryDate = "VehicleInsuranceCertificateExpire" //Done
     static let kReferralCode = "ReferralCode" //Done
     static let kLat = "Lat"//Done
@@ -199,6 +212,8 @@ struct RegistrationFinalKeys {
     
 }
 
+//Live: https://www.bookaridegy.com:8080
+//Development: http://52.23.45.119:8080
 struct socketApiKeys {
     
     static let kSocketBaseURL = "https://www.bookaridegy.com:8080"
@@ -218,24 +233,16 @@ struct socketApiKeys {
     static let kLong = "Long"
     static let kBookingId = "BookingId"
     static let kBookingType = "BookingType"
-    
     static let kAdvanceBookingID = "BookingId"
-    
     static let kUserType = "UserType"
-    
     static let kGetBookingDetailsAfterBookingRequestAccepted = "BookingInfo"
     static let kPickupPassengerByDriver = "PickupPassenger"
-    
     static let kDriverArrivedCheck = "DriverArrivedCheck"
     static let kOnDriverArrivedCheck = "DriverArrivedCheck"
-
-    
     static let kStartHoldTrip = "StartHoldTrip"
     static let kEndHoldTrip = "EndHoldTrip"
-    
     static let kDriverCancelTripNotification = "DriverCancelTripNotification"
-    static let kSendDriverLocationRequestByPassenger = "DriverLocation"
-
+    static let kSendDriverLocationRequestByPassenger = "DriverLocationWithETA"
     static let kAriveAdvancedBookingRequest = "AriveAdvancedBookingRequest"
     static let kForwardAdvancedBookingRequestToAnother = "ForwardAdvancedBookingRequestToAnother"
     static let kAcceptAdvancedBookingRequest = "AcceptAdvancedBookingRequest"
@@ -246,17 +253,17 @@ struct socketApiKeys {
     static let kAdvancedBookingDriverCancelTripNotification = "AdvancedBookingDriverCancelTripNotification"
     static let kAdvancedBookingInfo = "AdvancedBookingInfo"
     static let kAdvancedBookingPickupPassengerNotification = "AdvancedBookingPickupPassengerNotification"
-    
+    static let kGetDriverLocation = "GetDriverLocation"
     static let kBookLaterDriverNotify = "BookLaterDriverNotify"
     static let kReceiveMoneyNotify = "ReceiveMoneyNotify"
-   
     static let kStartTripTimeError = "StartTripTimeError"
-    
     static let kAskForTips = "AskForTips"
     static let kReceiveTipsToDriver = "ReceiveTipsToDriver"
-    
     static let kAskForTipsForBookLater = "AskForTipsForBookLater"
     static let kReceiveTipsToDriverForBookLater = "ReceiveTipsToDriverForBookLater"
+    static let connectDriverForChat = "connectDriverForChat"
+    static let sendMessage = "sendMessage"
+    static let receiveMessage = "receive_message"
     
 }
 
@@ -264,7 +271,11 @@ struct appName {
     static let kAPPName = "App Name".localized
 //    "TanTaxi Driver"
     static let kAPPUrl = "itms-apps://itunes.apple.com/app/apple-store/id1541299485?mt=8"
+    static let kAPPUrlAndroid = "https://play.google.com/store/apps/details?id=com.bookride.driver"
+    static let kAPPUrliOS = "https://apps.apple.com/in/app/bookaridegy-driver/id1541299485"
     
+    static let appURLAndroid = "https://play.google.com/store/apps/details?id=com.bookride.passenger"
+    static let appURLiOS = "https://apps.apple.com/in/app/bookaridegy/id1541296701"
 }
 
 struct AppTextfieldTags {

@@ -37,13 +37,13 @@ class CarAndTaxiesVC: UIViewController, UITableViewDataSource, UITableViewDelega
     var carTypeID = [String]()
     var aryChooseCareModel = [String]()
     var aryChooseCarName = [String]()
+    var aryChooseCarCapacity = [String]()
     var aryData = NSArray()
 //    var selectedCells = NSMutableArray()
     
     var selectedCells:[Int] = []
     
     weak var delegate: getVehicleIdAndNameDelegate!
-
     var delegateForEstimate: getEstimateFareForDispatchJobs!
     var delegateForEstimateNow: getEstimateFareForDispatchJobsNow!
 
@@ -88,6 +88,7 @@ class CarAndTaxiesVC: UIViewController, UITableViewDataSource, UITableViewDelega
                     {
                         self.aryChooseCareModel.append(((self.aryData as NSArray).object(at: i) as! NSDictionary).object(forKey: "Id") as! String)
                         self.aryChooseCarName.append(((self.aryData as NSArray).object(at: i) as! NSDictionary).object(forKey: "Name") as! String)
+                        self.aryChooseCarCapacity.append(((self.aryData as NSArray).object(at: i) as! NSDictionary).object(forKey: "Capacity") as! String)
                         self.selectedCells.append(i)
                     }
                 }
@@ -109,6 +110,7 @@ class CarAndTaxiesVC: UIViewController, UITableViewDataSource, UITableViewDelega
                             {
                                 self.aryChooseCareModel.append(((self.aryData as NSArray).object(at: i) as! NSDictionary).object(forKey: "Id") as! String)
                                 self.aryChooseCarName.append(((self.aryData as NSArray).object(at: i) as! NSDictionary).object(forKey: "Name") as! String)
+                                self.aryChooseCarCapacity.append(((self.aryData as NSArray).object(at: i) as! NSDictionary).object(forKey: "Capacity") as! String)
                                 self.selectedCells.append(i)
                             }
                         }
@@ -146,7 +148,10 @@ class CarAndTaxiesVC: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.selectionStyle = .none
         let dictData = aryData.object(at: indexPath.row) as! NSDictionary
         
-        cell.lblCarModelClass.text = dictData.object(forKey: "Name") as? String
+        let name = dictData.object(forKey: "Name") as? String ?? ""
+        let capacity = dictData.object(forKey: "Capacity") as? String ?? ""
+        
+        cell.lblCarModelClass.text = "\(name) (Capacity: \(capacity))"
         cell.closourBtnInfo = {
             UtilityClass.showAlertWithCompletion("Info Message!", message: dictData.object(forKey: "Description") as? String ?? "", vc: self) { success in
             
@@ -187,6 +192,7 @@ class CarAndTaxiesVC: UIViewController, UITableViewDataSource, UITableViewDelega
             if self.selectedCells.contains(indexPath.row) {
                 self.aryChooseCareModel.remove(at: self.selectedCells.index(of: indexPath.row)!)
                 self.aryChooseCarName.remove(at: self.selectedCells.index(of: indexPath.row)!)
+                self.aryChooseCarCapacity.remove(at: self.selectedCells.index(of: indexPath.row)!)
                 self.selectedCells.remove(at: self.selectedCells.index(of: indexPath.row)!)
             }
             else
@@ -206,12 +212,14 @@ class CarAndTaxiesVC: UIViewController, UITableViewDataSource, UITableViewDelega
             {
                 self.aryChooseCareModel.remove(at: self.selectedCells.index(of: indexPath.row)!)
                 self.aryChooseCarName.remove(at: self.selectedCells.index(of: indexPath.row)!)
+                self.aryChooseCarCapacity.remove(at: self.selectedCells.index(of: indexPath.row)!)
                 self.selectedCells.remove(at: self.selectedCells.index(of: indexPath.row)!)
             }
             else {
                 self.selectedCells.append(indexPath.row)
                 self.aryChooseCareModel.append(dictData["Id"] as! String)
                 self.aryChooseCarName.append(dictData["Name"] as! String)
+                self.aryChooseCarCapacity.append(dictData["Capacity"] as! String)
             }
         }
         

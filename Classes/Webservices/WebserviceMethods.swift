@@ -15,6 +15,7 @@ let VehicalModelList = WebserviceURLs.kVehicalModelList
 let DriverLogin = WebserviceURLs.kDriverLogin
 let Registration =  WebserviceURLs.kDriverRegister
 let Company = WebserviceURLs.kCompany
+let District = WebserviceURLs.kDistrict
 let PastBooking = WebserviceURLs.kPastBooking
 let UpdateBankInfo = WebserviceURLs.KUpdateBankInfo
 let UpdateVehicleInfo = WebserviceURLs.kUpdateVehicleInfo
@@ -25,6 +26,7 @@ let SubmitCompleteBooking = WebserviceURLs.kSubmitCompleteBooking
 let changePassword = WebserviceURLs.kChangePassword
 let signOut = WebserviceURLs.kLogout
 let SubmitCompleteAdvancedBooking = WebserviceURLs.kSubmitCompleteAdvancedBooking
+let ChatHistory = WebserviceURLs.kChatHistory
 let SubmitBookNowByDispatchJob = WebserviceURLs.kSubmitBookNowByDispatchJob
 let SubmitBookLaterByDispatchJob = WebserviceURLs.kSubmitBookLaterByDispatchJob
 let GetDriverProfile = WebserviceURLs.kGetDriverProfile
@@ -43,6 +45,7 @@ let CurrentBooking = WebserviceURLs.kCurrentBooking
 
 let AddNewCard = WebserviceURLs.kAddNewCard
 let CardListing = WebserviceURLs.kCards
+let DeleteAccount = WebserviceURLs.kDeleteAccount
 let AddMoneyToWallet = WebserviceURLs.kAddMoney
 let TransactionHistory = WebserviceURLs.kTransactionHistory
 
@@ -87,10 +90,10 @@ let Help = WebserviceURLs.kHelp
 // MARK: - Webservice For Registration
 //-------------------------------------------------------------
 
-func webserviceForRegistrationForDriver(_ dictParams: AnyObject, image1: UIImage, image2: UIImage, image3: UIImage, image4: UIImage, image5: UIImage, image6: UIImage,image7: UIImage, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+func webserviceForRegistrationForDriver(_ dictParams: AnyObject, image1: UIImage, image2: UIImage, image3: UIImage, image4: UIImage, image5: UIImage, image6: UIImage,image7: UIImage,image8: UIImage,image9: UIImage,image10: UIImage, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
     let url = Registration
-    sendImage(dictParams as! [String : AnyObject], image1: image1, image2: image2, image3: image3, image4: image4, image5: image5, image6: image6,image7: image7, nsURL: url, completion: completion)
+    sendImage(dictParams as! [String : AnyObject], image1: image1, image2: image2, image3: image3, image4: image4, image5: image5, image6: image6,image7: image7,image8: image8,image9: image9,image10: image10, nsURL: url, completion: completion)
   
 }
 
@@ -247,6 +250,16 @@ func webserviceForCompletedAdvanceTripSuccessfully(_ dictParams: AnyObject, comp
 }
 
 //-------------------------------------------------------------
+// MARK: - Webservice For Chat Histoy
+//-------------------------------------------------------------
+
+func webserviceForChatHistory(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = ChatHistory
+    postData(dictParams, nsURL: url, completion: completion)
+}
+
+//-------------------------------------------------------------
 // MARK: - Webservice For Submit Book Now By Dispatch Job
 //-------------------------------------------------------------
 
@@ -283,6 +296,16 @@ func webserviceForFutureAcceptDispatchJobRequest(_ dictParams: AnyObject, comple
 func webserviceForCompanyList(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
     let url = Company
+    getData("" as AnyObject, nsURL: url, completion: completion)
+}
+
+//-------------------------------------------------------------
+// MARK: - Webservice For District List
+//-------------------------------------------------------------
+
+func webserviceForDistrictList(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = District
     getData("" as AnyObject, nsURL: url, completion: completion)
 }
 
@@ -376,6 +399,16 @@ func webserviceForAddNewCardInWallet(_ dictParams: AnyObject, completion: @escap
 func webserviceForCardListingInWallet(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
     let url = CardListing + (dictParams as! String)
+    getData("" as AnyObject, nsURL: url, completion: completion)
+}
+
+//-------------------------------------------------------------
+// MARK: - Webservice For Card Listing in Wallet
+//-------------------------------------------------------------
+
+func webserviceForDeleteAccount(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = DeleteAccount + (dictParams as! String)
     getData("" as AnyObject, nsURL: url, completion: completion)
 }
 

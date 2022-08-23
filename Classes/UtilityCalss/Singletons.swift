@@ -10,6 +10,10 @@ import UIKit
 
 class Singletons: NSObject {
     var helpLineNumber = ""
+    var DispatchWhatsapp = ""
+    var DispatchCall = ""
+    var DispatchName = ""
+    var DispatchId = ""
     static let sharedInstance = Singletons()
 
 //    var isOnTabbarView = Bool()

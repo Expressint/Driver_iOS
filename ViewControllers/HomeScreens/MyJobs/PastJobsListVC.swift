@@ -8,13 +8,12 @@
 
 import UIKit
 import NVActivityIndicatorView
-
-
+import SafariServices
 
 class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var lblNodataFound: UILabel!
-    
+
     override func loadView() {
             super.loadView()
         
@@ -115,6 +114,8 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
          self.title = "My Job".localized
 //        self.webserviceOfPastbookingpagination(index: 1)
     }
+    
+    
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         
         if Connectivity.isConnectedToInternet() == false {
@@ -204,21 +205,44 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         //            if indexPath.section == 0 {
         
         let data = self.aryData.object(at: indexPath.row) as! NSDictionary
+        print(data)
+        
+        let pickDate = data.object(forKey: "PickupDateTime") as? String ?? ""
+        if(pickDate.contains(" ")){
+            let date = pickDate.components(separatedBy: " ")
+            cell.lblProcessingDate.text = date[0]
+        }
+        
+        let CreatedDate = data.object(forKey: "CreatedDate") as? String ?? ""
+        if(CreatedDate.contains(" ")){
+            let date = CreatedDate.components(separatedBy: " ")
+            cell.lblBookingDate.text = date[0]
+        }
+        
+        let AuthorizationNumber = data.object(forKey: "Authorization_Number") as? String ?? "N/A"
+        cell.lblAuthorizationNumber.text = (AuthorizationNumber) == "" ? "N/A" : AuthorizationNumber
+        
+        
+        
+        
         
         //        cell.viewAllDetails.isHidden = true
         //                cell.selectionStyle = .none
         
         cell.callBackActionGetRec = {
-            
-            
             let strContent = "Please download your receipt from the below link\n\n\(data["ShareUrl"] ?? "")"
-            
             let share = [strContent]
-            
             let activityViewController = UIActivityViewController(activityItems: share as [Any], applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
         }
+        
+        cell.callBackActionViewRec = {
+            print("called..")
+            let websiteUrl = data["ShareUrl"] as? String ?? ""
+            self.previewDocument(strURL: websiteUrl)
+        }
+        
         cell.selectionStyle = .none
 
 //        cell.viewCell.layer.shadowColor = UIColor.black.withAlphaComponent(0.4).cgColor
@@ -430,8 +454,8 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         //            cell.textLabel?.text = "No Data Found"
         //        }
         if self.checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "Status", isNotHave: strNotAvailable) == "canceled" {
-            cell.PickupTimeStackView.isHidden = true
-            cell.DropOffTimeStackView.isHidden = true
+           // cell.PickupTimeStackView.isHidden = true
+          //  cell.DropOffTimeStackView.isHidden = true
             cell.WaitingTimeStackView.isHidden = true
             cell.WaitingTimeCostStackView.isHidden = true
             cell.DiscountStackView.isHidden = true
@@ -441,8 +465,8 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.TaxStackView.isHidden = true
             cell.TotalStackView.isHidden = true
         } else {
-            cell.PickupTimeStackView.isHidden = false
-            cell.DropOffTimeStackView.isHidden = false
+         //   cell.PickupTimeStackView.isHidden = false
+         //   cell.DropOffTimeStackView.isHidden = false
             cell.WaitingTimeStackView.isHidden = false
             cell.WaitingTimeCostStackView.isHidden = false
             cell.DiscountStackView.isHidden = false
@@ -463,6 +487,12 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         ////            return cell2
         //        }
         
+    }
+    
+    func previewDocument(strURL : String){
+        guard let url = URL(string: strURL) else {return}
+        let svc = SFSafariViewController(url: url)
+        present(svc, animated: true, completion: nil)
     }
     
     func setLocalizable()

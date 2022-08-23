@@ -54,6 +54,7 @@ class EditDriverProfileVC: ParentViewController {
     func setLocalizable()
     {
         self.headerView?.lblTitle.text =   "Profile Update".localized
+        self.headerView?.viewWhatsappIcon.isHidden = true
         
         lblEditProfile.text = "Edit Profile".localized
         lblAccount.text = "Account".localized

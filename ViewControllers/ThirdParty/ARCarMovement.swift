@@ -56,7 +56,7 @@ public class ARCarMovement: NSObject {
     
         marker.position = newCoordinate; //this can be new position after car moved from old position to new position with animation
         marker.map = mapView;
-        Singletons.sharedInstance.floatBearing = Double(calBearing)
+       // SingletonClass.sharedInstance.floatBearing = calBearing
         marker.rotation = CLLocationDegrees(calBearing);
         CATransaction.commit()
         
@@ -73,3 +73,4 @@ public class ARCarMovement: NSObject {
     }
     
 }
+

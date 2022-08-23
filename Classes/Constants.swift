@@ -34,6 +34,9 @@ let kHtmlReplaceString   :   String  =   "<[^>]+>"
 let currency : String = "$"
 let dictanceType : String = "km"
 
+let kIsUpdateAvailable : String = "IsUpdateAvailable"
+let kIsUpdateMessage : String = "kIsUpdateMessage"
+
 let kIsSocketEmited : String = "IsEmited"
 let SCREEN_WIDTH =  UIScreen.main.bounds.size.width
 let SCREEN_HEIGHT = UIScreen.main.bounds.size.height
@@ -146,8 +149,9 @@ let kIconHelp : String = "iconHelp"
 //let kiconLogout : String = "iconAddress"
 let NotificationTrackRunningTrip = NSNotification.Name("NotificationTrackRunningTrip")
 let NotificationChangeLanguage = NSNotification.Name("ChangeLanguageNotification")
-
-
+//Notifications
+let GoToChatScreen = NSNotification.Name("GoToChatScreen")
+let GoToDispatcherChatScreen = NSNotification.Name("GoToDispatcherChatScreen")
 
 func GetPaymentTypeKey() -> String {
     var PaymentKey:String = ""

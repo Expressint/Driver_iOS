@@ -163,7 +163,9 @@
                 manager.startUpdatingLocation()
             }
         }
-     
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("goToRegister"), object: nil)
+
         // Do any additional setup after loading the view.
     }
     
@@ -172,6 +174,8 @@
         self.navigationController?.isNavigationBarHidden = true
         self.setLocalization()
 //        self.title = "Ingia".localized
+        
+        self.checkForAppUpdate()
     }
     
     override func viewDidLayoutSubviews()
@@ -191,8 +195,32 @@
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+     
+     @objc func methodOfReceivedNotification(notification: Notification) {
+         self.gotoRegister()
+     }
+
     
-    
+     func checkForAppUpdate() {
+         if UserDefaults.standard.bool(forKey: kIsUpdateAvailable) == true {
+             print("Update app...")
+             if !UIApplication.topViewController()!.isKind(of: UIAlertController.self) {
+                 
+                 let alert = UIAlertController(title: "App Name".localized, message: UserDefaults.standard.string(forKey: kIsUpdateMessage) ?? "", preferredStyle: .alert)
+                 let UPDATE = UIAlertAction(title: "Update".localized, style: .default, handler: { ACTION in
+                     UIApplication.shared.open((NSURL(string: appName.kAPPUrl)! as URL), options: [:], completionHandler: { (status) in
+
+                     })
+                 })
+                 let Cancel = UIAlertAction(title: "Register".localized, style: .default, handler: { ACTION in
+                     self.gotoRegister()
+                 })
+                 alert.addAction(UPDATE)
+                 alert.addAction(Cancel)
+                 self.present(alert, animated: true, completion: nil)
+             }
+         }
+     }
     
     //-------------------------------------------------------------
     // MARK: - Actions
@@ -259,18 +287,7 @@
     }
     
     @IBAction func btnSignUP(_ sender: UIButton) {
-//        performSegue(withIdentifier: "SegueToRegisterVc", sender: self)
-//        if self.strLatitude == 0.0 && self.strLongitude == 0.0 {
-        if (CLLocationManager.locationServicesEnabled() == false || CLLocationManager.authorizationStatus() == .denied) {
-            self.showAlertIfDenied()
-        } else {
-        
-            let RegisterStory = UIStoryboard(name: "Registration", bundle:  nil)
-            let SignUpPages = RegisterStory.instantiateViewController(withIdentifier: "DriverRegistrationViewController") as! DriverRegistrationViewController
-            SignUpPages.CurrentLocation = self.currentLocation
-            self.navigationController?.pushViewController(SignUpPages, animated: true)
-        }
-        //        performSegue(withIdentifier: "SegueToRegisterVc", sender: self)
+        self.gotoRegister()
     }
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -288,6 +305,19 @@
     func checkPass() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAlertForPasswordWrong), name: Notification.Name("checkForgotPassword"), object: nil)
     }
+     
+     func gotoRegister() {
+         if (CLLocationManager.locationServicesEnabled() == false || CLLocationManager.authorizationStatus() == .denied) {
+             self.showAlertIfDenied()
+         } else {
+             
+             let RegisterStory = UIStoryboard(name: "Registration", bundle:  nil)
+             let SignUpPages = RegisterStory.instantiateViewController(withIdentifier: "DriverRegistrationViewController") as! DriverRegistrationViewController
+             SignUpPages.CurrentLocation = self.currentLocation
+             self.navigationController?.pushViewController(SignUpPages, animated: true)
+         }
+     }
+     
     
     @objc func showAlertForPasswordWrong() {
         
@@ -506,15 +536,15 @@
             
             if(status) {
                 print(result)
-                /*
-                 {
-                 "status": true,
-                 "update": false,
-                 "message": "Ticktoc app new version available"
-                 }
-                 */
-                //                self.viewMain.isHidden = true
-                Singletons.sharedInstance.helpLineNumber = result["contact_number"] as? String ?? "0000000000"
+
+                Singletons.sharedInstance.helpLineNumber = result["DispatchCall"] as? String ?? ""
+                Singletons.sharedInstance.DispatchCall = result["DispatchCall"] as? String ?? ""
+                Singletons.sharedInstance.DispatchWhatsapp = result["DispatchWhatsapp"] as? String ?? ""
+                
+                let dispatcherInfo =  result["dispatcher_detail"] as? [String:Any]
+                Singletons.sharedInstance.DispatchName = dispatcherInfo?["Fullname"] as? String ?? ""
+                Singletons.sharedInstance.DispatchId = dispatcherInfo?["Id"] as? String ?? ""
+                
                 if let dictData = result["driver"] as? [String:Any], let profile = dictData["profile"] as? [String:Any]
                 {
                     var status = String()
@@ -535,9 +565,12 @@
                 
                 if ((result as! NSDictionary).object(forKey: "update") as? Bool) != nil {
                     
+                    UserDefaults.standard.set(true, forKey: kIsUpdateAvailable)
+                    UserDefaults.standard.set((result as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, forKey: kIsUpdateMessage)
+                    UserDefaults.standard.synchronize()
+                    
                     let alert = UIAlertController(title: "App Name".localized, message: (result as! NSDictionary).object(forKey: GetResponseMessageKey()) as? String, preferredStyle: .alert)
                     let UPDATE = UIAlertAction(title: "Update".localized, style: .default, handler: { ACTION in
-                        
                         UIApplication.shared.canOpenURL(URL(string: appName.kAPPUrl) ?? URL(fileURLWithPath: ""))//openURL(NSURL(string: appName.kAPPUrl)! as URL)
                     })
                     let Cancel = UIAlertAction(title: "Cancel".localized, style: .default, handler: { ACTION in
@@ -554,6 +587,10 @@
                 }
                 else
                 {
+                    
+                    UserDefaults.standard.set(false, forKey: kIsUpdateAvailable)
+                    UserDefaults.standard.set("", forKey: kIsUpdateMessage)
+                    UserDefaults.standard.synchronize()
                    
                     if(Singletons.sharedInstance.isDriverLoggedIN)
                     {
@@ -592,20 +629,37 @@
                 else if let update = (result as! NSDictionary).object(forKey: "update") as? Bool {
                     
                     if (update) {
+                        
+                        UserDefaults.standard.set(true, forKey: kIsUpdateAvailable)
+                        UserDefaults.standard.set((result as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, forKey: kIsUpdateMessage)
+                        UserDefaults.standard.synchronize()
                         //                        UtilityClass.showAlert(appName.kAPPName, message: (result as! NSDictionary).object(forKey: "message") as! String, vc: self)
                         
-                        UtilityClass.showAlertWithCompletion("App Name".localized, message: (result as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, vc: self, completionHandler: { ACTION in
-                            
+//                        UtilityClass.showAlertWithCompletion("App Name".localized, message: (result as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, vc: self, completionHandler: { ACTION in
 //                            UIApplication.shared.open((NSURL(string: appName.kAPPUrl)! as URL), options: [:], completionHandler: { (status) in
-
-//                            })//openURL(NSURL(string: appName.kAPPUrl)! as URL)
-
-                            UIApplication.shared.open((NSURL(string: "itms-apps://itunes.apple.com/app/id1445179587")! as URL), options: [:], completionHandler: { (status) in
+//
+//                            })
+//                        })
+                        
+                        let alert = UIAlertController(title: "App Name".localized, message: (result as! NSDictionary).object(forKey: GetResponseMessageKey()) as? String ?? "", preferredStyle: .alert)
+                        let UPDATE = UIAlertAction(title: "Update".localized, style: .default, handler: { ACTION in
+                            UIApplication.shared.open((NSURL(string: appName.kAPPUrl)! as URL), options: [:], completionHandler: { (status) in
 
                             })
                         })
+                        let Cancel = UIAlertAction(title: "Register".localized, style: .default, handler: { ACTION in
+                            self.gotoRegister()
+                        })
+                        alert.addAction(UPDATE)
+                        alert.addAction(Cancel)
+                        self.present(alert, animated: true, completion: nil)
                     }
                     else {
+                        
+                        UserDefaults.standard.set(false, forKey: kIsUpdateAvailable)
+                        UserDefaults.standard.set("", forKey: kIsUpdateMessage)
+                        UserDefaults.standard.synchronize()
+                        
                         UtilityClass.showAlert("App Name".localized, message: (result as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, vc: self)
                     }
                     
@@ -629,6 +683,8 @@
             }
         }
     }
+     
+     
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if (string == " ") {

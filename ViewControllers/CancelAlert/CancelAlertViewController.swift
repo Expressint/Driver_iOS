@@ -30,7 +30,7 @@ class CancelAlertViewController: UIViewController, UIPickerViewDataSource,UIPick
         pickerController = UIPickerView()
         pickerController?.delegate = self
         pickerController?.dataSource = self
-        txtDescription?.isHidden = true
+        //txtDescription?.isHidden = true
         txtDescription?.delegate = self
         txtReasons?.inputView = pickerController
         txtReasons?.delegate = self
@@ -123,7 +123,7 @@ class CancelAlertViewController: UIViewController, UIPickerViewDataSource,UIPick
     //MARK: - Textview Methods
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        txtDescription?.isHidden = true
+        //txtDescription?.isHidden = true
         if(txtReasons?.text?.lowercased() == "other")
         {
             if(textView == txtDescription)
@@ -133,7 +133,7 @@ class CancelAlertViewController: UIViewController, UIPickerViewDataSource,UIPick
                     textView.textColor = UIColor.lightGray
                 }
             }
-            txtDescription?.isHidden = false
+            //txtDescription?.isHidden = false
         }
     }
     
@@ -203,7 +203,7 @@ class CancelAlertViewController: UIViewController, UIPickerViewDataSource,UIPick
         
         let index = pickerController?.selectedRow(inComponent: 0) as? Int
         dictData["HelpId"] =  (arrHelpOptions[index ?? 0])["Id"] as? String
-        dictData["Notes"] =  txtDescription?.text
+        dictData["Notes"] =  txtDescription?.text ?? ""
         
         webserviceForSendingHelpRequest(dictData as AnyObject) { result, success in
             if(success)

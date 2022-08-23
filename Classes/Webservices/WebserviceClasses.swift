@@ -187,7 +187,7 @@ func getDataOfHistory(_ dictParams: AnyObject, nsURL: String,  completion: @esca
 // MARK: - Webservice For Send Image Method
 //-------------------------------------------------------------
 
-func sendImage(_ dictParams: [String:AnyObject], image1: UIImage, image2: UIImage, image3: UIImage, image4: UIImage, image5: UIImage, image6: UIImage,image7: UIImage, nsURL: String, completion: @escaping (_ result: AnyObject, _ success: Bool) -> Void) {
+func sendImage(_ dictParams: [String:AnyObject], image1: UIImage, image2: UIImage, image3: UIImage, image4: UIImage, image5: UIImage, image6: UIImage,image7: UIImage, image8: UIImage, image9: UIImage, image10: UIImage, nsURL: String, completion: @escaping (_ result: AnyObject, _ success: Bool) -> Void) {
     
     let url = BaseURL + nsURL
     
@@ -220,7 +220,6 @@ func sendImage(_ dictParams: [String:AnyObject], image1: UIImage, image2: UIImag
             
             multipartFormData.append(imageData3, withName: RegistrationFinalKeys.kCarRegistrationCertificate, fileName: "image.jpeg", mimeType: "image/jpeg")
         }
-        
         if let imageData4 = image4.jpegData(compressionQuality: 0.6) {
             
             multipartFormData.append(imageData4, withName: RegistrationFinalKeys.kVehicleInsuranceCertificate, fileName: "image.jpeg", mimeType: "image/jpeg")
@@ -238,6 +237,18 @@ func sendImage(_ dictParams: [String:AnyObject], image1: UIImage, image2: UIImag
         if let imageData7 = image7.jpegData(compressionQuality: 0.6) {
             
             multipartFormData.append(imageData7, withName: RegistrationFinalKeys.kDriverLicenseBackside, fileName: "image.jpeg", mimeType: "image/jpeg")
+        }
+        if let imageData8 = image8.jpegData(compressionQuality: 0.6) {
+            
+            multipartFormData.append(imageData8, withName: RegistrationFinalKeys.kPoliceClearanceCertificate, fileName: "image.jpeg", mimeType: "image/jpeg")
+        }
+        if let imageData9 = image9.jpegData(compressionQuality: 0.6) {
+            
+            multipartFormData.append(imageData9, withName: RegistrationFinalKeys.kFitnessCertificate, fileName: "image.jpeg", mimeType: "image/jpeg")
+        }
+        if let imageData10 = image10.jpegData(compressionQuality: 0.6) {
+            
+            multipartFormData.append(imageData10, withName: RegistrationFinalKeys.kRoadServiceCertificate, fileName: "image.jpeg", mimeType: "image/jpeg")
         }
         
         for (key, value) in dictParams

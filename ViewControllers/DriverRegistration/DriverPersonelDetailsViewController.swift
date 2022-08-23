@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import PhotosUI
 import MobileCoreServices
+import DropDown
 
 class DriverPersonelDetailsViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, UITextFieldDelegate  {
     
@@ -28,6 +29,9 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
     var companyID = String()
      var emailID = String()
     var aryCompanyIDS = [[String:AnyObject]]()
+    var arrDistrictData = [[String:AnyObject]]()
+    var arrDistrictMainData : [String] = []
+    
 //        let myDatePicker: UIDatePicker = UIDatePicker()
 
     //-------------------------------------------------------------
@@ -44,12 +48,13 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
     @IBOutlet weak var txtLastName: UITextField!
     @IBOutlet weak var txtDOB: UITextField!
     @IBOutlet weak var txtAddress: UITextField!
+    @IBOutlet weak var txtDistrict: UITextField!
     @IBOutlet weak var txtPostCode: UITextField!
    
     @IBOutlet weak var txtInviteCode: UITextField!
 
-    @IBOutlet weak var constraintHeightOfAllTextFields: NSLayoutConstraint! // 45
-    @IBOutlet weak var constraintHeightOfProfileImage: NSLayoutConstraint! // 75
+    @IBOutlet weak var constraintHeightOfAllTextFields: NSLayoutConstraint!
+    @IBOutlet weak var constraintHeightOfProfileImage: NSLayoutConstraint!
     
     @IBOutlet weak var lblMale: UILabel!
     @IBOutlet weak var lblFemale: UILabel!
@@ -60,6 +65,7 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         SetLocalizable()
+        self.webserviceCallToGetDistrictList()
     }
     
     func SetLocalizable()
@@ -69,9 +75,10 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
         txtFirstName.placeholder = "First Name".localized
         txtLastName.placeholder = "Last Name".localized
         txtAddress.placeholder = "Address".localized
+        txtDistrict.placeholder = "District".localized
         lblMale.text = "Male".localized
         lblFemale.text = "Female".localized
-        txtInviteCode.placeholder = "Invite Code (Optional)".localized
+        txtInviteCode.placeholder = "Referral Code (Optional)".localized
         btnNext.setTitle("Next".localized, for: .normal)
     }
    
@@ -94,6 +101,11 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.txtDistrict.delegate = self
+        txtDistrict.inputView = UIView()
+        txtDistrict.inputAccessoryView = UIView()
+        txtDistrict.tintColor = .white
+        
         if DeviceType.IS_IPHONE_4_OR_LESS || DeviceType.IS_IPAD {
             constraintHeightOfAllTextFields.constant = 35
             constraintHeightOfProfileImage.constant = 55
@@ -102,8 +114,6 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
         showDatePicker()
         txtDOB.delegate = self
         txtPostCode.delegate = self
-
-
         
         strLatitude = 0
         strLongitude = 0
@@ -116,7 +126,6 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
                 if manager.location != nil
                 {
                     currentLocation = manager.location!
-                    
                     strLatitude = currentLocation.coordinate.latitude
                     strLongitude = currentLocation.coordinate.longitude
                 }
@@ -127,6 +136,7 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
         
         selectedMale()
     }
+
     func showDatePicker(){
         //Formate Date
         datePicker.datePickerMode = .date
@@ -164,6 +174,21 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func DistrictDropdownSetup() {
+        let dropDown = DropDown()
+        dropDown.anchorView = self.txtDistrict
+        dropDown.dataSource = self.arrDistrictMainData
+        dropDown.show()
+        
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            self.txtDistrict.text = self.arrDistrictMainData[index]
+            dropDown.hide()
+        }
+        dropDown.width = self.txtDistrict.frame.width
+        self.view.endEditing(true)
     }
     
     //-------------------------------------------------------------
@@ -373,14 +398,15 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
         let arrData = NSMutableArray()
         let dictData = NSMutableDictionary()
         
-            dictData.setObject(txtFirstName.text!, forKey: RegistrationProfileKeys.kKeyFullName as NSCopying)
-            dictData.setObject(txtDOB.text!, forKey: RegistrationProfileKeys.kKeyDOB as NSCopying)
-            dictData.setObject(txtAddress.text!, forKey: RegistrationProfileKeys.kKeyAddress as NSCopying)
-            dictData.setObject(txtPostCode.text!, forKey: RegistrationProfileKeys.kKeyPostCode as NSCopying)
-            dictData.setObject(txtInviteCode.text!, forKey: RegistrationProfileKeys.kKeyInviteCode as NSCopying)
-            dictData.setObject(imgProfile.image!.pngData() as Any, forKey: RegistrationFinalKeys.kDriverImage as NSCopying)
-            
-            arrData.add(dictData)
+        dictData.setObject(txtFirstName.text!, forKey: RegistrationProfileKeys.kKeyFullName as NSCopying)
+        dictData.setObject(txtDOB.text!, forKey: RegistrationProfileKeys.kKeyDOB as NSCopying)
+        dictData.setObject(txtAddress.text!, forKey: RegistrationProfileKeys.kKeyAddress as NSCopying)
+        dictData.setObject(txtDistrict.text!, forKey: RegistrationProfileKeys.kKeyDistrict as NSCopying)
+        dictData.setObject(txtPostCode.text!, forKey: RegistrationProfileKeys.kKeyPostCode as NSCopying)
+        dictData.setObject(txtInviteCode.text!, forKey: RegistrationProfileKeys.kKeyInviteCode as NSCopying)
+        dictData.setObject(imgProfile.image!.pngData() as Any, forKey: RegistrationFinalKeys.kDriverImage as NSCopying)
+        
+        arrData.add(dictData)
         
         
         return arrData
@@ -419,6 +445,12 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
         else if txtAddress.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
             isValidate = false
             ValidatorMessage = "Please enter address".localized
+//             sb.createWithAction(text: , actionTitle: "Dismiss".localized, action: { print("Button is push") })
+        }
+        
+        else if txtDistrict.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
+            isValidate = false
+            ValidatorMessage = "Please enter district".localized
 //             sb.createWithAction(text: , actionTitle: "Dismiss".localized, action: { print("Button is push") })
         }
       
@@ -467,6 +499,7 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
         userDefault.set(txtFirstName.text, forKey: RegistrationFinalKeys.kFirstname)
         userDefault.set(txtLastName.text, forKey: RegistrationFinalKeys.kLastName)
         userDefault.set(txtAddress.text, forKey: RegistrationFinalKeys.kAddress)
+        userDefault.set(txtDistrict.text, forKey: RegistrationFinalKeys.kDistrict)
         userDefault.set(txtInviteCode.text, forKey: RegistrationFinalKeys.kReferralCode)
         userDefault.set(strLatitude, forKey: RegistrationFinalKeys.kLat)
         userDefault.set(strLongitude, forKey: RegistrationFinalKeys.kLng)
@@ -511,10 +544,14 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
     // For Mobile Number
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-     
-         if textField == txtPostCode {
+        if textField == txtDistrict {
+            return false
+        }
+        
+        
+        if textField == txtPostCode {
             let resText: String? = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
-
+            
             if resText!.count >= 9 {
                 return false
             }
@@ -535,7 +572,19 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
 //            return false
 //        }
         
+        if textField == txtDistrict
+        {
+            self.view.endEditing(true)
+            return true
+        }
+        
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == txtDistrict {
+            self.DistrictDropdownSetup()
+        }
     }
     
 
@@ -573,3 +622,31 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
     }
     
 }
+
+extension DriverPersonelDetailsViewController {
+    func webserviceCallToGetDistrictList() {
+        webserviceForDistrictList([] as AnyObject) { (data, status) in
+            if(status)
+            {
+                self.arrDistrictData = (data as! NSDictionary).object(forKey: "details") as! [[String : AnyObject]]
+                let count = self.arrDistrictData.count
+                for i in (0 ..< count - 1){
+                    self.arrDistrictMainData.append(self.arrDistrictData[i]["Name"] as? String ?? "")
+                }
+                print(self.arrDistrictMainData)
+                
+            } else  {
+                if let res = data as? String {
+                    UtilityClass.showAlert("App Name".localized, message: res, vc: self)
+                }
+                else if let resDict = data as? NSDictionary {
+                    UtilityClass.showAlert("App Name".localized, message: resDict.object(forKey: GetResponseMessageKey()) as! String, vc: self)
+                }
+                else if let resAry = data as? NSArray {
+                    UtilityClass.showAlert("App Name".localized, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, vc: self)
+                }
+            }
+        }
+    }
+}
+
