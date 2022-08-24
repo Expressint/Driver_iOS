@@ -773,7 +773,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 if( self.bookingID.trimmingCharacters(in: .whitespacesAndNewlines) == "")
                 {
                     self.UpdateDriverLocation()
-                    self.getDriverLocation()
+                    //self.getDriverLocation()
                 }
                 else if (Singletons.sharedInstance.bookingId.trimmingCharacters(in: .whitespacesAndNewlines) != "")
                 {
@@ -2546,6 +2546,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         //        else {
         self.socket.on(socketApiKeys.kDriverCancelTripNotification, callback: { (data, ack) in
             print ("Cancel request regular by passenger: \(data)")
+            self.bookingID = ""
             
             //                if let bookingData = (((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingInfo") as! [[String:AnyObject]])[0]["Id"] {
             //
@@ -2562,7 +2563,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             self.aryPassengerData = NSArray()
             self.aryCurrentBookingData = NSMutableArray()
 
-            self.bookingID = ""
+            
             Singletons.sharedInstance.isRequestAccepted = false
             Singletons.sharedInstance.isTripContinue = false
             UserDefaults.standard.set(Singletons.sharedInstance.isTripContinue, forKey: tripStatus.kisTripContinue)
@@ -2581,14 +2582,14 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             print ("Cancel request Later by passenger:  \(data)")
             
             if !(Singletons.sharedInstance.isBookNowOrBookLater) {
-                
+                self.bookingID = ""
                 let alert = UIAlertController(title: "App Name".localized, message: ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as? String, preferredStyle: .alert)
                 let OK = UIAlertAction(title: "OK".localized, style: .default, handler: { ACTION in
                     
                     self.resetMapView()
                     Singletons.sharedInstance.isRequestAccepted = false
                     Singletons.sharedInstance.isTripContinue = false
-                    self.bookingID = ""
+                    
                     UserDefaults.standard.set(Singletons.sharedInstance.isTripContinue, forKey: tripStatus.kisTripContinue)
                     UserDefaults.standard.set(Singletons.sharedInstance.isRequestAccepted, forKey: tripStatus.kisRequestAccepted)
                     self.aryPassengerData = NSArray()
@@ -2601,13 +2602,13 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             }
             else {
                 print(data)
-                
+                self.bookingID = ""
                 let aryCurrentData = data //as? NSArray {
                 if let dictFirstObjectIsDict = (aryCurrentData as? NSArray)?.object(at: 0) as? NSDictionary {
                     if let dictBookinInfoIsDictData = dictFirstObjectIsDict.object(forKey: "BookingInfo") as? NSArray {
                         if let passengerDataAdvance = dictBookinInfoIsDictData.object(at: 0) as? NSDictionary {
                             if let nameOfPassenger = passengerDataAdvance.object(forKey: "PassengerName") as? String {
-                                self.bookingID = ""
+                                
                                 self.aryPassengerData = NSArray() // NSArray()
                                 let alert = UIAlertController(title: "App Name".localized, message: "\(dictFirstObjectIsDict.object(forKey: GetResponseMessageKey()) as? String ?? "Trip has been canceled by passenger.".localized) \(nameOfPassenger)", preferredStyle: .alert)
                                 let OK = UIAlertAction(title: "OK", style: .default, handler: { ACTION in
@@ -2905,7 +2906,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         webserviceForCancelTrip(dictParam as AnyObject) { (result, status) in
             if (status) {
                 print(result)
-                
+                self.bookingID = ""
                 Singletons.sharedInstance.bookingId = ""
                 Singletons.sharedInstance.bookingIdTemp = ""
                 self.aryPassengerData = NSArray()
@@ -2913,7 +2914,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 if self.driverMarker != nil {
                     self.driverMarker.title = ""
                 }
-                self.bookingID = ""
+                
                 Singletons.sharedInstance.isBookNowOrBookLater = false
                 //needToCheck
                 UtilityClass.showAlert("App Name".localized, message: "Trip has been cancelled.".localized, vc: self )
@@ -3222,6 +3223,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     @IBAction func btnCompleteTrip(_ sender: UIButton)
     {
+        self.bookingID = ""
         sender.LoadButtonAnimation()
         if Connectivity.isConnectedToInternet() == false {
             UtilityClass.showAlert("App Name".localized, message: "messageNotConnectedToInternet".localized, vc: self)
@@ -4193,7 +4195,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                                 }
                                 self.driverMarker.icon = UIImage(named: Singletons.sharedInstance.strSetCar)
                                 //                                }
-                                //                                else
+                                //                                 else
                                 //                                {
                                 //                                    let originMarker = GMSMarker(position: self.originCoordinate)
                                 //                                    originMarker.map = self.mapView
@@ -5210,7 +5212,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         webserviceForCompletedTripSuccessfully(dictOFParam as AnyObject) { (result, status) in
             
             if (status) {
-                
                 self.dictCompleteTripData = (result as! NSDictionary)
                 
                 self.resetMapView()
@@ -5888,6 +5889,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     }
     
     func completeTripInfo() {
+        self.bookingID = ""
         UtilityClass.hideACProgressHUD()
         App_Delegate.WaitingTime = "00:00:00"
         App_Delegate.WaitingTimeCount = 0
@@ -5902,7 +5904,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             
         }
         (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: nil)
-        self.bookingID = ""
+        
     }
     
     
