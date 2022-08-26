@@ -16198,7 +16198,7 @@ EE15IEpvYnM
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGp-z7-bOJ">
-                                                <rect key="frame" x="186" y="18.333333333333336" width="42" height="19.333333333333336"/>
+                                                <rect key="frame" x="186.33333333333334" y="18.333333333333336" width="41.333333333333343" height="19.333333333333336"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -16232,7 +16232,7 @@ EE15IEpvYnM
                                         <rect key="frame" x="0.0" y="5" width="394" height="45"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Jzm-gK-wTT">
-                                                <rect key="frame" x="5" y="5" width="341" height="35"/>
+                                                <rect key="frame" x="5" y="5" width="301" height="35"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="textColor" systemColor="labelColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -16254,26 +16254,43 @@ EE15IEpvYnM
                                                     <outlet property="delegate" destination="ZAI-Ub-xBp" id="L9a-Iu-BS2"/>
                                                 </connections>
                                             </textView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfQ-AY-PhZ">
-                                                <rect key="frame" x="351" y="5" width="35" height="35"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Vuc-25-3x0">
+                                                <rect key="frame" x="311" y="5" width="75" height="35"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LyP-HT-W6g">
+                                                        <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                                        <state key="normal" image="iconPicture"/>
+                                                        <connections>
+                                                            <action selector="btnImgSendAction:" destination="ZAI-Ub-xBp" eventType="touchUpInside" id="bHt-hL-NGz"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfQ-AY-PhZ">
+                                                        <rect key="frame" x="40" y="0.0" width="35" height="35"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="35" id="0nC-ft-VsI"/>
+                                                            <constraint firstAttribute="width" secondItem="mfQ-AY-PhZ" secondAttribute="height" id="ZTz-M3-gZy"/>
+                                                        </constraints>
+                                                        <state key="normal" image="ic_Send"/>
+                                                        <connections>
+                                                            <action selector="btnSendAction:" destination="ZAI-Ub-xBp" eventType="touchUpInside" id="W58-x2-8cu"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="35" id="0nC-ft-VsI"/>
-                                                    <constraint firstAttribute="width" secondItem="mfQ-AY-PhZ" secondAttribute="height" id="ZTz-M3-gZy"/>
+                                                    <constraint firstItem="LyP-HT-W6g" firstAttribute="height" secondItem="mfQ-AY-PhZ" secondAttribute="height" id="Dcc-wA-sKB"/>
+                                                    <constraint firstItem="LyP-HT-W6g" firstAttribute="width" secondItem="mfQ-AY-PhZ" secondAttribute="width" id="WMj-DE-fcs"/>
                                                 </constraints>
-                                                <state key="normal" image="ic_Send"/>
-                                                <connections>
-                                                    <action selector="btnSendAction:" destination="ZAI-Ub-xBp" eventType="touchUpInside" id="W58-x2-8cu"/>
-                                                </connections>
-                                            </button>
+                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="Jzm-gK-wTT" firstAttribute="top" secondItem="WcE-IU-bMG" secondAttribute="top" constant="5" id="1jH-Ch-YFz"/>
+                                            <constraint firstItem="Vuc-25-3x0" firstAttribute="top" secondItem="WcE-IU-bMG" secondAttribute="top" constant="5" id="6FO-su-O0T"/>
                                             <constraint firstItem="Jzm-gK-wTT" firstAttribute="leading" secondItem="WcE-IU-bMG" secondAttribute="leading" constant="5" id="6SN-gQ-dnn"/>
-                                            <constraint firstItem="mfQ-AY-PhZ" firstAttribute="leading" secondItem="Jzm-gK-wTT" secondAttribute="trailing" constant="5" id="92C-gz-FB6"/>
-                                            <constraint firstItem="mfQ-AY-PhZ" firstAttribute="centerY" secondItem="WcE-IU-bMG" secondAttribute="centerY" id="DRR-8M-7xg"/>
                                             <constraint firstAttribute="bottom" secondItem="Jzm-gK-wTT" secondAttribute="bottom" constant="5" id="FIr-fr-xVE"/>
-                                            <constraint firstAttribute="trailing" secondItem="mfQ-AY-PhZ" secondAttribute="trailing" constant="8" id="gGV-vz-6Fy"/>
+                                            <constraint firstAttribute="bottom" secondItem="Vuc-25-3x0" secondAttribute="bottom" constant="5" id="Qf9-1K-ZtM"/>
+                                            <constraint firstAttribute="trailing" secondItem="Vuc-25-3x0" secondAttribute="trailing" constant="8" id="SE3-SJ-0fQ"/>
+                                            <constraint firstItem="Vuc-25-3x0" firstAttribute="leading" secondItem="Jzm-gK-wTT" secondAttribute="trailing" constant="5" id="UGw-kW-pmy"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -16321,6 +16338,7 @@ EE15IEpvYnM
                     </view>
                     <connections>
                         <outlet property="btnSend" destination="mfQ-AY-PhZ" id="NhE-DH-urI"/>
+                        <outlet property="btnSendImage" destination="LyP-HT-W6g" id="Wum-II-3Oc"/>
                         <outlet property="constraintBottomOfChatBG" destination="nwx-Yw-IFf" id="ZZi-rp-aIx"/>
                         <outlet property="lblNavBack" destination="wcg-2I-rHY" id="osH-pL-T5Q"/>
                         <outlet property="lblNavName" destination="EGp-z7-bOJ" id="WsN-K4-QW4"/>
@@ -16332,6 +16350,52 @@ EE15IEpvYnM
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ygt-zu-IWP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="8094.202898550725" y="-509.59821428571428"/>
+        </scene>
+        <!--Chat Image ViewVC-->
+        <scene sceneID="XoG-l1-QZV">
+            <objects>
+                <viewController storyboardIdentifier="ChatImageViewVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FdU-Gs-NU4" customClass="ChatImageViewVC" customModule="Book_A_Ride_Driver" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RBh-hK-Lnm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yWp-8m-UT2">
+                                <rect key="frame" x="20.666666666666657" y="89.666666666666686" width="372.66666666666674" height="716.66666666666652"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dc7-5E-xzG">
+                                <rect key="frame" x="379" y="59" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="6YS-A2-PRI"/>
+                                    <constraint firstAttribute="width" secondItem="dc7-5E-xzG" secondAttribute="height" id="BGz-u8-m8n"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Button" backgroundImage="iconCancel">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnCloseAction:" destination="FdU-Gs-NU4" eventType="touchUpInside" id="J4C-kQ-zGD"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Gzj-8Q-xYR"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="yWp-8m-UT2" firstAttribute="height" secondItem="RBh-hK-Lnm" secondAttribute="height" multiplier="0.8" id="Fal-rC-Xhf"/>
+                            <constraint firstItem="yWp-8m-UT2" firstAttribute="centerX" secondItem="RBh-hK-Lnm" secondAttribute="centerX" id="Fcl-ie-1Ou"/>
+                            <constraint firstItem="yWp-8m-UT2" firstAttribute="centerY" secondItem="RBh-hK-Lnm" secondAttribute="centerY" id="MqR-kF-4aR"/>
+                            <constraint firstItem="dc7-5E-xzG" firstAttribute="top" secondItem="Gzj-8Q-xYR" secondAttribute="top" constant="15" id="P3l-8m-wHl"/>
+                            <constraint firstItem="Gzj-8Q-xYR" firstAttribute="trailing" secondItem="dc7-5E-xzG" secondAttribute="trailing" constant="15" id="YoG-65-C7u"/>
+                            <constraint firstItem="yWp-8m-UT2" firstAttribute="width" secondItem="RBh-hK-Lnm" secondAttribute="width" multiplier="0.9" id="dLo-qf-6FE"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btnClose" destination="dc7-5E-xzG" id="XSp-Ae-Zro"/>
+                        <outlet property="imgChat" destination="yWp-8m-UT2" id="COw-mA-4J1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jOC-a6-ctn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8796" y="-510"/>
         </scene>
     </scenes>
     <designables>
@@ -16448,6 +16512,7 @@ EE15IEpvYnM
         <image name="iconMyjobInactive" width="85" height="85"/>
         <image name="iconPaymentInactive" width="85" height="85"/>
         <image name="iconPickNGologo" width="150" height="150"/>
+        <image name="iconPicture" width="85" height="85"/>
         <image name="iconProfileLocation" width="42" height="42"/>
         <image name="iconRatingInactive" width="85" height="85"/>
         <image name="iconReceiveMoneyUnselected" width="50" height="50"/>

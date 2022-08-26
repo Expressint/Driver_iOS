@@ -191,6 +191,8 @@
 		3F438AD7259208D000441E1B /* MyEarnings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F438AD6259208D000441E1B /* MyEarnings.storyboard */; };
 		3F438ADB25920BCB00441E1B /* MyEarningsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F438AD925920BCB00441E1B /* MyEarningsTableViewCell.swift */; };
 		3F438ADC25920BCB00441E1B /* MyEarningsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F438ADA25920BCB00441E1B /* MyEarningsViewController.swift */; };
+		470DBDBD28B77364003A0E5A /* ImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470DBDBC28B77364003A0E5A /* ImagePickerController.swift */; };
+		470DBDC128B790B7003A0E5A /* ChatImageViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470DBDC028B790B7003A0E5A /* ChatImageViewVC.swift */; };
 		543D9BF0272C2E040000EB39 /* ForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543D9BEF272C2E030000EB39 /* ForgetPasswordViewController.swift */; };
 		54C447D628003FD70094ACD5 /* CancelAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C447D428003FD70094ACD5 /* CancelAlertViewController.swift */; };
 		54C447D728003FD70094ACD5 /* CancelAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54C447D528003FD70094ACD5 /* CancelAlertViewController.xib */; };
@@ -405,6 +407,8 @@
 		3F438AD6259208D000441E1B /* MyEarnings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyEarnings.storyboard; sourceTree = "<group>"; };
 		3F438AD925920BCB00441E1B /* MyEarningsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEarningsTableViewCell.swift; sourceTree = "<group>"; };
 		3F438ADA25920BCB00441E1B /* MyEarningsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEarningsViewController.swift; sourceTree = "<group>"; };
+		470DBDBC28B77364003A0E5A /* ImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerController.swift; sourceTree = "<group>"; };
+		470DBDC028B790B7003A0E5A /* ChatImageViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatImageViewVC.swift; sourceTree = "<group>"; };
 		543D9BEF272C2E030000EB39 /* ForgetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewController.swift; sourceTree = "<group>"; };
 		54C447D428003FD70094ACD5 /* CancelAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelAlertViewController.swift; sourceTree = "<group>"; };
 		54C447D528003FD70094ACD5 /* CancelAlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CancelAlertViewController.xib; sourceTree = "<group>"; };
@@ -1094,6 +1098,7 @@
 		00E929BC202AE2C000A399E2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				470DBDBC28B77364003A0E5A /* ImagePickerController.swift */,
 				219A9390216DD9D500FA1A73 /* ThemView.swift */,
 				21B1A03920FDCEA500B4D809 /* Extensions */,
 				00E929C4202AE2C000A399E2 /* Webservices */,
@@ -1272,6 +1277,7 @@
 			isa = PBXGroup;
 			children = (
 				88BBE2142891405E0024F935 /* ChatVC.swift */,
+				470DBDC028B790B7003A0E5A /* ChatImageViewVC.swift */,
 				88BBE20D2891405E0024F935 /* Cells */,
 			);
 			path = Chat;
@@ -1682,6 +1688,7 @@
 				00E92A3D202AE2C100A399E2 /* SPSegmentedControl.swift in Sources */,
 				00E92A72202AE2C100A399E2 /* ConstantData.swift in Sources */,
 				00E929E7202AE2C100A399E2 /* DeliverServiceVC.swift in Sources */,
+				470DBDBD28B77364003A0E5A /* ImagePickerController.swift in Sources */,
 				212FA5B320D7BF530057CE58 /* ShareRideViewController.swift in Sources */,
 				00E92A17202AE2C100A399E2 /* ACProgressHUD.swift in Sources */,
 				00E929D6202AE2C100A399E2 /* DriverCertificatesViewController.swift in Sources */,
@@ -1712,6 +1719,7 @@
 				00E92A1A202AE2C100A399E2 /* ARCarMovement.swift in Sources */,
 				00E929E0202AE2C100A399E2 /* DummyData.swift in Sources */,
 				00E929F5202AE2C100A399E2 /* PendingJobsListVC.swift in Sources */,
+				470DBDC128B790B7003A0E5A /* ChatImageViewVC.swift in Sources */,
 				543D9BF0272C2E040000EB39 /* ForgetPasswordViewController.swift in Sources */,
 				21B479C320DD262C00C6D8F8 /* shareRideListingModel.swift in Sources */,
 				00E92A63202AE2C100A399E2 /* WalletBalanceMainVC.swift in Sources */,

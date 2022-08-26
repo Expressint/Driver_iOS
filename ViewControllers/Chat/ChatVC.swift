@@ -15,6 +15,7 @@ class ChatVC: ParentViewController {
     @IBOutlet weak var tblData: UITableView!
     @IBOutlet weak var constraintBottomOfChatBG: NSLayoutConstraint!
     @IBOutlet weak var btnSend: UIButton!
+    @IBOutlet weak var btnSendImage: UIButton!
     @IBOutlet weak var txtMessage: UITextView!
     
     @IBOutlet weak var lblNavName: UILabel!
@@ -28,6 +29,7 @@ class ChatVC: ParentViewController {
     var isDispacherChat: Bool = false
     var isFromPush: Bool = false
     let socket = (UIApplication.shared.delegate as! AppDelegate).SManager.defaultSocket
+    private var imagePicker: ImagePickerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +41,7 @@ class ChatVC: ParentViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.btnSendImage.isHidden = (isDispacherChat) ? false : true
         AppDelegate.shared.isChatVisible = true
         let topBarHeight = UIApplication.shared.statusBarFrame.size.height + (self.navigationController?.navigationBar.frame.height ?? 0.0)
         self.vwTopHeight.constant = topBarHeight
@@ -70,6 +73,7 @@ class ChatVC: ParentViewController {
     }
     
     func setupUI(){
+        self.imagePicker = ImagePickerController(presentationController: self, delegate: self)
         self.lblNavName.text = receiverName
         txtMessage.delegate = self
         txtMessage.text = "Enter Message.."
@@ -168,8 +172,27 @@ class ChatVC: ParentViewController {
         let myJSON = ["sender_id" : Singletons.sharedInstance.strDriverID,
                       "receiver_id": receiverId,
                       "message" : self.txtMessage.text ?? "",
+                      "msg_type" : "text",
+                      "imageUrl" : "",
                       "sender_type" : "driver",
                       "receiver_type" : (isDispacherChat) ? "dispatcher" : "passenger",
+                      "booking_id" : (isDispacherChat) ? "" : bookingId] as [String : Any]
+        
+        self.socket.emit(socketApiKeys.sendMessage, with: [myJSON], completion: nil)
+        print ("\(socketApiKeys.sendMessage) : \(myJSON)")
+        txtMessage.text = "Enter Message.."
+        txtMessage.textColor = UIColor.black
+        self.view.endEditing(true)
+    }
+    
+    func sendImgMessage(strUrl: String) {
+        let myJSON = ["sender_id" : Singletons.sharedInstance.strDriverID,
+                      "receiver_id": receiverId,
+                      "message" : "",
+                      "msg_type" : "image",
+                      "imageUrl" : strUrl,
+                      "sender_type" : "driver",
+                      "receiver_type" : (isDispacherChat) ? "dispatcher" : "driver",
                       "booking_id" : (isDispacherChat) ? "" : bookingId] as [String : Any]
         
         self.socket.emit(socketApiKeys.sendMessage, with: [myJSON], completion: nil)
@@ -189,6 +212,13 @@ class ChatVC: ParentViewController {
         return strDate1
     }
     
+    func openImage(strImage: String) {
+        let NextPage = self.storyboard?.instantiateViewController(withIdentifier: "ChatImageViewVC") as! ChatImageViewVC
+        NextPage.strUrl = strImage
+        NextPage.modalPresentationStyle = .formSheet
+        self.present(NextPage, animated: true, completion: nil)
+    }
+    
     @IBAction func btnBackAction(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -202,6 +232,23 @@ class ChatVC: ParentViewController {
         }
     }
     
+    @IBAction func btnImgSendAction(_ sender: UIButton) {
+        self.imagePicker.present(from: sender)
+    }
+    
+}
+
+// MARK: - Image Picker Delegate
+extension ChatVC: ImagePickerControllerDelegate {
+    func imagePicker(didSelectImage image: UIImage?) {
+        if let unWappedImage = image {
+            print(unWappedImage)
+            
+            let imageData: Data? = unWappedImage.jpegData(compressionQuality: 0.4)
+            let imageStr = imageData?.base64EncodedString(options: .lineLength64Characters) ?? ""
+            self.sendImgMessage(strUrl: imageStr)
+        }
+    }
 }
 
 extension ChatVC: UITextViewDelegate {
@@ -279,16 +326,71 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource{
         if(senderId == Singletons.sharedInstance.strDriverID){
             let cell = tblData.dequeueReusableCell(withIdentifier: SenderCell.className) as! SenderCell
             cell.selectionStyle = .none
-            cell.lblMsgSender.text = dictData["message"] as? String ?? ""
-            cell.lblDate.text = dictData["created_date"] as? String ?? ""
+            
+            cell.vWMessage.isHidden = false
+            cell.vwImg.isHidden = false
+            let type = dictData["msg_type"] as? String ?? ""
+            
+            if(type == "image"){
+                cell.vWMessage.isHidden = true
+                
+                let urlLogo = dictData["image"] as? String ?? ""
+                cell.imgMsg.sd_imageIndicator = SDWebImageActivityIndicator.white
+                cell.imgMsg.sd_setImage(with: URL(string: urlLogo), placeholderImage: UIImage(named: "iconPicture"), options: [.continueInBackground], progress: nil, completed: { (image, error, cache, url) in
+                    if (error == nil) {
+                        cell.imgMsg.image = image
+                    }
+                })
+                cell.lblImgDate.text = self.convertDate(strDate: dictData["created_at"] as? String ?? "")
+                
+                cell.btnImgAction = {
+                    print("sender called")
+                    let url = dictData["image"] as? String ?? ""
+                    self.openImage(strImage: url)
+                }
+                
+            }else{
+                cell.vwImg.isHidden = true
+                cell.lblMsgSender.text = dictData["message"] as? String ?? ""
+                cell.lblDate.text = self.convertDate(strDate: dictData["created_at"] as? String ?? "")
+            }
             return cell
         }else{
             let cell = tblData.dequeueReusableCell(withIdentifier: ReceiverCell.className) as! ReceiverCell
             cell.selectionStyle = .none
-            cell.lblMsgReceiver.text = dictData["message"] as? String ?? ""
-            cell.lblCompanyName.text = dictData["company_name"] as? String ?? ""
-            cell.lblCompanyName.isHidden = (cell.lblCompanyName.text == "") ? true : false
-            cell.lblDate.text = dictData["created_date"] as? String ?? ""
+            
+            cell.vWMessage.isHidden = false
+            cell.vwImg.isHidden = false
+            let type = dictData["msg_type"] as? String ?? ""
+            
+            if(type == "image"){
+                
+                cell.vWMessage.isHidden = true
+                
+                let urlLogo = dictData["image"] as? String ?? ""
+                cell.imgMsg.sd_imageIndicator = SDWebImageActivityIndicator.white
+                cell.imgMsg.sd_setImage(with: URL(string: urlLogo), placeholderImage: UIImage(named: "iconPicture"), options: [.continueInBackground], progress: nil, completed: { (image, error, cache, url) in
+                    if (error == nil) {
+                        cell.imgMsg.image = image
+                    }
+                })
+                cell.lblImgDate.text = self.convertDate(strDate: dictData["created_at"] as? String ?? "")
+                cell.lblImgCompanyName.text = dictData["company_name"] as? String ?? ""
+                cell.lblImgCompanyName.isHidden = (cell.lblImgCompanyName.text == "") ? true : false
+                
+                cell.btnImgAction = {
+                    print("sender called")
+                    let url = dictData["image"] as? String ?? ""
+                    self.openImage(strImage: url)
+                }
+            }else{
+                cell.vwImg.isHidden = true
+                cell.lblMsgReceiver.text = dictData["message"] as? String ?? ""
+                cell.lblCompanyName.text = dictData["company_name"] as? String ?? ""
+                cell.lblCompanyName.isHidden = (cell.lblCompanyName.text == "") ? true : false
+                cell.lblDate.text = self.convertDate(strDate: dictData["created_at"] as? String ?? "")
+            }
+            
             return cell
         }
     }
