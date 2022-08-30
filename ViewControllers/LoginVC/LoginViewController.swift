@@ -540,6 +540,7 @@
                 Singletons.sharedInstance.helpLineNumber = result["DispatchCall"] as? String ?? ""
                 Singletons.sharedInstance.DispatchCall = result["DispatchCall"] as? String ?? ""
                 Singletons.sharedInstance.DispatchWhatsapp = result["DispatchWhatsapp"] as? String ?? ""
+                Singletons.sharedInstance.isShowFeatureBookingTab = result["is_show_feature_booking_tab"] as? Int ?? 0
                 
                 let dispatcherInfo =  result["dispatcher_detail"] as? [String:Any]
                 Singletons.sharedInstance.DispatchName = dispatcherInfo?["Fullname"] as? String ?? ""

@@ -49,6 +49,8 @@ class MyJobsViewController: ParentViewController
     {
         super.viewDidLoad()
         
+        
+        
         crnRadios = 20
         shadowOpacity = 0.2
         shadowRadius = 1
@@ -77,6 +79,7 @@ class MyJobsViewController: ParentViewController
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
+        self.btnFutureBooking.isHidden = (Singletons.sharedInstance.isShowFeatureBookingTab == 0) ? true : false
         
         //        if Singletons.sharedInstance.isPresentVC == true
         //        {
@@ -101,7 +104,14 @@ class MyJobsViewController: ParentViewController
         {
             Singletons.sharedInstance.isFromNotification = false
             //            self.btnFutureBookings(UIButton.init())
-            self.btnFutureBookingClicked(self.btnFutureBooking)
+            if(self.btnFutureBooking.isHidden){
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.btnPastJobsClicked(self.btnPastJobs)
+                }
+            }else{
+                self.btnFutureBookingClicked(self.btnFutureBooking)
+            }
+            
         }
         setLocalization()
     }

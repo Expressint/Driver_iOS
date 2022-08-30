@@ -1,5 +1,4 @@
-
-"App Name" = "";//"Book A Ride Driver";
+"App Name" = "";
 "Share App Name Driver" = "Book A Ride Driver";
 "Share App Name Passenger" = "Book A Ride Passenger";
 "Currency" = "$";
@@ -24,7 +23,6 @@
 "Password" = "Password";
 "Forgot Password?" = "Forgot Password?";
 "Sign In" = "Sign In";
-//"Login" = "Login";
 "Don't have an Account?" = "Don't have an Account?";
 "Police Clearance Document" = "Police Clearance Document";
 "Sign Up" = "Sign Up";

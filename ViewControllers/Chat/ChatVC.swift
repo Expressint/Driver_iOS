@@ -33,7 +33,7 @@ class ChatVC: ParentViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.socketMethods()
         self.setupUI()
         self.getAllMessage()
         AppDelegate.shared.currentChatID = receiverId
@@ -46,8 +46,6 @@ class ChatVC: ParentViewController {
         let topBarHeight = UIApplication.shared.statusBarFrame.size.height + (self.navigationController?.navigationBar.frame.height ?? 0.0)
         self.vwTopHeight.constant = topBarHeight
         
-        UtilityClass.showACProgressHUD()
-        self.socketMethods()
         self.setupKeyboard(false)
         self.hideKeyboard()
         self.registerForKeyboardNotifications()
@@ -130,7 +128,6 @@ class ChatVC: ParentViewController {
                     isSocketConnected = true
                     self.connectDriverForChat()
                     self.socketOnForReceiveMessage()
-                    UtilityClass.hideACProgressHUD()
                 }
             }
             socket.connect()

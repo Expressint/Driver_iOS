@@ -1270,11 +1270,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         self.socket.on("SOS", callback: { (data, ack) in
             print ("SOS Driver Notify : \(data)")
-            
             let msg = (data as NSArray)
-            
             UtilityClass.showAlert("", message: (msg.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as? String ?? "", vc: self)
-            
         })
         
     }
@@ -2112,7 +2109,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         else {
             BookingAcceped()
         }
-        
+
     }
     
     func didRejectedRequest() {
@@ -2157,6 +2154,12 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         let myJSON = [socketApiKeys.kBookingId : advanceBookingID,  profileKeys.kDriverId : driverID, "Lat" : defaultLocation.coordinate.latitude,"Long" : defaultLocation.coordinate.longitude, "Pending": Singletons.sharedInstance.isPending] as [String : Any]
         socket.emit(socketApiKeys.kAcceptAdvancedBookingRequest, with: [myJSON], completion: nil)
+        
+        //New Code
+        let myJSON1 = ["DriverId" : Singletons.sharedInstance.strDriverID, socketApiKeys.kBookingId : advanceBookingID] as [String : Any]
+        socket.emit("NotifyPassengerForAdvancedTrip", with: [myJSON1], completion: nil)
+        Singletons.sharedInstance.strBookingType = "BookLater"
+        //New Code Comp
         
         GetAdvanceBookingDetailsAfterBookingRequestAccepted()
         Singletons.sharedInstance.strBookingType = "BookLater"
