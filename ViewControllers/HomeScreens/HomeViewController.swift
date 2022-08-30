@@ -2360,6 +2360,14 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             print ("ReceiveBookLater is \(data)")
             
             self.advanceBookingID = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingId") as! String
+            
+            if(self.aryPassengerData.count != 0 || Singletons.sharedInstance.bookingId != "")
+            {
+                let myJSON = [socketApiKeys.kBookingId : self.advanceBookingID,  profileKeys.kDriverId : self.driverID] as [String : Any]
+                self.socket.emit(socketApiKeys.kForwardAdvancedBookingRequestToAnother, with: [myJSON], completion: nil)
+                return
+            }
+            
             self.isAdvanceBooking = true
             self.isNowBooking = false
             
@@ -2531,6 +2539,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         let myJSON = [socketApiKeys.kBookingId : advanceBookingID,  profileKeys.kDriverId : driverID] as [String : Any]
         socket.emit(socketApiKeys.kForwardAdvancedBookingRequestToAnother, with: [myJSON], completion: nil)
+        
+        Singletons.sharedInstance.bookingId = ""
     }
     
     
