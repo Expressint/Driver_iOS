@@ -1037,6 +1037,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             self.onSOS()
             //            self.getNotificationforUpdateBookingDetails()
             self.onAdvancedBookingPickupPassengerNotification() // AdvancedBookingPickupPassengerNotification
+            
+            
         }
         
     }
@@ -1636,6 +1638,9 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         {
             let strID = BookingInfo.object(forKey: "Id") as AnyObject
             self.advanceBookingID = String(describing: strID)
+        }else{
+            let strID = BookingInfo.object(forKey: "Id") as AnyObject
+            self.bookingID = String(describing: strID)
         }
         
         
@@ -2853,7 +2858,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                         UtilityClass.showAlert(appName.kAPPName, message: strMessage, vc: self)
                     }
                 }
-                
             }
         })
     }

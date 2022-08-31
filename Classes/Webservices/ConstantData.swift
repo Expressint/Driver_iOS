@@ -22,8 +22,8 @@ struct WebSupport {
 //Development: http://52.23.45.119/
 struct WebserviceURLs {
     
-    static let kBaseURL                                 = "https://www.bookaridegy.com/Drvier_Api/"
-    static let kImageBaseURL                            = "https://www.bookaridegy.com/"
+    static let kBaseURL                                 = "http://52.23.45.119/Drvier_Api/"
+    static let kImageBaseURL                            = "http://52.23.45.119/"
     static let kOTPForDriverRegister                    = "OtpForRegister"
     static let kVehicalModelList                        = "TaxiModel/"
     static let kDriverRegister                          = "Register"
@@ -216,7 +216,7 @@ struct RegistrationFinalKeys {
 //Development: http://52.23.45.119:8080
 struct socketApiKeys {
     
-    static let kSocketBaseURL = "https://www.bookaridegy.com:8080"
+    static let kSocketBaseURL = "http://52.23.45.119:8080"
  
     static let kUpdateDriverLocation = "UpdateDriverLatLong"
     static let kReceiveBookingRequest = "AriveBookingRequest"
@@ -264,6 +264,10 @@ struct socketApiKeys {
     static let connectDriverForChat = "connectDriverForChat"
     static let sendMessage = "sendMessage"
     static let receiveMessage = "receive_message"
+    static let starTyping = "start_typing"
+    static let stopTyping = "stop_typing"
+    static let DriverTyping = "is_typing"
+    static let DriverStopTyping = "is_stop_typing"
     
 }
 
