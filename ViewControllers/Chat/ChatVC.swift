@@ -113,8 +113,8 @@ class ChatVC: ParentViewController {
         if(self.socket.status == .connected) {
             self.connectDriverForChat()
             self.socketOnForReceiveMessage()
-//            self.socketOnForStartTyping()
-//            self.socketOnForStopTyping()
+            self.socketOnForStartTyping()
+            self.socketOnForStopTyping()
             UtilityClass.hideACProgressHUD()
         }else{
             var isSocketConnected = Bool()
@@ -138,8 +138,8 @@ class ChatVC: ParentViewController {
                     isSocketConnected = true
                     self.connectDriverForChat()
                     self.socketOnForReceiveMessage()
-//                    self.socketOnForStartTyping()
-//                    self.socketOnForStopTyping()
+                    self.socketOnForStartTyping()
+                    self.socketOnForStopTyping()
                 }
             }
             socket.connect()
@@ -152,16 +152,19 @@ class ChatVC: ParentViewController {
             
             let dictData = (data as NSArray).object(at: 0) as! [String : AnyObject]
             let senderType = dictData["sender_type"] as? String ?? ""
+            let senderTName = dictData["sender_fullname"] as? String ?? self.receiverName
             
             if(self.isDispacherChat){
                 if(senderType == "dispatcher"){
-                    self.lblTyping.text = "\(self.receiverName) is typing..."
+                    //self.lblTyping.text = "\(self.receiverName) is typing..."
+                    self.lblTyping.text = "\(senderTName) is typing..."
                     self.vwIsTyping.isHidden = false
                     self.scrollToBottom()
                 }
             }else{
                 if(senderType != "dispatcher"){
-                    self.lblTyping.text = "\(self.receiverName) is typing..."
+                    //self.lblTyping.text = "\(self.receiverName) is typing..."
+                    self.lblTyping.text = "\(senderTName) is typing..."
                     self.vwIsTyping.isHidden = false
                     self.scrollToBottom()
                 }
@@ -245,7 +248,7 @@ class ChatVC: ParentViewController {
     }
     
     func sendMessage() {
-        //self.emitForStopTyping()
+        self.emitForStopTyping()
         let myJSON = ["sender_id" : Singletons.sharedInstance.strDriverID,
                       "receiver_id": receiverId,
                       "message" : self.txtMessage.text ?? "",
@@ -344,15 +347,15 @@ extension ChatVC: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//        timer?.invalidate()
-//        timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { (timer) in
-//            self.emitForStopTyping()
-//        })
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { (timer) in
+            self.emitForStopTyping()
+        })
         return true
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        //self.emitForStartTyping()
+        self.emitForStartTyping()
     }
 }
 

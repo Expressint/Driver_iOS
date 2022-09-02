@@ -239,7 +239,7 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
     
     @IBAction func btnCall(_ sender: UIButton) {
         
-        let contactNumber = Singletons.sharedInstance.helpLineNumber //strPassengerMobileNumber
+        let contactNumber = Singletons.sharedInstance.DispatchCall //strPassengerMobileNumber
         
         if contactNumber == "" {
             UtilityClass.showAlert("App Name".localized, message: "Contact number  is not available", vc: self)

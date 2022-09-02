@@ -41,7 +41,7 @@ class WalletCardsVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func CallButtonClicked()     //  Call Button
     {
-        let contactNumber = Singletons.sharedInstance.helpLineNumber
+        let contactNumber = Singletons.sharedInstance.DispatchCall
         
         if contactNumber == "" {
             

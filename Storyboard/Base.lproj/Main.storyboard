@@ -2127,7 +2127,7 @@ EE15IEpvYnM
                                                             <constraint firstAttribute="height" constant="45" id="wUG-ar-aWS"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                                        <state key="normal" title="Arrived at First Stop">
+                                                        <state key="normal" title="Complete First Stop">
                                                             <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
@@ -2161,8 +2161,8 @@ EE15IEpvYnM
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="2Bs-Gp-Ftk">
                                                 <rect key="frame" x="0.0" y="165" width="394" height="45"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OUR-7r-mhR">
-                                                        <rect key="frame" x="0.0" y="0.0" width="192" height="45"/>
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OUR-7r-mhR">
+                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="45"/>
                                                         <color key="backgroundColor" red="1" green="0.63921568630000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                         <state key="normal" title="Cancel Trip">
@@ -2173,7 +2173,7 @@ EE15IEpvYnM
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGv-hT-txT">
-                                                        <rect key="frame" x="202" y="0.0" width="192" height="45"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="394" height="45"/>
                                                         <color key="backgroundColor" red="0.5568627451" green="0.54901960780000003" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                         <state key="normal" title="Directions">
@@ -16510,8 +16510,8 @@ EE15IEpvYnM
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="j8s-hw-vs3"/>
-        <segue reference="zum-Z5-1XX"/>
+        <segue reference="IpS-zx-juy"/>
+        <segue reference="nmM-gN-k9b"/>
         <segue reference="8CO-DQ-u8J"/>
     </inferredMetricsTieBreakers>
     <resources>
@@ -16524,7 +16524,7 @@ EE15IEpvYnM
         <image name="iconAcceptTrip" width="40" height="40"/>
         <image name="iconArrowGray" width="42" height="42"/>
         <image name="iconArrowGrey" width="21" height="21"/>
-        <image name="iconBack" width="85" height="85"/>
+        <image name="iconBack" width="26.666666030883789" height="26.666666030883789"/>
         <image name="iconBackWhite" width="26.666666030883789" height="26.666666030883789"/>
         <image name="iconBalance" width="85" height="85"/>
         <image name="iconBus" width="85" height="85"/>

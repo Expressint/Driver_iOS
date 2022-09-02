@@ -586,7 +586,7 @@ extension MenuController : UICollectionViewDataSource, UICollectionViewDelegate,
             sideMenuController?.toggle()
         }
         else if arrMenuTitle[indexPath.row] == kHelp {
-//            self.dialNumber(number: Singletons.sharedInstance.helpLineNumber)
+//            self.dialNumber(number: Singletons.sharedInstance.DispatchCall)
             self.alertForHelpOptions()
         }
     }

@@ -33,7 +33,7 @@ class WalletViewController: UIViewController, UIScrollViewDelegate {
     
     func CallButtonClicked()     //  Call Button
     {
-        let contactNumber = Singletons.sharedInstance.helpLineNumber
+        let contactNumber = Singletons.sharedInstance.DispatchCall
         
         if contactNumber == "" {
             

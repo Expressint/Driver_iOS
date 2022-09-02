@@ -768,15 +768,10 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
 //                oldCoordinate = newCoordinate
                 //Tej's code
             }
-            if (Singletons.sharedInstance.driverDuty == "1")
-            {
-                if( self.bookingID.trimmingCharacters(in: .whitespacesAndNewlines) == "")
-                {
+            if (Singletons.sharedInstance.driverDuty == "1") {
+                if(self.bookingID.trimmingCharacters(in: .whitespacesAndNewlines) == "" && self.advanceBookingID.trimmingCharacters(in: .whitespacesAndNewlines) == "") {
                     self.UpdateDriverLocation()
-                    //self.getDriverLocation()
-                }
-                else if (Singletons.sharedInstance.bookingId.trimmingCharacters(in: .whitespacesAndNewlines) != "")
-                {
+                } else if (self.bookingID.trimmingCharacters(in: .whitespacesAndNewlines) != "" || self.advanceBookingID.trimmingCharacters(in: .whitespacesAndNewlines) != "") {
                     self.getDriverLocation()
                 }
             }
