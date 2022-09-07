@@ -193,6 +193,7 @@
 		3F438ADC25920BCB00441E1B /* MyEarningsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F438ADA25920BCB00441E1B /* MyEarningsViewController.swift */; };
 		470DBDBD28B77364003A0E5A /* ImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470DBDBC28B77364003A0E5A /* ImagePickerController.swift */; };
 		470DBDC128B790B7003A0E5A /* ChatImageViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470DBDC028B790B7003A0E5A /* ChatImageViewVC.swift */; };
+		47DB61BE28C8841D003FD81C /* OfflineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DB61BD28C8841D003FD81C /* OfflineVC.swift */; };
 		543D9BF0272C2E040000EB39 /* ForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543D9BEF272C2E030000EB39 /* ForgetPasswordViewController.swift */; };
 		54C447D628003FD70094ACD5 /* CancelAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C447D428003FD70094ACD5 /* CancelAlertViewController.swift */; };
 		54C447D728003FD70094ACD5 /* CancelAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54C447D528003FD70094ACD5 /* CancelAlertViewController.xib */; };
@@ -409,6 +410,7 @@
 		3F438ADA25920BCB00441E1B /* MyEarningsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEarningsViewController.swift; sourceTree = "<group>"; };
 		470DBDBC28B77364003A0E5A /* ImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerController.swift; sourceTree = "<group>"; };
 		470DBDC028B790B7003A0E5A /* ChatImageViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatImageViewVC.swift; sourceTree = "<group>"; };
+		47DB61BD28C8841D003FD81C /* OfflineVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfflineVC.swift; sourceTree = "<group>"; };
 		543D9BEF272C2E030000EB39 /* ForgetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewController.swift; sourceTree = "<group>"; };
 		54C447D428003FD70094ACD5 /* CancelAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelAlertViewController.swift; sourceTree = "<group>"; };
 		54C447D528003FD70094ACD5 /* CancelAlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CancelAlertViewController.xib; sourceTree = "<group>"; };
@@ -507,6 +509,7 @@
 		00E928E3202AE2BF00A399E2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				47DB61BC28C8841D003FD81C /* OfflineVC */,
 				88BBE20C2891405E0024F935 /* Chat */,
 				54C447D328003FD70094ACD5 /* CancelAlert */,
 				3F438AD825920BCB00441E1B /* MyEarnings */,
@@ -1230,6 +1233,14 @@
 			path = MyEarnings;
 			sourceTree = "<group>";
 		};
+		47DB61BC28C8841D003FD81C /* OfflineVC */ = {
+			isa = PBXGroup;
+			children = (
+				47DB61BD28C8841D003FD81C /* OfflineVC.swift */,
+			);
+			path = OfflineVC;
+			sourceTree = "<group>";
+		};
 		54C447D328003FD70094ACD5 /* CancelAlert */ = {
 			isa = PBXGroup;
 			children = (
@@ -1599,6 +1610,7 @@
 			files = (
 				00E92A57202AE2C100A399E2 /* WWCalendarTimeSelector.swift in Sources */,
 				00E92A55202AE2C100A399E2 /* String+Timepiece.swift in Sources */,
+				47DB61BE28C8841D003FD81C /* OfflineVC.swift in Sources */,
 				88BBE2172891405E0024F935 /* ReceiverCell.swift in Sources */,
 				00E929E8202AE2C100A399E2 /* DispatchJobsBookLaterViewController.swift in Sources */,
 				00E92A06202AE2C100A399E2 /* MenuController.swift in Sources */,
@@ -1945,13 +1957,13 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.5.4;
+				CURRENT_PROJECT_VERSION = 1.5.5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AQ5BYLK3P7;
 				INFOPLIST_FILE = "$(SRCROOT)/Other Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.2.8;
+				MARKETING_VERSION = 1.2.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eww.BookARideDriver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1971,12 +1983,12 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.5.4;
+				CURRENT_PROJECT_VERSION = 1.5.5;
 				DEVELOPMENT_TEAM = AQ5BYLK3P7;
 				INFOPLIST_FILE = "$(SRCROOT)/Other Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.2.8;
+				MARKETING_VERSION = 1.2.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eww.BookARideDriver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

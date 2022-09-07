@@ -442,8 +442,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         setLocalization()
     }
     
-
-    
     @objc func setLocalization()
     {
         self.headerView?.lblTitle.text = "Home".localized
@@ -2977,7 +2975,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         if isAdvanceBooking == true {
             self.btnReached.isHidden = true
    
-            self.showEstimatedView()
+       //     self.showEstimatedView()
+            self.hideEstimatedView()
             BottomButtonView.isHidden = false
             //            StartTripView.isHidden = false
             //            self.btnStartTrip.isHidden = true
@@ -2995,7 +2994,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             
         }
         else {
-            self.showEstimatedView()
+      //      self.showEstimatedView()
+            self.hideEstimatedView()
             BottomButtonView.isHidden = false
             //            StartTripView.isHidden = false
             //            self.btnStartTrip.isHidden = true
@@ -3940,8 +3940,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         let DropOffLat = BookingInfo.object(forKey: "DropOffLat") as! String
         let DropOffLon = BookingInfo.object(forKey: "DropOffLon") as! String
         
-        //        Singletons.sharedInstance.startedTripLatitude = Double(BookingInfo.object(forKey: "PickupLat") as! String)!
-        //        Singletons.sharedInstance.startedTripLongitude = Double(BookingInfo.object(forKey: "PickupLng") as! String)!
+//                Singletons.sharedInstance.startedTripLatitude = Double(BookingInfo.object(forKey: "PickupLat") as! String)!
+//                Singletons.sharedInstance.startedTripLongitude = Double(BookingInfo.object(forKey: "PickupLng") as! String)!
         
         Singletons.sharedInstance.startedTripLatitude = self.defaultLocation.coordinate.latitude//Double(BookingInfo.object(forKey: "PickupLat") as! String)!
         Singletons.sharedInstance.startedTripLongitude = self.defaultLocation.coordinate.longitude//Double(BookingInfo.object(forKey: "PickupLng") as! String)!
@@ -3957,7 +3957,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         let waypointLatitude = self.defaultLocation.coordinate.latitude - dummyLatitude
         let waypointSetLongitude = self.defaultLocation.coordinate.longitude - dummyLongitude
-        
         
         let originalLoc: String = "\(PickupLat),\(PickupLng)"
         let destiantionLoc: String = "\(DropOffLat),\(DropOffLon)"
@@ -4196,15 +4195,13 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                                 let destinationAddress = legs[legs.count - 1]["end_address"] as! String
                                 
                                 
-                                if(self.driverMarker == nil)
-                                {
-                                    
+                                if(self.driverMarker == nil) {
                                     self.driverMarker = GMSMarker(position: self.originCoordinate)
                                     //                                    self.driverMarker.position = self.originCoordinate
                                     self.driverMarker.icon = UIImage(named: Singletons.sharedInstance.strSetCar)
                                     //                                        self.driverMarker.map = self.mapView
-                                    
                                 }
+                                
                                 self.driverMarker.icon = UIImage(named: Singletons.sharedInstance.strSetCar)
                                 //                                }
                                 //                                 else
@@ -5916,12 +5913,10 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             
         }
         (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: nil)
-        
     }
     
     
     //MARK: - Meter Setup -
-    
     
     var waitingTime = Double()
     var baseFare = Double()

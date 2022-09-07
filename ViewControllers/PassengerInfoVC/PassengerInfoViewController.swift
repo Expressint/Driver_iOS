@@ -60,13 +60,9 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
     @IBOutlet weak var btnOK: UIButton!
     @IBOutlet weak var btnCall: UIButton!
     
-    
-    
-    
     //-------------------------------------------------------------
     // MARK: - Base Methods
     //-------------------------------------------------------------
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,21 +85,19 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
         setlocalization()
     }
 
-    func setlocalization()
-    {
+    func setlocalization() {
         lblPassengerInfo.text = "Passenger Info".localized
         lblPickUpLocationInFo.text = "Pick up location".localized
         lblDroPoffLocationInFo.text = "Drop off location".localized
         lblFlightNumberInFo.text = "Flight No".localized
         lblNotesInFo.text = "Notes".localized
         btnOK.setTitle("OK".localized, for: .normal)
-        
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -116,8 +110,7 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
         
         if strFlightNumber.count == 0 {
             stackViewFlightNumber.isHidden = true
-        }
-        else {
+        } else {
             stackViewFlightNumber.isHidden = false
             lblFlightNumber.text = strFlightNumber
         }

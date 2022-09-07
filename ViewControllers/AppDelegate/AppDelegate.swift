@@ -15,6 +15,7 @@ import FirebaseMessaging
 import SocketIO
 import Firebase
 import PhotosUI
+import Alamofire
  
 
 let googlApiKey = "AIzaSyCQ10cPN_q98K0PrDxvZx-aVYD05hiNB7g"
@@ -40,13 +41,14 @@ let googlPlacesApiKey = googlApiKey
     static var pushNotificationObj : NotificationObjectModel?
     static var pushNotificationType : String?
     
+    var offlineStatue : Bool = false
+    
     var RoadPickupTimer = Timer()
     let SManager = SocketManager(socketURL: URL(string: socketApiKeys.kSocketBaseURL)!,config: [.log(false), .compress,.version(.two)])
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
        
-
-        // Override point for customization after application launch.
+        //self.checkConnction()
         IQKeyboardManager.shared.enable = true
         UserDefaults.standard.set(false, forKey: kIsSocketEmited)
         UserDefaults.standard.set(false, forKey: kIsUpdateAvailable)
@@ -707,7 +709,90 @@ let googlPlacesApiKey = googlApiKey
             }
         }
     }
+    
+    //MARK: - Network methods
+    func checkConnction() {
+       let manager = Alamofire.NetworkReachabilityManager(host: "www.google.com")
+        manager?.stopListening()
+        manager?.startListening()
+        manager?.listener = { _ in
+            if let isNetworkReachable = manager?.isReachable,
+               isNetworkReachable == true {
+                if(self.offlineStatue){
+                    self.offlineStatue = false
+                    AppDelegate.shared.hideOfflineVC()
+                }
+            } else {
+                self.offlineStatue = true
+                AppDelegate.shared.showOfflineVC()
+            }
+        }
 
+    }
+    
+    func showOfflineVC(){
+        let topVC = UIApplication.appTopViewController()
+        if (topVC?.isKind(of: OfflineVC.self) ?? false){
+            return
+        }else{
+            if let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "OfflineVC") as? OfflineVC {
+                if let window = self.window, let rootViewController = window.rootViewController {
+                    var currentController = rootViewController
+                    while let presentedController = currentController.presentedViewController {
+                        currentController = presentedController
+                    }
+                    currentController.modalPresentationStyle = .overCurrentContext
+                    currentController.present(controller, animated: true, completion: {
+                        controller.presentationController?.presentedView?.gestureRecognizers?[0].isEnabled = false
+                    })
+                }
+            }
+        }
+    }
+    
+    func hideOfflineVC(){
+        UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true, completion: {
+            print("Action after dismiss...")
+            if(self.SManager.defaultSocket.status == .disconnected) {
+                self.SManager.defaultSocket.connect()
+            }
+        })
+    }
+
+}
+
+extension UIApplication {
+    class func appTopViewController(controller: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+        if let navigationController = controller as? UINavigationController {
+            return appTopViewController(controller: navigationController.visibleViewController)
+        }
+        if let tabController = controller as? UITabBarController {
+            if let selected = tabController.selectedViewController {
+                return appTopViewController(controller: selected)
+            }
+        }
+        if let presented = controller?.presentedViewController {
+            return appTopViewController(controller: presented)
+        }
+        return controller
+    }
+    
+    class func getVisibleViewController(_ rootViewController: UIViewController) -> UIViewController? {
+
+        if let presentedViewController = rootViewController.presentedViewController {
+            return getVisibleViewController(presentedViewController)
+        }
+
+        if let navigationController = rootViewController as? UINavigationController {
+            return navigationController.visibleViewController
+        }
+
+        if let tabBarController = rootViewController as? UITabBarController {
+            return tabBarController.selectedViewController
+        }
+
+        return rootViewController
+    }
 }
 
 extension String {

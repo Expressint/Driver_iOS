@@ -16446,6 +16446,70 @@ EE15IEpvYnM
             </objects>
             <point key="canvasLocation" x="8796" y="-510"/>
         </scene>
+        <!--OfflineVC-->
+        <scene sceneID="aue-tf-fkw">
+            <objects>
+                <viewController storyboardIdentifier="OfflineVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="exz-X9-sji" customClass="OfflineVC" customModule="Book_A_Ride_Driver" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uae-Nq-gfJ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="WK6-Q4-TvI">
+                                <rect key="frame" x="20.666666666666657" y="337.66666666666669" width="372.66666666666674" height="230.66666666666669"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_NoNetwork" translatesAutoresizingMaskIntoConstraints="NO" id="PfX-Ol-ZGO">
+                                        <rect key="frame" x="136.33333333333334" y="0.0" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="Bia-Js-Ftj"/>
+                                            <constraint firstAttribute="width" secondItem="PfX-Ol-ZGO" secondAttribute="height" id="xIa-1w-31g"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Could not connect to the internet. Please check your network." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgl-hx-e7G">
+                                        <rect key="frame" x="3.6666666666666572" y="120.00000000000001" width="365.66666666666674" height="40.666666666666671"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WcG-XB-5CZ">
+                                        <rect key="frame" x="29.333333333333343" y="180.66666666666669" width="314" height="50"/>
+                                        <color key="backgroundColor" red="0.0078431372550000003" green="0.65098039220000004" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="zyx-Tv-92V"/>
+                                        </constraints>
+                                        <state key="normal" title="Retry">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="btnRetryAction:" destination="exz-X9-sji" eventType="touchUpInside" id="9oc-7w-eDF"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="WcG-XB-5CZ" firstAttribute="width" secondItem="WK6-Q4-TvI" secondAttribute="width" multiplier="0.8" constant="16.133333333333212" id="0u6-O5-J2T"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="IwA-Cl-5U1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="WK6-Q4-TvI" firstAttribute="centerX" secondItem="IwA-Cl-5U1" secondAttribute="centerX" id="4ky-xb-goy"/>
+                            <constraint firstItem="WK6-Q4-TvI" firstAttribute="width" secondItem="uae-Nq-gfJ" secondAttribute="width" multiplier="0.9" id="5RT-RH-nXw"/>
+                            <constraint firstItem="WK6-Q4-TvI" firstAttribute="centerY" secondItem="IwA-Cl-5U1" secondAttribute="centerY" id="95z-ip-rWQ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lblOffline" destination="cgl-hx-e7G" id="QKs-Fp-Xdk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2gk-0G-vlj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1862" y="-1170"/>
+        </scene>
     </scenes>
     <designables>
         <designable name="0OT-GC-O7g">
@@ -16520,11 +16584,12 @@ EE15IEpvYnM
         <image name="Unchecked" width="30" height="30"/>
         <image name="checked" width="30" height="30"/>
         <image name="ic_Chat" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="ic_NoNetwork" width="170.66667175292969" height="170.66667175292969"/>
         <image name="ic_Send" width="42.666667938232422" height="42.666667938232422"/>
         <image name="iconAcceptTrip" width="40" height="40"/>
         <image name="iconArrowGray" width="42" height="42"/>
         <image name="iconArrowGrey" width="21" height="21"/>
-        <image name="iconBack" width="26.666666030883789" height="26.666666030883789"/>
+        <image name="iconBack" width="85" height="85"/>
         <image name="iconBackWhite" width="26.666666030883789" height="26.666666030883789"/>
         <image name="iconBalance" width="85" height="85"/>
         <image name="iconBus" width="85" height="85"/>

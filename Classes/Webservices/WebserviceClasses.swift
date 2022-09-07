@@ -18,9 +18,7 @@ import NVActivityIndicatorView
 
 let BaseURL = WebserviceURLs.kBaseURL
 var request : Request!
-
 let header: [String:String] = ["key":"Book$951951"]
-
 
 //-------------------------------------------------------------
 // MARK: - Webservice For PostData Method

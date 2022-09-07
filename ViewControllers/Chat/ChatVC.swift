@@ -26,7 +26,6 @@ class ChatVC: ParentViewController {
     @IBOutlet weak var lblTyping: UILabel!
     var timer: Timer?
     
-    
     var receiverName: String = ""
     var receiverId: String = ""
     var bookingId: String = ""
@@ -189,8 +188,6 @@ class ChatVC: ParentViewController {
                     self.scrollToBottom()
                 }
             }
-            
-          
         })
     }
     
@@ -324,7 +321,7 @@ extension ChatVC: ImagePickerControllerDelegate {
         if let unWappedImage = image {
             print(unWappedImage)
             
-            let imageData: Data? = unWappedImage.jpegData(compressionQuality: 0.4)
+            let imageData: Data? = unWappedImage.jpegData(compressionQuality: 0.5)
             let imageStr = imageData?.base64EncodedString(options: .lineLength64Characters) ?? ""
             self.sendImgMessage(strUrl: imageStr)
         }
