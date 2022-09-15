@@ -25,7 +25,7 @@ import AVFoundation
 
 @objc protocol ReceiveRequestDelegate {
     func didAcceptedRequest()
-    func didRejectedRequest()
+    func didRejectedRequest(RejectByDriver: Bool)
 }
 
 protocol CompleterTripInfoDelegate {
@@ -2110,15 +2110,15 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
 
     }
     
-    func didRejectedRequest() {
+    func didRejectedRequest(RejectByDriver: Bool = true) {
         
         self.stopSound()
         
         if isAdvanceBooking {
-            self.RejectBookLaterBookingRequest()
+            self.RejectBookLaterBookingRequest(isRejectByDriver: RejectByDriver)
         }
         else {
-            BookingRejected()
+            BookingRejected(isRejectByDriver: RejectByDriver)
         }
     }
     
@@ -2503,25 +2503,25 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     //-------------------------------------------------------------
     // MARK: - Reject Booking Request
     //-------------------------------------------------------------
-    func BookingRejected(isTripOnGoing : Bool = false, bookingID : String = "") {
+    func BookingRejected(isRejectByDriver: Bool = false, isTripOnGoing : Bool = false, bookingID : String = "") {
 //        if bookingID == "" || driverID == "" {
 //            UtilityClass.showAlert("App Name".localized, message: "Booking ID or Driver ID", vc: self)
 //        }
         if(isTripOnGoing){
-            let myJSON = [socketApiKeys.kBookingId : bookingID,  profileKeys.kDriverId : driverID] as [String : Any]
+            let myJSON = [socketApiKeys.kBookingId : bookingID,  profileKeys.kDriverId : driverID, profileKeys.kRejectBy: (isRejectByDriver) ? "Manual" : "Auto"] as [String : Any]
             socket.emit(socketApiKeys.kRejectBookingRequest, with: [myJSON], completion: nil)
         }
         else {
             
             if (Singletons.sharedInstance.firstRequestIsAccepted && self.strTempBookingId.count != 0){
-                let myJSON = [socketApiKeys.kBookingId : strTempBookingId,  profileKeys.kDriverId : driverID] as [String : Any]
+                let myJSON = [socketApiKeys.kBookingId : strTempBookingId,  profileKeys.kDriverId : driverID, profileKeys.kRejectBy: (isRejectByDriver) ? "Manual" : "Auto"] as [String : Any]
                 socket.emit(socketApiKeys.kRejectBookingRequest, with: [myJSON], completion: nil)
                 Singletons.sharedInstance.firstRequestIsAccepted = false
                 
             }
             else
             {
-                let myJSON = [socketApiKeys.kBookingId : bookingIDTemp,  profileKeys.kDriverId : driverID] as [String : Any]
+                let myJSON = [socketApiKeys.kBookingId : bookingIDTemp,  profileKeys.kDriverId : driverID, profileKeys.kRejectBy: (isRejectByDriver) ? "Manual" : "Auto"] as [String : Any]
                 socket.emit(socketApiKeys.kRejectBookingRequest, with: [myJSON], completion: nil)
                 Singletons.sharedInstance.firstRequestIsAccepted = false
             }
@@ -2529,13 +2529,13 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         }
     }
     
-    func RejectBookLaterBookingRequest() {
+    func RejectBookLaterBookingRequest(isRejectByDriver: Bool = false) {
         
         if (Singletons.sharedInstance.advanceBookingIdTemp != "") {
             advanceBookingID = Singletons.sharedInstance.advanceBookingIdTemp
         }
         
-        let myJSON = [socketApiKeys.kBookingId : advanceBookingID,  profileKeys.kDriverId : driverID] as [String : Any]
+        let myJSON = [socketApiKeys.kBookingId : advanceBookingID,  profileKeys.kDriverId : driverID, profileKeys.kRejectBy: (isRejectByDriver) ? "Manual" : "Auto"] as [String : Any]
         socket.emit(socketApiKeys.kForwardAdvancedBookingRequestToAnother, with: [myJSON], completion: nil)
         
         Singletons.sharedInstance.bookingId = ""
@@ -3492,6 +3492,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         //        if sumOfFinalDistance != 0 {
         
         var dictOFParam = [String:AnyObject]()
+        dictOFParam["Lat"] = "\(Singletons.sharedInstance.latitude ?? 0)" as AnyObject
+        dictOFParam["Long"] = "\(Singletons.sharedInstance.longitude ?? 0)" as AnyObject
         let tollfee = self.tollFee.replacingOccurrences(of: "\(currency)", with: "")
         dictOFParam["TripDistance"] = Singletons.sharedInstance.distanceTravelledThroughMeter as AnyObject //App_Delegate.DistanceKiloMeter as AnyObject//sumOfFinalDistance as AnyObject
         dictOFParam["NightFareApplicable"] = 0 as AnyObject
@@ -3502,13 +3504,13 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         dictOFParam["TollFee"] = tollfee as AnyObject
         dictOFParam["WaitingTime"] = App_Delegate.WaitingTime as AnyObject
         dictOFParam["Pending"] = Singletons.sharedInstance.isPending as AnyObject
-        let pickupCordinate = "\(Singletons.sharedInstance.startedTripLatitude),\(Singletons.sharedInstance.startedTripLongitude)"
-        let destinationCordinate = "\(self.defaultLocation.coordinate.latitude),\(self.defaultLocation.coordinate.longitude)"
-        if(App_Delegate.DistanceKiloMeter == "")
-        {
-            dictOFParam["lat"] = "\(pickupCordinate)" as AnyObject
-            dictOFParam["long"] = "\(destinationCordinate)" as AnyObject
-        }
+//        let pickupCordinate = "\(Singletons.sharedInstance.startedTripLatitude),\(Singletons.sharedInstance.startedTripLongitude)"
+//        let destinationCordinate = "\(self.defaultLocation.coordinate.latitude),\(self.defaultLocation.coordinate.longitude)"
+//        if(App_Delegate.DistanceKiloMeter == "")
+//        {
+//            dictOFParam["lat"] = "\(pickupCordinate)" as AnyObject
+//            dictOFParam["long"] = "\(destinationCordinate)" as AnyObject
+//        }
         
         dictOFParam["DropoffLocation"] = LastAddress as AnyObject
         UtilityClass.hideACProgressHUD()
@@ -3580,7 +3582,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 }
                 
                 dictOFParam["BookingId"] = advanceBookingID as AnyObject
-                
                 webserviceCallForAdvanceCompleteTrip(dictOFParam: dictOFParam as AnyObject)
             }
             else {
@@ -5216,8 +5217,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     // MARK: - Webservice Methods For Completeing Current Booking
     //-------------------------------------------------------------
     
-    func webserviceCallForCompleteTrip(dictOFParam : AnyObject)
-    {
+    func webserviceCallForCompleteTrip(dictOFParam : AnyObject) {
+        
         webserviceForCompletedTripSuccessfully(dictOFParam as AnyObject) { (result, status) in
             
             if (status) {
@@ -5364,10 +5365,10 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         param["DropoffCount"] = dropOffCount
         //        param["Skip"] = skip
         param["TripDistance"] = "\(Singletons.sharedInstance.distanceTravelledThroughMeter)"
-        if isFromComplete {
-            param["Lat"] = "\(Singletons.sharedInstance.latitude ?? 0)"
-            param["Long"] = "\(Singletons.sharedInstance.longitude ?? 0)"
-        }
+//        if isFromComplete {
+        param["Lat"] = "\(Singletons.sharedInstance.latitude ?? 0)"
+        param["Long"] = "\(Singletons.sharedInstance.longitude ?? 0)"
+//        }
         
         webserviceForSubmitMultipleDropoff(dictParams: param as AnyObject) { (result, status) in
             //            self.updateCurrentLocationLabel()

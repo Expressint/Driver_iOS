@@ -108,6 +108,7 @@ struct savedDataForRegistration {
 
 struct profileKeys {
     static let kDriverId = "DriverId"
+    static let kRejectBy = "RejectBy"
     static let kCarModel = "CarModel"
     static let kCarCompany = "CarCompany"
     static let kCompanyID = "CompanyId"

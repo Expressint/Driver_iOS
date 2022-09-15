@@ -7,16 +7,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "50714A9E-41C2-44FE-B16B-9A8389CD2AC0"
+            uuid = "9D637AA5-2C82-4DC4-BEF2-8CE52E11C37F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ViewControllers/Receive Request For Trip/ReceiveRequestViewController.swift"
+            filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
-            landmarkName = "timerDidEnd()"
+            startingLineNumber = "2121"
+            endingLineNumber = "2121"
+            landmarkName = "didRejectedRequest(RejectByDriver:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3A3AC9DD-E409-49BF-8027-8815423501EE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3902"
+            endingLineNumber = "3902"
+            landmarkName = "btnRejectRequest(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C0BC2C30-5F61-4705-A246-1134BD29B1D7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2516"
+            endingLineNumber = "2516"
+            landmarkName = "BookingRejected(isRejectByDriver:isTripOnGoing:bookingID:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

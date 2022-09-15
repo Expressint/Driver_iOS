@@ -169,7 +169,7 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
             }
             else {
                 print(#function)
-                self.delegate.didRejectedRequest()
+                self.delegate.didRejectedRequest(RejectByDriver: false)
                 self.dismiss(animated: true, completion: nil)
             }
         }
@@ -233,7 +233,7 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
         Singletons.sharedInstance.firstRequestIsAccepted = false
         isAccept = false
         boolTimeEnd = true
-        delegate.didRejectedRequest()
+        delegate.didRejectedRequest(RejectByDriver: true)
         self.viewCountdownTimer.end()
         //        self.stopSound()
         self.dismiss(animated: true, completion: nil)
