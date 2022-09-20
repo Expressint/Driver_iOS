@@ -28,12 +28,13 @@ class DriverRegistrationViewController: UIViewController, UIScrollViewDelegate /
 //    @IBOutlet var viewCar: UIView!
 //    @IBOutlet var viewAttachment: UIView!
     @IBOutlet var viewMainLine: UIView!
+    @IBOutlet weak var lblRegistrationTitle: UILabel!
     
     @IBOutlet weak var viewOneTwoLine: UIView!
     @IBOutlet weak var viewTwoThreeLine: UIView!
     @IBOutlet weak var viewThreeForeLine: UIView!
     @IBOutlet weak var viewFourFifthLine: UIView!
-    
+    @IBOutlet weak var segmentLang: UISegmentedControl!
     
     @IBOutlet var btnBack: UIButton!
     
@@ -79,7 +80,6 @@ class DriverRegistrationViewController: UIViewController, UIScrollViewDelegate /
     override func viewDidLayoutSubviews()
     {
         super.viewDidLayoutSubviews()
-        self.lblTitle.text = "App Name".localized
 //        print(UserDefaults.standard.object(forKey: savedDataForRegistration.kPageNumber))
         
         if UserDefaults.standard.object(forKey: savedDataForRegistration.kPageNumber) != nil
@@ -212,9 +212,11 @@ class DriverRegistrationViewController: UIViewController, UIScrollViewDelegate /
     }
 //
 
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
+        
+       
+        
 //        imgMail.image = UIImage.init(named: iconMailSelect)
 //        imgDriver.image = UIImage.init(named: iconDriverUnselect)
 //        imgBank.image = UIImage.init(named: iconBankUnselect)
@@ -265,6 +267,22 @@ class DriverRegistrationViewController: UIViewController, UIScrollViewDelegate /
         self.lblTitle.textColor = .white
     }
     
+    @objc func changeLanguage(){
+        self.setLocalization()
+    }
+    
+    func setLocalization(){
+        self.lblRegistrationTitle.text = "Registration_Title".localized
+    }
+    
+    @objc func indexChanged(_ sender: UISegmentedControl) {
+        if segmentLang.selectedSegmentIndex == 0 {
+            Localize.setCurrentLanguage(Languages.English.rawValue)
+        } else if segmentLang.selectedSegmentIndex == 1 {
+            Localize.setCurrentLanguage(Languages.Spanish.rawValue)
+        }
+    }
+    
     
     func setCornertoView(View: UIView, BGColor : UIColor, borderColor : UIColor, textcolor : UIColor , label : UILabel)
     {
@@ -286,7 +304,12 @@ class DriverRegistrationViewController: UIViewController, UIScrollViewDelegate /
         super.viewWillAppear(true)
 //        self.setNavigationBar()
         
+        segmentLang.setTitleColor(.white)
+        segmentLang.selectedSegmentIndex = (Localize.currentLanguage() == Languages.English.rawValue) ? 0 : 1
+        segmentLang.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeLanguage), name: Notification.Name(rawValue: LCLLanguageChangeNotification), object: nil)
         
+        self.setLocalization()
     }
     
     

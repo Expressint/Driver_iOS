@@ -343,7 +343,7 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
     }
     
     @IBAction func btnEditProfileIPic(_ sender: UIButton) {
-        UtilityClass.showAlertWithCompletion("Info Message!", message: "Please take a clear passport sized picture!", vc: self) { success in
+        UtilityClass.showAlertWithCompletion("Info Message!".localized, message: "Please take a clear passport sized picture!".localized, vc: self) { success in
             
             let alert = UIAlertController(title: "Choose Photo".localized, message: nil, preferredStyle: .alert)
             

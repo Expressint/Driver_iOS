@@ -16,6 +16,10 @@ class InviteDriverViewController : ParentViewController,MFMailComposeViewControl
     
     @IBOutlet var lblReferalAmount: UILabel!
     @IBOutlet var lblYourReferalCode: UILabel!
+    
+    @IBOutlet var lblDriverShare: UILabel!
+    @IBOutlet var lblPassengerShare: UILabel!
+    
     @IBOutlet weak var btnPassenger: UIButton!
     @IBOutlet weak var btnDriver: UIButton!
     var driverFullName = String()
@@ -31,6 +35,8 @@ class InviteDriverViewController : ParentViewController,MFMailComposeViewControl
     @IBOutlet var viewBottom: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+   
         
         self.btnPassenger.isSelected = true
 
@@ -98,21 +104,18 @@ class InviteDriverViewController : ParentViewController,MFMailComposeViewControl
          let profileData = Singletons.sharedInstance.dictDriverProfile
         if let ReferralCode = (profileData?.object(forKey: "profile") as! NSDictionary).object(forKey: "ReferralCode") as? String {
             strReferralCode = ReferralCode
-            
             lblShareYourInviteCode.text = "Your Referral Code : ".localized + strReferralCode
             let yourCode = "Your Referral Code : ".localized + strReferralCode
             lblYourReferalCode.text = yourCode
         }
-        
-      
-        //"Your Referral Code : ".localized + strReferralCode
-        
-//        lblReferalAmount.text = "\("Referral Amount".localized) \((profileData?.object(forKey: "profile") as! NSDictionary).object(forKey: "ReferralAmount") as! Double) \(currency)"
-      //  lblWhenAFrindRidesWithYourCode.text = "When a friend rides with your code".localized
+
         lblShareYourInviteCode.text =   "Share Your Invite Code".localized
-        btnShare.setTitle("SHARE".localized, for: .normal)
+        btnShare.setTitle("Share".localized, for: .normal)
+        
+        lblPassengerShare.text =   "With Passenger App".localized
+        lblDriverShare.text =   "With Driver App".localized
   
-        self.headerView?.lblTitle.text = "Invite Friends".localized
+        self.headerView?.lblTitle.text = "Invite Friend".localized
         self.headerView?.btnWhatsapp.isHidden = true
         
         

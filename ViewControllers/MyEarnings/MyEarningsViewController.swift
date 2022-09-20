@@ -16,6 +16,8 @@ class MyEarningsViewController: ParentViewController, IQDropDownTextFieldDelegat
     @IBOutlet weak var btnYearly: UIButton!
     @IBOutlet weak var btnCustomeDate: UIButton!
     @IBOutlet weak var btnMonth: UIButton!
+    @IBOutlet weak var btnWeekly: UIButton!
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lblTotalEarningTitle: UILabel!
     @IBOutlet weak var lblTotalEarningValue: UILabel!
@@ -37,6 +39,11 @@ class MyEarningsViewController: ParentViewController, IQDropDownTextFieldDelegat
     @IBOutlet weak var lblTotalDistance: UILabel!
     @IBOutlet weak var lblTotalTrips: UILabel!
     
+    @IBOutlet weak var TitleTotalEarning: UILabel!
+    @IBOutlet weak var TitleTripDuration: UILabel!
+    @IBOutlet weak var TitleTripDistance: UILabel!
+    @IBOutlet weak var TitleTotalTrip: UILabel!
+    
     
     
     var arryear = [String]()
@@ -53,7 +60,7 @@ class MyEarningsViewController: ParentViewController, IQDropDownTextFieldDelegat
     var selectedFromDatePAram = String()
     var selectedToDatePAram = String()
     
-    @IBOutlet weak var btnWeekly: UIButton!
+
     
     
     
@@ -112,8 +119,38 @@ class MyEarningsViewController: ParentViewController, IQDropDownTextFieldDelegat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
-        self.headerView?.lblTitle.text = "My Earnings".localized
+        self.setLocalization()
     }
+    
+    func setLocalization() {
+        self.headerView?.lblTitle.text = "My Earnings".localized
+        
+        self.btnWeekly.setTitle("Weekly".localized, for: .normal)
+        self.btnMonth.setTitle("Monthly".localized, for: .normal)
+        self.btnYearly.setTitle("Yearly".localized, for: .normal)
+        self.btnCustomeDate.setTitle("Custom Date".localized, for: .normal)
+        
+        self.btnWeekly.titleLabel?.numberOfLines = 0
+        self.btnMonth.titleLabel?.numberOfLines = 0
+        self.btnYearly.titleLabel?.numberOfLines = 0
+        self.btnCustomeDate.titleLabel?.numberOfLines = 0
+        
+        self.lblSelectYearTitle.text = "Select Year".localized
+        self.txtSelectYear.placeholder = "Select Year".localized
+        
+        self.lblFromDateTitle.text = "From Date".localized
+        self.txtSelectFromDate.placeholder = "From Date".localized
+        
+        self.lblToDateTitle.text = "To Date".localized
+        self.txtSelectToDate.placeholder = "To Date".localized
+        
+        self.TitleTotalEarning.text = "Total Earnings".localized
+        self.TitleTripDuration.text = "Total Trip Duration".localized
+        self.TitleTripDistance.text = "Total Trip Distance".localized
+        self.TitleTotalTrip.text = "Total Trips".localized
+    }
+    
+    
     func setToolBarAction() {
         
         txtSelectYear.addDoneOnKeyboardWithTarget(self, action: #selector(self.doneButtonClicked(_:)))
@@ -505,6 +542,13 @@ extension MyEarningsViewController : UITableViewDelegate, UITableViewDataSource
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "MyEarningsTableViewCell") as! MyEarningsTableViewCell
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyEarningsTableViewCell", for: indexPath) as! MyEarningsTableViewCell
         cell.selectionStyle = .none
+        
+        cell.lblBookingIDTitle.text = "Booking Ids".localized
+        cell.lblPassengerNameTitle.text = "Passenger Name".localized
+        cell.lblDateTimeTitle.text = "Date & Time".localized
+        cell.lblPickupLocationTitle.text = "Trip Duration".localized
+        cell.lblDropoffLocationTitle.text = "Trip Distance".localized
+        cell.lblEarnTitle.text = "Earn".localized
         
         let dictData = self.arrEarning[indexPath.row]
         

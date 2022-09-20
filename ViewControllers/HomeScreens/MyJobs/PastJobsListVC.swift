@@ -180,24 +180,41 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         
         cell.selectionStyle = .none
         
-    
+        cell.lblCompanyNameTitle.text = "Company Name :".localized
+        cell.lblBookingDateTitle.text = "Booking Date :".localized
+        cell.lblProcessingDateTitle.text = "Processing Date :".localized
+        cell.lblAuthorizationNumberTitle.text = "Authorization Number :".localized
+        cell.lblPaymentTypeInfo.text = "Payment Type :".localized
+        cell.lblTripDistance.text = "Distance Travel :".localized
+        cell.lblTripStatusTitle.text = "Trip Status :".localized
+        cell.lblTripCancelReasonTitle.text = "Trip Cancel Reason :".localized
+        
+        cell.lblTripFare.text = "Base Fare :".localized
+        cell.lblWaitingTimes.text = "Waiting Time :".localized
+        cell.lblWaitingTimecosts.text = "Waiting Cost :".localized
+        cell.lblDiscountInFo.text = "Discount :".localized
+        cell.lblBookingFare.text = "Booking Fee :".localized
+        cell.lblSubTotalTitle.text = "Sub Total :".localized
+        cell.lblTaX.text = "Tax :".localized
+        cell.lblGrandTotalTitle.text = "Total Paid to Driver :".localized
+        
+        cell.btnGetReceipt.setTitle("Get Receipt".localized, for: .normal)
+        cell.BtnViewReceipt.setTitle("View Receipt".localized, for: .normal)
+        //cell.lblPickupTimeTitle.text = "Pick Up Time :".localized
         
         
         cell.lblpickUpTime.text = "Pick Up Time :".localized
         cell.lblDropTimeTitle.text = "Dropoff Time :".localized
-        cell.lblTripDistance.text = "Distance Travel :".localized
-        cell.lblWaitingTimes.text = "Waiting Time :".localized
-        cell.lblWaitingTimecosts.text = "Waiting Cost :".localized
-//        cell.lblDiscountInFo.text = "Discount :".localized
-        cell.lblBookingFare.text = "Booking Fee :".localized
-        cell.lblTripFare.text = "Base Fare :".localized
-//        cell.lblTollFees.text = "\("Tip".localized) :"
-        cell.lblSubTotalTitle.text = "Sub Total :".localized
-        cell.lblTaX.text = "Tax :".localized
-        cell.lblPaymentTypeInfo.text = "Payment Type :".localized
-        cell.lblGrandTotalTitle.text = "Total Paid to Driver :".localized
-        cell.lblTripStatusTitle.text = "Trip Status :".localized
-        cell.lblTripCancelReasonTitle.text = "Trip cancel reason".localized
+        //cell.lblTripDistance.text = "Distance Travel :".localized
+        
+        
+        
+        
+        
+        
+        
+       
+       
         //        cell2.selectionStyle = .none
         
         //        if aryPastJobs.count != 0 {
@@ -262,7 +279,7 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         
         cell.lblPickupLocationDesc.text = data.object(forKey: "PickupLocation") as? String // DropoffLocation
         
-        cell.lblBooingId.text = "\("Booking Id".localized) : \(data.object(forKey: "Id") as? String ?? strNotAvailable)"// "Booking ID: \(data.object(forKey: "Id") as? String ?? strNotAvailable)"
+        cell.lblBooingId.text = "\("Order Number/Booking Number".localized) : \(data.object(forKey: "Id") as? String ?? strNotAvailable)"// "Booking ID: \(data.object(forKey: "Id") as? String ?? strNotAvailable)"
         
         cell.lblDropoffLocation.text = data.object(forKey: "DropoffLocation") as? String // PickupLocation
         cell.lblpassengerEmail.text = data.object(forKey: "PassengerEmail") as? String

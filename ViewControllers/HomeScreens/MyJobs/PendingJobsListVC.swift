@@ -134,7 +134,7 @@ class PendingJobsListVC: UIViewController, UITableViewDataSource, UITableViewDel
         //        let cell2 = tableView.dequeueReusableCell(withIdentifier: "NoDataFound") as! PendingJobsListTableViewCell
         
         cell.selectionStyle = .none
-        cell.lblPickupTimeTitle.text = "Pick Up Time :".localized
+       // cell.lblPickupTimeTitle.text = "Pick Up Time :".localized
         cell.lblTripDetailsTitle.text = "Distance Travel :".localized
         cell.lblPaymentTypeTitle.text = "Payment Type :".localized
         cell.btnStartTrip.setTitle("Start Trip".localized, for: .normal)
@@ -177,7 +177,7 @@ class PendingJobsListVC: UIViewController, UITableViewDataSource, UITableViewDel
             //            cell.lblTimeAndDateAtTop.text = "\(timeStamp)"
         }
         
-        cell.lblBookingId.text = "\("Booking Id".localized): \(checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "Id", isNotHave: strNotAvailable))"
+        cell.lblBookingId.text = "\("BOOKING ID :".localized): \(checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "Id", isNotHave: strNotAvailable))"
         
         
         //        checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PickupLocation", isNotHave: strNotAvailable) //

@@ -38,10 +38,16 @@ class DriverBankDetailsViewController: UIViewController
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeLanguage), name: Notification.Name(rawValue: LCLLanguageChangeNotification), object: nil)
         setLocalizable()
         self.title = "App Name".localized
 
     }
+    
+    @objc func changeLanguage(){
+        self.setLocalizable()
+    }
+    
     func setLocalizable() {
         txtAccountHolderName.placeholder = "Account Holder Name".localized
         txtBankName.placeholder = "Bank Name".localized

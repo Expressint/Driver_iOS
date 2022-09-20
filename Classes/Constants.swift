@@ -118,16 +118,16 @@ let kShopping : String = "Shopping"
 
 
 //SideMenu Option
-let kMyJobs : String = "My Jobs"
-let kPaymentOption : String = "My Earnings"//"Payment Option"
-let kWallet : String = "Wallet"
-let kMyRating : String = "My Rating"
-let kInviteFriend : String = "Invite Friend"
-let kSettings : String = "Settings"
-let kHelp : String = "Help"
-let kLegal : String = "Legal"
-let kSupport : String = "Support"
-let kLogout : String = "Log Out"
+let kMyJobs : String = "My Jobs".localized
+let kPaymentOption : String = "My Earnings".localized
+let kWallet : String = "Wallet".localized
+let kMyRating : String = "My Ratings".localized
+let kInviteFriend : String = "Invite Friend".localized
+let kSettings : String = "Settings".localized
+let kHelp : String = "Help".localized
+let kLegal : String = "Legal".localized
+let kSupport : String = "Support".localized
+let kLogout : String = "Log Out".localized
 
 
 //let kMeter : String = "Meter"

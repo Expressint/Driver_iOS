@@ -51,8 +51,9 @@ class ChangePasswordViewController: ParentViewController {
         headerView?.backgroundColor = UIColor.clear
         headerView?.imgBottomLine.isHidden = true
         headerView?.lblTitle.textColor = UIColor.white
+        headerView?.viewWhatsappIcon.isHidden = true
 
-        headerView?.lblHeaderTitle.text = "Change Password"
+        headerView?.lblHeaderTitle.text = "Change Password".localized
         
         btnSubmit.layer.cornerRadius = btnSubmit.frame.size.height/2
         btnSubmit.clipsToBounds = true

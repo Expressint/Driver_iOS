@@ -52,7 +52,6 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
         }
         
         imagePicker.delegate = self
-        setupTextview()
 /*
         imgDriverLicence.layer.cornerRadius = imgDriverLicence.frame.size.width / 2
         imgDriverLicence.layer.masksToBounds = true
@@ -70,9 +69,9 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
     
     func setupTextview()
     {
-        txtTermsAndPrivacy.text = "I agree with Terms & conditions and Privacy Policy"
-                self.txtTermsAndPrivacy.hyperLink(originalText: "I agree with Terms & conditions and Privacy Policy",
-                                                  linkTextsAndTypes: [("Terms & conditions"): termsLink,("Privacy Policy"): PrivacyLink])
+        txtTermsAndPrivacy.text = "I agree with Terms & conditions and Privacy Policy".localized
+        self.txtTermsAndPrivacy.hyperLink(originalText: "I agree with Terms & conditions and Privacy Policy".localized,
+                                          linkTextsAndTypes: [("Terms & conditions".localized): termsLink,("Privacy Policy".localized): PrivacyLink])
                 
                 self.txtTermsAndPrivacy.delegate = self
                 self.txtTermsAndPrivacy.textColor = .white
@@ -81,13 +80,21 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeLanguage), name: Notification.Name(rawValue: LCLLanguageChangeNotification), object: nil)
        setLocalizable()
+        setupTextview()
+    }
+    
+    @objc func changeLanguage(){
+        self.setLocalizable()
+        setupTextview()
     }
     
  
     func setLocalizable()
     {
         self.title = "App Name".localized
+        
         lblDriverLicence.text = "Driver Licence (Front & Back)".localized
         txtDriverLicence.placeholder =  "Select driver licence expiry date".localized
         lblAccreditation.text = "TIN Certificate".localized
@@ -95,9 +102,13 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
         txtAccreditation.placeholder = "Select TIN Certificate expiry date".localized
 //            "Select revenue licence expiry date".localized//Select Tin Certificate expiry day
         txtCarRegistraion.placeholder = "Vehicle Registration Document".localized
+        lblCarRegistraion.text = "Vehicle Registration Document".localized
         txtPoliceClearance.placeholder = "Police Clearance Document".localized
+        lblPoliceClearance.text = "Police Clearance Document".localized
         txtFitness.placeholder = "Fitness Document".localized
+        lblFitness.text = "Fitness Document".localized
         txtRoadService.placeholder = "Road Service Document".localized
+        lblRoadService.text = "Road Service Document".localized
         
         txtVehicleInsurance.placeholder = "Select vehicle insurance/policy expiry date".localized
         lblVehicleInsurance.text = "Vehicle Insurance Policy/Certificate".localized

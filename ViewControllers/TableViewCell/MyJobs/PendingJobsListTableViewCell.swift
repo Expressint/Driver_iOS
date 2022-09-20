@@ -15,7 +15,15 @@ class PendingJobsListTableViewCell: UITableViewCell {
         
         btnStartTrip.layer.cornerRadius = 5
         btnStartTrip.layer.masksToBounds = true
-        // Initialization code
+        localize()
+    }
+    
+    func localize() {
+        //self.lblBookingId.text = "BOOKING ID :".localized
+        self.lblCompanyNameTitle.text = "Company Name :".localized
+        self.lblBookingDateTitle.text = "Booking Date :".localized
+        self.lblProcessingDateTitle.text = "Processing Date :".localized
+        self.lblPickupTimeTitle.text = "Pick Up Time :".localized
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -79,6 +87,10 @@ class PendingJobsListTableViewCell: UITableViewCell {
     @IBOutlet var stackViewNumber: UIStackView!
     
     @IBOutlet var lblPaymentType: UILabel!
+    
+    @IBOutlet weak var lblCompanyNameTitle: UILabel!
+    @IBOutlet weak var lblBookingDateTitle: UILabel!
+    @IBOutlet weak var lblProcessingDateTitle: UILabel!
     
     
     @IBOutlet var lblBookingDate: UILabel!

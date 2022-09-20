@@ -199,9 +199,10 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         self.hideEstimatedView()
         self.btnReached.titleLabel?.numberOfLines = 0
+        self.btnWaiting2.titleLabel?.numberOfLines = 0
+        self.btnShowWaiting.titleLabel?.numberOfLines = 0
         
-        self.btnWaiting2.setTitle("Stop Waiting Time", for: .selected)
-        self.btnWaiting2.setTitle("Start Waiting Time", for: .normal)
+       
         
         btnMyJob.layer.cornerRadius = btnHome.frame.size.height - 30
         btnMyJob.clipsToBounds = true
@@ -439,23 +440,46 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
+        NotificationCenter.default.addObserver(self, selector: #selector(changeLanguage), name: Notification.Name(rawValue: LCLLanguageChangeNotification), object: nil)
         setLocalization()
+    }
+    
+    @objc func changeLanguage(){
+        self.setLocalization()
     }
     
     @objc func setLocalization()
     {
         self.headerView?.lblTitle.text = "Home".localized
+        self.lblPickUpLocation.text = "Current Location".localized
+        
         btnWaiting.setTitle("Hold Trip".localized, for: .normal)
         btnWaiting.setTitle("Stop waiting".localized, for: .selected)
         //        btnHome.setTitle("Home".localized, for: .normal)
         //        btnMyJob.setTitle("My Job".localized, for: .normal)
-        btnStartTrip.setTitle("Start Trip".localized, for: .normal)
+        
+        if(btnStartTrip.titleLabel?.text == "conductor fuera" || btnStartTrip.titleLabel?.text == "Driver Outside"){
+            btnStartTrip.setTitle("Driver Outside".localized, for: .normal)
+        }else{
+            btnStartTrip.setTitle("Start Trip".localized, for: .normal)
+        }
+        
+        
         btnPassengerInfo.setTitle("Passenger Info".localized, for: .normal)
         btnCancelTrip.setTitle("Cancel Trip".localized, for: .normal)
         btnDirectionFourBTN.setTitle("Direction".localized, for: .normal)
-        lblPickUpLocation.text = "Current Location".localized
+        
         btnCompleteTrip.setTitle("Complete Trip".localized, for: .normal)
         btnDirection.setTitle("Direction".localized, for: .normal)
+        btnReached.setTitle("Complete First Stop".localized, for: .normal)
+        
+        self.btnWaiting2.setTitle("Stop Waiting Time".localized, for: .selected)
+        self.btnWaiting2.setTitle("Start Waiting Time".localized, for: .normal)
+       // self.btnShowWaiting.setTitle("Waiting Time ".localized, for: .normal)
+        
+        let title = "Waiting Time ".localized + App_Delegate.WaitingTime
+        self.btnShowWaiting.setTitle(title, for: .normal)
+        
     }
     
     @IBAction func btnSidemenuClicked(_ sender: Any)
@@ -1042,8 +1066,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             
             let estimatedTime = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "duration") as? String ?? ""
             let estimatedDistance = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "distance") as? String ?? ""
-            self.lblEstimatedTimeNew.text = "Estimated Time : \(estimatedTime)"
-            self.lblEstimatedDistanceNew.text = "Estimated Distance : \(estimatedDistance)"
+            self.lblEstimatedTimeNew.text =  "Estimated Time : ".localized + estimatedTime
+            self.lblEstimatedDistanceNew.text = "Estimated Distance : ".localized + estimatedDistance
         })
     }
     
@@ -1587,12 +1611,12 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         if let isArrived = BookingInfo.object(forKey: "IsArrived") as? String {
             if(isArrived == "0" || isArrived == "")
             {
-                self.btnStartTrip.setTitle("Driver Outside", for: .normal)
+                self.btnStartTrip.setTitle("Driver Outside".localized, for: .normal)
                 
             }
             else
             {
-                self.btnStartTrip.setTitle("Start Trip", for: .normal)
+                self.btnStartTrip.setTitle("Start Trip".localized, for: .normal)
                 
             }
         }
@@ -2766,7 +2790,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             }
             else {
                 sender.LoadButtonAnimation()
-                if(self.btnStartTrip.title(for: .normal) == "Driver Outside")
+                if(self.btnStartTrip.title(for: .normal) == "Driver Outside".localized)
                 {
                     driverClickedArrived()
                 }
@@ -2786,7 +2810,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             }
             else {
                 sender.LoadButtonAnimation()
-                if(self.btnStartTrip.title(for: .normal) == "Driver Outside")
+                if(self.btnStartTrip.title(for: .normal) == "Driver Outside".localized)
                 {
                     driverClickedArrived()
                 }
@@ -2843,7 +2867,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             if let isArrived = (data.first as? [String:Any])?["IsArrived"] as? String
             {
                 if(isArrived == "1") {
-                    self.btnStartTrip.setTitle("Start Trip", for: .normal)
+                    self.btnStartTrip.setTitle("Start Trip".localized, for: .normal)
                 }
                 else
                 {
@@ -5903,7 +5927,9 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         UtilityClass.hideACProgressHUD()
         App_Delegate.WaitingTime = "00:00:00"
         App_Delegate.WaitingTimeCount = 0
-        self.btnShowWaiting.setTitle("Waiting Time \(App_Delegate.WaitingTime)", for: .normal)
+        
+        let title = "Waiting Time ".localized + App_Delegate.WaitingTime
+        self.btnShowWaiting.setTitle(title, for: .normal)
         
         let next = self.storyboard?.instantiateViewController(withIdentifier: "TripInfoCompletedTripVC") as! TripInfoCompletedTripVC
         next.dictData = self.dictCompleteTripData
@@ -5953,7 +5979,9 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         App_Delegate.WaitingTime = "\(getStringFrom(seconds: h)):\(getStringFrom(seconds: m)):\(getStringFrom(seconds: s))"
         let meterVC = self.navigationController?.viewControllers.last as? MeterViewController
-        self.btnShowWaiting.setTitle("Waiting Time \(App_Delegate.WaitingTime)", for: .normal)
+        
+        let title = "Waiting Time ".localized + App_Delegate.WaitingTime
+        self.btnShowWaiting.setTitle(title, for: .normal)
         meterVC?.updateTime()
         self.calculateDistanceAndPrice()
     }

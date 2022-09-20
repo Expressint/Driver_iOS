@@ -103,7 +103,6 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     func setLocalization(){
         lblReceiveRequest.text = "Receive Request".localized
         lblMessage.text = "New booking request arrived".localized
-        //        lblGrandTotal.text = "Grand Total is".localized
         lblPickUpLocationInfo.text = "Pick up location".localized
         lblDropoffLocationInfo.text = "Drop off location".localized
         btnReject.setTitle("Reject".localized, for: .normal)

@@ -18,9 +18,24 @@ extension NSObject {
     }
 }
 
+extension UISegmentedControl {
+
+    func setTitleColor(_ color: UIColor, state: UIControl.State = .normal) {
+        var attributes = self.titleTextAttributes(for: state) ?? [:]
+        attributes[.foregroundColor] = color
+        self.setTitleTextAttributes(attributes, for: state)
+    }
+    
+    func setTitleFont(_ font: UIFont, state: UIControl.State = .normal) {
+        var attributes = self.titleTextAttributes(for: state) ?? [:]
+        attributes[.font] = font
+        self.setTitleTextAttributes(attributes, for: state)
+    }
+
+}
+
 extension UIButton {
-    func underline() {
-        guard let text = self.titleLabel?.text else { return }
+    func underline(text: String) {
         let attributedString = NSMutableAttributedString(string: text)
         //NSAttributedStringKey.foregroundColor : UIColor.blue
         attributedString.addAttribute(NSAttributedString.Key.underlineColor, value: self.titleColor(for: .normal)!, range: NSRange(location: 0, length: text.count))

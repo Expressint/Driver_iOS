@@ -13,14 +13,10 @@
  class LoginViewController: UIViewController, CLLocationManagerDelegate,UITextFieldDelegate {
     
     var manager = CLLocationManager()
-    
     var currentLocation = CLLocation()
-    
     var strLatitude = Double()
     var strLongitude = Double()
-    
     var strEmailForForgotPassword = String()
-    
     //-------------------------------------------------------------
     // MARK: - Outlets
     //-------------------------------------------------------------
@@ -36,9 +32,9 @@
     //view
     @IBOutlet weak var btnForgotPassWord: UIButton!
     @IBOutlet var btnSignIn: UIButton!
-    @IBOutlet var btnSignUp: UIButton!
-    @IBOutlet var lblLaungageName: UILabel!
-    
+     @IBOutlet var btnSignUp: UIButton!
+     @IBOutlet weak var segmentLang: UISegmentedControl!
+     
    
     //    @IBOutlet weak var constraintHeightOfLogo: NSLayoutConstraint! // 140
     //    @IBOutlet weak var constraintHeightOfTextFields: NSLayoutConstraint! // 50
@@ -50,19 +46,12 @@
     //-------------------------------------------------------------
     
     func setLocalization() {
-        
-        if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
-            if SelectedLanguage == "en" {
-                lblLaungageName.text = "SW"
-            } else if SelectedLanguage == "sw" {
-                lblLaungageName.text = "EN"
-            }
-        }
         self.txtMobile.placeholder = "Email/Mobile Number".localized
         self.txtPassword.placeholder = "Password".localized
         self.btnForgotPassWord.setTitle("Forgot Password".localized, for: .normal)
         self.btnSignIn.setTitle("Sign In".localized, for: .normal)
         self.btnSignUp.setTitle("Sign Up".localized, for: .normal)
+        self.btnSignUp.underline(text: "Sign Up".localized)
         self.lblDonTHaveAnyAccount.text = "Don't have an Account?".localized
         
     }
@@ -103,28 +92,23 @@
 //            webserviceOfAppSetting()
     //
         }
+     
+     @objc func changeLanguage(){
+         self.setLocalization()
+     }
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
+       
+        
         manager.delegate = self
         txtMobile.delegate = self
         txtPassword.delegate = self
-        lblLaungageName.layer.cornerRadius = 5
-        lblLaungageName.backgroundColor = ThemeAppMainColor
-        lblLaungageName.layer.borderColor = UIColor.black.cgColor
-        lblLaungageName.layer.borderWidth = 0.5
+    
         btnForgotPassWord.setTitleColor(ThemeAppTextColor, for: .normal)
         btnSignUp.setTitleColor(ThemeAppTextColor, for: .normal)
         lblDonTHaveAnyAccount.textColor = ThemeAppTextColor
-        
-        if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
-            if SelectedLanguage == "en" {
-                lblLaungageName.text = "EN"
-            } else if SelectedLanguage == "sw" {
-                    lblLaungageName.text = "SW"
-            }
-        }
         
 //        txtMobile.text = "9898989898"//"1111111111"
 //        txtPassword.text = "12345678"
@@ -168,10 +152,24 @@
 
         // Do any additional setup after loading the view.
     }
+     
+     @objc func indexChanged(_ sender: UISegmentedControl) {
+         if segmentLang.selectedSegmentIndex == 0 {
+             Localize.setCurrentLanguage(Languages.English.rawValue)
+         } else if segmentLang.selectedSegmentIndex == 1 {
+             Localize.setCurrentLanguage(Languages.Spanish.rawValue)
+         }
+     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
+        
+        segmentLang.setTitleColor(.white)
+        segmentLang.selectedSegmentIndex = (Localize.currentLanguage() == Languages.English.rawValue) ? 0 : 1
+        segmentLang.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeLanguage), name: Notification.Name(rawValue: LCLLanguageChangeNotification), object: nil)
+        
         self.setLocalization()
 //        self.title = "Ingia".localized
         
@@ -225,21 +223,6 @@
     //-------------------------------------------------------------
     // MARK: - Actions
     //-------------------------------------------------------------
-    
-    @IBAction func btnLaungageClicked(_ sender: Any)
-    {
-        
-        if let SelectedLanguage = UserDefaults.standard.value(forKey: "i18n_language") as? String {
-            if SelectedLanguage == "en" {
-                setLayoutForswahilLanguage()
-                lblLaungageName.text = "EN"
-            } else if SelectedLanguage == "sw" {
-                setLayoutForenglishLanguage()
-                lblLaungageName.text = "SW"
-            }
-        }
-        self.setLocalization()
-    }
     
     @IBAction func btnSignIn(_ sender: UIButton) {
         //        CustomSideMenuViewController

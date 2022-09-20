@@ -24,6 +24,14 @@ class TripInfoCompletedTripVC: UIViewController {
     
 //    @IBOutlet weak var lblDropOffLocationInFo: UILabel!
 //    @IBOutlet weak var lblPickUPLocationInFo: UILabel!
+    @IBOutlet weak var lblTitleCompamyName: UILabel!
+    @IBOutlet weak var lblTitleProcessingDate: UILabel!
+    @IBOutlet weak var lblTitleBookingDate: UILabel!
+    @IBOutlet weak var lblTitleAuthorization: UILabel!
+    @IBOutlet weak var lblTitleSubTotal: UILabel!
+    
+    
+    @IBOutlet weak var lblOrderNumber: UILabel!
     @IBOutlet var lblDate: UILabel!
     @IBOutlet var btnViewCompleteTripData: UIView!
     
@@ -165,20 +173,35 @@ class TripInfoCompletedTripVC: UIViewController {
     func setLocalization()
     {
         lblTripDetail.text = "Trip Info".localized
-//        lblPickupLocation.text =  "Address".localized
-//        lblDropOffLocation.text = "Address".localized
+        lblOrderNumber.text = "Order Number/Booking Number".localized
         
+        lblTitleCompamyName.text = "Company Name :".localized
+        lblTitleProcessingDate.text = "Processing Date :".localized
+        lblTitleBookingDate.text = "Booking Date :".localized
+        lblTitleAuthorization.text = "Authorization Number :".localized
+        lblTitleSubTotal.text = "Sub Total :".localized
+        
+        lblPaymentTypeTitle.text = "Payment Type :".localized
         lblTripFareTitle.text = "Trip Fare".localized
-        lblDistanceTravelledTitle.text = "Trip Distance".localized
         lblDistanceFareTitle.text  = "Distance Fare".localized
-        lblWaitingCostTitle.text  = "Waiting Cost :".localized
-        lblWaitingTimeTitle.text  = "Waiting Time :".localized
-        lblTipAmountTitle.text  = "Tip by Passenger".localized
         lblBookingFeeTitle.text  = "Booking Charge".localized
-        lblPromoCodeTitle.text  = "Discount :".localized
         lblTaxTitle.text  = "Tax".localized
         lblTotlaAmountTitle.text  = "Grand Total :".localized
         lblLessTitle.text  = "(incl tax)".localized
+//        lblPickupLocation.text =  "Address".localized
+//        lblDropOffLocation.text = "Address".localized
+        
+        
+        lblDistanceTravelledTitle.text = "Trip Distance".localized
+        
+        lblWaitingCostTitle.text  = "Waiting Cost :".localized
+        lblWaitingTimeTitle.text  = "Waiting Time :".localized
+        lblTipAmountTitle.text  = "Tip by Passenger".localized
+        
+        lblPromoCodeTitle.text  = "Discount :".localized
+        
+        
+        
         btnOK.setTitle("OK".localized, for: .normal) 
     
     }
@@ -290,7 +313,7 @@ class TripInfoCompletedTripVC: UIViewController {
         }
 
         if let BookingId = dictData.object(forKey: "Id") as? String {
-            lblBookingID.text = BookingId
+            lblBookingID.text =  ": " + BookingId
         }
         
         if let CreatedDate = dictData.object(forKey: "CreatedDate") as? String {

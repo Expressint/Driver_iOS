@@ -97,11 +97,18 @@ class DriverEmailViewController: UIViewController, UIScrollViewDelegate, NVActiv
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(changeLanguage), name: Notification.Name(rawValue: LCLLanguageChangeNotification), object: nil)
         setLocalization()
       
         self.title = "App Name".localized
 
     }
+    
+    @objc func changeLanguage(){
+        self.setLocalization()
+    }
+    
     func setLocalization()
     {
         txtMobile.placeholder = "Mobile Number".localized
@@ -110,12 +117,9 @@ class DriverEmailViewController: UIViewController, UIScrollViewDelegate, NVActiv
         txtConPassword.placeholder = "Confirm Password".localized
         btnNext.setTitle("Send OTP".localized, for: .normal)
         txtOTP.placeholder = "Enter Mobile OTP".localized
-        //lblPleaseCheckYourEmail.text = "".localized
-//        lblPleaseCheckYourEmail.text = "Resend OTP".localized
         btnResentOtp.setTitle("Resend OTP".localized, for: .normal)
-//        lblHaveAccount.text = "".localized
-//        btnLogin.setTitle("".localized, for: normal)
     }
+    
     @IBAction func btnCountryCodePicker(_ sender: Any)
     {
         

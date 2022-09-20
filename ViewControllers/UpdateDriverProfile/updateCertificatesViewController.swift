@@ -75,6 +75,9 @@ class updateCertificatesViewController: UIViewController, UIImagePickerControlle
 //        lblCarRegistrationExpiryDate.text = "Select car registration expiry date".localized
         lblVehicleInsurance.text = "Vehicle Insurance Policy/Certificate".localized
         lblVehicleInsuranceExpiryDate.text = "Select vehicle insurance/policy expiry date".localized
+        
+        lblFitness.text = "Fitness Document".localized
+        lblRoadServiice.text = "Road Service Document".localized
 //        btnSave.setTitle("Save".localized, for: .normal)
     }
 
@@ -501,7 +504,7 @@ print("ATDebug :: VehicleInsuranceCertificateImage \(VehicleInsuranceCertificate
 
     
     @IBAction func btnUploadVehicleImage(_ sender: Any) {
-        UtilityClass.showAlertWithCompletion("Info Message!", message: "Please take a front picture of the car with the license plate clearly visible.", vc: self) { success in
+        UtilityClass.showAlertWithCompletion("Info Message!".localized, message: "Please take a front picture of the car with the license plate clearly visible.".localized, vc: self) { success in
             let alert = UIAlertController(title:  "Choose Photo".localized, message: nil, preferredStyle: .alert)
             
             let Gallery = UIAlertAction(title: "Select photo from gallery".localized, style: .default, handler: { ACTION in

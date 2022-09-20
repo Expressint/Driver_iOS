@@ -44,15 +44,18 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
             btnSignOut1.setTitle("Sign out".localized, for: .normal)
         }
     }
+    
+    @IBOutlet weak var btnSetting: UIButton!
+    @IBOutlet weak var btnDelete: UIButton!
+    @IBOutlet weak var segmentLang: UISegmentedControl!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
       //  btnLiveHelp.underline()
         strSelectedLaungage = KEnglish
       
-        arrMenuTitle = [kMyJobs,kPaymentOption,kHelp,kInviteFriend]
-               
-        arrMenuIcons = [kiconMyJobs,kiconPaymentOption,kIconHelp,kiconInviteFriend]
+      
         /*
         arrMenuTitle = [kMyJobs,kPaymentOption,kWallet,kMyRating,kInviteFriend,kSettings,kLegal,kSupport,kLogout]
         
@@ -75,9 +78,40 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeLanguage), name: Notification.Name(rawValue: LCLLanguageChangeNotification), object: nil)
+        setLocalization()
+        
+        segmentLang.setTitleColor(.white)
+        segmentLang.selectedSegmentIndex = (Localize.currentLanguage() == Languages.English.rawValue) ? 0 : 1
+        segmentLang.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
+       
         
         giveGradientColor()
 //        getDataFromSingleton() RJChange
+    }
+    
+    @objc func indexChanged(_ sender: UISegmentedControl) {
+        if segmentLang.selectedSegmentIndex == 0 {
+            Localize.setCurrentLanguage(Languages.English.rawValue)
+        } else if segmentLang.selectedSegmentIndex == 1 {
+            Localize.setCurrentLanguage(Languages.Spanish.rawValue)
+        }
+    }
+    
+    @objc func changeLanguage(){
+        self.setLocalization()
+    }
+    
+    func setLocalization() {
+        arrMenuTitle = [ "My Jobs".localized,"My Earnings".localized,"Help".localized,"Invite Friend".localized]
+        arrMenuIcons = [kiconMyJobs,kiconPaymentOption,kIconHelp,kiconInviteFriend]
+        
+        btnSignOut1.setTitle("Sign out".localized, for: .normal)
+        btnSignOut1.titleLabel?.numberOfLines = 0
+        btnSetting.setTitle("Settings".localized, for: .normal)
+        btnDelete.setTitle("Delete Account".localized, for: .normal)
+        
+        CollectionView.reloadData()
     }
     
     func giveGradientColor() {
@@ -397,14 +431,14 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     //MARK: Button Action
     @IBAction func btnDeleteAction(_ sender: UIButton) {
-        let refreshAlert = UIAlertController(title: "Delete Account", message: "Are you sure you want to delete your account?", preferredStyle: UIAlertController.Style.alert)
+        let refreshAlert = UIAlertController(title: "Delete Account".localized, message: "Are you sure you want to delete your account?".localized, preferredStyle: UIAlertController.Style.alert)
 
-        refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: "Yes".localized, style: .default, handler: { (action: UIAlertAction!) in
             self.sideMenuController?.toggle()
             self.webserviceOFDeleteAccount()
         }))
 
-        refreshAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: "No".localized, style: .cancel, handler: { (action: UIAlertAction!) in
             self.sideMenuController?.toggle()
         }))
 
@@ -554,7 +588,7 @@ extension MenuController : UICollectionViewDataSource, UICollectionViewDelegate,
         let customCell = self.CollectionView.dequeueReusableCell(withReuseIdentifier: "SideMenuCollectionViewCell", for: indexPath) as! SideMenuCollectionViewCell
         
         customCell.imgDetail?.image = UIImage.init(named:  "\(arrMenuIcons[indexPath.row])")
-        customCell.lblTitle.text = arrMenuTitle[indexPath.row].localized
+        customCell.lblTitle.text = "\(arrMenuTitle[indexPath.row])"
 //        customCell.lblTitle.font = UIFont.regular(ofSize: 12.0)
         if(arrMenuTitle[indexPath.row].localized == "SOS")
         {
@@ -570,22 +604,22 @@ extension MenuController : UICollectionViewDataSource, UICollectionViewDelegate,
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if arrMenuTitle[indexPath.row] == kMyJobs {
+        if arrMenuTitle[indexPath.row] == "My Jobs".localized {
             let viewController = self.storyboard?.instantiateViewController(withIdentifier: "MyJobsViewController") as! MyJobsViewController
             self.navigationController?.pushViewController(viewController, animated: true)
             sideMenuController?.toggle()
-        }else if arrMenuTitle[indexPath.row] == kPaymentOption {
+        }else if arrMenuTitle[indexPath.row] == "My Earnings".localized {
             let storyboard = UIStoryboard(name: "MyEarnings", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier: "MyEarningsViewController") as! MyEarningsViewController
             
             self.navigationController?.pushViewController(viewController, animated: true)
             sideMenuController?.toggle()
         }
-        else if arrMenuTitle[indexPath.row] == kInviteFriend {
+        else if arrMenuTitle[indexPath.row] == "Invite Friend".localized {
             self.InviteFriend()
             sideMenuController?.toggle()
         }
-        else if arrMenuTitle[indexPath.row] == kHelp {
+        else if arrMenuTitle[indexPath.row] == "Help".localized {
 //            self.dialNumber(number: Singletons.sharedInstance.DispatchCall)
             self.alertForHelpOptions()
         }

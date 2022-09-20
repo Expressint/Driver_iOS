@@ -54,6 +54,8 @@ let googlPlacesApiKey = googlApiKey
         UserDefaults.standard.set(false, forKey: kIsUpdateAvailable)
         UserDefaults.standard.synchronize()
         
+        checkAndSetDefaultLanguage()
+        
 //        if UserDefaults.standard.value(forKey: "i18n_language") == nil {
 //            UserDefaults.standard.set("en", forKey: "i18n_language")
 //            UserDefaults.standard.synchronize()
@@ -123,6 +125,11 @@ let googlPlacesApiKey = googlApiKey
         UNUserNotificationCenter.current().delegate = self
         FirebaseApp.configure()
         return true
+    }
+    
+    func checkAndSetDefaultLanguage() {
+        let currentLang = Localize.currentLanguage()
+        Localize.setCurrentLanguage(currentLang)
     }
     
     func setDataInSingletonClass()
@@ -792,20 +799,6 @@ extension UIApplication {
         }
 
         return rootViewController
-    }
-}
-
-extension String {
-    var localized: String {
-        
-        
-        let lang = UserDefaults.standard.string(forKey: "i18n_language")
-//        print(lang)
-        let path = Bundle.main.path(forResource: lang, ofType: "lproj")
-        let bundle = Bundle(path: path!)
-//        print(path ?? "")
-//        print(bundle ?? "")
-        return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
     }
 }
 

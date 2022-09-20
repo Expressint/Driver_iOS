@@ -16,6 +16,15 @@ class FutureBookingTableViewCell: UITableViewCell {
         
         btnAction.layer.cornerRadius = 5
         btnAction.layer.masksToBounds = true
+        self.localize()
+    }
+    
+    func localize() {
+        //self.lblBookingId.text = "BOOKING ID :".localized
+        self.lblCompanyNameTitle.text = "Company Name :".localized
+        self.lblBookingDateTitle.text = "Booking Date :".localized
+        self.lblProcessingDateTitle.text = "Processing Date :".localized
+        self.lblPickUpTimeTitle.text = "Pick Up Time :".localized
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -31,6 +40,10 @@ class FutureBookingTableViewCell: UITableViewCell {
     @IBOutlet var lblDate: UILabel!
     @IBOutlet weak var lblPassengerName: UILabel!
     @IBOutlet weak var lblFlighNum: UILabel!
+    
+    @IBOutlet weak var lblCompanyNameTitle: UILabel!
+    @IBOutlet weak var lblBookingDateTitle: UILabel!
+    @IBOutlet weak var lblProcessingDateTitle: UILabel!
     
   
     @IBOutlet var viewCell: UIView!

@@ -145,7 +145,7 @@ class FutureBookingVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         cell.selectionStyle = .none
         
-        cell.lblPickUpTimeTitle.text = "Pick Up Time :".localized
+        //cell.lblPickUpTimeTitle.text = "Pick Up Time :".localized
         cell.lblTripDistance.text = "Distance Travel :".localized
         cell.lblpeymentType.text = "Payment Type :".localized
         
@@ -181,7 +181,7 @@ class FutureBookingVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         //                cell.lblTimeAndDateAtTop.text = strNotAvailable
         //            }
         
-        cell.lblBookingId.text = "\("Booking Id".localized): \(checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "Id", isNotHave: strNotAvailable))"
+        cell.lblBookingId.text = "\("BOOKING ID :".localized) \(checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "Id", isNotHave: strNotAvailable))"
         
         
         cell.lblDate.text = (checkDictionaryHaveValue(dictData: data as! [String : AnyObject], didHaveValue: "PickupDateTime", isNotHave: strNotAvailable)).components(separatedBy: " ")[0]

@@ -16,10 +16,11 @@ class CancelAlertViewController: UIViewController, UIPickerViewDataSource,UIPick
     @IBOutlet weak var txtDescription : UITextView?
     @IBOutlet weak var lblLongDescription : UILabel?
     @IBOutlet weak var lblShortDescription : UILabel?
+    @IBOutlet weak var btnOk: UIButton!
     var pickerController : UIPickerView?
     var isHelp = false
     var okPressedClosure : ((String) -> ()) = {reason in }
-    let placeHolder = "Enter reason here"
+    let placeHolder = "Enter reason here".localized
     
     //MARK: - Setup Methods
     override func viewDidLoad() {
@@ -47,7 +48,7 @@ class CancelAlertViewController: UIViewController, UIPickerViewDataSource,UIPick
         {
             self.webserviceCallForReasonsForHelp()
             lblLongDescription?.text = ""
-            lblShortDescription?.text = "Please Select Help Reason"
+            lblShortDescription?.text = "Please Select Help Reason".localized
         }
         else
         {
@@ -58,7 +59,11 @@ class CancelAlertViewController: UIViewController, UIPickerViewDataSource,UIPick
         }
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.btnOk.setTitle("OK".localized, for: .normal)
+    }
     
     //MARK: - Picker Methods
 

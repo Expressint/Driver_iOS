@@ -65,7 +65,12 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         SetLocalizable()
+        NotificationCenter.default.addObserver(self, selector: #selector(changeLanguage), name: Notification.Name(rawValue: LCLLanguageChangeNotification), object: nil)
         self.webserviceCallToGetDistrictList()
+    }
+    
+    @objc func changeLanguage(){
+        self.SetLocalizable()
     }
     
     func SetLocalizable()
@@ -248,7 +253,7 @@ class DriverPersonelDetailsViewController: UIViewController, UIImagePickerContro
     
     @IBAction func TapToProfilePicture(_ sender: UITapGestureRecognizer) {
         
-        UtilityClass.showAlertWithCompletion("Info Message!", message: "Please take a clear passport sized picture!", vc: self) { success in
+        UtilityClass.showAlertWithCompletion("Info Message!".localized, message: "Please take a clear passport sized picture!".localized, vc: self) { success in
             let alert = UIAlertController(title: "Choose Photo".localized, message: nil, preferredStyle: .alert)
             
             let Gallery = UIAlertAction(title: "Select photo from gallery".localized

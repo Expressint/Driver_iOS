@@ -134,6 +134,11 @@ class PastJobsListTableViewCell: UITableViewCell {
     
     @IBOutlet weak var btnGetReceipt: UIButton!
     @IBOutlet weak var BtnViewReceipt: UIButton!
+    
+    @IBOutlet weak var lblCompanyNameTitle: UILabel!
+    @IBOutlet weak var lblBookingDateTitle: UILabel!
+    @IBOutlet weak var lblProcessingDateTitle: UILabel!
+    @IBOutlet weak var lblAuthorizationNumberTitle: UILabel!
    
    
 }

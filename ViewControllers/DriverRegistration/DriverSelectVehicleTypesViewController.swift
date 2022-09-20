@@ -46,8 +46,13 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeLanguage), name: Notification.Name(rawValue: LCLLanguageChangeNotification), object: nil)
         setLocalizable()
         
+    }
+    
+    @objc func changeLanguage(){
+        self.setLocalizable()
     }
     
     func setLocalizable()
@@ -59,6 +64,7 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
         txtVehicleMake.placeholder = "Vehicle Make".localized
         txtCarType.placeholder = "Vehicle Type".localized
         txtNumberPassenger.placeholder = "Number Of Passenger".localized
+        txtVehicleColor.placeholder = "Vehicle Color".localized
         btnNext.setTitle("Next".localized, for: .normal)
 //        lblHaveAnAccount.text = "".localized
 //        btnLogin.setTitle("".localized, for: .normal)
@@ -522,7 +528,7 @@ class DriverSelectVehicleTypesViewController: UIViewController,getVehicleIdAndNa
     
     
     @IBAction func btnChoosePicture(_ sender: UIButton) {
-        UtilityClass.showAlertWithCompletion("Info Message!", message: "Please take a front picture of the car with the license plate clearly visible.", vc: self) { success in
+        UtilityClass.showAlertWithCompletion("Info Message!".localized, message: "Please take a front picture of the car with the license plate clearly visible.".localized, vc: self) { success in
             
             let alert = UIAlertController(title: "Choose Photo".localized, message: nil, preferredStyle: .alert)
             

@@ -14,6 +14,8 @@ class ForgetPasswordViewController: UIViewController {
     @IBOutlet var txtPhoneNumber: ThemeTextField!
     @IBOutlet var btnCountryCode: UIButton!
     @IBOutlet var txtEmail: ThemeTextField!
+    @IBOutlet weak var btnForgotPass: ThemeButton!
+    @IBOutlet weak var lblOr: UILabel!
     let countryPicker = CountryPickerView()
 
     
@@ -25,9 +27,23 @@ class ForgetPasswordViewController: UIViewController {
         txtEmail.delegate = self
         countryPicker.delegate = self
         btnCountryCode.setTitle("+592", for: .normal)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(changeLanguage), name: Notification.Name(rawValue: LCLLanguageChangeNotification), object: nil)
+        
+        self.setLocalization()
 
     }
     
+    @objc func changeLanguage(){
+        self.setLocalization()
+    }
+    
+    func setLocalization(){
+        self.txtPhoneNumber.placeholder = "Mobile Number".localized
+        self.txtEmail.placeholder = "Email".localized
+        self.lblOr.text = "OR".localized
+        self.btnForgotPass.setTitle("ForgotPassword".localized, for: .normal)
+    }
 
     /*
     // MARK: - Navigation
