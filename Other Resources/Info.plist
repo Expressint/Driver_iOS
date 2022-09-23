@@ -52,17 +52,17 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Camera access required for capturing photos!</string>
+	<string>App would like to access your camera to Upload Profile Picture, Upload document images, and to send images in chat.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>App would like to use your current location to journal places you go.</string>
+	<string>App would like to use your current location to draw path to destination during trips.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>App would like to use your current location to journal places you go.</string>
+	<string>App would like to use your current location to draw path to destination during trips.</string>
 	<key>NSLocationUsageDescription</key>
-	<string>App would like to use your current location to journal places you go.</string>
+	<string>App would like to use your current location to draw path to destination during trips.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>App would like to use your current location to journal places you go.</string>
+	<string>App would like to use your current location to draw path to destination during trips.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Photo Library access required for using photos!</string>
+	<string>App would like to access your Photo Library to Upload Profile Picture, Upload document images, and to send images in chat.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>proxima-nova-black.otf</string>

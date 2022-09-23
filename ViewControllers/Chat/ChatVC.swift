@@ -81,7 +81,7 @@ class ChatVC: ParentViewController {
         self.lblNavName.text = receiverName
         
         txtMessage.delegate = self
-        txtMessage.text = "Enter Message.."
+        txtMessage.text = "Enter Message..".localized
         txtMessage.textColor = UIColor.black
         
         self.tblData.delegate = self
@@ -257,7 +257,7 @@ class ChatVC: ParentViewController {
         
         self.socket.emit(socketApiKeys.sendMessage, with: [myJSON], completion: nil)
         print ("\(socketApiKeys.sendMessage) : \(myJSON)")
-        txtMessage.text = "Enter Message.."
+        txtMessage.text = "Enter Message..".localized
         txtMessage.textColor = UIColor.black
         self.view.endEditing(true)
     }
@@ -274,7 +274,7 @@ class ChatVC: ParentViewController {
         
         self.socket.emit(socketApiKeys.sendMessage, with: [myJSON], completion: nil)
         print ("\(socketApiKeys.sendMessage) : \(myJSON)")
-        txtMessage.text = "Enter Message.."
+        txtMessage.text = "Enter Message..".localized
         txtMessage.textColor = UIColor.black
         self.view.endEditing(true)
     }
@@ -302,10 +302,10 @@ class ChatVC: ParentViewController {
     
     
     @IBAction func btnSendAction(_ sender: Any) {
-        if(self.txtMessage.text.trimmingCharacters(in: .whitespaces) != "" && self.txtMessage.text != "Enter Message.."){
+        if(self.txtMessage.text.trimmingCharacters(in: .whitespaces) != "" && self.txtMessage.text != "Enter Message..".localized){
             self.sendMessage()
         }else{
-            UtilityClass.showAlert("Misssing".localized, message:  "Please enter message".localized, vc: self)
+            UtilityClass.showAlert("Missing".localized, message:  "Please enter message".localized, vc: self)
         }
     }
     
@@ -338,7 +338,7 @@ extension ChatVC: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if txtMessage.text.isEmpty {
-            txtMessage.text = "Enter Message.."
+            txtMessage.text = "Enter Message..".localized
             txtMessage.textColor = UIColor.black
         }
     }

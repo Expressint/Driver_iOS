@@ -85,6 +85,9 @@ class HeaderView: UIView {
             hView?.viewWhatsappIcon.isHidden = false
         }
         
+        let image = (Localize.currentLanguage() == Languages.English.rawValue) ? "ic_DispatcherChat" : "ic_DispatcherChat_es"
+        hView?.btnWhatsapp.setBackgroundImage(UIImage(named: image), for: .normal)
+        
         return hView!
     }
     

@@ -90,6 +90,12 @@
 //Home
 "Home" = "Home";
 "Current Location" = "Current Location";
+"message_turnDuty_off" = "Are you sure you want to turn off duty?";
+"message_turnDuty_on" = "Are you sure you want to turn on duty?";
+"Enter Message.." = "Enter Message..";
+"Missing" = "Missing";
+"Please enter message" = "Please enter message";
+"message_StopWaitingTime" = "Please stop trip waiting time first.";
 
 //SideMnu
 "My Jobs" = "My Jobs";
@@ -392,9 +398,7 @@
 "Please wait for 30 seconds" = "Please wait for 30 seconds";
 "Want to ask about Tips?" = "Want to ask about Tips?";
 "Please install Google Maps." = "Please install Google Maps.";
-"message_StopWaitingTime" = "Please stop trip waiting time first.";
 "message_selectDestination" = "Please select First Destination";
 "message_secondDestinationSelected" = "Your second destination selected";
-"message_turnDuty_off" = "Are you sure you want to turn off duty?";
-"message_turnDuty_on" = "Are you sure you want to turn on duty?";
+
 "message_getOnline" = "Please get online";

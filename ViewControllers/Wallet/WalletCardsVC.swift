@@ -530,7 +530,7 @@ class WalletCardsVC: UIViewController, UITableViewDataSource, UITableViewDelegat
                 
                 self.tableView.reloadData()
                 
-                UtilityClass.showAlert(appName.kAPPName, message: (result as! NSDictionary).object(forKey: "message") as! String, vc: self)
+                UtilityClass.showAlert(appName.kAPPName, message: (result as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, vc: self)
             }
             else {
                 print(result)

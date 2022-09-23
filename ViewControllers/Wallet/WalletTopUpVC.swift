@@ -247,7 +247,7 @@ class WalletTopUpVC: ParentViewController, SelectCardDelegate, delegatePesapalWe
                 
                 self.txtAmount.text = ""
                 
-                UtilityClass.showAlert(appName.kAPPName, message: (result as! NSDictionary).object(forKey: "message") as! String, vc: self)
+                UtilityClass.showAlert(appName.kAPPName, message: (result as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, vc: self)
                 
                 Singletons.sharedInstance.strCurrentBalance = ((result as! NSDictionary).object(forKey: "walletBalance") as! AnyObject).doubleValue
                 

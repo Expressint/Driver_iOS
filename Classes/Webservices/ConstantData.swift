@@ -22,8 +22,8 @@ struct WebSupport {
 //Development: http://52.23.45.119/
 struct WebserviceURLs {
     
-    static let kBaseURL                                 = "http://52.23.45.119/Drvier_Api/"
-    static let kImageBaseURL                            = "http://52.23.45.119/"
+    static let kBaseURL                                 = "https://www.bookaridegy.com/Drvier_Api/"
+    static let kImageBaseURL                            = "https://www.bookaridegy.com/"
     static let kOTPForDriverRegister                    = "OtpForRegister"
     static let kVehicalModelList                        = "TaxiModel/"
     static let kDriverRegister                          = "Register"
@@ -159,7 +159,7 @@ struct RegistrationFinalKeys {
     static let kAddress = "Address"// Done
     static let kDistrict = "District"// Done
     
-     static let kSuburb = "Suburb"// Done
+    static let kSuburb = "Suburb"// Done
     
     static let kBankBranch = "BankBranch"// Done
     static let kCity = "City"// Done
@@ -217,7 +217,7 @@ struct RegistrationFinalKeys {
 //Development: http://52.23.45.119:8080
 struct socketApiKeys {
     
-    static let kSocketBaseURL = "http://52.23.45.119:8080"
+    static let kSocketBaseURL = "https://www.bookaridegy.com:8080"
  
     static let kUpdateDriverLocation = "UpdateDriverLatLong"
     static let kReceiveBookingRequest = "AriveBookingRequest"

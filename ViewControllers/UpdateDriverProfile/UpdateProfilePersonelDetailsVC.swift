@@ -575,8 +575,8 @@ class UpdateProfilePersonelDetailsVC: UIViewController,UIImagePickerControllerDe
                     UtilityClass.showAlert("App Name".localized, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String, vc: self)
                 }
             }
-            
-            
+        
+    
         }
     }
     

@@ -197,6 +197,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.socketMethods()
+        
         self.hideEstimatedView()
         self.btnReached.titleLabel?.numberOfLines = 0
         self.btnWaiting2.titleLabel?.numberOfLines = 0
@@ -255,6 +257,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.goChatScreen), name: GoToChatScreen, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.goChatWithDispatcher), name: GoToDispatcherChatScreen, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.signOutUser), name: UserSignOut, object: nil)
         
         setCar()
         
@@ -439,6 +443,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(true)
+        
         self.navigationController?.isNavigationBarHidden = true
         NotificationCenter.default.addObserver(self, selector: #selector(changeLanguage), name: Notification.Name(rawValue: LCLLanguageChangeNotification), object: nil)
         setLocalization()
@@ -451,6 +456,9 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     @objc func setLocalization()
     {
         self.headerView?.lblTitle.text = "Home".localized
+        let image = (Localize.currentLanguage() == Languages.English.rawValue) ? "ic_DispatcherChat" : "ic_DispatcherChat_es"
+        self.headerView?.btnWhatsapp.setBackgroundImage(UIImage(named: image), for: .normal)
+        
         self.lblPickUpLocation.text = "Current Location".localized
         
         btnWaiting.setTitle("Hold Trip".localized, for: .normal)
@@ -750,7 +758,10 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             subMapView.bringSubviewToFront(mapView)
             //            self.mapView.settings.rotateGestures = false
             //            self.mapView.settings.tiltGestures = false
-            self.socketMethods()
+           
+            if(socket.status != .connected){
+                self.socketMethods()
+            }
         }
         else
         {
@@ -944,6 +955,9 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
 
     func socketMethods()
     {
+        if(socket.status == .connected){
+            self.methodsAfterConnectingToSocket()
+        }
         
         socket.on(clientEvent: .disconnect) { (data, ack) in
             print ("socket is disconnected please reconnect")
@@ -2871,7 +2885,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 }
                 else
                 {
-                    if let strMessage = (data.first as? [String:Any])?["message"] as? String {
+                    if let strMessage = (data.first as? [String:Any])?[GetResponseMessageKey()] as? String {
                         UtilityClass.showAlert(appName.kAPPName, message: strMessage, vc: self)
                     }
                 }
@@ -5552,6 +5566,39 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     // MARK: - Webservice Methods Sign Out
     //-------------------------------------------------------------
     
+    @objc func signOutUser() {
+        let socket = (UIApplication.shared.delegate as! AppDelegate).SManager.defaultSocket
+        
+        socket.off(socketApiKeys.kReceiveBookingRequest)
+        socket.off(socketApiKeys.kBookLaterDriverNotify)
+        
+        socket.off(socketApiKeys.kGetBookingDetailsAfterBookingRequestAccepted)
+        socket.off(socketApiKeys.kAdvancedBookingInfo)
+        
+        socket.off(socketApiKeys.kReceiveMoneyNotify)
+        socket.off(socketApiKeys.kAriveAdvancedBookingRequest)
+        
+        socket.off(socketApiKeys.kDriverCancelTripNotification)
+        socket.off(socketApiKeys.kAdvancedBookingDriverCancelTripNotification)
+        Singletons.sharedInstance.setPasscode = ""
+        Singletons.sharedInstance.isPasscodeON = false
+        socket.disconnect()
+        
+        for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
+            print("\(key) = \(value) \n")
+            
+            if(key != "Token" && key != "i18n_language") {
+                UserDefaults.standard.removeObject(forKey: key)
+            }
+        }
+        UserDefaults.standard.set(false, forKey: "isTripDestinationShow")
+        UserDefaults.standard.set(false, forKey: driverProfileKeys.kKeyIsDriverLoggedIN)
+        UserDefaults.standard.set(false, forKey: kIsSocketEmited)
+        //  UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        Singletons.sharedInstance.isDriverLoggedIN = false
+        AppDelegate.shared.navigateToLogin()
+    }
+    
     func webserviceOFSignOut()
     {
         let srtDriverID = Singletons.sharedInstance.strDriverID
@@ -5580,10 +5627,12 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 
                 socket.disconnect()
                 Singletons.sharedInstance.isDriverLoggedIN = false
+                UserDefaults.standard.set(false, forKey: "isTripDestinationShow")
+                UserDefaults.standard.set(false, forKey: driverProfileKeys.kKeyIsDriverLoggedIN)
                 UserDefaults.standard.set(false, forKey: kIsSocketEmited)
                 
                 Utilities.showAlertWithCompletion(AppNAME, message: "Your session has been expired, please try to login again.".localized, vc: ((UIApplication.shared.delegate as! AppDelegate).window?.rootViewController)!, completionHandler: { (status) in
-                    self.performSegue(withIdentifier: "SignOutFromHome", sender: (Any).self)
+                    AppDelegate.shared.navigateToLogin()
                 })
                 
             }

@@ -208,7 +208,7 @@ class CancelAlertViewController: UIViewController, UIPickerViewDataSource,UIPick
         
         let index = pickerController?.selectedRow(inComponent: 0) as? Int
         dictData["HelpId"] =  (arrHelpOptions[index ?? 0])["Id"] as? String
-        dictData["Notes"] =  txtDescription?.text ?? ""
+        dictData["Notes"] =  (txtDescription?.text == placeHolder) ? "" : txtDescription?.text
         
         webserviceForSendingHelpRequest(dictData as AnyObject) { result, success in
             if(success)

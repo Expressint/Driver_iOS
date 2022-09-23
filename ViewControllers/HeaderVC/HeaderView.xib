@@ -69,7 +69,7 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleAspectFit" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WXe-AO-JQg">
                                                     <rect key="frame" x="5" y="5" width="30" height="30"/>
-                                                    <state key="normal" image="ic_DispatcherChat"/>
+                                                    <state key="normal" backgroundImage="ic_DispatcherChat"/>
                                                     <connections>
                                                         <action selector="btnWhatsappAction:" destination="rkH-kk-dTZ" eventType="touchUpInside" id="Wlu-Hs-qzI"/>
                                                     </connections>
@@ -247,7 +247,7 @@
         </view>
     </objects>
     <resources>
-        <image name="ic_DispatcherChat" width="75" height="75"/>
+        <image name="ic_DispatcherChat" width="85" height="85"/>
         <image name="iconBack" width="85" height="85"/>
         <image name="iconCall" width="26" height="26"/>
         <image name="iconMenu" width="26" height="26"/>

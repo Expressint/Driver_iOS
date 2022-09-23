@@ -355,6 +355,22 @@ let googlPlacesApiKey = googlApiKey
             }
         }
     }
+    
+    func signOutFromNotification() {
+        NotificationCenter.default.post(name: UserSignOut, object: nil)
+    }
+    
+    func navigateToLogin() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if #available(iOS 13.0, *) {
+            let logInVC = storyboard.instantiateViewController(identifier: "LoginViewController") as! LoginViewController
+            window?.rootViewController = UINavigationController(rootViewController: logInVC)
+        }else{
+            let logInVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            window?.rootViewController = UINavigationController(rootViewController: logInVC)
+        }
+    }
+    
     // Push Notification Methods
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
@@ -515,7 +531,8 @@ let googlPlacesApiKey = googlApiKey
             }
             
             if pushObj.type == NotificationTypes.logout.rawValue {
-                self.webserviceOFSignOut()
+                //self.webserviceOFSignOut()
+                self.signOutFromNotification()
             }
             
         completionHandler([.alert,.sound])
@@ -823,6 +840,6 @@ class NotificationObjectModel: Codable {
 
 enum NotificationTypes : String {
     case newMeassage = "Chat"
-    case logout = "logout"
+    case logout = "Logout"
     
 }
