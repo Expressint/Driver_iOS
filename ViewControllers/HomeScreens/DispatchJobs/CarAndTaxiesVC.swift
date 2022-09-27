@@ -238,7 +238,6 @@ class CarAndTaxiesVC: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let joined = aryChooseCareModel.joined(separator: ",")
         UserDefaults.standard.set(joined, forKey: RegistrationFinalKeys.kVehicleClass)
-        
         Singletons.sharedInstance.vehicleClass = joined
         
         let joinedName = aryChooseCarName.joined(separator: ",")

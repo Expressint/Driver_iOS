@@ -73,6 +73,8 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
         self.webserviceforGetCarModels()
         
         NotificationCenter.default.addObserver(self, selector: #selector(setDataInCarTypeUpdate), name: Notification.Name("setCarTypeUpdate"), object: nil)
+        
+        self.updateVehicleClass()
     }
     
     @objc func setDataInCarTypeUpdate()
@@ -81,24 +83,25 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
         {
             let carType = UserDefaults.standard.object(forKey: RegistrationFinalKeys.kCarThreeTypeName) as! String
             txtCarType.text = carType
-                        Singletons.sharedInstance.vehicleClass = carType
+            
+            let carClassId = UserDefaults.standard.object(forKey: RegistrationFinalKeys.kVehicleClass) as! String
+            self.strVehicleClass = carClassId
         }
         
     }
+    
+    func updateVehicleClass() {
+        let profile: NSMutableDictionary = NSMutableDictionary(dictionary: (Singletons.sharedInstance.dictDriverProfile.object(forKey: "profile") as? NSDictionary)!)
+        let Vehicle: NSMutableDictionary = NSMutableDictionary(dictionary: profile.object(forKey: "Vehicle") as! NSDictionary)
+        self.strVehicleClass = Vehicle.object(forKey: "VehicleModel") as! String
+        let stringToArrayOFVehicleModel = self.strVehicleClass.components(separatedBy: ",")
+        Singletons.sharedInstance.arrVehicleClass = NSMutableArray(array: stringToArrayOFVehicleModel.map { Int($0)!})
+    }
+    
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
         getData()
-        
-        let profile: NSMutableDictionary = NSMutableDictionary(dictionary: (Singletons.sharedInstance.dictDriverProfile.object(forKey: "profile") as! NSDictionary))
-        
-        let Vehicle: NSMutableDictionary = NSMutableDictionary(dictionary: profile.object(forKey: "Vehicle") as! NSDictionary)
-        
-        let stringOFVehicleModel: String = Vehicle.object(forKey: "VehicleModel") as! String
-        
-        let stringToArrayOFVehicleModel = stringOFVehicleModel.components(separatedBy: ",")
-        
-        Singletons.sharedInstance.arrVehicleClass = NSMutableArray(array: stringToArrayOFVehicleModel.map { Int($0)!})
         setLocalizable()
     }
     @IBOutlet weak var btnSave: ThemeButton!
@@ -431,10 +434,7 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
                 dictData["NoOfPassenger"] = txtNoOfPassenger.selectedItem as AnyObject
                 dictData["VehicleModelName"] = txtVehicleModel.text as AnyObject
                 dictData["Color"] = txtVehicleColor.text as AnyObject
-                let vehicleClass: String = userDefault.object(forKey: RegistrationFinalKeys.kVehicleClass) as? String ?? ""
-                dictData[RegistrationFinalKeys.kVehicleClass] = vehicleClass as AnyObject
-                // DriverId,VehicleClass,VehicleColor,CompanyModel,VehicleRegistrationNo
-                
+                dictData["VehicleClass"] = self.strVehicleClass
                 
                 self.webserviceCallForProfileUpdate()
             }
@@ -577,6 +577,7 @@ class updateDriverSelectVehicleTypesViewControllerViewController: UIViewControll
                 
                 
                 Singletons.sharedInstance.dictDriverProfile = NSMutableDictionary(dictionary: (result as! NSDictionary))
+                self.updateVehicleClass()
                 
                 //                UserDefaults.standard.set(Singletons.sharedInstance.dictDriverProfile, forKey: driverProfileKeys.kKeyDriverProfile)
                 

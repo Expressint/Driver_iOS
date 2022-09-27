@@ -278,7 +278,7 @@ class DriverEmailViewController: UIViewController, UIScrollViewDelegate, NVActiv
                 self.aryOfCompany = result.object(forKey: "company") as! [[String : AnyObject]]
                 self.isOTPSent = true
                 self.userDefault.set(otp, forKey: OTPCodeStruct.kOTPCode)
-                self.userDefault.set(self.aryOfCompany, forKey: OTPCodeStruct.kCompanyList)
+                //self.userDefault.set(self.aryOfCompany, forKey: OTPCodeStruct.kCompanyList)
                 
                 let alert = UIAlertController(title: "App Name".localized, message: result.object(forKey: GetResponseMessageKey()) as? String, preferredStyle: .alert)
                 

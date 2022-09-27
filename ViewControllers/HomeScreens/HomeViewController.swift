@@ -1043,35 +1043,27 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         socket.connect()
     }
     
-    func methodsAfterConnectingToSocket()
-    {
-        if defaultLocation.coordinate.latitude == 0 || defaultLocation.coordinate.longitude == 0 {
-            UtilityClass.showAlert("App Name".localized, message: "Latitude or Longitude", vc: self)
-        }
-        else {
-            self.socketOnForGetDriverLocation()
-            self.socketCallForReceivingBookingRequest()                 // ReceiveBookingRequest
-            self.UpdateDriverLocation()                                 // UpdateDriverLocation
-            self.ReceiveBookLaterBookingRequest()                       // AriveAdvancedBookingRequest
-            self.CancelBookLaterTripByCancelNotification()      // AdvancedBookingDriverCancelTripNotification
-            self.GetBookingDetailsAfterBookingRequestAccepted()         // BookingInfo
-            self.GetAdvanceBookingDetailsAfterBookingRequestAccepted()  // AdvancedBookingInfo
-            self.cancelTripByPassenger()                                // DriverCancelTripNotification
-            self.NewBookLaterRequestArrivedNotification()   // AdvancedBookingDriverCancelTripNotification
-            self.getNotificationForReceiveMoneyNotify()     // ReceiveMoneyNotify
-            self.onSessionError()// SessionError
-            self.onUpdateDropoffLocation()
-            self.getTimeOfStartTrip()                       // StartTripTimeError
-            self.getNotificationforReceiveTip()
-            self.getNotificationforReceiveTipForBookLater()
-            self.checkIfDriverIsInPickupLocationRadius()
-            self.onSOS()
-            //            self.getNotificationforUpdateBookingDetails()
-            self.onAdvancedBookingPickupPassengerNotification() // AdvancedBookingPickupPassengerNotification
-            
-            
-        }
+    func methodsAfterConnectingToSocket() {
         
+        self.socketOnForGetDriverLocation()
+        self.socketCallForReceivingBookingRequest()                 // ReceiveBookingRequest
+        self.UpdateDriverLocation()                                 // UpdateDriverLocation
+        self.ReceiveBookLaterBookingRequest()                       // AriveAdvancedBookingRequest
+        self.CancelBookLaterTripByCancelNotification()      // AdvancedBookingDriverCancelTripNotification
+        self.GetBookingDetailsAfterBookingRequestAccepted()         // BookingInfo
+        self.GetAdvanceBookingDetailsAfterBookingRequestAccepted()  // AdvancedBookingInfo
+        self.cancelTripByPassenger()                                // DriverCancelTripNotification
+        self.NewBookLaterRequestArrivedNotification()   // AdvancedBookingDriverCancelTripNotification
+        self.getNotificationForReceiveMoneyNotify()     // ReceiveMoneyNotify
+        self.onSessionError()// SessionError
+        self.onUpdateDropoffLocation()
+        self.getTimeOfStartTrip()                       // StartTripTimeError
+        self.getNotificationforReceiveTip()
+        self.getNotificationforReceiveTipForBookLater()
+        self.checkIfDriverIsInPickupLocationRadius()
+        self.onSOS()
+        //self.getNotificationforUpdateBookingDetails()
+        self.onAdvancedBookingPickupPassengerNotification() // AdvancedBookingPickupPassengerNotification
     }
     
     func socketOnForGetDriverLocation() {
@@ -2546,7 +2538,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
 //            UtilityClass.showAlert("App Name".localized, message: "Booking ID or Driver ID", vc: self)
 //        }
         if(isTripOnGoing){
-            let myJSON = [socketApiKeys.kBookingId : bookingID,  profileKeys.kDriverId : driverID, profileKeys.kRejectBy: (isRejectByDriver) ? "Manual" : "Auto"] as [String : Any]
+            let myJSON = [socketApiKeys.kBookingId : bookingID,  profileKeys.kDriverId : driverID, profileKeys.kRejectBy: (isRejectByDriver) ? "Manual" : "background"] as [String : Any]
             socket.emit(socketApiKeys.kRejectBookingRequest, with: [myJSON], completion: nil)
         }
         else {
@@ -3069,6 +3061,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             if(currentCount == "0" && (BookingInfo["DropoffLocation2"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines).count != 0)
             {
                 self.btnReached.isHidden = false
+                self.btnCompleteTrip.isHidden = true
             }
             
             self.viewLocationDetails.isHidden = false
@@ -5411,7 +5404,9 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         webserviceForSubmitMultipleDropoff(dictParams: param as AnyObject) { (result, status) in
             //            self.updateCurrentLocationLabel()
             print("SubmitMultipleDropoff: \n \(result)")
+            
             if status {
+                self.btnCompleteTrip.isHidden = false
                 var tempAryBookingDropoffsData = [[String:Any]]()
                 
                 if let resDetails = (result as! [String:Any])["details"] as? [[String:Any]] {
