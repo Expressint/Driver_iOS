@@ -9,6 +9,8 @@
 import UIKit
 
 class Singletons: NSObject {
+    var TC = ""
+    var PP = ""
     var helpLineNumber = ""
     var DispatchWhatsapp = ""
     var DispatchCall = ""

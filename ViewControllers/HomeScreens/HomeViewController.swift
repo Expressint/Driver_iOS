@@ -1734,9 +1734,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         {
             oldCoordinate = CLLocationCoordinate2DMake(Singletons.sharedInstance.latitude ,Singletons.sharedInstance.longitude)
             
-            
-            
-            
             if((((self.aryPassengerData as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingInfo") as? NSDictionary) == nil)
             {
                 // print ("Yes its  array ")
@@ -2738,11 +2735,11 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         }
         if(currentCount == "0")
         {
-            webserviceOfSubmitMultipleDropoff(bookingId: strTempBookingId, dropOffCount: "1", skip: "1")
+            webserviceOfSubmitMultipleDropoff(bookingId: strTempBookingId, dropOffCount: "1", skip: "1", bookingType: (isAdvanceBooking) ? "BookLater" : "BookNow")
         }
         else
         {
-            webserviceOfSubmitMultipleDropoff(bookingId: strTempBookingId, dropOffCount: "2", skip: "0")
+            webserviceOfSubmitMultipleDropoff(bookingId: strTempBookingId, dropOffCount: "2", skip: "0", bookingType: (isAdvanceBooking) ? "BookLater" : "BookNow")
         }
         
         /*  aryBookingDropoffsData = aryBookingDropoffsData.filter{($0["Status"] as! String) == ""}
@@ -3016,6 +3013,35 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             self.stackViewOfStartTrip.isHidden = true
             self.stackViewOfWaitingTime.isHidden = false
             
+            let BookingInfo : NSDictionary!
+            if((((self.aryPassengerData as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingInfo") as? NSDictionary) == nil)
+            {
+                // print ("Yes its  array ")
+                BookingInfo = (((self.aryPassengerData as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingInfo") as! NSArray).object(at: 0) as? NSDictionary
+            }
+            else
+            {
+                // print (Yes its dictionary")
+                BookingInfo = (((self.aryPassengerData as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingInfo") as! NSDictionary) //.object(at: 0) as! NSDictionary
+            }
+            
+            var currentCount = String()
+            if let DropLocationCount = BookingInfo["CurrentCount"] as? String
+            {
+                currentCount = DropLocationCount
+            }
+            else if let DropLocationCount = BookingInfo["CurrentCount"] as? Int
+            {
+                currentCount = "\(DropLocationCount)"
+            }
+            
+            self.btnReached.isHidden = true
+            if(currentCount == "0" && (BookingInfo["DropoffLocation2"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines).count != 0)
+            {
+                self.btnReached.isHidden = false
+                self.btnCompleteTrip.isHidden = true
+            }
+            
             //            self.viewLocationDetails.isHidden = false
             self.constrainLocationViewBottom?.priority = UILayoutPriority(rawValue: 800)
             self.pickupPassengerFromLocation()
@@ -3035,7 +3061,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             self.stackViewOfStartTrip.isHidden = true
             
             let BookingInfo : NSDictionary!
-            
             if((((self.aryPassengerData as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingInfo") as? NSDictionary) == nil)
             {
                 // print ("Yes its  array ")
@@ -3382,11 +3407,11 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         {
             if(btnReached.isHidden == true)
             {
-                webserviceOfSubmitMultipleDropoff(bookingId: strTempBookingId, dropOffCount: "2", skip: "0",isFromComplete: true)
+                webserviceOfSubmitMultipleDropoff(bookingId: strTempBookingId, dropOffCount: "2", skip: "0", bookingType: (isAdvanceBooking) ? "BookLater" : "BookNow", isFromComplete: true)
             }
             else
             {
-                webserviceOfSubmitMultipleDropoff(bookingId: strTempBookingId, dropOffCount: "1", skip: "0",isFromComplete: true)
+                webserviceOfSubmitMultipleDropoff(bookingId: strTempBookingId, dropOffCount: "1", skip: "0", bookingType: (isAdvanceBooking) ? "BookLater" : "BookNow", isFromComplete: true)
             }
         }
         else
@@ -3969,8 +3994,13 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         SingletonsForMeter.sharedInstance.vehicleModelID = Int(VehicleID)!
         
-        let DropOffLat = BookingInfo.object(forKey: "DropOffLat") as! String
-        let DropOffLon = BookingInfo.object(forKey: "DropOffLon") as! String
+//        let DropOffLat = BookingInfo.object(forKey: "DropOffLat") as! String
+//        let DropOffLon = BookingInfo.object(forKey: "DropOffLon") as! String
+        
+        let dropLocation2 = BookingInfo["DropoffLocation2"] as? String ?? ""
+        let currentcount = Int(BookingInfo["CurrentCount"] as? String ?? "") ?? 0
+        let DropOffLat = (dropLocation2.trimmingCharacters(in: .whitespacesAndNewlines) != "" && currentcount > 0) ? BookingInfo.object(forKey: "DropOffLat2") as? String ?? "" : BookingInfo.object(forKey: "DropOffLat") as? String ?? ""
+        let DropOffLon = (dropLocation2.trimmingCharacters(in: .whitespacesAndNewlines) != "" && currentcount > 0) ? BookingInfo.object(forKey: "DropOffLon2") as? String ?? "" : BookingInfo.object(forKey: "DropOffLon") as? String ?? ""
         
 //                Singletons.sharedInstance.startedTripLatitude = Double(BookingInfo.object(forKey: "PickupLat") as! String)!
 //                Singletons.sharedInstance.startedTripLongitude = Double(BookingInfo.object(forKey: "PickupLng") as! String)!
@@ -5389,10 +5419,11 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     // MARK: - Webservice For Submit Multiple Dropoff
     // ----------------------------------------------------
     
-    func webserviceOfSubmitMultipleDropoff(bookingId: String, dropOffCount: String, skip: String, isFromComplete: Bool = false) {
+    func webserviceOfSubmitMultipleDropoff(bookingId: String, dropOffCount: String, skip: String, bookingType: String, isFromComplete: Bool = false) {
         
         var param = [String: String]()
         param["BookingId"] = bookingId
+        param["booking_type"] = bookingType
         param["DropoffCount"] = dropOffCount
         //        param["Skip"] = skip
         param["TripDistance"] = "\(Singletons.sharedInstance.distanceTravelledThroughMeter)"
@@ -5652,7 +5683,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     @objc func webserviceOfRunningTripTrack() {
         
-        webserviceForTrackRunningTrip(Singletons.sharedInstance.bookingId as AnyObject) { (result, status) in
+        webserviceForTrackRunningTrip(Singletons.sharedInstance.bookingId as AnyObject, bookingType: (isAdvanceBooking) ? "BookLater" : "BookNow") { (result, status) in
             
             if (status) {
                 

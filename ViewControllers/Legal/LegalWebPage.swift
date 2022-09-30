@@ -19,6 +19,7 @@ class LegalWebPage: ParentViewController, WKUIDelegate, WKNavigationDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.headerView?.lblTitle.text = "Support".localized
+        self.headerView?.btnWhatsapp.isHidden = true
         if headerName != "" {
             headerView?.lblTitle.text = headerName
         }

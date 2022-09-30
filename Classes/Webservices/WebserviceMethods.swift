@@ -628,9 +628,9 @@ func webserviceForShareRideListing(_ dictParams: AnyObject, completion: @escapin
 // MARK: - Webservice For Track Running Trip
 //-------------------------------------------------------------
 
-func webserviceForTrackRunningTrip(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+func webserviceForTrackRunningTrip(_ dictParams: AnyObject, bookingType: String, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
-    let url = TrackRunningTrip + "\(dictParams)"
+    let url = TrackRunningTrip + "\(dictParams)/\(bookingType)"
     getData("" as AnyObject, nsURL: url, completion: completion)
 }
 

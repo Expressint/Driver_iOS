@@ -49,7 +49,7 @@ struct WebserviceURLs {
     static let kSubmitMultipleDropoff                   = "SubmitMultipleDropoff"
     static let kSubmitBookNowByDispatchJob              = "SubmitBookNowByDispatchJob"
     static let kSubmitBookLaterByDispatchJob            = "SubmitBookLaterByDispatchJob"
-    static let kFutureBooking                           = "FutureBooking/"
+    static let kFutureBooking                            = "FutureBooking/"
     static let kMyDispatchJob                           = "MyDispatchJob/"
     static let kGetDriverProfile                        = "GetDriverProfile/"
     static let kGetDistaceFromBackend                   = "FindDistance/"

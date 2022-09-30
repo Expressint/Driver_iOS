@@ -35,8 +35,8 @@ class DriverCertificatesViewController: UIViewController,UIImagePickerController
     @IBOutlet weak var btnTermsSignUp: UIButton!
     @IBOutlet weak var txtTermsAndPrivacy: UITextView!
 
-    var termsLink = "https://www.bookaridegy.com/TermsAndCondition"
-    var PrivacyLink = "https://www.bookaridegy.com/PrivacyPolicy"
+    var termsLink = Singletons.sharedInstance.TC
+    var PrivacyLink = Singletons.sharedInstance.PP
 
     //-------------------------------------------------------------
     // MARK: - Base Methods

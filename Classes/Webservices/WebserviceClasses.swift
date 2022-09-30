@@ -11,7 +11,6 @@ import Alamofire
 import NVActivityIndicatorView
 
 
-
 //-------------------------------------------------------------
 // MARK: - Global Declaration
 //-------------------------------------------------------------
