@@ -201,7 +201,7 @@ class DriverVehiclesViewController: UIViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if self.selectedCells.count == 3
+        if self.selectedCells.count == 1
         {
             if self.selectedCells.contains(indexPath.row) {
                 self.aryChooseCareModel.remove(at: self.selectedCells.index(of: indexPath.row)!)
@@ -212,9 +212,6 @@ class DriverVehiclesViewController: UIViewController, UITableViewDataSource, UIT
                 let ValidationAlert = UIAlertController(title: "App Name".localized, message: "You can only select three types".localized, preferredStyle: UIAlertController.Style.alert)
                 ValidationAlert.addAction(UIAlertAction(title: "Dismiss".localized, style: .cancel, handler: nil))
                 self.present(ValidationAlert, animated: true, completion: nil)
-//                let sb = Snackbar()
-//                sb.createWithAction(text: "You can only select three types".localized, actionTitle: "Dismiss".localized, action: { print("Button is push") })
-//                sb.show()
             }
             
         } else {

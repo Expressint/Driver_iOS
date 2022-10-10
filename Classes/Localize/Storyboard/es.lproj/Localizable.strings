@@ -111,6 +111,7 @@
 "Support" = "Apoyo";
 "Sign out" = "desconectar";
 "Delete Account" = "Borrar cuenta";
+"Select Language" = "Seleccione el idioma";
 
 //MyJObs
 "Future Booking" = "Reserva futura";
@@ -261,7 +262,7 @@
 "Invite Code (Optional)" = "Invite Code (Optional)";
 "Bank Branch" = "Bank Branch";
 "Please enter no of passenger" = "Please enter no of passenger";
-"You can only select three types" = "You can only select three types";
+"You can only select three types" = "You can only select one type";
 "ETA" = "ETA";
 "Please add expiry date" = "Please add expiry date";
 "Select revenue licence expiry date" = "Select revenue licence expiry date";

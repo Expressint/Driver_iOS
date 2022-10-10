@@ -187,7 +187,7 @@ class CarAndTaxiesVC: UIViewController, UITableViewDataSource, UITableViewDelega
 
         let dictData = aryData.object(at: indexPath.row) as! NSDictionary
         
-        if self.selectedCells.count == 3
+        if self.selectedCells.count == 1
         {
             if self.selectedCells.contains(indexPath.row) {
                 self.aryChooseCareModel.remove(at: self.selectedCells.index(of: indexPath.row)!)

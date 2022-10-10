@@ -9,6 +9,7 @@ import UIKit
 import SideMenuController
 import SDWebImage
 import MapKit
+import DropDown
 
 let KEnglish : String = "EN"
 let KSwiley : String = "SW"
@@ -49,11 +50,17 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var btnDelete: UIButton!
     @IBOutlet weak var segmentLang: UISegmentedControl!
     
+    var arrLang: [String] = ["English","Spanish"]
+    @IBOutlet weak var btnSelectLanguage: UIButton!
+    @IBOutlet weak var btnEnglish: UIButton!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
       //  btnLiveHelp.underline()
         strSelectedLaungage = KEnglish
+        
+        btnSelectLanguage.titleLabel?.numberOfLines = 0
       
       
         /*
@@ -78,12 +85,19 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if((Localize.currentLanguage() == Languages.English.rawValue)){
+            self.btnEnglishAction(self.btnEnglish)
+        }else{
+            self.btnSelectLangAction(self.btnSelectLanguage)
+        }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(changeLanguage), name: Notification.Name(rawValue: LCLLanguageChangeNotification), object: nil)
         setLocalization()
         
-        segmentLang.setTitleColor(.white)
-        segmentLang.selectedSegmentIndex = (Localize.currentLanguage() == Languages.English.rawValue) ? 0 : 1
-        segmentLang.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
+//        segmentLang.setTitleColor(.white)
+//        segmentLang.selectedSegmentIndex = (Localize.currentLanguage() == Languages.English.rawValue) ? 0 : 1
+//        segmentLang.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
        
         
         giveGradientColor()
@@ -98,6 +112,43 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    @IBAction func btnSelectLangAction(_ sender: Any) {
+        
+        self.btnSelectLanguage.isSelected = true
+        self.btnEnglish.isSelected = false
+        Localize.setCurrentLanguage(Languages.Spanish.rawValue)
+        
+        self.btnSelectLanguage.layer.borderColor = UIColor(hex: "02A64D").cgColor
+        self.btnSelectLanguage.backgroundColor = UIColor(hex: "02A64D")
+        self.btnSelectLanguage.layer.borderWidth = 1
+        self.btnSelectLanguage.layer.cornerRadius = 5
+        
+        self.btnEnglish.layer.borderColor = UIColor.black.cgColor
+        self.btnEnglish.backgroundColor = UIColor.clear
+        self.btnEnglish.layer.borderWidth = 1
+        self.btnEnglish.layer.cornerRadius = 5
+    }
+
+    @IBAction func btnEnglishAction(_ sender: Any) {
+       // self.SelectLangDropdownSetup()
+        
+        self.btnSelectLanguage.isSelected = false
+        self.btnEnglish.isSelected = true
+        Localize.setCurrentLanguage(Languages.English.rawValue)
+        
+        self.btnEnglish.layer.borderColor = UIColor(hex: "02A64D").cgColor
+        self.btnEnglish.backgroundColor = UIColor(hex: "02A64D")
+        self.btnEnglish.layer.borderWidth = 1
+        self.btnEnglish.layer.cornerRadius = 5
+        
+        self.btnSelectLanguage.layer.borderColor = UIColor.black.cgColor
+        self.btnSelectLanguage.backgroundColor = UIColor.clear
+        self.btnSelectLanguage.layer.borderWidth = 1
+        self.btnSelectLanguage.layer.cornerRadius = 5
+        
+    }
+    
+    
     @objc func changeLanguage(){
         self.setLocalization()
     }
@@ -110,6 +161,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         btnSignOut1.titleLabel?.numberOfLines = 0
         btnSetting.setTitle("Settings".localized, for: .normal)
         btnDelete.setTitle("Delete Account".localized, for: .normal)
+        //btnSelectLanguage.setTitle("Select Language".localized, for: .normal)
         
         CollectionView.reloadData()
     }

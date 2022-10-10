@@ -22,8 +22,8 @@ struct WebSupport {
 //Development: http://52.23.45.119/
 struct WebserviceURLs {
     
-    static let kBaseURL                                 = "http://52.23.45.119/Drvier_Api/"
-    static let kImageBaseURL                            = "http://52.23.45.119/"
+    static let kBaseURL                                 = "https://www.bookaridegy.com/Drvier_Api/"
+    static let kImageBaseURL                            = "https://www.bookaridegy.com/"
     static let kOTPForDriverRegister                    = "OtpForRegister"
     static let kVehicalModelList                        = "TaxiModel/"
     static let kDriverRegister                          = "Register"
@@ -210,14 +210,13 @@ struct RegistrationFinalKeys {
     static let kNumberOfPasssenger = "NoOfPassenger" //Done
     static let kVehicleClass = "VehicleClass" //Done
    
-    
 }
 
 //Live: https://www.bookaridegy.com:8080
 //Development: http://52.23.45.119:8080
 struct socketApiKeys {
     
-    static let kSocketBaseURL = "http://52.23.45.119:8080"
+    static let kSocketBaseURL = "https://www.bookaridegy.com:8080"
  
     static let kUpdateDriverLocation = "UpdateDriverLatLong"
     static let kReceiveBookingRequest = "AriveBookingRequest"
@@ -278,7 +277,6 @@ struct appName {
     static let kAPPUrl = "itms-apps://itunes.apple.com/app/apple-store/id1541299485?mt=8"
     static let kAPPUrlAndroid = "https://play.google.com/store/apps/details?id=com.bookride.driver"
     static let kAPPUrliOS = "https://apps.apple.com/in/app/bookaridegy-driver/id1541299485"
-    
     static let appURLAndroid = "https://play.google.com/store/apps/details?id=com.bookride.passenger"
     static let appURLiOS = "https://apps.apple.com/in/app/bookaridegy/id1541296701"
 }

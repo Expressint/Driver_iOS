@@ -8,6 +8,7 @@
  
  import UIKit
  import CoreLocation
+import DropDown
  //import ACFloatingTextfield_Swift
  
  class LoginViewController: UIViewController, CLLocationManagerDelegate,UITextFieldDelegate {
@@ -34,8 +35,9 @@
     @IBOutlet var btnSignIn: UIButton!
      @IBOutlet var btnSignUp: UIButton!
      @IBOutlet weak var segmentLang: UISegmentedControl!
+     @IBOutlet weak var btnSelectLanguage: UIButton!
+     @IBOutlet weak var btnEnglish: UIButton!
      
-   
     //    @IBOutlet weak var constraintHeightOfLogo: NSLayoutConstraint! // 140
     //    @IBOutlet weak var constraintHeightOfTextFields: NSLayoutConstraint! // 50
     //    @IBOutlet weak var constraintTopOfLogo: NSLayoutConstraint! // 60
@@ -53,7 +55,7 @@
         self.btnSignUp.setTitle("Sign Up".localized, for: .normal)
         self.btnSignUp.underline(text: "Sign Up".localized)
         self.lblDonTHaveAnyAccount.text = "Don't have an Account?".localized
-        
+        //btnSelectLanguage.setTitle("Select Language".localized, for: .normal)
     }
     
     override func loadView() {
@@ -101,6 +103,7 @@
     {
         super.viewDidLoad()
        
+        btnSelectLanguage.titleLabel?.numberOfLines = 0
         
         manager.delegate = self
         txtMobile.delegate = self
@@ -153,21 +156,66 @@
         // Do any additional setup after loading the view.
     }
      
+     
+     @IBAction func btnSelectLangAction(_ sender: Any) {
+        // self.SelectLangDropdownSetup()
+         
+         self.btnSelectLanguage.isSelected = true
+         self.btnEnglish.isSelected = false
+         Localize.setCurrentLanguage(Languages.Spanish.rawValue)
+         
+         self.btnSelectLanguage.layer.borderColor = UIColor(hex: "02A64D").cgColor
+         self.btnSelectLanguage.backgroundColor = UIColor(hex: "02A64D")
+         self.btnSelectLanguage.layer.borderWidth = 1
+         self.btnSelectLanguage.layer.cornerRadius = 5
+         
+         self.btnEnglish.layer.borderColor = UIColor.white.cgColor
+         self.btnEnglish.backgroundColor = UIColor.clear
+         self.btnEnglish.layer.borderWidth = 1
+         self.btnEnglish.layer.cornerRadius = 5
+     }
+     
+     @IBAction func btnEnglishAction(_ sender: Any) {
+        // self.SelectLangDropdownSetup()
+         
+         self.btnSelectLanguage.isSelected = false
+         self.btnEnglish.isSelected = true
+         Localize.setCurrentLanguage(Languages.English.rawValue)
+         
+         self.btnEnglish.layer.borderColor = UIColor(hex: "02A64D").cgColor
+         self.btnEnglish.backgroundColor = UIColor(hex: "02A64D")
+         self.btnEnglish.layer.borderWidth = 1
+         self.btnEnglish.layer.cornerRadius = 5
+         
+         self.btnSelectLanguage.layer.borderColor = UIColor.white.cgColor
+         self.btnSelectLanguage.backgroundColor = UIColor.clear
+         self.btnSelectLanguage.layer.borderWidth = 1
+         self.btnSelectLanguage.layer.cornerRadius = 5
+         
+     }
+     
+     
      @objc func indexChanged(_ sender: UISegmentedControl) {
-         if segmentLang.selectedSegmentIndex == 0 {
-             Localize.setCurrentLanguage(Languages.English.rawValue)
-         } else if segmentLang.selectedSegmentIndex == 1 {
-             Localize.setCurrentLanguage(Languages.Spanish.rawValue)
-         }
+//         if segmentLang.selectedSegmentIndex == 0 {
+//             Localize.setCurrentLanguage(Languages.English.rawValue)
+//         } else if segmentLang.selectedSegmentIndex == 1 {
+//             Localize.setCurrentLanguage(Languages.Spanish.rawValue)
+//         }
      }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
         
-        segmentLang.setTitleColor(.white)
-        segmentLang.selectedSegmentIndex = (Localize.currentLanguage() == Languages.English.rawValue) ? 0 : 1
-        segmentLang.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
+        if((Localize.currentLanguage() == Languages.English.rawValue)){
+            self.btnEnglishAction(self.btnEnglish)
+        }else{
+            self.btnSelectLangAction(self.btnSelectLanguage)
+        }
+        
+//        segmentLang.setTitleColor(.white)
+//        segmentLang.selectedSegmentIndex = (Localize.currentLanguage() == Languages.English.rawValue) ? 0 : 1
+//        segmentLang.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
         NotificationCenter.default.addObserver(self, selector: #selector(changeLanguage), name: Notification.Name(rawValue: LCLLanguageChangeNotification), object: nil)
         
         self.setLocalization()

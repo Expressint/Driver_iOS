@@ -5688,9 +5688,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             if (status) {
                 
                 self.aryCurrentBookingData.removeAllObjects()
-                
                 self.resetMapView()
-                
                 let resultData = (result as! NSDictionary)
                 
                 if let shareRide = resultData["share_ride"] as? String {

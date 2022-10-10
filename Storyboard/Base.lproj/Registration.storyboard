@@ -56,7 +56,7 @@
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="C7b-Xh-YLU">
+                                    <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="C7b-Xh-YLU">
                                         <rect key="frame" x="287" y="9.6666666666666643" width="73" height="32"/>
                                         <segments>
                                             <segment title="EN"/>
@@ -65,17 +65,44 @@
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="selectedSegmentTintColor" red="0.0078431372550000003" green="0.65098039220000004" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </segmentedControl>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vCO-Yb-Xw0">
+                                        <rect key="frame" x="258.33333333333331" y="7.6666666666666643" width="101.66666666666669" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="8zZ-VK-E58"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="13"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Select Language"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="btnSelectLangAction:" destination="EQ5-DG-fhx" eventType="touchUpInside" id="C4N-cJ-qcq"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="C7b-Xh-YLU" secondAttribute="trailing" constant="15" id="1ob-iW-9d6"/>
+                                    <constraint firstItem="vCO-Yb-Xw0" firstAttribute="trailing" secondItem="C7b-Xh-YLU" secondAttribute="trailing" id="G3G-n8-FpM"/>
                                     <constraint firstItem="FPh-HP-dqa" firstAttribute="centerX" secondItem="U5B-Vx-Agc" secondAttribute="centerX" id="IPG-uE-uAt"/>
                                     <constraint firstItem="5Ym-Ws-kxM" firstAttribute="leading" secondItem="bei-aN-T64" secondAttribute="leading" id="ITE-At-10R"/>
                                     <constraint firstItem="FPh-HP-dqa" firstAttribute="centerY" secondItem="5Ym-Ws-kxM" secondAttribute="centerY" id="Icd-mi-tHF"/>
                                     <constraint firstAttribute="height" constant="50" id="JnQ-aw-VVo"/>
+                                    <constraint firstItem="vCO-Yb-Xw0" firstAttribute="leading" secondItem="FPh-HP-dqa" secondAttribute="trailing" constant="10" id="RNB-MR-hu7"/>
                                     <constraint firstItem="bei-aN-T64" firstAttribute="centerY" secondItem="U5B-Vx-Agc" secondAttribute="centerY" id="cjv-JL-z3h"/>
                                     <constraint firstItem="5Ym-Ws-kxM" firstAttribute="bottom" secondItem="bei-aN-T64" secondAttribute="bottom" id="fIX-NM-1zW"/>
                                     <constraint firstItem="bei-aN-T64" firstAttribute="leading" secondItem="U5B-Vx-Agc" secondAttribute="leading" constant="15" id="fK7-bn-R6i"/>
+                                    <constraint firstItem="vCO-Yb-Xw0" firstAttribute="centerY" secondItem="C7b-Xh-YLU" secondAttribute="centerY" id="lmJ-G4-wGf"/>
                                     <constraint firstItem="C7b-Xh-YLU" firstAttribute="centerY" secondItem="U5B-Vx-Agc" secondAttribute="centerY" id="s7O-x7-eDZ"/>
                                     <constraint firstItem="5Ym-Ws-kxM" firstAttribute="top" secondItem="bei-aN-T64" secondAttribute="top" id="thR-pK-ulV"/>
                                     <constraint firstItem="5Ym-Ws-kxM" firstAttribute="trailing" secondItem="bei-aN-T64" secondAttribute="trailing" id="ymO-4s-rRy"/>
@@ -346,6 +373,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="btnBack" destination="5Ym-Ws-kxM" id="psX-iw-svZ"/>
+                        <outlet property="btnSelectLanguage" destination="vCO-Yb-Xw0" id="Dle-a7-aIa"/>
                         <outlet property="constraintHeightOfPagingView" destination="pPf-lm-hJW" id="Wd4-8i-MtW"/>
                         <outlet property="lblFifth" destination="y9r-0d-Whc" id="q7l-DJ-35I"/>
                         <outlet property="lblFore" destination="VhS-Wb-k89" id="d9s-Y7-ZNn"/>
@@ -3211,17 +3239,17 @@ You must be 21 years of age or over.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="anv-PJ-lnE">
-                                <rect key="frame" x="20" y="64" width="335" height="490"/>
+                                <rect key="frame" x="20" y="64" width="280" height="490"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7dF-W0-Ddh">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="80"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="80"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="v8P-gS-1oU">
-                                                <rect key="frame" x="0.0" y="0.0" width="335" height="80"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="280" height="80"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vehicle Type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qfc-th-g7p">
-                                                <rect key="frame" x="122" y="55" width="91" height="21"/>
+                                                <rect key="frame" x="94.666666666666686" y="55" width="91" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -3250,20 +3278,20 @@ You must be 21 years of age or over.</string>
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Vkr-R8-mYj">
-                                        <rect key="frame" x="10" y="85" width="315" height="365"/>
+                                        <rect key="frame" x="10" y="85" width="260" height="365"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CarAndTaxiesTableViewCell" rowHeight="50" id="iRu-sK-lMB" customClass="CarAndTaxiesTableViewCell" customModule="Book_A_Ride_Driver" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.666666030883789" width="315" height="50"/>
+                                                <rect key="frame" x="0.0" y="44.666666030883789" width="260" height="50"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iRu-sK-lMB" id="6ey-lF-yTs">
-                                                    <rect key="frame" x="0.0" y="0.0" width="315" height="50"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="260" height="50"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0QC-HH-3pE">
-                                                            <rect key="frame" x="5" y="5" width="305" height="40"/>
+                                                            <rect key="frame" x="5" y="5" width="250" height="40"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vJW-g0-hVK">
                                                                     <rect key="frame" x="5" y="10" width="20" height="20"/>
@@ -3276,13 +3304,13 @@ You must be 21 years of age or over.</string>
                                                                     </connections>
                                                                 </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="First Class" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SvI-tl-LUO">
-                                                                    <rect key="frame" x="30" y="10" width="234" height="15.666666666666664"/>
+                                                                    <rect key="frame" x="30" y="10" width="179" height="15.666666666666664"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ko-5N-RgF">
-                                                                    <rect key="frame" x="269" y="3" width="31" height="30"/>
+                                                                    <rect key="frame" x="214" y="3" width="31" height="30"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="31" id="Vqj-Sr-TuH"/>
                                                                         <constraint firstAttribute="height" constant="30" id="Yp3-iP-3SK"/>
@@ -3322,7 +3350,7 @@ You must be 21 years of age or over.</string>
                                         </prototypes>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C8l-ct-O86" customClass="ThemeButton" customModule="Book_A_Ride_Driver" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="450" width="335" height="40"/>
+                                        <rect key="frame" x="0.0" y="450" width="280" height="40"/>
                                         <color key="backgroundColor" red="0.89338213209999995" green="0.51630395650000005" blue="0.15679338570000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="XtZ-hu-igq"/>

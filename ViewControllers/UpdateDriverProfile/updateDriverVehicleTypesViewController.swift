@@ -156,7 +156,7 @@ class updateDriverVehicleTypesViewController: UIViewController , UITableViewDele
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         
-        if self.selectedCells.count == 3
+        if self.selectedCells.count == 1
         {
             if self.selectedCells.contains(indexPath.row) {
                 self.aryChooseCareModel.remove(at: self.selectedCells.index(of: indexPath.row)!)

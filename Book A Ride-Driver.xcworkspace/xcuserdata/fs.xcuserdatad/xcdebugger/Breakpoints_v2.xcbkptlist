@@ -87,22 +87,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9B6ABC94-B912-4EF0-9E98-6F695C96B888"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ViewControllers/HomeScreens/DispatchJobs/CarAndTaxiesVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "77CAD39E-0540-49D7-86D2-96D09D4E8EEC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -126,8 +110,8 @@
             filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5841"
-            endingLineNumber = "5841"
+            startingLineNumber = "5839"
+            endingLineNumber = "5839"
             landmarkName = "webserviceOfRunningTripTrack()"
             landmarkType = "7">
          </BreakpointContent>
@@ -238,8 +222,8 @@
             filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5948"
-            endingLineNumber = "5948"
+            startingLineNumber = "5946"
+            endingLineNumber = "5946"
             landmarkName = "bookingStatusTraveling()"
             landmarkType = "7">
          </BreakpointContent>
@@ -254,8 +238,8 @@
             filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5943"
-            endingLineNumber = "5943"
+            startingLineNumber = "5941"
+            endingLineNumber = "5941"
             landmarkName = "bookingStatusAccepted()"
             landmarkType = "7">
          </BreakpointContent>
@@ -270,8 +254,8 @@
             filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5825"
-            endingLineNumber = "5825"
+            startingLineNumber = "5823"
+            endingLineNumber = "5823"
             landmarkName = "webserviceOfRunningTripTrack()"
             landmarkType = "7">
          </BreakpointContent>
@@ -286,8 +270,8 @@
             filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5795"
-            endingLineNumber = "5795"
+            startingLineNumber = "5793"
+            endingLineNumber = "5793"
             landmarkName = "webserviceOfRunningTripTrack()"
             landmarkType = "7">
          </BreakpointContent>
@@ -305,6 +289,22 @@
             startingLineNumber = "2469"
             endingLineNumber = "2469"
             landmarkName = "onUpdateDropoffLocation()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "068D56DA-3386-44D4-A617-3912893365A2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewControllers/DriverRegistration/DriverVehicleTypesViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
+            landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

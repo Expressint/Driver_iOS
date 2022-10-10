@@ -8,6 +8,7 @@
 
 import UIKit
 import  CoreLocation
+import DropDown
 //import TTSegmentedControl
 
 class DriverRegistrationViewController: UIViewController, UIScrollViewDelegate //SPSegmentControlCellStyleDelegate, SPSegmentControlDelegate
@@ -60,6 +61,9 @@ class DriverRegistrationViewController: UIViewController, UIScrollViewDelegate /
     
     
     @IBOutlet weak var constraintHeightOfPagingView: NSLayoutConstraint! // 80
+    
+    var arrLang: [String] = ["English","Spanish"]
+    @IBOutlet weak var btnSelectLanguage: UIButton!
     
     
     var arrImageUnselected = [iconMailUnselect, iconDriverUnselect, iconBankUnselect, iconCarUnselect, iconAttachmentUnselect]
@@ -215,7 +219,7 @@ class DriverRegistrationViewController: UIViewController, UIScrollViewDelegate /
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
+        btnSelectLanguage.titleLabel?.numberOfLines = 0
         
 //        imgMail.image = UIImage.init(named: iconMailSelect)
 //        imgDriver.image = UIImage.init(named: iconDriverUnselect)
@@ -267,12 +271,36 @@ class DriverRegistrationViewController: UIViewController, UIScrollViewDelegate /
         self.lblTitle.textColor = .white
     }
     
+    @IBAction func btnSelectLangAction(_ sender: Any) {
+        self.SelectLangDropdownSetup()
+    }
+    
+    func SelectLangDropdownSetup() {
+        let dropDown = DropDown()
+        dropDown.anchorView = self.btnSelectLanguage
+        dropDown.dataSource = self.arrLang
+        dropDown.show()
+        
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            if(index == 0){
+                Localize.setCurrentLanguage(Languages.English.rawValue)
+            }else{
+                Localize.setCurrentLanguage(Languages.Spanish.rawValue)
+            }
+            dropDown.hide()
+        }
+        dropDown.width = self.btnSelectLanguage.frame.width
+        self.view.endEditing(true)
+    }
+    
     @objc func changeLanguage(){
         self.setLocalization()
     }
     
     func setLocalization(){
         self.lblRegistrationTitle.text = "Registration_Title".localized
+        self.btnSelectLanguage.setTitle("Select Language".localized, for: .normal)
     }
     
     @objc func indexChanged(_ sender: UISegmentedControl) {
