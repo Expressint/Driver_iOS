@@ -112,6 +112,13 @@ class PastJobsListTableViewCell: UITableViewCell {
     @IBOutlet weak var lblProcessingDate: UILabel!
     @IBOutlet weak var lblAuthorizationNumber: UILabel!
     
+    @IBOutlet weak var lblTitleExtraCharge: UILabel!
+    @IBOutlet weak var lblTitleExtraChargeReason: UILabel!
+    @IBOutlet weak var lblExtraCharge: UILabel!
+    @IBOutlet weak var lblExtraChargeReason: UILabel!
+    @IBOutlet weak var stackViewExtraCharge: UIStackView!
+    @IBOutlet weak var stackViewExtraChargeReason: UIStackView!
+    
     
     @IBOutlet var viewCell: UIView!
     

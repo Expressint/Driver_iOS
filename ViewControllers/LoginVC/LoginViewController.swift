@@ -747,8 +747,7 @@ import DropDown
 //            UtilityClass.showAlert("App Name".localized, message: "Please enter valid phone number.", vc: self)
 //            return false
 //        }
-        else if txtPassword.text!.count == 0
-        {
+        else if txtPassword.text!.count == 0 {
             UtilityClass.showAlert("App Name".localized, message: "Please enter password".localized, vc: self)
             return false
         } else if self.strLatitude == 0.0 && self.strLongitude == 0.0 {

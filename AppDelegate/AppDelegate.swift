@@ -223,8 +223,6 @@ let googlPlacesApiKey = googlApiKey
         }
         let passCode = Singletons.sharedInstance.setPasscode
         
-        
-        
         if (passCode != "" && Singletons.sharedInstance.isPasscodeON) {
             
             let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)

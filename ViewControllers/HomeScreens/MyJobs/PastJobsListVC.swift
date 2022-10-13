@@ -208,7 +208,8 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         //cell.lblTripDistance.text = "Distance Travel :".localized
         
         
-        
+        cell.lblTitleExtraCharge.text = "\("Extra Charge".localized) :"
+        cell.lblTitleExtraChargeReason.text = "\("Extra Charge Reason".localized) :"
         
         
         
@@ -285,6 +286,14 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.lblpassengerEmail.text = data.object(forKey: "PassengerEmail") as? String
         cell.lblPassengerNo.text = data.object(forKey: "PassengerMobileNo") as? String
         cell.lblTripCancelReason.text = data.object(forKey: "Reason") as? String
+        
+        let ExtraCharge = data.object(forKey: "ExtraCharge") as? String ?? "0"
+        cell.lblExtraCharge.text = "\(ExtraCharge)"
+        cell.stackViewExtraCharge.isHidden = (ExtraCharge == "0") ? true : false
+        
+        let ExtraChargeReason = data.object(forKey: "ExtraChargeReason") as? String ?? ""
+        cell.lblExtraChargeReason.text = "\(ExtraChargeReason)"
+        cell.stackViewExtraChargeReason.isHidden = (ExtraChargeReason == "") ? true : false
         
         cell.TripCancelReasonStackView.isHidden = false
         if(cell.lblTripCancelReason.text == "")

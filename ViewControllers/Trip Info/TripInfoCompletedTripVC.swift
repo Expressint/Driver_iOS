@@ -103,6 +103,12 @@ class TripInfoCompletedTripVC: UIViewController {
     @IBOutlet weak var lblAuthorizationNumber: UILabel!
     @IBOutlet weak var lblSubTotal: UILabel!
     
+    @IBOutlet weak var lblTitleExtraCharge: UILabel!
+    @IBOutlet weak var lblTitleExtraChargeReason: UILabel!
+    @IBOutlet weak var lblExtraCharge: UILabel!
+    @IBOutlet weak var lblExtraChargeReason: UILabel!
+    @IBOutlet weak var stackViewExtraCharge: UIStackView!
+    @IBOutlet weak var stackViewExtraChargeReason: UIStackView!
     
 //    @IBOutlet weak var lblTripDistanceInfo: UILabel!
 //    @IBOutlet weak var lblBaseFareInFo: UILabel!
@@ -190,6 +196,9 @@ class TripInfoCompletedTripVC: UIViewController {
         lblLessTitle.text  = "(incl tax)".localized
 //        lblPickupLocation.text =  "Address".localized
 //        lblDropOffLocation.text = "Address".localized
+        
+        lblTitleExtraCharge.text = "\("Extra Charge".localized) :"
+        lblTitleExtraChargeReason.text = "\("Extra Charge Reason".localized) :"
         
         
         lblDistanceTravelledTitle.text = "Trip Distance".localized
@@ -351,6 +360,14 @@ class TripInfoCompletedTripVC: UIViewController {
             lblWaitingCost.text = "\(WaitingCost) \(currency)"
 //            "\(String(format: "%.2f", Double(WaitingCost)!)) \(currency)"
         }
+        
+        let ExtraCharge = dictData.object(forKey: "ExtraCharge") as? String ?? "0"
+        lblExtraCharge.text = "\(ExtraCharge) \(currency)"
+        stackViewExtraCharge.isHidden = (ExtraCharge == "0") ? true : false
+        
+        let ExtraChargeReason = dictData.object(forKey: "ExtraChargeReason") as? String ?? ""
+        lblExtraChargeReason.text = "\(ExtraChargeReason)"
+        stackViewExtraChargeReason.isHidden = (ExtraChargeReason == "") ? true : false
         
         if let Tip = dictData.object(forKey: "TollFee") as? String {
             lblTipAmount.text = (Tip != "" && Tip != "0") ? "\(String(format: "%.2f", Double(Tip) ?? 0.0)) \(currency)" : "0 \(currency)"
