@@ -34,7 +34,6 @@ func postData(_ dictParams: AnyObject, nsURL: String, completion: @escaping (_ r
         return
     }
     
-    
     DispatchQueue.main.async{
         UtilityClass.showACProgressHUD()
     }
@@ -42,29 +41,28 @@ func postData(_ dictParams: AnyObject, nsURL: String, completion: @escaping (_ r
     Alamofire.request(url, method: .post, parameters: dictParams as? [String : AnyObject], encoding: URLEncoding.default, headers: header)
         .validate()
         .responseJSON
-        { (response) in
- 
-            if let JSON = response.result.value
+    { (response) in
+        
+        if let JSON = response.result.value
+        {
+            
+            if (JSON as AnyObject).object(forKey:("status")) as! Bool == false
             {
-                
-                if (JSON as AnyObject).object(forKey:("status")) as! Bool == false
-                {
-                    completion(JSON as AnyObject, false)
-                    UtilityClass.hideACProgressHUD()
-                }
-                else
-                {
-                    completion(JSON as AnyObject, true)
-                    UtilityClass.hideACProgressHUD()
-                }
-            }
-            else
-            {
+                completion(JSON as AnyObject, false)
                 UtilityClass.hideACProgressHUD()
-
-                completion(response.error?.localizedDescription as AnyObject, false)
             }
-
+            else 
+            {
+                completion(JSON as AnyObject, true)
+                UtilityClass.hideACProgressHUD()
+            }
+        }
+        else
+        {
+            UtilityClass.hideACProgressHUD()
+            
+            completion(response.error?.localizedDescription as AnyObject, false)
+        }
     }
 }
 

@@ -1161,6 +1161,10 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                     next.strPaymentType = PaymentType
                 }
                 
+                if let bookingType = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingType") as? String {
+                    next.strBookingType = bookingType
+                }
+                
                 self.addLocalNotification()
                 (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: nil)
                 
@@ -2058,7 +2062,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         self.mapView.clear()
         
-        
         self.strPassengerName = PassengerInfo.object(forKey: "Fullname") as! String
         self.strPassengerMobileNo = PassengerInfo.object(forKey: "MobileNo") as! String
         //         imgURL = PassengerInfo.object(forKey: "Image") as! String
@@ -2395,6 +2398,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             
             self.isAdvanceBooking = true
             self.isNowBooking = false
+            self.playSound(strName: "\(RingToneSound)")
             
             Singletons.sharedInstance.isPending = 1
             
@@ -2437,6 +2441,10 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             
             if let DropoffLocation = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "DropoffLocation") as? String {
                 next.strDropoffLocation = DropoffLocation
+            }
+            
+            if let bookingType = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingType") as? String {
+                next.strBookingType = bookingType
             }
             
             (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: nil)
@@ -5005,7 +5013,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         }
         
         let param = Singletons.sharedInstance.strDriverID + "/" + Singletons.sharedInstance.deviceToken
-        
         webserviceForCurrentBooking(param as AnyObject) { (result, status) in
             
             if (status) {
@@ -5160,8 +5167,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                         
                         if (Singletons.sharedInstance.oldBookingType.isBookLater) {
                             Singletons.sharedInstance.oldBookingType.isBookNow = false
-                        }
-                        else {
+                        } else {
                             Singletons.sharedInstance.oldBookingType.isBookNow = true
                         }
                     }
@@ -5932,7 +5938,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     }
     
     func bookingtypeBookLater() {
-        
         methodAfterDidAcceptBookingLaterRequest(data: aryCurrentBookingData)
     }
     

@@ -245,7 +245,6 @@ import DropDown
      @objc func methodOfReceivedNotification(notification: Notification) {
          self.gotoRegister()
      }
-
     
      func checkForAppUpdate() {
          if UserDefaults.standard.bool(forKey: kIsUpdateAvailable) == true {
@@ -433,7 +432,6 @@ import DropDown
     }
     
     // ------------------------------------------------------------
-    
     @IBAction func unwindToVC(segue: UIStoryboardSegue) {
     }
     

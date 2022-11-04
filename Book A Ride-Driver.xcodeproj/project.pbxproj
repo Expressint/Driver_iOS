@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -517,11 +517,11 @@
 		00E928E3202AE2BF00A399E2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				3AF9136621C9199F00E2C08A /* MyRatingViewCell.swift */,
 				47DB61BC28C8841D003FD81C /* OfflineVC */,
 				88BBE20C2891405E0024F935 /* Chat */,
 				54C447D328003FD70094ACD5 /* CancelAlert */,
 				3F438AD825920BCB00441E1B /* MyEarnings */,
-				3AF9136621C9199F00E2C08A /* MyRatingViewCell.swift */,
 				EECDB7DA203D48B20079F78B /* Trip Info */,
 				3A5DDCA221BA588800F9B5A3 /* WaitForTipViewController */,
 				1110D3BB2075FD0700CC8C1F /* TripToDestination */,
@@ -682,12 +682,12 @@
 				00E92929202AE2BF00A399E2 /* DriverNewsTableViewCell.swift */,
 				00E9292A202AE2BF00A399E2 /* DriverVehiclesTableViewCell.swift */,
 				00E9292B202AE2BF00A399E2 /* DriverVehicleTypesTableViewCell.swift */,
+				00E92932202AE2BF00A399E2 /* SideMenuTableViewCell.swift */,
+				21B479BF20DD1F8300C6D8F8 /* shareRideListTableViewCell.swift */,
 				00E9292C202AE2BF00A399E2 /* HomeScreensCells */,
 				00E9292F202AE2BF00A399E2 /* MyJobs */,
-				00E92932202AE2BF00A399E2 /* SideMenuTableViewCell.swift */,
 				00E92933202AE2BF00A399E2 /* UpdateProfileCells */,
 				00E92936202AE2BF00A399E2 /* Wallet */,
-				21B479BF20DD1F8300C6D8F8 /* shareRideListTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -1402,7 +1402,7 @@
 				00E5CEA11F8B402C004409A4 /* Resources */,
 				45E1862B52B878E7BD74258F /* [CP] Embed Pods Frameworks */,
 				BC2BBE68F542D67E9F20D53C /* [CP] Copy Pods Resources */,
-				7A6173FC256F713300901256 /* ShellScript */,
+				475E5CC028F816EB00B36A86 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1448,6 +1448,9 @@
 				es,
 			);
 			mainGroup = 00E5CE9A1F8B402C004409A4;
+			packageReferences = (
+				475E5CC128F8263B00B36A86 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 00E5CEA41F8B402C004409A4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1580,7 +1583,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Book A Ride-Driver/Pods-Book A Ride-Driver-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7A6173FC256F713300901256 /* ShellScript */ = {
+		475E5CC028F816EB00B36A86 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1597,7 +1600,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
 		BC2BBE68F542D67E9F20D53C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1967,7 +1970,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1982,13 +1986,16 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7.0;
+				CURRENT_PROJECT_VERSION = 1.7.4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AQ5BYLK3P7;
 				INFOPLIST_FILE = "$(SRCROOT)/Other Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.4.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.4.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eww.BookARideDriver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2008,18 +2015,22 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7.0;
+				CURRENT_PROJECT_VERSION = 1.7.4;
 				DEVELOPMENT_TEAM = AQ5BYLK3P7;
 				INFOPLIST_FILE = "$(SRCROOT)/Other Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.4.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.4.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eww.BookARideDriver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2047,6 +2058,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		475E5CC128F8263B00B36A86 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 00E5CE9B1F8B402C004409A4 /* Project object */;
 }

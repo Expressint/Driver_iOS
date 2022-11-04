@@ -32,6 +32,7 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     @IBOutlet weak var lblDropoffLocation2Info: UILabel!
     @IBOutlet weak var lblDropoffLocation2: MarqueeLabel!
     @IBOutlet weak var lblPaymentType: UILabel!
+    @IBOutlet weak var lblBookingType: UILabel!
     
     //    @IBOutlet weak var lblFlightNumber: UILabel!
     //    @IBOutlet weak var lblNotes: UILabel!
@@ -60,6 +61,7 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     var strRequestMessage = String()
     var strFlightNumber = String()
     var strPaymentType: String = ""
+    var strBookingType: String = "Book Now"
     var strNotes = String()
     
     
@@ -131,6 +133,8 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     
     func fillAllFields() {
         
+        self.lblBookingType.text = "Booking Type : \((self.strBookingType == "BookLater") ? "Book Later" : "Book Now")"
+        
         viewDetails.isHidden = false
         //            print(strGrandTotal)
         //            print(strPickupLocation)
@@ -143,7 +147,7 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
        // lblGrandTotal.text = "\("Estimate Fare".localized) : \(strEstimateFare) \(currency)"
         //            }
         
-        self.lblPaymentType.text = "Payment Type : \(strPaymentType)"
+      //  self.lblPaymentType.text = "Payment Type : \(strPaymentType)"
         lblMessage.text = strRequestMessage
         lblPickupLocation.text = strPickupLocation
         lblDropoffLocation.text = strDropoffLocation

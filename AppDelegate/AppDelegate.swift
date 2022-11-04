@@ -63,7 +63,6 @@ let googlPlacesApiKey = googlApiKey
         
 //        Fabric.with([Crashlytics.self])
         
-        Messaging.messaging().delegate = self
         SideMenuController.preferences.drawing.menuButtonImage = UIImage(named: "menu")
         SideMenuController.preferences.drawing.sidePanelPosition = .overCenterPanelLeft
         SideMenuController.preferences.drawing.sidePanelWidth = (window?.frame.width)! * 0.85
@@ -100,7 +99,6 @@ let googlPlacesApiKey = googlApiKey
         
         
         // Push Notification Code
-        registerForPushNotification()
         
         let remoteNotif = launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] as? NSDictionary
         
@@ -124,6 +122,7 @@ let googlPlacesApiKey = googlApiKey
 
         UNUserNotificationCenter.current().delegate = self
         FirebaseApp.configure()
+        registerForPushNotification()
         return true
     }
     
@@ -373,18 +372,19 @@ let googlPlacesApiKey = googlApiKey
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
        
-        Messaging.messaging().apnsToken = deviceToken as Data
+     //   Messaging.messaging().apnsToken = deviceToken as Data
+        Messaging.messaging().apnsToken = deviceToken
         
-        if let fcmToken = Messaging.messaging().fcmToken
-        {
-            Singletons.sharedInstance.deviceToken = fcmToken
-        }
-        
-        #if targetEnvironment(simulator)
-            Singletons.sharedInstance.deviceToken = "11111111"
-        #endif
-        UserDefaults.standard.set(Singletons.sharedInstance.deviceToken, forKey: "Token")
-        UserDefaults.standard.synchronize()
+//        if let fcmToken = Messaging.messaging().fcmToken
+//        {
+//            Singletons.sharedInstance.deviceToken = fcmToken
+//        }
+//
+//        #if targetEnvironment(simulator)
+//            Singletons.sharedInstance.deviceToken = "11111111"
+//        #endif
+//        UserDefaults.standard.set(Singletons.sharedInstance.deviceToken, forKey: "Token")
+//        UserDefaults.standard.synchronize()
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -544,30 +544,19 @@ let googlPlacesApiKey = googlApiKey
     
     func registerForPushNotification() {
         
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: { (granted, error) in
-            
-            print("Permissin granted: \(granted)")
-            
-            self.getNotificationSettings()
-            
-        })
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().delegate = self
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_ , _ in })
+            Messaging.messaging().delegate = self
+        } else {
+            let settings: UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            UIApplication.shared.registerUserNotificationSettings(settings)
+        }
+        UIApplication.shared.registerForRemoteNotifications()
         
     }
-    
-    func getNotificationSettings() {
-        
-        UNUserNotificationCenter.current().getNotificationSettings(completionHandler: {(settings) in
-            
-            print("Notification Settings: \(settings)")
-           guard settings.authorizationStatus == .authorized else { return }
-            
-            DispatchQueue.main.async {
-                UIApplication.shared.registerForRemoteNotifications()
-                
-            }
-            
-        })
-    }
+
     //-------------------------------------------------------------
     // MARK: - FireBase Methods
     //-------------------------------------------------------------
@@ -575,9 +564,7 @@ let googlPlacesApiKey = googlApiKey
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         print("Firebase registration token: \(fcmToken)")
         
-        // TODO: If necessary send token to application server.
-        // Note: This callback is fired at each app startup and whenever a new token is generated.
-        
+  
         let token = Messaging.messaging().fcmToken
         Singletons.sharedInstance.deviceToken = token!
         #if targetEnvironment(simulator)

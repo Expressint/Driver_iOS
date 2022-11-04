@@ -133,6 +133,7 @@ struct driverProfileKeys {
     static let kKeyIsDriverLoggedIN = "isDriverLoggedIN"
     static let kKeyShowTickPayRegistrationScreen = "showTickPayRegistrationKey"
 }
+
 //struct driverTripToDestinationKeys
 //{
 //    static let kKeyFirstDestination = "FirstDestination"
