@@ -110,6 +110,9 @@ class TripInfoCompletedTripVC: UIViewController {
     @IBOutlet weak var stackViewExtraCharge: UIStackView!
     @IBOutlet weak var stackViewExtraChargeReason: UIStackView!
     
+    @IBOutlet weak var lblPricingModel: UILabel!
+    @IBOutlet weak var lblPricingModelTitle: UILabel!
+    
 //    @IBOutlet weak var lblTripDistanceInfo: UILabel!
 //    @IBOutlet weak var lblBaseFareInFo: UILabel!
 //    @IBOutlet weak var lblDistanceFare: UILabel!
@@ -193,6 +196,7 @@ class TripInfoCompletedTripVC: UIViewController {
         lblBookingFeeTitle.text  = "Booking Charge".localized
         lblTaxTitle.text  = "Tax".localized
         lblTotlaAmountTitle.text  = "Grand Total :".localized
+        lblPricingModelTitle.text  = "Pricing Model".localized + " :"
         lblLessTitle.text  = "(incl tax)".localized
 //        lblPickupLocation.text =  "Address".localized
 //        lblDropOffLocation.text = "Address".localized
@@ -368,6 +372,9 @@ class TripInfoCompletedTripVC: UIViewController {
         let ExtraChargeReason = dictData.object(forKey: "ExtraChargeReason") as? String ?? ""
         lblExtraChargeReason.text = "\(ExtraChargeReason)"
         stackViewExtraChargeReason.isHidden = (ExtraChargeReason == "") ? true : false
+        
+        let PricingModel = (Localize.currentLanguage() == Languages.English.rawValue) ? dictData.object(forKey: "PriceTypeLabel") as? String ?? "" : dictData.object(forKey: "PriceTypeLabelSpanish") as? String ?? ""
+        lblPricingModel.text = "\(PricingModel)"
         
         if let Tip = dictData.object(forKey: "TollFee") as? String {
             lblTipAmount.text = (Tip != "" && Tip != "0") ? "\(String(format: "%.2f", Double(Tip) ?? 0.0)) \(currency)" : "0 \(currency)"

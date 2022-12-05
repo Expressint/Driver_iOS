@@ -207,7 +207,7 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.lblDropTimeTitle.text = "Dropoff Time :".localized
         //cell.lblTripDistance.text = "Distance Travel :".localized
         
-        
+        cell.lblPricingModelTitle.text = "\("Pricing Model".localized) :"
         cell.lblTitleExtraCharge.text = "\("Extra Charge".localized) :"
         cell.lblTitleExtraChargeReason.text = "\("Extra Charge Reason".localized) :"
         
@@ -286,6 +286,8 @@ class PastJobsListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.lblpassengerEmail.text = data.object(forKey: "PassengerEmail") as? String
         cell.lblPassengerNo.text = data.object(forKey: "PassengerMobileNo") as? String
         cell.lblTripCancelReason.text = data.object(forKey: "Reason") as? String
+        
+        cell.lblPricingModel.text = (Localize.currentLanguage() == Languages.English.rawValue) ? data.object(forKey: "PriceTypeLabel") as? String ?? "" : data.object(forKey: "PriceTypeLabelSpanish") as? String ?? ""
         
         let ExtraCharge = data.object(forKey: "ExtraCharge") as? String ?? "0"
         cell.lblExtraCharge.text = "\(ExtraCharge)"

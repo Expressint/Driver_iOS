@@ -108,6 +108,9 @@ class PastJobsListTableViewCell: UITableViewCell {
     @IBOutlet weak var lblTripCancelReasonTitle: UILabel!
     @IBOutlet weak var lblTripCancelReason: UILabel!
     
+    @IBOutlet weak var lblPricingModelTitle: UILabel!
+    @IBOutlet weak var lblPricingModel: UILabel!
+    
     @IBOutlet weak var lblBookingDate: UILabel!
     @IBOutlet weak var lblProcessingDate: UILabel!
     @IBOutlet weak var lblAuthorizationNumber: UILabel!

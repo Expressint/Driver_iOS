@@ -16,6 +16,7 @@ class Singletons: NSObject {
     var DispatchCall = ""
     var DispatchName = ""
     var DispatchId = ""
+    var WaitingTimeNotify = 180
     var isShowFeatureBookingTab = 0
     static let sharedInstance = Singletons()
 

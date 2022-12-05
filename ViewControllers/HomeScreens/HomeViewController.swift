@@ -49,6 +49,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     }
     
     
+    var WaitingCounter = 0
+    var WaitingHoldTimer = Timer()
     //-------------------------------------------------------------
     // MARK: - Outlets
     //-------------------------------------------------------------
@@ -180,6 +182,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     var traveledDistance: Double = 0
     
     var isCameraDisable: Bool = false
+    var isCarStopped: Bool = false
+    var carStoppedTimer: Bool = false
     
     lazy var geocoder = CLGeocoder()
     
@@ -596,10 +600,71 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         print("\(socketApiKeys.kSendDriverLocationRequestByPassenger) \(myJSON)")
     }
     
+    @objc func timerAction() {
+        WaitingCounter += 1
+        
+        if(WaitingCounter == Singletons.sharedInstance.WaitingTimeNotify){
+            self.carStoppedTimer = false
+            WaitingCounter = 0
+            WaitingHoldTimer.invalidate()
+            
+            if(!self.stackViewOfWaitingTime.isHidden  && !App_Delegate.RoadPickupTimer.isValid && (self.bookingID != "" || self.advanceBookingID != "")){
+                UtilityClass.showAlertWithCompletion("", message: "Please start waiting time, If you're on hold during the trip.".localized, vc: self, completionHandler: { (status) in
+                   
+                })
+                
+                var myJSON : [String : Any] = [:]
+                myJSON = ["booking_type" : (self.isAdvanceBooking) ? "BookLater" : "BookNow",
+                          "booking_id" : (self.bookingID != "") ? self.bookingID : self.advanceBookingID] as [String : Any]
+                self.socket.emit(socketApiKeys.KWaitingTimeToDispatchere, with: [myJSON], completion: nil)
+                
+            }
+        }
+    }
+
+    
     // Handle incoming location events.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
         let location: CLLocation = locations.last!
+        let kmh = location.speed / 1000.0 * 60.0 * 60.0
+    
+        if(kmh <= 5.0  && !self.stackViewOfWaitingTime.isHidden  && !App_Delegate.RoadPickupTimer.isValid && (self.bookingID != "" || self.advanceBookingID != "")){
+            print("Speed : \(kmh)")
+            if(WaitingHoldTimer.isValid == false){
+                WaitingHoldTimer.invalidate()
+                WaitingHoldTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+            }
+        }else{
+            if(WaitingHoldTimer.isValid == true){
+                WaitingCounter = 0
+                WaitingHoldTimer.invalidate()
+                btnDirection.setTitle("Direction".localized, for: .normal)
+            }
+        }
+        
+        
+//        if(kmh <= 0.0){
+//            self.isCarStopped = true
+//            if(self.carStoppedTimer == false && !self.stackViewOfWaitingTime.isHidden){
+//                self.carStoppedTimer = true
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 180) {
+//                    if(self.carStoppedTimer && (self.bookingID != "" || self.advanceBookingID != "") && !self.stackViewOfWaitingTime.isHidden && !App_Delegate.RoadPickupTimer.isValid && kmh <= 0.0){
+//
+//                        self.isCarStopped = false
+//                        self.carStoppedTimer = false
+//                        UtilityClass.showAlertWithCompletion("", message: "Please start waiting time, If you're on hold during the trip.".localized, vc: self, completionHandler: { (status) in
+//
+//                        })
+//
+//                        var myJSON : [String : Any] = [:]
+//                        myJSON = ["booking_type" : (self.isAdvanceBooking) ? "BookLater" : "BookNow",
+//                                  "booking_id" : (self.bookingID != "") ? self.bookingID : self.advanceBookingID] as [String : Any]
+//                        self.socket.emit(socketApiKeys.KWaitingTimeToDispatchere, with: [myJSON], completion: nil)
+//                    }
+//                }
+//            }
+//        }
         
         let state = UIApplication.shared.applicationState
         if state == .background {
@@ -609,14 +674,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         //        if(Singletons.sharedInstance.isFirstTimeDidupdateLocation == true)
         //        {
-        if(self.boolShouldTrackCamera)
-        {
-            let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
-                                                  longitude: location.coordinate.longitude,
-                                                  zoom: zoomLevel)
-            //            mapView.camera = camera
-            mapView.animate(to: camera)
-        }
+
         //            Singletons.sharedInstance.isFirstTimeDidupdateLocation = false
         //        }
         
@@ -634,6 +692,9 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             if(oldCoordinate == nil)
             {
                 oldCoordinate = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
+                
+//                let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,longitude: location.coordinate.longitude,zoom: zoomLevel)
+//                mapView.animate(to: camera)
             }
             
             if(driverMarker == nil)
@@ -643,29 +704,36 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 driverMarker.map = mapView
             }
             
+            driverMarker.map = mapView
+            
             //            calculateDistance()
             
             let newCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(CLLocationDegrees(Singletons.sharedInstance.latitude), CLLocationDegrees(Singletons.sharedInstance.longitude))
-            self.moveMent.ARCarMovement(marker: driverMarker, oldCoordinate: oldCoordinate, newCoordinate: newCoordinate, mapView: mapView, bearing: Float(Singletons.sharedInstance.floatBearing))
+            if oldCoordinate != nil {
+                CATransaction.begin()
+                CATransaction.setValue(2, forKey: kCATransactionAnimationDuration)
+            }
+            
+            let bearing = getBearingBetweenTwoPoints(point1: CLLocationCoordinate2DMake(oldCoordinate.latitude, oldCoordinate.longitude), point2:CLLocationCoordinate2DMake(newCoordinate.latitude, newCoordinate.longitude))
+                                                     
+            if(self.boolShouldTrackCamera) {
+               // let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,longitude: location.coordinate.longitude,zoom: zoomLevel)
+                let camera = GMSCameraPosition.camera(withTarget: CLLocationCoordinate2DMake(oldCoordinate.latitude, oldCoordinate.longitude), zoom: zoomLevel, bearing: bearing, viewingAngle: 45)
+                mapView.animate(to: camera)
+            }
+            
+            self.moveMent.ARCarMovement(marker: driverMarker, oldCoordinate: oldCoordinate, newCoordinate: newCoordinate, mapView: mapView, bearing: 0)
             oldCoordinate = newCoordinate
-            //Tej's code
-//            let newCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(CLLocationDegrees(Singletons.sharedInstance.latitude), CLLocationDegrees(Singletons.sharedInstance.longitude))
-//            if oldCoordinate != nil {
-//                CATransaction.begin()
-//                CATransaction.setValue(2, forKey: kCATransactionAnimationDuration)
-//            }
-//
-//            if(self.boolShouldTrackCamera) {
-//                let camera = GMSCameraPosition.camera(withLatitude: newCoordinate.latitude, longitude: newCoordinate.longitude, zoom: zoomLevel)
-//                mapView.animate(to: camera)
-//            }
-//
-//            self.moveMent.ARCarMovement(marker: driverMarker, oldCoordinate: oldCoordinate, newCoordinate: newCoordinate, mapView: mapView, bearing: Float(Singletons.sharedInstance.floatBearing))
-//            if oldCoordinate != nil {
-//                CATransaction.commit()
-//            }
-//            oldCoordinate = newCoordinate
-            //Tej's code
+           
+            if oldCoordinate != nil {
+                CATransaction.commit()
+            }
+            
+        } else{
+            if(self.boolShouldTrackCamera) {
+                let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,longitude: location.coordinate.longitude,zoom: zoomLevel)
+                mapView.animate(to: camera)
+            }
         }
         
         // To track Meter
@@ -705,6 +773,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             
             //        if(location.speed > 0) {
             var kmh = location.speed / 1000.0 * 60.0 * 60.0
+            print("Spped : \(kmh)")
             if(kmh < 0){
                 kmh = 0
             }
@@ -773,7 +842,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             if(driverMarker == nil)
             {
                 driverMarker = GMSMarker(position: oldCoordinate)
-                //                driverMarker.position = oldCoordinate
                 driverMarker.icon = UIImage(named: Singletons.sharedInstance.strSetCar)
                 driverMarker.map = mapView
             }
@@ -782,7 +850,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             {
                 
                 let newCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(CLLocationDegrees(Singletons.sharedInstance.latitude), CLLocationDegrees(Singletons.sharedInstance.longitude))
-                self.moveMent.ARCarMovement(marker: driverMarker, oldCoordinate: oldCoordinate, newCoordinate: newCoordinate, mapView: mapView, bearing: Float(Singletons.sharedInstance.floatBearing))
+                self.moveMent.ARCarMovement(marker: driverMarker, oldCoordinate: oldCoordinate, newCoordinate: newCoordinate, mapView: mapView, bearing: 45)
                 oldCoordinate = newCoordinate
                 //Tej's code
 //                let newCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(CLLocationDegrees(Singletons.sharedInstance.latitude), CLLocationDegrees(Singletons.sharedInstance.longitude))
@@ -811,6 +879,26 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         }
     }
     
+    
+    func degreesToRadians(degrees: Double) -> Double { return degrees * .pi / 180.0 }
+    func radiansToDegrees(radians: Double) -> Double { return radians * 180.0 / .pi }
+
+    func getBearingBetweenTwoPoints(point1 : CLLocationCoordinate2D, point2 : CLLocationCoordinate2D) -> Double {
+
+        let lat1 = degreesToRadians(degrees: point1.latitude)
+        let lon1 = degreesToRadians(degrees: point1.longitude)
+
+        let lat2 = degreesToRadians(degrees: point2.latitude)
+        let lon2 = degreesToRadians(degrees: point2.longitude)
+
+        let dLon = lon2 - lon1
+
+        let y = sin(dLon) * cos(lat2)
+        let x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dLon)
+        let radiansBearing = atan2(y, x)
+
+        return radiansToDegrees(radians: radiansBearing)
+    }
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         
@@ -936,7 +1024,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                     
                 }
             }
-            
         })
         
     }
@@ -980,7 +1067,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 }else {
                     print("already emited")
                 }
-                
+
             }
             
             //            self.socket.on(socketApiKeys.kReceiveBookingRequest, callback: { (data, ack) in
@@ -1895,7 +1982,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     func CompletedBookLaterTrip() {
         
-        
         let BookingInfo : NSDictionary!
         if((((self.aryPassengerData as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingInfo") as? NSDictionary) == nil)
         {
@@ -2066,7 +2152,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         self.strPassengerMobileNo = PassengerInfo.object(forKey: "MobileNo") as! String
         //         imgURL = PassengerInfo.object(forKey: "Image") as! String
         let PickupLat = self.defaultLocation.coordinate.latitude
-        
         let PickupLng = self.defaultLocation.coordinate.longitude
         
         let dummyLatitude = Double(PickupLat) - Double(DropOffLat)!
@@ -2098,6 +2183,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         }
         next.strPassengerName =  self.strPassengerName
         next.strPassengerMobileNumber =  self.strPassengerMobileNo
+        next.isDiscountApplied = (BookingInfo.object(forKey: "PromoCode") as? String ?? "" != "") ? true : false
         
         //        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: nil)
         //        self.present(next, animated: true, completion: nil)
@@ -2200,18 +2286,21 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         }
         
     }
+    
     func getSocketCallforGetingTip(_ driverID : String , _ bookingID : String )
     {
         let myJSON = [profileKeys.kDriverId : driverID, socketApiKeys.kBookingId : bookingID ] as [String : Any]
         self.socket.emit(socketApiKeys.kAskForTips, with: [myJSON], completion: nil)
         print ("kAskForTips : \(myJSON)")
     }
+    
     func getSocketCallforGetingTipForBooklater(_ driverID : String , _ bookingID : String )
     {
         let myJSON = [profileKeys.kDriverId : driverID, socketApiKeys.kBookingId : bookingID ] as [String : Any]
         self.socket.emit(socketApiKeys.kAskForTipsForBookLater, with: [myJSON], completion: nil)
         print ("kAskForTipsForBookLater : \(myJSON)")
     }
+    
     func getNotificationforReceiveTipForBookLater()
     {
         
@@ -2278,8 +2367,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         })
     }
     
-    
-    
     func gettopMostViewController() -> UIViewController?
     {
         
@@ -2317,17 +2404,15 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     }
     func getNotificationforReceiveTip()
     {
-        
+
         self.socket.on(socketApiKeys.kReceiveTipsToDriver, callback: { (data, ack) in
             
             print ("kReceiveTipsToDriver : \(data)")
-            
             
             if let VC = self.gettopMostViewController() as? WaitForTipViewController
             {
                 VC.dismiss(animated: true, completion: nil)
             }
-            
             
             let msg = (data as NSArray)
             
@@ -2408,7 +2493,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 if Singletons.sharedInstance.bookingId == "" {
                     Singletons.sharedInstance.isPending = 0
                 }
-                
             }
             else {
                 Singletons.sharedInstance.advanceBookingIdTemp = self.advanceBookingID
@@ -3183,6 +3267,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         next.strDropoffLocation2 = self.strDropoffLocation2
         next.paymentType = PaymentType
         next.imgURL = imgURL
+        next.isDiscountApplied = (BookingInfo.object(forKey: "PromoCode") as? String ?? "" != "") ? true : false
+        
         if((PassengerInfo.object(forKey: "FlightNumber")) != nil)
         {
             next.strFlightNumber = PassengerInfo.object(forKey: "FlightNumber") as! String
@@ -4540,7 +4626,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         }
     }
     
-    /// Get Passenger Location Distance
+    // Get Passenger Location Distance
     func getPassengerLocationDistance(origin: String!, destination: String!, waypoints: Array<String>!, travelMode: AnyObject!, completionHandler: ((_ status:   String, _ success: Bool) -> Void)?) {
         
         DispatchQueue.main.asyncAfter(deadline: .now()) {
@@ -5976,12 +6062,18 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         if(Singletons.sharedInstance.isTripContinue == true) {
             
-            DropOffLat = BookingInfo.object(forKey: "DropOffLat") as! String
-            DropOffLon = BookingInfo.object(forKey: "DropOffLon") as! String
+            let secondLoc = BookingInfo.object(forKey: "DropOffLat2") as? String ?? ""
+            
+            if(btnReached.isHidden == true &&  secondLoc != "0"){
+                DropOffLat = BookingInfo.object(forKey: "DropOffLat2") as! String
+                DropOffLon = BookingInfo.object(forKey: "DropOffLon2") as! String
+            }else{
+                DropOffLat = BookingInfo.object(forKey: "DropOffLat") as! String
+                DropOffLon = BookingInfo.object(forKey: "DropOffLon") as! String
+            }
         }
         
         if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
-            
             UIApplication.shared.open(NSURL(string:
                                                 "comgooglemaps://?saddr=&daddr=\(String(describing: Float(DropOffLat)!)),\(String(describing: Float(DropOffLon)!))&directionsmode=driving")! as URL, options: [:], completionHandler: { (status) in
             })

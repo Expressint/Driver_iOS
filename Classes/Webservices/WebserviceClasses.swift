@@ -51,7 +51,7 @@ func postData(_ dictParams: AnyObject, nsURL: String, completion: @escaping (_ r
                 completion(JSON as AnyObject, false)
                 UtilityClass.hideACProgressHUD()
             }
-            else 
+            else
             {
                 completion(JSON as AnyObject, true)
                 UtilityClass.hideACProgressHUD()

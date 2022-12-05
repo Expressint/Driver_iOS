@@ -19,6 +19,7 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
     var strPassengerName = String()
     var strPassengerMobileNumber = String()
     var paymentType: String = ""
+    var isDiscountApplied: Bool = false
     
     var strFlightNumber = String()
     var strNotes = String()
@@ -51,11 +52,13 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
     @IBOutlet weak var lblFlightNumberDetail: UILabel!
     @IBOutlet weak var lblNotesDetail: UILabel!
     @IBOutlet weak var lblPaymentType: UILabel!
+    @IBOutlet weak var lblDiscountApplied: UILabel!
     @IBOutlet weak var btnChat: UIButton!
     
     //stackview
     @IBOutlet weak var stackViewFlightNumber: UIStackView!
     @IBOutlet weak var stackViewNotes: UIStackView!
+    @IBOutlet weak var stackViewDiscount: UIStackView!
     //button
     @IBOutlet weak var btnOK: UIButton!
     @IBOutlet weak var btnCall: UIButton!
@@ -69,6 +72,7 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
         
         stackViewFlightNumber.isHidden = true
         stackViewNotes.isHidden = true
+        stackViewDiscount.isHidden = true
         
         viewPassengerInfo.layer.cornerRadius = 5
         viewPassengerInfo.layer.masksToBounds = true
@@ -91,6 +95,7 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
         lblDroPoffLocationInFo.text = "Drop off location".localized
         lblFlightNumberInFo.text = "Flight No".localized
         lblNotesInFo.text = "Notes".localized
+        lblDiscountApplied.text = "Discount Applied".localized
         btnOK.setTitle("OK".localized, for: .normal)
     }
     
@@ -167,7 +172,7 @@ class PassengerInfoViewController: UIViewController,MFMessageComposeViewControll
         
 //        btnCall.setTitle(strPassengerMobileNumber, for: .normal)
     
-        
+        stackViewDiscount.isHidden = !self.isDiscountApplied
     }
     
     func goToChat() {

@@ -19,11 +19,11 @@ struct WebSupport {
 }
 
 //Live: https://www.bookaridegy.com/Drvier_Api/
-//Development: http://52.23.45.119/
+//Development: http://52.23.45.119/v2/
 struct WebserviceURLs {
     
-    static let kBaseURL                                 = "https://www.bookaridegy.com/Drvier_Api/"
-    static let kImageBaseURL                            = "https://www.bookaridegy.com/"
+    static let kBaseURL                                 = "https://www.bookaridegy.com/v2/Drvier_Api/"
+    static let kImageBaseURL                            = "https://www.bookaridegy.com/v2/"
     static let kOTPForDriverRegister                    = "OtpForRegister"
     static let kVehicalModelList                        = "TaxiModel/"
     static let kDriverRegister                          = "Register"
@@ -259,6 +259,7 @@ struct socketApiKeys {
     static let kReceiveMoneyNotify = "ReceiveMoneyNotify"
     static let kStartTripTimeError = "StartTripTimeError"
     static let kAskForTips = "AskForTips"
+    static let KWaitingTimeToDispatchere = "notify_waiting_time_to_dispatcher"
     static let kReceiveTipsToDriver = "ReceiveTipsToDriver"
     static let kAskForTipsForBookLater = "AskForTipsForBookLater"
     static let kReceiveTipsToDriverForBookLater = "ReceiveTipsToDriverForBookLater"

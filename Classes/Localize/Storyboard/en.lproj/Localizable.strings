@@ -138,6 +138,7 @@
 "View Receipt" = "View Receipt";
 
 "Extra Charge" = "Extra Charge";
+"Pricing Model" = "Pricing Model";
 "Extra Charge Reason" = "Extra Charge Reason";
 
 //Earning
@@ -288,6 +289,8 @@
 "Meter Trip Fare" = "Meter Trip Fare";
 "Flight No" = "Flight No";
 "Notes" = "Notes";
+"Discount Applied" = "Discount Applied";
+"Please start waiting time, If you're on hold during the trip." = "Please start waiting time, If you're on hold during the trip.";
 "Cancel Request" = "Cancel Request";
 "Base Fare" = "Base Fare";
 "Distance Fare" = "Distance Fare";

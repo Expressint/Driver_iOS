@@ -369,6 +369,7 @@ import DropDown
             self.strLongitude = currentLocation.coordinate.longitude
             self.manager.stopUpdatingLocation()
     }
+     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
     {
         print(error)
@@ -572,6 +573,7 @@ import DropDown
                 Singletons.sharedInstance.DispatchCall = result["DispatchCall"] as? String ?? ""
                 Singletons.sharedInstance.DispatchWhatsapp = result["DispatchWhatsapp"] as? String ?? ""
                 Singletons.sharedInstance.isShowFeatureBookingTab = result["is_show_feature_booking_tab"] as? Int ?? 0
+                Singletons.sharedInstance.WaitingTimeNotify = result["WaitingTimeNotify"] as? Int ?? 180
                 
                 let dispatcherInfo =  result["dispatcher_detail"] as? [String:Any]
                 Singletons.sharedInstance.DispatchName = dispatcherInfo?["Fullname"] as? String ?? ""

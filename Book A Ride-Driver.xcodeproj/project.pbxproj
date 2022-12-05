@@ -638,7 +638,6 @@
 		00E92915202AE2BF00A399E2 /* Payment */ = {
 			isa = PBXGroup;
 			children = (
-				2113EE212165FCD400370A68 /* New Group */,
 				00E92916202AE2BF00A399E2 /* InVoiceReceiptViewController.swift */,
 				00E92917202AE2BF00A399E2 /* PayViewController.swift */,
 				00E92918202AE2BF00A399E2 /* TickPayAlertViewController.swift */,
@@ -1167,13 +1166,6 @@
 				1110D3BC2075FD1700CC8C1F /* TripToDestinationViewController.swift */,
 			);
 			path = TripToDestination;
-			sourceTree = "<group>";
-		};
-		2113EE212165FCD400370A68 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		21A65EB1216613A10037E40E /* Fonts */ = {
@@ -1986,7 +1978,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7.4;
+				CURRENT_PROJECT_VERSION = 1.7.5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AQ5BYLK3P7;
 				INFOPLIST_FILE = "$(SRCROOT)/Other Resources/Info.plist";
@@ -1995,7 +1987,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.5;
+				MARKETING_VERSION = 1.4.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eww.BookARideDriver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2015,7 +2007,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7.4;
+				CURRENT_PROJECT_VERSION = 1.7.5;
 				DEVELOPMENT_TEAM = AQ5BYLK3P7;
 				INFOPLIST_FILE = "$(SRCROOT)/Other Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2023,7 +2015,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.5;
+				MARKETING_VERSION = 1.4.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eww.BookARideDriver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
