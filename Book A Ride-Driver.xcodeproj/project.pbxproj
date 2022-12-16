@@ -1978,7 +1978,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7.5;
+				CURRENT_PROJECT_VERSION = 1.7.6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AQ5BYLK3P7;
 				INFOPLIST_FILE = "$(SRCROOT)/Other Resources/Info.plist";
@@ -1987,7 +1987,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.6;
+				MARKETING_VERSION = 1.4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eww.BookARideDriver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2007,7 +2007,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7.5;
+				CURRENT_PROJECT_VERSION = 1.7.6;
 				DEVELOPMENT_TEAM = AQ5BYLK3P7;
 				INFOPLIST_FILE = "$(SRCROOT)/Other Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2015,7 +2015,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.6;
+				MARKETING_VERSION = 1.4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eww.BookARideDriver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

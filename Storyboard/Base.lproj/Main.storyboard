@@ -3645,55 +3645,55 @@ EE15IEpvYnM
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w0l-YE-zk6">
                                                 <rect key="frame" x="47" y="120" width="248" height="144"/>
                                                 <subviews>
-                                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconTOtoFromAddress" translatesAutoresizingMaskIntoConstraints="NO" id="GHB-hD-cdw">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconTOtoFromAddress" translatesAutoresizingMaskIntoConstraints="NO" id="GHB-hD-cdw">
                                                         <rect key="frame" x="10" y="15" width="17" height="121"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="17" id="paT-8h-jse"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zpU-jD-k6o">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zpU-jD-k6o">
                                                         <rect key="frame" x="37" y="15" width="201" height="114"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Qu7-Ij-Aaq">
-                                                                <rect key="frame" x="0.0" y="0.0" width="201" height="114"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="201" height="31.333333333333332"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Pickup Location:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="220-ov-5VT">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="201" height="97"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="201" height="14.333333333333334"/>
                                                                         <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="12"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hzd-fX-bJ1" customClass="MarqueeLabel" customModule="MarqueeLabel">
-                                                                        <rect key="frame" x="0.0" y="102" width="201" height="12"/>
+                                                                        <rect key="frame" x="0.0" y="19.333333333333371" width="201" height="12"/>
                                                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="12"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
                                                             </stackView>
-                                                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="TTO-Cg-n6O">
-                                                                <rect key="frame" x="0.0" y="0.0" width="201" height="0.0"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="TTO-Cg-n6O">
+                                                                <rect key="frame" x="0.0" y="41.333333333333371" width="201" height="31.333333333333329"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dropoff Location:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jqb-J1-0qi">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="201" height="0.0"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Dropoff Location:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jqb-J1-0qi">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="201" height="19.333333333333332"/>
                                                                         <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="12"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXo-na-FPH" customClass="MarqueeLabel" customModule="MarqueeLabel">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="201" height="0.0"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXo-na-FPH" customClass="MarqueeLabel" customModule="MarqueeLabel">
+                                                                        <rect key="frame" x="0.0" y="19.333333333333258" width="201" height="12"/>
                                                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="12"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
                                                             </stackView>
-                                                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="cIx-IT-geZ">
-                                                                <rect key="frame" x="0.0" y="0.0" width="201" height="5"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="cIx-IT-geZ">
+                                                                <rect key="frame" x="0.0" y="82.666666666666629" width="201" height="31.333333333333329"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dropoff Location:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="peN-hf-BiK">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="201" height="0.0"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="201" height="14.333333333333334"/>
                                                                         <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="12"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8w-ud-5XF" customClass="MarqueeLabel" customModule="MarqueeLabel">
-                                                                        <rect key="frame" x="0.0" y="5" width="201" height="0.0"/>
+                                                                        <rect key="frame" x="0.0" y="19.333333333333371" width="201" height="12"/>
                                                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="12"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
@@ -16833,7 +16833,7 @@ EE15IEpvYnM
         <image name="iconAcceptTrip" width="40" height="40"/>
         <image name="iconArrowGray" width="42" height="42"/>
         <image name="iconArrowGrey" width="21" height="21"/>
-        <image name="iconBack" width="28.333333969116211" height="28.333333969116211"/>
+        <image name="iconBack" width="85" height="85"/>
         <image name="iconBackWhite" width="26.666666030883789" height="26.666666030883789"/>
         <image name="iconBalance" width="85" height="85"/>
         <image name="iconBus" width="85" height="85"/>

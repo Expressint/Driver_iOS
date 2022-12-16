@@ -44,7 +44,6 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     
     @IBOutlet weak var btnReject: UIButton!
     @IBOutlet weak var btnAccepted: UIButton!
-    
     @IBOutlet weak var viewDetails: UIView!
     
     @IBOutlet weak var viewCountdownTimer: SRCountdownTimer!
@@ -73,7 +72,7 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.strackviewOfDropOffLocation.isHidden = true
+        //self.strackviewOfDropOffLocation.isHidden = true
         self.strackviewOfDropOffLocation2.isHidden = true
         
         CountDownView()
@@ -157,7 +156,8 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
         }
         else
         {
-            lblDropoffLocation2Info.text = "Additional Dropoff location"
+            strackviewOfDropOffLocation2.isHidden = false
+            lblDropoffLocation2Info.text = "Additional Dropoff Location".localized
             lblDropoffLocation2.text = strDropoffLocation2
 
         }

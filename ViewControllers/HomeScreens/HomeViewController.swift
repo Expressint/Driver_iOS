@@ -1506,7 +1506,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                         }
                     }
                 }
-                
             })
             
             
@@ -1515,16 +1514,13 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             
             alert.addAction(cancelAction)
             alert.addAction(okAction)
-            
             if(self.presentedViewController != nil)
             {
                 self.dismiss(animated: true, completion: nil)
             }
             //vc will be the view controller on which you will present your alert as you cannot use self because this method is static.
             self.present(alert, animated: true, completion: nil)
-            
         })
-        
     }
     
     //-------------------------------------------------------------
@@ -1580,8 +1576,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                     else {
                         return
                     }
-                }
-                else {
+                } else {
                     return
                 }
                 
@@ -1668,18 +1663,12 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     func zoomoutCamera(PickupLat: CLLocationDegrees, PickupLng: CLLocationDegrees, DropOffLat : String, DropOffLon: String)
     {
         let bounds = GMSCoordinateBounds(coordinate: CLLocationCoordinate2D(latitude: Double(PickupLat), longitude: Double(PickupLng)), coordinate: CLLocationCoordinate2D(latitude: (Double(DropOffLat) ?? Double(0)), longitude: (Double(DropOffLon) ?? Double(0))))
-        
         let update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(40))
-        
         self.mapView.animate(with: update)
-        
         self.mapView.moveCamera(update)
-        
-        
     }
     
-    func methodAfterDidAcceptBooking(data : NSArray)
-    {
+    func methodAfterDidAcceptBooking(data : NSArray) {
         
         let getBookingAndPassengerInfo = self.getBookingAndPassengerInfo(data: data)
         
@@ -1704,17 +1693,14 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         let BookingInfo = getBookingAndPassengerInfo.0
         let PassengerInfo = getBookingAndPassengerInfo.1
         
-        
         if let isArrived = BookingInfo.object(forKey: "IsArrived") as? String {
             if(isArrived == "0" || isArrived == "")
             {
                 self.btnStartTrip.setTitle("Driver Outside".localized, for: .normal)
-                
             }
             else
             {
                 self.btnStartTrip.setTitle("Start Trip".localized, for: .normal)
-                
             }
         }
         
@@ -1747,7 +1733,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         //        }
         
         
-        
         if(Singletons.sharedInstance.strBookingType == "BookLater")
         {
             let strID = BookingInfo.object(forKey: "Id") as AnyObject
@@ -1757,7 +1742,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             self.bookingID = String(describing: strID)
         }
         
-        
         let DropOffLat = BookingInfo.object(forKey: "PickupLat") as! String
         let DropOffLon = BookingInfo.object(forKey: "PickupLng") as! String
         
@@ -1765,7 +1749,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         self.strPickupLocation = BookingInfo.object(forKey: "PickupLocation") as! String
         self.strDropoffLocation = BookingInfo.object(forKey: "DropoffLocation") as! String
         self.strPassengerName = PassengerInfo.object(forKey: "Fullname") as! String
-        
         //        var imgURL = String()
         
         self.strPassengerMobileNo = PassengerInfo.object(forKey: "MobileNo") as! String
@@ -1844,7 +1827,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 if Singletons.sharedInstance.passengerType == "other" || Singletons.sharedInstance.passengerType == "others" {
                     
                     let Fullname = BookingInfo.object(forKey: "PassengerName")
-                    
                     let FlightNumber = BookingInfo.object(forKey: "FlightNumber")
                     let PaymentType = BookingInfo.object(forKey: "PaymentType")
                     let Notes = BookingInfo.object(forKey: "Notes")
@@ -2280,11 +2262,9 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         playSound(strName: "RequestConfirm")
         
-        if !(Singletons.sharedInstance.isBookNowOrBookLater) {
-            
+        if !(Singletons.sharedInstance.isBookNowOrBookLater){
             self.resetMapView()
         }
-        
     }
     
     func getSocketCallforGetingTip(_ driverID : String , _ bookingID : String )
@@ -2394,9 +2374,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         }
         
         if let presented = controller?.presentedViewController {
-            
             return findtopViewController(controller: presented)
-            
         }
         
         return controller
@@ -2723,7 +2701,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                     UserDefaults.standard.set(Singletons.sharedInstance.isTripContinue, forKey: tripStatus.kisTripContinue)
                     UserDefaults.standard.set(Singletons.sharedInstance.isRequestAccepted, forKey: tripStatus.kisRequestAccepted)
                     self.aryPassengerData = NSArray()
-
                     self.setCarAfterTrip()
                 })
                 
@@ -3463,10 +3440,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         //        }
         
         
-        
-        // 9-July-2018
-        
-        
         let BookingInfo : NSDictionary!
         
         if((((self.aryPassengerData as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingInfo") as? NSDictionary) == nil)
@@ -3690,7 +3663,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 if (Singletons.sharedInstance.advanceBookingIdTemp != "") {
                     advanceBookingID = Singletons.sharedInstance.advanceBookingId
                 }
-                
                 dictOFParam["BookingId"] = advanceBookingID as AnyObject
                 
                 webserviceCallForAdvanceCompleteTrip(dictOFParam: dictOFParam as AnyObject)
@@ -4527,8 +4499,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                                     let endLocationDictionary = legs[legs.count - 1]["end_location"] as! Dictionary<String, AnyObject>
                                     self.destinationCoordinate = CLLocationCoordinate2DMake(endLocationDictionary["lat"] as! Double, endLocationDictionary["lng"] as! Double)
                                     
-                                    
-                                    
                                     var aryDistance = [String]()
                                     var finalDistance = Double()
                                     
@@ -4740,7 +4710,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             self.driverMarker.icon = UIImage(named: "dummyCar")
         }
 
-        //Rahul
         if(Singletons.sharedInstance.dictDriverProfile.count != 0) {
             
             var dropOffCoordinate = CLLocationCoordinate2D()
@@ -4753,7 +4722,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             else if let dictDataOfBookingInfo2 = ((self.aryPassengerData as NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "BookingInfo") as? NSDictionary
             {
                 dictDataOfBookingInfo = dictDataOfBookingInfo2
-
             }
             
             let status = (dictDataOfBookingInfo.object(forKey: "Status") as? String ?? "")
@@ -5125,7 +5093,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                     }
                 }
                 
-                
                 Singletons.sharedInstance.strCurrentBalance = Double(resultData.object(forKey: "balance") as! String)!
                 var rating = String()
                 if let ratingTemp = resultData.object(forKey: "rating") as? String
@@ -5266,7 +5233,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                             self.advanceBookingID = self.dictCurrentBookingInfoData.object(forKey: "Id") as! String
                             self.driverID = Singletons.sharedInstance.strDriverID
                             Singletons.sharedInstance.isRequestAccepted = true
-                            
+        
                             Singletons.sharedInstance.isPickUPPasenger = false
                             
                             self.bookingTypeIsBookNow()
