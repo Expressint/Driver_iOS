@@ -1394,7 +1394,6 @@
 				00E5CEA11F8B402C004409A4 /* Resources */,
 				45E1862B52B878E7BD74258F /* [CP] Embed Pods Frameworks */,
 				BC2BBE68F542D67E9F20D53C /* [CP] Copy Pods Resources */,
-				475E5CC028F816EB00B36A86 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1574,25 +1573,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Book A Ride-Driver/Pods-Book A Ride-Driver-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		475E5CC028F816EB00B36A86 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
 		BC2BBE68F542D67E9F20D53C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

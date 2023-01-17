@@ -105,6 +105,9 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         return mf
     }()
     
+    var SosTimer: Timer?
+    var SosTimerCount: Int = 10
+    
     @IBOutlet var btnPassengerInfo: UIButton!
     
     @IBOutlet var btnDirectionFourBTN: UIButton!
@@ -1373,14 +1376,48 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     func socketEmitForSOS()
     {
-        let myJSON = ["UserId" : driverID,
-                      socketApiKeys.kBookingId: Singletons.sharedInstance.strBookingType == "BookLater" ? advanceBookingID : bookingID,
-                      socketApiKeys.kBookingType : Singletons.sharedInstance.strBookingType == "BookLater" ? "AdvanceBooking" : "Booking",
-                      socketApiKeys.kUserType: "Driver", "Token": Singletons.sharedInstance.deviceToken,socketApiKeys.kLat: defaultLocation.coordinate.latitude, "Lng": defaultLocation.coordinate.longitude] as [String : Any]
-            
-        socket.emit(socketApiKeys.SOS, with: [myJSON], completion: nil)
-        print ("\(socketApiKeys.SOS) : \(myJSON)")
+        let alertController = UIAlertController(title: "SOS".localized, message: "Are you sure you want to trigger SOS?", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "Cancel \(SosTimerCount)".localized, style: .default, handler: {
+            action in
+            self.SosTimer?.invalidate()
+            self.SosTimer = nil
+            self.SosTimerCount = 10
+            self.dismiss(animated: true, completion: nil)
+        })
+        
+        alertController.addAction(okAction)
+        present(alertController, animated: true) {
+            self.SosTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.countDownTimer), userInfo: nil, repeats: true)
+        }
     }
+    
+    @objc func countDownTimer() {
+        SosTimerCount -= 1
+        
+        let alertController = presentedViewController as! UIAlertController
+        let okAction = alertController.actions.first
+        
+        if SosTimerCount == 0 {
+            self.SosTimer?.invalidate()
+            self.SosTimer = nil
+            self.SosTimerCount = 10
+            
+            let myJSON = ["UserId" : driverID,
+                          socketApiKeys.kBookingId: Singletons.sharedInstance.strBookingType == "BookLater" ? advanceBookingID : bookingID,
+                          socketApiKeys.kBookingType : Singletons.sharedInstance.strBookingType == "BookLater" ? "AdvanceBooking" : "Booking",
+                          socketApiKeys.kUserType: "Driver", "Token": Singletons.sharedInstance.deviceToken,socketApiKeys.kLat: defaultLocation.coordinate.latitude, "Lng": defaultLocation.coordinate.longitude] as [String : Any]
+                
+            socket.emit(socketApiKeys.SOS, with: [myJSON], completion: nil)
+            print ("\(socketApiKeys.SOS) : \(myJSON)")
+            
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            okAction?.setValue("Cancel \(SosTimerCount)", forKey: "title")
+        }
+    }
+    
+    
     
     func onSOS() {
         

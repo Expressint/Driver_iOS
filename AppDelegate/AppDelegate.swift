@@ -121,7 +121,7 @@ let googlPlacesApiKey = googlApiKey
         }
 
         UNUserNotificationCenter.current().delegate = self
-        FirebaseApp.configure()
+       // FirebaseApp.configure()
         registerForPushNotification()
         return true
     }
