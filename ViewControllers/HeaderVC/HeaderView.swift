@@ -122,9 +122,6 @@ class HeaderView: UIView {
                 }
             }
         }
-      
-        
-        
     }
     
     

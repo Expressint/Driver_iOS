@@ -29,6 +29,7 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
     @IBInspectable var hideSignOut: Bool = false
     
     var headerView: HeaderView?
+    var tourVc: ToursHomeVC?
     var userDefault = UserDefaults.standard
     var driverDuty = String()
     

@@ -203,6 +203,9 @@
 		63F23F752188690400FB629F /* LegalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F23F742188690400FB629F /* LegalViewController.swift */; };
 		63F23F77218890D300FB629F /* LegalWebPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F23F76218890D300FB629F /* LegalWebPage.swift */; };
 		7A1BAADB2567CFFF0080B549 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A1BAADA2567CFFF0080B549 /* GoogleService-Info.plist */; };
+		8438C46729781DC000DDF27B /* ToursHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8438C46629781DC000DDF27B /* ToursHomeView.xib */; };
+		845D54D32976C95B00FA8F7B /* Tours.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845D54D22976C95B00FA8F7B /* Tours.storyboard */; };
+		845D54D62976C99400FA8F7B /* ToursHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D54D52976C99400FA8F7B /* ToursHomeVC.swift */; };
 		88BBE2152891405E0024F935 /* SenderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88BBE20F2891405E0024F935 /* SenderCell.xib */; };
 		88BBE2162891405E0024F935 /* SenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BBE2102891405E0024F935 /* SenderCell.swift */; };
 		88BBE2172891405E0024F935 /* ReceiverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BBE2122891405E0024F935 /* ReceiverCell.swift */; };
@@ -428,6 +431,9 @@
 		63F23F76218890D300FB629F /* LegalWebPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalWebPage.swift; sourceTree = "<group>"; };
 		7A1BAADA2567CFFF0080B549 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7AEF3A4F2567A854006CE291 /* Book A Ride-Driver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Book A Ride-Driver.entitlements"; sourceTree = "<group>"; };
+		8438C46629781DC000DDF27B /* ToursHomeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToursHomeView.xib; sourceTree = "<group>"; };
+		845D54D22976C95B00FA8F7B /* Tours.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tours.storyboard; sourceTree = "<group>"; };
+		845D54D52976C99400FA8F7B /* ToursHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToursHomeVC.swift; sourceTree = "<group>"; };
 		88BBE20F2891405E0024F935 /* SenderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SenderCell.xib; sourceTree = "<group>"; };
 		88BBE2102891405E0024F935 /* SenderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SenderCell.swift; sourceTree = "<group>"; };
 		88BBE2122891405E0024F935 /* ReceiverCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiverCell.swift; sourceTree = "<group>"; };
@@ -517,6 +523,7 @@
 		00E928E3202AE2BF00A399E2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				845D54D42976C97300FA8F7B /* Tours */,
 				3AF9136621C9199F00E2C08A /* MyRatingViewCell.swift */,
 				47DB61BC28C8841D003FD81C /* OfflineVC */,
 				88BBE20C2891405E0024F935 /* Chat */,
@@ -1155,6 +1162,7 @@
 				EEFEA5A0221183F700D88655 /* Profile.storyboard */,
 				EEFEA5AA2211841000D88655 /* Registration.storyboard */,
 				3F438AD6259208D000441E1B /* MyEarnings.storyboard */,
+				845D54D22976C95B00FA8F7B /* Tours.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -1291,6 +1299,15 @@
 				B93BD9688C29F5F64A4A5492 /* Pods_Book_A_Ride_Driver.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		845D54D42976C97300FA8F7B /* Tours */ = {
+			isa = PBXGroup;
+			children = (
+				845D54D52976C99400FA8F7B /* ToursHomeVC.swift */,
+				8438C46629781DC000DDF27B /* ToursHomeView.xib */,
+			);
+			path = Tours;
 			sourceTree = "<group>";
 		};
 		88BBE20C2891405E0024F935 /* Chat */ = {
@@ -1459,6 +1476,7 @@
 				21A65ED3216614630037E40E /* proxima-nova-condensed.otf in Resources */,
 				21A65ED4216614630037E40E /* proxima-nova-condensed-semibold-italic.otf in Resources */,
 				21A65ED5216614630037E40E /* proxima-nova-condensed-semibold.otf in Resources */,
+				8438C46729781DC000DDF27B /* ToursHomeView.xib in Resources */,
 				21A65ED6216614630037E40E /* proxima-nova-light.otf in Resources */,
 				21A65ED7216614630037E40E /* proxima-nova-condensed-light.otf in Resources */,
 				21A65ED8216614630037E40E /* proxima-nova-condensed-regular-italic.otf in Resources */,
@@ -1466,6 +1484,7 @@
 				21A65EDA216614630037E40E /* proxima-nova-condensed-light-italic.otf in Resources */,
 				21A65EDB216614630037E40E /* proxima-nova-semibold-italic.otf in Resources */,
 				3F438AD7259208D000441E1B /* MyEarnings.storyboard in Resources */,
+				845D54D32976C95B00FA8F7B /* Tours.storyboard in Resources */,
 				21A65EDC216614630037E40E /* proxima-nova-bold.otf in Resources */,
 				54C447D728003FD70094ACD5 /* CancelAlertViewController.xib in Resources */,
 				21A65EDD216614630037E40E /* proxima-nova-semibold.otf in Resources */,
@@ -1664,6 +1683,7 @@
 				00E92A05202AE2C100A399E2 /* DriverNewsViewController.swift in Sources */,
 				00E92A0A202AE2C100A399E2 /* DriverNewsTableViewCell.swift in Sources */,
 				00E929D9202AE2C100A399E2 /* DriverPersonelDetailsViewController.swift in Sources */,
+				845D54D62976C99400FA8F7B /* ToursHomeVC.swift in Sources */,
 				00E929D5202AE2C100A399E2 /* ComingSoonVC.swift in Sources */,
 				00E92A32202AE2C100A399E2 /* SPRandom.swift in Sources */,
 				00E92A31202AE2C100A399E2 /* SPLaunchAnimation.swift in Sources */,

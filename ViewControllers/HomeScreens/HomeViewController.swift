@@ -19,6 +19,7 @@ import MarqueeLabel
 import Alamofire
 import UserNotifications
 import AVFoundation
+
 //-------------------------------------------------------------
 // MARK: - Protocol
 //-------------------------------------------------------------
@@ -51,6 +52,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     var WaitingCounter = 0
     var WaitingHoldTimer = Timer()
+    let toursView: [Any] = Bundle.main.loadNibNamed("ToursHomeView", owner: HomeViewController.self, options: nil)!
     //-------------------------------------------------------------
     // MARK: - Outlets
     //-------------------------------------------------------------
@@ -121,7 +123,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     
     let baseURLDirections = "https://maps.googleapis.com/maps/api/directions/json?"
-    
     var oldCoordinate: CLLocationCoordinate2D!
     var placesClient: GMSPlacesClient!
     let manager = CLLocationManager()
@@ -454,6 +455,10 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         self.navigationController?.isNavigationBarHidden = true
         NotificationCenter.default.addObserver(self, selector: #selector(changeLanguage), name: Notification.Name(rawValue: LCLLanguageChangeNotification), object: nil)
         setLocalization()
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+//            self.openToursVC()
+//        }
     }
     
     @objc func changeLanguage(){
@@ -606,7 +611,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     @objc func timerAction() {
         WaitingCounter += 1
         
-        if(WaitingCounter == Singletons.sharedInstance.WaitingTimeNotify){
+        if(WaitingCounter == Singletons.sharedInstance.WaitingTimeNotify) {
             self.carStoppedTimer = false
             WaitingCounter = 0
             WaitingHoldTimer.invalidate()
@@ -6249,18 +6254,36 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             }
         }
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateDistanceInMeters"), object: nil)
-        
-        //        print("The total is Home View \(SingletonsForMeter.sharedInstance.total)")
-        //        print("The time is \(SingletonsForMeter.sharedInstance.waitingMinutes)")
-        
-        
     }
     
 }
 
 
+//MARK: --- Tours Code
 
-
+extension HomeViewController : UIViewControllerTransitioningDelegate, ClassToursDelegate {
+   
+    func openToursVC() {
+        if let customView = toursView[0] as? ToursHomeVC {
+            customView.delegate = self
+            self.view.addSubview(customView)
+            viewLocationDetails.isHidden = true
+            customView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                customView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                customView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                customView.topAnchor.constraint(equalTo: headerView!.bottomAnchor),
+                customView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+        }
+    }
+    
+    func closeToursPopup() {
+        viewLocationDetails.isHidden = false
+    }
+    
+}
+         
 extension Bool {
     /// To Check is First Time from Pending Jobs
     mutating func toggleForBookLaterStartFromPendinfJobs() {

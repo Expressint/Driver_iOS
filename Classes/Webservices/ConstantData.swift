@@ -271,6 +271,9 @@ struct socketApiKeys {
     static let DriverTyping = "is_typing"
     static let DriverStopTyping = "is_stop_typing"
     
+    
+    //MARK: - Tour 
+    
 }
 
 struct appName {
