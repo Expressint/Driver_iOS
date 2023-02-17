@@ -42,6 +42,7 @@ let FutureBooking = WebserviceURLs.kFutureBooking
 let BookingHistory = WebserviceURLs.kBookingHistory
 
 let CurrentBooking = WebserviceURLs.kCurrentBooking
+let RentalCurrentBooking = WebserviceURLs.RentalCurrentBooking
 
 let AddNewCard = WebserviceURLs.kAddNewCard
 let CardListing = WebserviceURLs.kCards
@@ -85,6 +86,8 @@ let DriverEarningReport = WebserviceURLs.kDriverEarningReport
 
 let HelpOptions = WebserviceURLs.kHelpOptions
 let Help = WebserviceURLs.kHelp
+let SubmitRntalCompleteBooking = WebserviceURLs.kSubmitCompleteRentalBooking
+let RentalReviewRating = WebserviceURLs.kRentalReviewRating
 
 //-------------------------------------------------------------
 // MARK: - Webservice For Registration
@@ -226,6 +229,12 @@ func webserviceForUpdateDocumentDetails(_ dictParams: AnyObject, image: UIImage,
 func webserviceForCompletedTripSuccessfully(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
     let url = SubmitCompleteBooking
+    postData(dictParams, nsURL: url, completion: completion)
+}
+
+func webserviceForCompletedTripRental(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = SubmitRntalCompleteBooking
     postData(dictParams, nsURL: url, completion: completion)
 }
 
@@ -546,6 +555,12 @@ func webserviceForGiveRating(_ dictParams: AnyObject, completion: @escaping(_ re
     postData(dictParams, nsURL: url, completion: completion)
 }
 
+func webserviceForGiveRentalRating(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = RentalReviewRating
+    postData(dictParams, nsURL: url, completion: completion)
+}
+
 //-------------------------------------------------------------
 // MARK: - Webservice For Get EstimateFare For Dispatch Jobs
 //-------------------------------------------------------------
@@ -670,5 +685,11 @@ func webserviceForHelpOptions(_ dictParams: AnyObject, completion: @escaping(_ r
 func webserviceForSendingHelpRequest(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
     let url = Help
+    postData(dictParams, nsURL: url, completion: completion)
+}
+
+func webserviceOfRentalCurrentBooking(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = RentalCurrentBooking
     postData(dictParams, nsURL: url, completion: completion)
 }

@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "info-button (1).png",
+      "filename" : "world.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -17,8 +17,5 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "template-rendering-intent" : "template"
   }
 }

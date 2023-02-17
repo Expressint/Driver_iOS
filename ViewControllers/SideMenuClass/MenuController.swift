@@ -11,9 +11,6 @@ import SDWebImage
 import MapKit
 import DropDown
 
-let KEnglish : String = "EN"
-let KSwiley : String = "SW"
-
 class MenuController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
     
@@ -155,7 +152,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func setLocalization() {
         arrMenuTitle = [ "My Jobs".localized,"My Earnings".localized,"Help".localized,"Invite Friend".localized]
-        arrMenuIcons = [kiconMyJobs,kiconPaymentOption,kIconHelp,kiconInviteFriend]
+        arrMenuIcons = [kiconMyJobs,kiconPaymentOption,kIconHelp,kLocation]
         
         btnSignOut1.setTitle("Sign out".localized, for: .normal)
         btnSignOut1.titleLabel?.numberOfLines = 0
@@ -677,10 +674,8 @@ extension MenuController : UICollectionViewDataSource, UICollectionViewDelegate,
         }
     }
     
-    func alertForHelpOptions()
-    {
+    func alertForHelpOptions() {
         let reasonsVC = CancelAlertViewController(nibName: "CancelAlertViewController", bundle: nil)
-        
         reasonsVC.isHelp = true
         reasonsVC.okPressedClosure = { (reason) in
             
@@ -691,7 +686,6 @@ extension MenuController : UICollectionViewDataSource, UICollectionViewDelegate,
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         
-
     }
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {

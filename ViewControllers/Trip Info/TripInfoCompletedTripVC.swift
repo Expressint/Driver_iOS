@@ -20,16 +20,11 @@ class TripInfoCompletedTripVC: UIViewController {
     // MARK: - Outlets
     //-------------------------------------------------------------
     
-
-    
-//    @IBOutlet weak var lblDropOffLocationInFo: UILabel!
-//    @IBOutlet weak var lblPickUPLocationInFo: UILabel!
     @IBOutlet weak var lblTitleCompamyName: UILabel!
     @IBOutlet weak var lblTitleProcessingDate: UILabel!
     @IBOutlet weak var lblTitleBookingDate: UILabel!
     @IBOutlet weak var lblTitleAuthorization: UILabel!
     @IBOutlet weak var lblTitleSubTotal: UILabel!
-    
     
     @IBOutlet weak var lblOrderNumber: UILabel!
     @IBOutlet var lblDate: UILabel!
@@ -41,7 +36,6 @@ class TripInfoCompletedTripVC: UIViewController {
     @IBOutlet weak var stackViewFlightNumber: UIStackView!
     @IBOutlet weak var stackViewNote: UIStackView!
     @IBOutlet weak var stackViewSpecialExtraCharge: UIStackView!
-    
   
     @IBOutlet weak var lblPickupLocation: MarqueeLabel!
     @IBOutlet weak var lblDropOffLocation: MarqueeLabel!
@@ -66,7 +60,6 @@ class TripInfoCompletedTripVC: UIViewController {
     
     @IBOutlet weak var lblDistanceFareTitle: UILabel!
     
-    
     @IBOutlet var lblPickupTime: UILabel!
     @IBOutlet var lblDropoffTime: UILabel!
     @IBOutlet var lblDistanceTravelled: UILabel!
@@ -83,7 +76,6 @@ class TripInfoCompletedTripVC: UIViewController {
     @IBOutlet weak var lblDistanceFare: UILabel!
     
     @IBOutlet weak var lblBookingDate: UILabel!
-    
     
     @IBOutlet weak var PickupTimeStack: UIStackView!
     @IBOutlet weak var DropoffTimeStack: UIStackView!

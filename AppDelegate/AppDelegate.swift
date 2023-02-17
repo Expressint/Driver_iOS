@@ -56,13 +56,6 @@ let googlPlacesApiKey = googlApiKey
         
         checkAndSetDefaultLanguage()
         
-//        if UserDefaults.standard.value(forKey: "i18n_language") == nil {
-//            UserDefaults.standard.set("en", forKey: "i18n_language")
-//            UserDefaults.standard.synchronize()
-//        }
-        
-//        Fabric.with([Crashlytics.self])
-        
         SideMenuController.preferences.drawing.menuButtonImage = UIImage(named: "menu")
         SideMenuController.preferences.drawing.sidePanelPosition = .overCenterPanelLeft
         SideMenuController.preferences.drawing.sidePanelWidth = (window?.frame.width)! * 0.85
@@ -70,16 +63,14 @@ let googlPlacesApiKey = googlApiKey
         SideMenuController.preferences.animating.statusBarBehaviour = .showUnderlay
         UIApplication.shared.isIdleTimerDisabled = true
         
-        // Google Map
-        
+  
         GMSPlacesClient.provideAPIKey(googlPlacesApiKey)
         GMSServices.provideAPIKey(googlPlacesApiKey)
-        
-        // AIzaSyCRaduVCKdm1ll3kHPY-ebtvwwPV2VVozo
         
         manager.delegate = self
         manager.startUpdatingLocation()
         manager.requestAlwaysAuthorization()
+        LocationManager.shared.start()
         
         if (UserDefaults.standard.object(forKey:  driverProfileKeys.kKeyDriverProfile) != nil)
         {
@@ -121,7 +112,7 @@ let googlPlacesApiKey = googlApiKey
         }
 
         UNUserNotificationCenter.current().delegate = self
-       // FirebaseApp.configure()
+        FirebaseApp.configure()
         registerForPushNotification()
         return true
     }
@@ -564,7 +555,6 @@ let googlPlacesApiKey = googlApiKey
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         print("Firebase registration token: \(fcmToken)")
         
-  
         let token = Messaging.messaging().fcmToken
         Singletons.sharedInstance.deviceToken = token!
         #if targetEnvironment(simulator)

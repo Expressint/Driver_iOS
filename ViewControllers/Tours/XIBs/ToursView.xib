@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ToursView" customModule="Book_A_Ride_Driver" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7UR-Rw-NdL" customClass="ToursHomeVC" customModule="Book_A_Ride_Driver" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OmW-PK-mVj">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                        </view>
+                        <view hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vDh-Ep-fEe">
+                            <rect key="frame" x="97" y="20" width="220" height="40"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip Duration : 00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ynj-wo-7NA">
+                                    <rect key="frame" x="23.5" y="11" width="173" height="18"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.0078431372550000003" green="0.65098039220000004" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="Ynj-wo-7NA" firstAttribute="centerY" secondItem="vDh-Ep-fEe" secondAttribute="centerY" id="7qf-ef-1ST"/>
+                                <constraint firstAttribute="width" constant="220" id="DCE-Ad-hsR"/>
+                                <constraint firstItem="Ynj-wo-7NA" firstAttribute="centerX" secondItem="vDh-Ep-fEe" secondAttribute="centerX" id="kmR-Q1-2zi"/>
+                                <constraint firstAttribute="height" constant="40" id="sMl-sg-ecb"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Fuq-Rq-cIA">
+                            <rect key="frame" x="20" y="758" width="374" height="50"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RK7-za-Vks">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                                    <color key="backgroundColor" red="0.0078431372550000003" green="0.65098039220000004" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Arrived at Pickup Location">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" red="0.0078431372550000003" green="0.65098039220000004" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="8"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="btnArrivedAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="hGe-dF-idu"/>
+                                    </connections>
+                                </button>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Txs-8b-Loi">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="0.0"/>
+                                    <color key="backgroundColor" red="0.0078431372550000003" green="0.65098039220000004" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Start Trip">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" red="0.0078431372550000003" green="0.65098039220000004" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="8"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="btnStartAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="qeT-Nz-mEs"/>
+                                    </connections>
+                                </button>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ORs-xP-5kd">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="0.0"/>
+                                    <color key="backgroundColor" red="0.0078431372550000003" green="0.65098039220000004" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Complete Trip">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" red="0.0078431372550000003" green="0.65098039220000004" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="8"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="BtnCompleteAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="JgM-1b-lHG"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="LEJ-Vy-c9u"/>
+                            </constraints>
+                        </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Icc-1g-jrT">
+                            <rect key="frame" x="359" y="703" width="35" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="Icc-1g-jrT" secondAttribute="height" id="Ljj-UL-sfA"/>
+                                <constraint firstAttribute="height" constant="35" id="SXh-qZ-5LY"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" backgroundImage="info-button"/>
+                            <connections>
+                                <action selector="btnInfoAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="4Ar-dv-Os5"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="OmW-PK-mVj" secondAttribute="bottom" id="EX7-VA-OfZ"/>
+                        <constraint firstItem="Fuq-Rq-cIA" firstAttribute="top" secondItem="Icc-1g-jrT" secondAttribute="bottom" constant="20" id="HKG-Rp-WFt"/>
+                        <constraint firstItem="OmW-PK-mVj" firstAttribute="leading" secondItem="7UR-Rw-NdL" secondAttribute="leading" id="IHl-uv-YeX"/>
+                        <constraint firstItem="vDh-Ep-fEe" firstAttribute="centerX" secondItem="7UR-Rw-NdL" secondAttribute="centerX" id="O7x-kp-FiZ"/>
+                        <constraint firstAttribute="trailing" secondItem="Fuq-Rq-cIA" secondAttribute="trailing" constant="20" id="Y0M-SR-cA0"/>
+                        <constraint firstItem="vDh-Ep-fEe" firstAttribute="top" secondItem="7UR-Rw-NdL" secondAttribute="top" constant="20" id="ciW-9x-YoS"/>
+                        <constraint firstItem="OmW-PK-mVj" firstAttribute="top" secondItem="7UR-Rw-NdL" secondAttribute="top" id="hdM-ae-IUP"/>
+                        <constraint firstItem="Icc-1g-jrT" firstAttribute="trailing" secondItem="Fuq-Rq-cIA" secondAttribute="trailing" id="iAz-k3-PTR"/>
+                        <constraint firstAttribute="bottom" secondItem="Fuq-Rq-cIA" secondAttribute="bottom" constant="10" id="idA-Ex-V4I"/>
+                        <constraint firstItem="Fuq-Rq-cIA" firstAttribute="leading" secondItem="7UR-Rw-NdL" secondAttribute="leading" constant="20" id="tZd-tR-oLd"/>
+                        <constraint firstAttribute="trailing" secondItem="OmW-PK-mVj" secondAttribute="trailing" id="vEi-SW-5KY"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="7UR-Rw-NdL" secondAttribute="trailing" id="Krj-uJ-h0Z"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="7UR-Rw-NdL" secondAttribute="bottom" id="bh0-IZ-wrP"/>
+                <constraint firstItem="7UR-Rw-NdL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="rJY-RG-46U"/>
+                <constraint firstItem="7UR-Rw-NdL" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="taF-My-YYt"/>
+            </constraints>
+            <connections>
+                <outlet property="MapViewLoad" destination="OmW-PK-mVj" id="ser-43-oa0"/>
+                <outlet property="btnArrived" destination="RK7-za-Vks" id="Acl-pn-mf3"/>
+                <outlet property="btnComplete" destination="ORs-xP-5kd" id="dBM-Nz-gJS"/>
+                <outlet property="btnInfo" destination="Icc-1g-jrT" id="45g-LX-OAZ"/>
+                <outlet property="btnStart" destination="Txs-8b-Loi" id="toJ-Zr-sBX"/>
+                <outlet property="lbltripDuration" destination="Ynj-wo-7NA" id="KG0-4u-kSg"/>
+                <outlet property="vwDuration" destination="vDh-Ep-fEe" id="58e-FD-bRH"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="101.78571428571428"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="info-button" width="512" height="512"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

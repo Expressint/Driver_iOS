@@ -91,6 +91,156 @@ extension UIColor {
 //    }
 }
 
+extension Bool {
+    /// To Check is First Time from Pending Jobs
+    mutating func toggleForBookLaterStartFromPendinfJobs() {
+        self = !self
+    }
+}
+
+extension String {
+
+    var nsRange : NSRange {
+        return NSRange(self.startIndex..., in: self)
+    }
+
+    func nsRange(of string: String) -> NSRange {
+        return (self as NSString).range(of: string)
+    }
+
+    var trimmed: String {
+        self.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    func convertToUnderLineAttributedString(font: UIFont, color: UIColor) -> NSAttributedString {
+        let attr: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: color]
+        return NSAttributedString(string: self, attributes: attr)
+    }
+
+    func secondsToTimeFormate() -> String? {
+        Int(self)?.secondsToTimeFormate()
+    }
+
+    func toTimeFormate() -> String? {
+        guard let minutes = Int(self) else {
+            return nil
+        }
+        if minutes < 60 {
+            return "\(minutes) Min"
+        } else {
+            let hr = minutes / 60
+            let restMinutes = minutes % 60
+            return "\(hr)Hr \(restMinutes)Min"
+        }
+    }
+
+ 
+
+
+    func toDistanceString() -> String {
+        guard let doubleValue = Double(self) else {
+            return self
+        }
+        return "\(doubleValue) Km"
+        /*if doubleValue >= 2 {
+            return "\(doubleValue) Miles"
+        } else {
+            return "\(doubleValue) Mile"
+        }*/
+    }
+    
+   
+}
+
+extension Int {
+    func secondsToTimeFormate() -> String? {
+        let seconds = self
+        if seconds < 60 {
+            return "\(seconds)s"
+        }
+        let minutes = seconds / 60
+        if minutes < 60 {
+            let restSeconds = seconds % 60
+            return "\(minutes)m \(restSeconds)s"
+        }
+        let hours = minutes / 60
+        let restMinutes = minutes % 60
+        return "\(hours)h \(restMinutes)m"
+    }
+
+    func secondsToMeterTimeFormate() -> String {
+        let hours = self / 3600
+        let minutes = (self % 3600) / 60
+        let seconds = (self % 3600) % 60
+        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+    }
+}
+
+extension UIView {
+    public var safeAreaFrame: CGRect {
+        if #available(iOS 11, *) {
+            return safeAreaLayoutGuide.layoutFrame
+        }
+        return bounds
+    }
+}
+class loaderButton: UIButton {
+    private var originalButtonText: String?
+    
+    var activityIndicator: UIActivityIndicatorView!
+    
+    func showLoading() {
+        originalButtonText = self.titleLabel?.text
+        self.setTitle("", for: .normal)
+        
+        if (activityIndicator == nil) {
+            activityIndicator = createActivityIndicator()
+        }
+        
+        showSpinning()
+    }
+    
+    func hideLoading() {
+        self.setTitle(originalButtonText, for: .normal)
+        activityIndicator.stopAnimating()
+    }
+    
+    private func createActivityIndicator() -> UIActivityIndicatorView {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = .lightGray
+        return activityIndicator
+    }
+    
+    private func showSpinning() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(activityIndicator)
+        centerActivityIndicatorInButton()
+        activityIndicator.startAnimating()
+    }
+    
+    private func centerActivityIndicatorInButton() {
+        let xCenterConstraint = NSLayoutConstraint(item: self, attribute: .centerX, relatedBy: .equal, toItem: activityIndicator, attribute: .centerX, multiplier: 1, constant: 0)
+        self.addConstraint(xCenterConstraint)
+        
+        let yCenterConstraint = NSLayoutConstraint(item: self, attribute: .centerY, relatedBy: .equal, toItem: activityIndicator, attribute: .centerY, multiplier: 1, constant: 0)
+        self.addConstraint(yCenterConstraint)
+    }
+}
+extension UIView {
+    func LoadButtonAnimation(){
+        UIView.animate(withDuration: 0.3, animations: {
+            self.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        }, completion: {_ in
+            UIView.animate(withDuration: 0.3, animations: {
+                self.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            }, completion: {_ in
+                
+            })
+        })
+    }
+}
+
 //MARK:- UIFont
 
 extension UIFont {

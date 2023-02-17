@@ -243,18 +243,13 @@ class WalletAddCardsViewController: ParentViewController, UIPickerViewDataSource
     }
     
     
-    
-    
     //-------------------------------------------------------------
     // MARK: - Actions
     //-------------------------------------------------------------
-    
     @IBAction func btnAddPaymentMethods(_ sender: UIButton) {
-   
         if (ValidationForAddPaymentMethod()) {
             webserviceOfAddCard()
         }
-        
     }
     
     @IBAction func txtValidThrough(_ sender: UITextField) {
@@ -274,8 +269,7 @@ class WalletAddCardsViewController: ParentViewController, UIPickerViewDataSource
 //
 //                self.cardTypeLabel.text = "Enter card number"
 //                self.cardTypeLabel.textColor = UIColor.black
-            } else
-            {
+            } else {
                 validateCardNumber(number: number)
                 detectCardNumberType(number: number)
             }

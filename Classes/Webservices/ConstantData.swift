@@ -22,8 +22,8 @@ struct WebSupport {
 //Development: http://52.23.45.119/v2/
 struct WebserviceURLs {
     
-    static let kBaseURL                                 = "http://52.23.45.119/v2/Drvier_Api/"
-    static let kImageBaseURL                            = "http://52.23.45.119/v2/"
+    static let kBaseURL                                 = "http://52.23.45.119/v3/Drvier_Api/"
+    static let kImageBaseURL                            = "http://52.23.45.119/"
     static let kOTPForDriverRegister                    = "OtpForRegister"
     static let kVehicalModelList                        = "TaxiModel/"
     static let kDriverRegister                          = "Register"
@@ -83,6 +83,10 @@ struct WebserviceURLs {
     static let kDriverEarningReport                     = "driverEarningReport"
     static let kHelpOptions                             = "HelpOptions"
     static let kHelp                                    = "Help"
+    //Tour
+    static let RentalCurrentBooking                    = "RentalCurrentBooking"
+    static let kSubmitCompleteRentalBooking           = "SubmitCompleteRentalBooking"
+    static let kRentalReviewRating                            = "RentalReviewRating"
 
 //    https://www.tantaxitanzania.com/Drvier_Api/FeedbackList/9
     static let kFeedbackList                     = "FeedbackList/"
@@ -272,7 +276,17 @@ struct socketApiKeys {
     static let DriverStopTyping = "is_stop_typing"
     
     
-    //MARK: - Tour 
+    //MARK: - Tour
+    static let NewRequestForTour = "ArriveRentalBookingRequest"
+    static let ForwardRentalBookingRequestToAnother = "ForwardRentalBookingRequestToAnother"
+    static let AcceptRentalBooking = "AcceptRentalBookingRequest"
+    static let RentalBookingInfo = "RentalBookingInfo"
+    static let RentalDriverArrivedCheck = "RentalDriverArrivedCheck"
+    static let PickupRentalPassenger = "PickupRentalPassenger"
+    static let StartRentalTrip = "StartRentalTrip"
+    static let StartRentalTripError = "StartRentalTripTimeError"
+    static let RentalUpdateDriverLocation = "UpdateRentalDriverLatLong"
+    static let CancelRentalTripNotification = "DriverCancelRentalTripNotification"
     
 }
 

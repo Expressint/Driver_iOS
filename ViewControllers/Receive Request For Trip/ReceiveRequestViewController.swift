@@ -17,14 +17,9 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     //-------------------------------------------------------------
     // MARK: - Outlets
     //-------------------------------------------------------------
-    
     @IBOutlet weak var viewRequestReceive: UIView!
-    
     @IBOutlet weak var lblReceiveRequest: UILabel!
-    
     @IBOutlet weak var lblMessage: UILabel!
-    
-    //@IBOutlet weak var lblGrandTotal: UILabel!
     @IBOutlet weak var lblPickUpLocationInfo: UILabel!
     @IBOutlet weak var lblPickupLocation: MarqueeLabel!
     @IBOutlet weak var lblDropoffLocationInfo: UILabel!
@@ -33,25 +28,15 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     @IBOutlet weak var lblDropoffLocation2: MarqueeLabel!
     @IBOutlet weak var lblPaymentType: UILabel!
     @IBOutlet weak var lblBookingType: UILabel!
-    
-    //    @IBOutlet weak var lblFlightNumber: UILabel!
-    //    @IBOutlet weak var lblNotes: UILabel!
-    
     @IBOutlet weak var strackviewOfDropOffLocation2: UIStackView!
     @IBOutlet weak var strackviewOfDropOffLocation: UIStackView!
-    
-    //    @IBOutlet weak var stackViewNotes: UIStackView!
-    
     @IBOutlet weak var btnReject: UIButton!
     @IBOutlet weak var btnAccepted: UIButton!
     @IBOutlet weak var viewDetails: UIView!
-    
     @IBOutlet weak var viewCountdownTimer: SRCountdownTimer!
-    //    @IBOutlet var constratintHorizontalSpaceBetweenButtonAndTimer: NSLayoutConstraint!
     
     var isAccept : Bool!
     var delegate: ReceiveRequestDelegate!
-    
     var strPickupLocation = String()
     var strDropoffLocation = String()
     var strDropoffLocation2 = String()
@@ -67,16 +52,14 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     //-------------------------------------------------------------
     // MARK: - Base Methods
     //-------------------------------------------------------------
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //self.strackviewOfDropOffLocation.isHidden = true
         self.strackviewOfDropOffLocation2.isHidden = true
-        
+
         CountDownView()
-        
+
         btnReject.layer.cornerRadius = 5
         btnReject.layer.masksToBounds = true
         
@@ -92,8 +75,6 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
         //        self.playSound()
         
         fillAllFields()
-        
-        
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -132,7 +113,7 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     
     func fillAllFields() {
         
-        self.lblBookingType.text = "Booking Type : \((self.strBookingType == "BookLater") ? "Book Later" : "Book Now")"
+        self.lblBookingType.text = "Booking Type : \(self.strBookingType)"
         
         viewDetails.isHidden = false
         //            print(strGrandTotal)
@@ -203,23 +184,6 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
         //        }
     }
     
-    func stopSound() {
-        
-        //        guard let url = Bundle.main.url(forResource: "\(RingToneSound)", withExtension: "mp3") else { return }
-        //
-        //        do {
-        //            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-        //            try AVAudioSession.sharedInstance().setActive(true)
-        //
-        //            audioPlayer = try AVAudioPlayer(contentsOf: url)
-        //            audioPlayer.stop()
-        //        }
-        //        catch let error {
-        //            print(error.localizedDescription)
-        //        }
-    }
-    
-    
     
     //-------------------------------------------------------------
     // MARK: - Actions
@@ -238,7 +202,6 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
         boolTimeEnd = true
         delegate.didRejectedRequest(RejectByDriver: true)
         self.viewCountdownTimer.end()
-        //        self.stopSound()
         self.dismiss(animated: true, completion: nil)
         
     }
@@ -255,7 +218,6 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
         boolTimeEnd = true
         delegate.didAcceptedRequest()
         self.viewCountdownTimer.end()
-        self.stopSound()
         self.dismiss(animated: true, completion: nil)
     }
     // ------------------------------------------------------------

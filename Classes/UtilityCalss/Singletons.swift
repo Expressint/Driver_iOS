@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import CoreLocation
 
 class Singletons: NSObject {
+    var currentTripType = ""
     var TC = ""
     var PP = ""
     var helpLineNumber = ""
@@ -19,6 +21,10 @@ class Singletons: NSObject {
     var WaitingTimeNotify = 180
     var isShowFeatureBookingTab = 0
     static let sharedInstance = Singletons()
+    
+    var driverLocation: CLLocationCoordinate2D? {
+        LocationManager.shared.mostRecentLocation?.coordinate
+    }
 
 //    var isOnTabbarView = Bool()
     var dictDriverProfile : NSMutableDictionary!
@@ -97,6 +103,7 @@ class Singletons: NSObject {
     
     var bookingId = String()
     var advanceBookingId = String()
+    var tourBookingId = ""
     var bookingIdTemp = String()
     var advanceBookingIdTemp = String()
     

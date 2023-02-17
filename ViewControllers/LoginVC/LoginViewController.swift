@@ -568,6 +568,7 @@ import DropDown
                 print(result)
  
 //                Singletons.sharedInstance.helpLineNumber = result["DispatchCall"] as? String ?? ""
+                Singletons.sharedInstance.currentTripType = result["CurrentlyRunningTrip"] as? String ?? "4"
                 Singletons.sharedInstance.PP = result["PrivacyPolicy"] as? String ?? ""
                 Singletons.sharedInstance.TC = result["TermsAndCondition"] as? String ?? ""
                 Singletons.sharedInstance.DispatchCall = result["DispatchCall"] as? String ?? ""

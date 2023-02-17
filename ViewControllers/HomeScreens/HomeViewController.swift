@@ -52,7 +52,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     var WaitingCounter = 0
     var WaitingHoldTimer = Timer()
-    let toursView: [Any] = Bundle.main.loadNibNamed("ToursHomeView", owner: HomeViewController.self, options: nil)!
+//    let toursView: [Any] = Bundle.main.loadNibNamed("ToursHomeView", owner: HomeViewController.self, options: nil)!
     //-------------------------------------------------------------
     // MARK: - Outlets
     //-------------------------------------------------------------
@@ -151,6 +151,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     }
     var bookingID = String()
     var advanceBookingID = String()
+    var toursBookingId = ""
+    var toursBookingType = ""
     var driverID = String()
     @IBOutlet var btnMeter : UIButton!
     
@@ -340,7 +342,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         //TODO: uncomment in production
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.webserviceOfCurrentBooking()
+            self.checkCurrentTrip()
         }
         
         runTimer()
@@ -351,6 +353,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         }
         
         self.checkForNotification()
+        
     }
     override func viewDidLayoutSubviews() {
         self.headerView?.lblTitle.text = "Home".localized
@@ -456,9 +459,11 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         NotificationCenter.default.addObserver(self, selector: #selector(changeLanguage), name: Notification.Name(rawValue: LCLLanguageChangeNotification), object: nil)
         setLocalization()
         
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
 //            self.openToursVC()
 //        }
+        
+        self.checkCurrentTrip()
     }
     
     @objc func changeLanguage(){
@@ -528,6 +533,14 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         super.viewWillDisappear(animated)
         // print ("\(#function) -- \(self)")
         Singletons.sharedInstance.isFromNotification = true
+        
+        for view in self.view.subviews {
+            if let SubView = view as? ToursView {
+                self.closeToursPopup()
+                SubView.removeFromSuperview()
+            }
+        }
+        
     }
     
     // ------------------------------------------------------------
@@ -616,7 +629,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             WaitingCounter = 0
             WaitingHoldTimer.invalidate()
             
-            if(!self.stackViewOfWaitingTime.isHidden  && !App_Delegate.RoadPickupTimer.isValid && (self.bookingID != "" || self.advanceBookingID != "")){
+            if(!self.stackViewOfWaitingTime.isHidden  && !App_Delegate.RoadPickupTimer.isValid && (self.bookingID != "" || self.advanceBookingID != "" || self.toursBookingId != "")){
                 UtilityClass.showAlertWithCompletion("", message: "Please start waiting time, If you're on hold during the trip.".localized, vc: self, completionHandler: { (status) in
                    
                 })
@@ -643,6 +656,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 WaitingHoldTimer.invalidate()
                 WaitingHoldTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
             }
+            
         }else{
             if(WaitingHoldTimer.isValid == true){
                 WaitingCounter = 0
@@ -836,9 +850,9 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             //            self.mapView.settings.rotateGestures = false
             //            self.mapView.settings.tiltGestures = false
            
-            if(socket.status != .connected){
-                self.socketMethods()
-            }
+//            if(socket.status != .connected){
+//                self.socketMethods()
+//            }
         }
         else
         {
@@ -1052,6 +1066,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     {
         if(socket.status == .connected){
             self.methodsAfterConnectingToSocket()
+        } else {
+            socket.connect()
         }
         
         socket.on(clientEvent: .disconnect) { (data, ack) in
@@ -1064,82 +1080,11 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         socket.on(clientEvent: .connect) {data, ack in
             print ("socket connected")
-            
-            if (self.isSocketConnected == false) {
-                self.isSocketConnected = true
-                //            self.methodsAfterConnectingToSocket()
-                if UserDefaults.standard.bool(forKey: kIsSocketEmited) == false {
-                    self.methodsAfterConnectingToSocket()
-                    UserDefaults.standard.set(true, forKey: kIsSocketEmited)
-                    UserDefaults.standard.synchronize()
-                }else {
-                    print("already emited")
-                }
-
-            }
-            
-            //            self.socket.on(socketApiKeys.kReceiveBookingRequest, callback: { (data, ack) in
-            //                // print ("data is \(data)")
-            //                print ("kReceiveBookingRequest : \(data)")
-            //
-            //                if let bookingType = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingType") as? String {
-            //
-            //                    Singletons.sharedInstance.passengerType = bookingType
-            //                    Singletons.sharedInstance.strBookingType = bookingType
-            //                }
-            //
-            //                if Singletons.sharedInstance.firstRequestIsAccepted == true {
-            //
-            //                    self.strTempBookingId = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingId") as! String
-            //
-            //                    self.BookingRejected()
-            //                    return
-            //                }
-            //
-            //                self.isAdvanceBooking = false
-            //                self.bookingID = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingId") as! String
-            //
-            //
-            //                let next = self.storyboard?.instantiateViewController(withIdentifier: "ReceiveRequestViewController") as! ReceiveRequestViewController
-            //                next.delegate = self
-            //
-            //                if let grandTotal = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "GrandTotal") as? String {
-            //                    if grandTotal == "" {
-            //                        next.strGrandTotal = "0"
-            //                    }
-            //                    else {
-            //                        next.strGrandTotal = grandTotal
-            //                    }
-            //
-            //                }
-            //                else {
-            //                    next.strGrandTotal = "0"
-            //                }
-            //                if let PickupLocation = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "PickupLocation") as? String {
-            //                    next.strPickupLocation = PickupLocation
-            //                }
-            //
-            //                if let DropoffLocation = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "DropoffLocation") as? String {
-            //                    next.strDropoffLocation = DropoffLocation
-            //                }
-            //                self.playSound(strName: "\(RingToneSound)")
-            //
-            //
-            //                self.addLocalNotification()
-            //
-            //                (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: { ACTION in
-            //                    Singletons.sharedInstance.firstRequestIsAccepted = true
-            //                    //                    self.stopSound()
-            //                })
-            //
-            //            })
+            self.methodsAfterConnectingToSocket()
         }
-        
-        socket.connect()
     }
     
     func methodsAfterConnectingToSocket() {
-        
         self.socketOnForGetDriverLocation()
         self.socketCallForReceivingBookingRequest()                 // ReceiveBookingRequest
         self.UpdateDriverLocation()                                 // UpdateDriverLocation
@@ -1157,8 +1102,10 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         self.getNotificationforReceiveTipForBookLater()
         self.checkIfDriverIsInPickupLocationRadius()
         self.onSOS()
-        //self.getNotificationforUpdateBookingDetails()
         self.onAdvancedBookingPickupPassengerNotification() // AdvancedBookingPickupPassengerNotification
+        // Tours
+        self.onNewRequestTours()
+        self.onGettingRentalBookingInfo()
     }
     
     func socketOnForGetDriverLocation() {
@@ -1179,7 +1126,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             print ("kReceiveBookingRequest : \(data)")
             
             
-            if(self.aryPassengerData.count != 0 || Singletons.sharedInstance.bookingId != "")
+            if(self.aryPassengerData.count != 0 && Singletons.sharedInstance.bookingId != "")
             {
                 if let BookingID = ((data as NSArray).object(at: 0)as? NSDictionary)?.object(forKey: "BookingId") as? String
                 {
@@ -1347,18 +1294,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     func UpdateDriverLocation()
     {
         //        let nsObject: AnyObject? = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as AnyObject
-        //        let version = nsObject as! String
-        //
-        //        let myJSON = [profileKeys.kDriverId : driverID, socketApiKeys.kLat: defaultLocation.coordinate.latitude, socketApiKeys.kLong: defaultLocation.coordinate.longitude, "Token": Singletons.sharedInstance.deviceToken, "Version": version] as [String : Any]
-        //
-        //        socket.emit(socketApiKeys.kUpdateDriverLocation, with: [myJSON])
-        ////                print ("UpdateDriverLocation : \(myJSON)")
-        //
-        //        if Singletons.sharedInstance.isPickUPPasenger != nil {
-        //            if !(Singletons.sharedInstance.isPickUPPasenger) {
-        //                getDistanceForPickupPassengerFromLocation()
-        //            }
-        //        }
 #if targetEnvironment(simulator)
         Singletons.sharedInstance.deviceToken = "11111111"
 #endif
@@ -2227,24 +2162,23 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         }
         
         Singletons.sharedInstance.isPending = 0
-        
         UpdateDriverLocation()
-        
         UtilityClass.showACProgressHUD()
         self.stopSound()
-        
-        
-        //        if Singletons.sharedInstance.strRideTypeFromAcceptRequest == "ShareRide" {
-        //
-        //        }
-        
         Singletons.sharedInstance.isPickUPPasenger = false
         
-        if isAdvanceBooking {
-            
+        if(toursBookingId != ""){
+            if(toursBookingType == "Rental Book Later") {
+                self.toursBookingType = ""
+                self.toursBookingId = ""
+                UtilityClass.hideACProgressHUD()
+                print("Rental Book Later...")
+            } else {
+                self.TourBookingAcceped()
+            }
+        } else if isAdvanceBooking {
             self.AcceptBookLaterBookingRequest()
-        }
-        else {
+        } else {
             BookingAcceped()
         }
 
@@ -2254,10 +2188,11 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         self.stopSound()
         
-        if isAdvanceBooking {
+        if self.toursBookingId != "" {
+            TourBookingRejected(isRejectByDriver: RejectByDriver)
+        } else if isAdvanceBooking {
             self.RejectBookLaterBookingRequest(isRejectByDriver: RejectByDriver)
-        }
-        else {
+        } else {
             BookingRejected(isRejectByDriver: RejectByDriver)
         }
     }
@@ -2638,14 +2573,41 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         }
     }
     
+    func TourBookingAcceped() {
+        Singletons.sharedInstance.isPending = 1
+        
+        let myJSON = [socketApiKeys.kBookingId : toursBookingId,  profileKeys.kDriverId : driverID, "Lat" : defaultLocation.coordinate.latitude,"Long": defaultLocation.coordinate.longitude, "Pending": Singletons.sharedInstance.isPending] as [String : Any]
+        socket.emit(socketApiKeys.AcceptRentalBooking, with: [myJSON], completion: nil)
+        print("AcceptRentalBooking :  \(myJSON)")
+    }
+
+    
     //
     //-------------------------------------------------------------
     // MARK: - Reject Booking Request
     //-------------------------------------------------------------
+    func TourBookingRejected(isRejectByDriver: Bool = false, isTripOnGoing : Bool = false, bookingID : String = "") {
+        if(isTripOnGoing){
+            let myJSON = [socketApiKeys.kBookingId : bookingID,  profileKeys.kDriverId : driverID, profileKeys.kRejectBy: (isRejectByDriver) ? "Manual" : "background"] as [String : Any]
+            socket.emit(socketApiKeys.ForwardRentalBookingRequestToAnother, with: [myJSON], completion: nil)
+        } else {
+           if (Singletons.sharedInstance.firstRequestIsAccepted && self.strTempBookingId.count != 0){
+                let myJSON = [socketApiKeys.kBookingId : self.toursBookingId,  profileKeys.kDriverId : driverID, profileKeys.kRejectBy: (isRejectByDriver) ? "Manual" : "Auto"] as [String : Any]
+                socket.emit(socketApiKeys.ForwardRentalBookingRequestToAnother, with: [myJSON], completion: nil)
+                Singletons.sharedInstance.firstRequestIsAccepted = false
+                
+            } else {
+                let myJSON = [socketApiKeys.kBookingId : self.toursBookingId,  profileKeys.kDriverId : driverID, profileKeys.kRejectBy: (isRejectByDriver) ? "Manual" : "Auto"] as [String : Any]
+                socket.emit(socketApiKeys.ForwardRentalBookingRequestToAnother, with: [myJSON], completion: nil)
+                Singletons.sharedInstance.firstRequestIsAccepted = false
+            }
+            self.toursBookingId = ""
+            self.toursBookingType = ""
+            Singletons.sharedInstance.tourBookingId = ""
+        }
+    }
+    
     func BookingRejected(isRejectByDriver: Bool = false, isTripOnGoing : Bool = false, bookingID : String = "") {
-//        if bookingID == "" || driverID == "" {
-//            UtilityClass.showAlert("App Name".localized, message: "Booking ID or Driver ID", vc: self)
-//        }
         if(isTripOnGoing){
             let myJSON = [socketApiKeys.kBookingId : bookingID,  profileKeys.kDriverId : driverID, profileKeys.kRejectBy: (isRejectByDriver) ? "Manual" : "background"] as [String : Any]
             socket.emit(socketApiKeys.kRejectBookingRequest, with: [myJSON], completion: nil)
@@ -5154,7 +5116,6 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 nc.post(name: Notification.Name("rating"), object: nil)
                 
                 self.aryCurrentBookingData.removeAllObjects()
-                
                 self.aryCurrentBookingData.add(resultData)
                 
                 
@@ -6121,6 +6082,16 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: nil)
     }
     
+    func completeRentalTripInfo() {
+        let next = self.storyboard?.instantiateViewController(withIdentifier: "TripInfoCompletedTripVC") as! TripInfoCompletedTripVC
+        next.dictData = self.dictCompleteTripData
+        next.delegate = self
+        DispatchQueue.main.async {
+            self.btnCurrentLocation(self.btnCurrentlocation)
+        }
+        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: nil)
+    }
+    
     
     //MARK: - Meter Setup -
     
@@ -6214,14 +6185,12 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         
         let dictdata = SingletonsForMeter.sharedInstance.arrCarModels[vehicleID]
-        
         SingletonsForMeter.sharedInstance.strVehicleName = dictdata["Name"] as! String
-        SingletonsForMeter.sharedInstance.baseFare = (dictdata["BaseFare"]! as! NSString).doubleValue// as! Double!
-        SingletonsForMeter.sharedInstance.minKM = (dictdata["MinKm"]! as! NSString).doubleValue//self.arrOfTaxis[0]["MinKm"] as! Double!
-        SingletonsForMeter.sharedInstance.perKMCharge = (dictdata["AbovePerKmCharge"]! as! NSString).doubleValue//self.arrOfTaxis[0]["AbovePerKmCharge"] as! Double!
-        //        let nightCharge = self.arrOfTaxis[0]["NightCharge"]
-        SingletonsForMeter.sharedInstance.waitingChargePerMinute = (dictdata["WaitingTimePerMinuteCharge"]! as! NSString).doubleValue//self.arrOfTaxis[0]["WaitingTimePerMinuteCharge"] as! Double!
-        SingletonsForMeter.sharedInstance.bookingFee = (dictdata["BookingFee"]! as! NSString).doubleValue//self.arrOfTaxis[0]["BookingFee"] as! Double!
+        SingletonsForMeter.sharedInstance.baseFare = (dictdata["BaseFare"]! as! NSString).doubleValue
+        SingletonsForMeter.sharedInstance.minKM = (dictdata["MinKm"]! as! NSString).doubleValue
+        SingletonsForMeter.sharedInstance.perKMCharge = (dictdata["AbovePerKmCharge"]! as! NSString).doubleValue
+        SingletonsForMeter.sharedInstance.waitingChargePerMinute = (dictdata["WaitingTimePerMinuteCharge"]! as! NSString).doubleValue
+        SingletonsForMeter.sharedInstance.bookingFee = (dictdata["BookingFee"]! as! NSString).doubleValue
         
         SingletonsForMeter.sharedInstance.total = 0.0
         
@@ -6260,99 +6229,186 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
 
 
 //MARK: --- Tours Code
+extension HomeViewController : UIViewControllerTransitioningDelegate, ClassToursDelegate, CompleteRentalTripDelegate {
 
-extension HomeViewController : UIViewControllerTransitioningDelegate, ClassToursDelegate {
-   
-    func openToursVC() {
-        if let customView = toursView[0] as? ToursHomeVC {
-            customView.delegate = self
-            self.view.addSubview(customView)
-            viewLocationDetails.isHidden = true
-            customView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                customView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                customView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                customView.topAnchor.constraint(equalTo: headerView!.bottomAnchor),
-                customView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            ])
+    func checkCurrentTrip() {
+        if(Singletons.sharedInstance.currentTripType == "2"){
+            self.getRentalCurrentBookingData()
+        } else {
+            self.webserviceOfCurrentBooking()
         }
+    }
+    
+    func getRentalCurrentBookingData() {
+        UtilityClass.showHUD()
+        var dictData = [String:Any]()
+        dictData["DriverId"] =  Singletons.sharedInstance.strDriverID
+    
+        webserviceOfRentalCurrentBooking(dictData as AnyObject) { result, success in
+            UtilityClass.hideHUD()
+            if(success) {
+                let resultData = (result as! NSDictionary)
+                self.aryCurrentBookingData.removeAllObjects()
+                self.aryCurrentBookingData.add(resultData)
+                
+                var bookingType = ""
+                if let strBookingTypeFromCurrentBooking = (result as! NSDictionary).object(forKey: "BookingType") as? String {
+                    bookingType = strBookingTypeFromCurrentBooking
+                }
+                Singletons.sharedInstance.strBookingType = bookingType
+                if(bookingType == ""){
+                    return
+                }
+                
+                self.dictCurrentBookingInfoData = ((resultData).object(forKey: "BookingInfo") as! NSDictionary)
+                self.dictCurrentPassengerInfoData = ((resultData).object(forKey: "PassengerInfo") as! NSDictionary)
+                
+                self.toursBookingId = self.dictCurrentBookingInfoData.object(forKey: "Id") as! String
+                Singletons.sharedInstance.tourBookingId = self.toursBookingId
+                
+                self.openToursVC(BookingInFo: self.dictCurrentBookingInfoData, PassengerInfo: self.dictCurrentPassengerInfoData)
+            }
+        }
+    }
+   
+    func openToursVC(BookingInFo: NSDictionary, PassengerInfo: NSDictionary) {
+        
+        for view in self.view.subviews {
+            if let noticeSubView = view as? ToursView {
+               return
+            }
+        }
+        
+        let customView: ToursView = UIView.fromNib()
+        customView.delegate = self
+        customView.delegate1 = self
+        customView.dictCurrentBookingInfoData = BookingInFo
+        customView.dictCurrentPassengerInfoData = PassengerInfo
+        self.view.addSubview(customView)
+        viewLocationDetails.isHidden = true
+        customView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            customView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            customView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            customView.topAnchor.constraint(equalTo: headerView!.bottomAnchor),
+            customView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
     
     func closeToursPopup() {
         viewLocationDetails.isHidden = false
+        
+        self.toursBookingId = ""
+        Singletons.sharedInstance.tourBookingId = ""
+        Singletons.sharedInstance.isRequestAccepted = false
+    }
+    
+    func completeTripRental(TripData: NSDictionary) {
+        let paymentType = TripData.object(forKey: "PaymentType") as? String ?? ""
+        if paymentType.lowercased() == "cash" {
+            self.playSound(strName: "\(RingToneSound)")
+            self.dictCompleteTripData = TripData
+            let Amount = TripData.object(forKey: "GrandTotal") as? String ?? ""
+            let msg = "Please Collect Money From Passenger".localized + " : $\(Amount)"
+            UtilityClass.showAlertWithCompletion("Alert! This is a cash job".localized, message: msg, vc: self, completionHandler: { ACTION in
+                DispatchQueue.main.async {
+                    self.stopSound()
+                    self.goTonvoice(tripData: TripData)
+                }
+            })
+            
+        } else if paymentType.lowercased() == "card" {
+            self.goTonvoice(tripData: TripData)
+        } else {
+            
+        }
+    }
+    
+    func goTonvoice(tripData: NSDictionary) {
+        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "TourInvoiceVVC") as! TourInvoiceVVC
+        viewController.dictCompleteTripData = tripData
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    func onNewRequestTours()
+    {
+        self.socket.on(socketApiKeys.NewRequestForTour, callback: { (data, ack) in
+            print ("NewRequestForTour : \(data)")
+            
+            if(self.aryPassengerData.count != 0 && Singletons.sharedInstance.tourBookingId != "")
+            {
+                if let BookingID = ((data as NSArray).object(at: 0)as? NSDictionary)?.object(forKey: "BookingId") as? String
+                {
+                    self.TourBookingRejected(isTripOnGoing: true, bookingID: BookingID)
+                } 
+                return
+            }
+
+            self.playSound(strName: "\(RingToneSound)")
+            self.toursBookingId = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingId") as! String
+            Singletons.sharedInstance.tourBookingId = self.toursBookingId
+            self.toursBookingType = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingType") as? String ?? ""
+            
+            let next = self.storyboard?.instantiateViewController(withIdentifier: "ReceiveRequestViewController") as! ReceiveRequestViewController
+            next.delegate = self
+            next.strGrandTotal = "0"
+            if let grandTotal = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "EstimateFare") as? String {
+                next.strEstimateFare = (grandTotal == "") ? "0" : grandTotal
+            } else {
+                next.strEstimateFare = "0"
+            }
+
+            if let PickupLocation = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "PickupLocation") as? String {
+                next.strPickupLocation = PickupLocation
+            }
+            
+            if let DropoffLocation = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "DropoffLocation") as? String {
+                next.strDropoffLocation = DropoffLocation
+            }
+            
+            if let RequestMessage = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as? String {
+                next.strRequestMessage = RequestMessage
+            }
+            
+            if let PaymentType = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "PaymentType") as? String {
+                next.strPaymentType = PaymentType
+            }
+            
+            if let bookingType = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingType") as? String {
+                next.strBookingType = bookingType
+            }
+            
+             (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: nil)
+        })
+    }
+    
+    func onGettingRentalBookingInfo() {
+        self.socket.on(socketApiKeys.RentalBookingInfo, callback: { (data, ack) in
+            
+            print("RentalBookingInfo : \(data)")
+            UtilityClass.hideACProgressHUD()
+            
+            if let PassengerType = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "BookingType") as? String {
+                    Singletons.sharedInstance.passengerType = PassengerType
+            }
+            Singletons.sharedInstance.isRequestAccepted = true
+            UserDefaults.standard.set(Singletons.sharedInstance.isRequestAccepted, forKey: tripStatus.kisRequestAccepted)
+           
+            let getBookingAndPassengerInfo = self.getBookingAndPassengerInfo(data: data as NSArray)
+            let BookingInfo = getBookingAndPassengerInfo.0
+            let PassengerInfo = getBookingAndPassengerInfo.1
+            print(BookingInfo)
+            print(PassengerInfo)
+            //let isArrived = BookingInfo.object(forKey: "IsArrived") as? String
+            self.openToursVC(BookingInFo: BookingInfo, PassengerInfo: PassengerInfo)
+        })
     }
     
 }
          
-extension Bool {
-    /// To Check is First Time from Pending Jobs
-    mutating func toggleForBookLaterStartFromPendinfJobs() {
-        self = !self
-    }
-}
-
 
 extension UIView {
-    public var safeAreaFrame: CGRect {
-        if #available(iOS 11, *) {
-            return safeAreaLayoutGuide.layoutFrame
-        }
-        return bounds
-    }
-}
-class loaderButton: UIButton {
-    private var originalButtonText: String?
-    
-    var activityIndicator: UIActivityIndicatorView!
-    
-    func showLoading() {
-        originalButtonText = self.titleLabel?.text
-        self.setTitle("", for: .normal)
-        
-        if (activityIndicator == nil) {
-            activityIndicator = createActivityIndicator()
-        }
-        
-        showSpinning()
-    }
-    
-    func hideLoading() {
-        self.setTitle(originalButtonText, for: .normal)
-        activityIndicator.stopAnimating()
-    }
-    
-    private func createActivityIndicator() -> UIActivityIndicatorView {
-        let activityIndicator = UIActivityIndicatorView()
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.color = .lightGray
-        return activityIndicator
-    }
-    
-    private func showSpinning() {
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(activityIndicator)
-        centerActivityIndicatorInButton()
-        activityIndicator.startAnimating()
-    }
-    
-    private func centerActivityIndicatorInButton() {
-        let xCenterConstraint = NSLayoutConstraint(item: self, attribute: .centerX, relatedBy: .equal, toItem: activityIndicator, attribute: .centerX, multiplier: 1, constant: 0)
-        self.addConstraint(xCenterConstraint)
-        
-        let yCenterConstraint = NSLayoutConstraint(item: self, attribute: .centerY, relatedBy: .equal, toItem: activityIndicator, attribute: .centerY, multiplier: 1, constant: 0)
-        self.addConstraint(yCenterConstraint)
-    }
-}
-extension UIView {
-    func LoadButtonAnimation(){
-        UIView.animate(withDuration: 0.3, animations: {
-            self.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
-        }, completion: {_ in
-            UIView.animate(withDuration: 0.3, animations: {
-                self.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-            }, completion: {_ in
-                
-            })
-        })
+    class func fromNib<T: UIView>() -> T {
+        return Bundle(for: T.self).loadNibNamed(String(describing: T.self), owner: nil, options: nil)![0] as! T
     }
 }
