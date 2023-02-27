@@ -472,8 +472,6 @@ let googlPlacesApiKey = googlApiKey
                 }
             }
         }
-        
-        
         completionHandler()
     }
     
@@ -593,10 +591,6 @@ let googlPlacesApiKey = googlApiKey
                 navController?.present(notificationController ?? UIViewController(), animated: true, completion: {
                     
                 })
-                
-                
-                
-                
             }
         }
             //        else if(typeKey == "Tickpay")

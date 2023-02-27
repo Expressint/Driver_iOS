@@ -287,6 +287,13 @@
 "Please start waiting time, If you're on hold during the trip." = "Inicie el tiempo de espera, si está en espera durante el viaje.";
 "Notes" = "Notes";
 "Cancel Request" = "Cancel Request";
+"Hourly Bookings" = "Reservas por hora";
+
+"Package Name" = "Nombre del paquete";
+"Total Distance" = "Distancia total";
+"Total Duration" = "Duración total";
+"Grand Total" = "Gran total";
+
 
 "Additional Dropoff Location" = "Lugar de entrega adicional";
 "Pricing Model" = "Modelo de precios";
@@ -406,3 +413,27 @@
 "message_secondDestinationSelected" = "Your second destination selected";
 
 "message_getOnline" = "Please get online";
+
+// Rental Flow
+"Arrived at Pickup Location" = "Llegó al lugar de recogida";
+"Trip Duration" = "Duración del viaje";
+"Passenger Info" = "Información del pasajero";
+"Package Info" = "Información del paquete";
+"Package" = "Paquete";
+
+"Pickup Location" = "Lugar de recogida";
+"Final Destination" = "Destino final";
+"Total Time" = "Tiempo Total";
+"Distance" = "Distancia";
+"Grand Total" = "Gran total";
+"Date & Time" = "Fecha y hora";
+"Service Type" = "Tipo de servicio";
+"Vehicle Info" = "Información del vehículo";
+"Package Info" = "Información del paquete";
+"Total Payable" = "Total a pagar";
+"How was your experience with Passenger?" = "¿Cómo fue tu experiencia con Passenge?";
+"Invoice" = "Factura";
+"Trip Duration" = "Duración del viaje";
+"Success" = "Éxito";
+"Pickup Date & Time" = "Hora de recogida";
+"Dropoff Date & Time" = "Hora de entrega";

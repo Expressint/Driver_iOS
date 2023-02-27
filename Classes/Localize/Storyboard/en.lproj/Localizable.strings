@@ -97,6 +97,11 @@
 "Please enter message" = "Please enter message";
 "message_StopWaitingTime" = "Please stop trip waiting time first.";
 
+"Package Name" = "Package Name";
+"Total Distance" = "Total Distance";
+"Total Duration" = "Total Duration";
+"Grand Total" = "Grand Total";
+
 //SideMnu
 "My Jobs" = "My Jobs";
 "My Earnings" = "My Earnings";
@@ -109,6 +114,7 @@
 "Sign out" = "Sign out";
 "Delete Account" = "Delete Account";
 "Select Language" = "Select Language";
+"Hourly Bookings" = "Hourly Bookings";
 
 //MyJObs
 "Future Booking" = "Future Booking";
@@ -412,3 +418,29 @@
 "message_secondDestinationSelected" = "Your second destination selected";
 
 "message_getOnline" = "Please get online";
+
+// Rental Flow
+"Arrived at Pickup Location" = "Arrived at Pickup Location";
+"Trip Duration" = "Trip Duration";
+"Passenger Info" = "Passenger Info";
+"Package Info" = "Package Info";
+"Package" = "Package";
+
+
+"Pickup Location" = "Pickup Location";
+"Final Destination" = "Final Destination";
+"Total Time" = "Total Time";
+"Distance" = "Distance";
+"Grand Total" = "Grand Total";
+"Date & Time" = "Date & Time";
+"Service Type" = "Service Type";
+"Vehicle Info" = "Vehicle Info";
+"Package Info" = "Package Info";
+"Total Payable" = "Total Payable";
+"How was your experience with Passenger?" = "How was your experience with Passenger?";
+"Invoice" = "Invoice";
+"Trip Duration" = "Trip Duration";
+"Success" = "Success";
+"Pickup Date & Time" = "Pickup Time";
+"Dropoff Date & Time" = "Dropoff Time";
+

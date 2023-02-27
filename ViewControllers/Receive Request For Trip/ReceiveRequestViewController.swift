@@ -34,6 +34,7 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     @IBOutlet weak var btnAccepted: UIButton!
     @IBOutlet weak var viewDetails: UIView!
     @IBOutlet weak var viewCountdownTimer: SRCountdownTimer!
+    @IBOutlet weak var lblPackage: UILabel!
     
     var isAccept : Bool!
     var delegate: ReceiveRequestDelegate!
@@ -47,6 +48,7 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
     var strPaymentType: String = ""
     var strBookingType: String = "Book Now"
     var strNotes = String()
+    var packageNote = ""
     
     
     //-------------------------------------------------------------
@@ -57,6 +59,8 @@ class ReceiveRequestViewController: UIViewController, SRCountdownTimerDelegate {
         
         //self.strackviewOfDropOffLocation.isHidden = true
         self.strackviewOfDropOffLocation2.isHidden = true
+        lblPackage.isHidden = (packageNote == "") ? true : false
+        lblPackage.text = "\("package".localized) : \(packageNote)"
 
         CountDownView()
 

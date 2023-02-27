@@ -8,17 +8,29 @@
 
 import UIKit
 import SDWebImage
+import MarqueeLabel
+
+protocol ChatWithPassengerprotocol: AnyObject {
+    func gotoChat()
+}
 
 class TourPassengerInfoVC: UIViewController {
     
-    
     @IBOutlet weak var vWMain: UIView!
     @IBOutlet weak var lblPassengerName: UILabel!
-    @IBOutlet weak var btnPhoneNumber: UIButton!
     @IBOutlet weak var btnOutside: UIButton!
     @IBOutlet weak var imgPassenger: UIImageView!
     @IBOutlet weak var lblHours: UILabel!
     
+    @IBOutlet weak var lblTitlePassengerInfo: UILabel!
+    @IBOutlet weak var lblTitlePackageInfo: UILabel!
+    
+    @IBOutlet weak var lblTitlePickUpLoc: UILabel!
+    @IBOutlet weak var lblPickUpLoc: UILabel!
+    @IBOutlet weak var lblTitleDropOffLoc: UILabel!
+    @IBOutlet weak var lblDropOffLoc: UILabel!
+    
+    weak var delegate: ChatWithPassengerprotocol?
     var dictCurrentBookingInfoData = NSDictionary()
     var dictCurrentPassengerInfoData = NSDictionary()
     
@@ -33,6 +45,19 @@ class TourPassengerInfoVC: UIViewController {
         UIView.animate(withDuration: 0.3, delay: 0.3) {
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         }
+        
+        self.setLocalization()
+        NotificationCenter.default.addObserver(self, selector: #selector(changeLanguage), name: Notification.Name(rawValue: LCLLanguageChangeNotification), object: nil)
+    }
+    
+    @objc func changeLanguage(){
+        self.setLocalization()
+    }
+    func setLocalization(){
+        self.lblTitlePassengerInfo.text = "Passenger Info".localized
+        self.lblTitlePackageInfo.text = "Package Info".localized + " :"
+        self.lblTitlePickUpLoc.text = "Pickup Location".localized
+        self.lblTitleDropOffLoc.text = "Dropoff Location".localized
     }
     
     func prepareView() {
@@ -49,29 +74,36 @@ class TourPassengerInfoVC: UIViewController {
         self.vWMain.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         self.vWMain.layer.shadowOpacity = 0.15
         
-        imgPassenger.layer.cornerRadius = (imgPassenger.frame.size.width) / 2
-        imgPassenger.clipsToBounds = true
-        imgPassenger.layer.borderWidth = 1.0
-        imgPassenger.layer.borderColor = UIColor.lightGray.cgColor
+        self.imgPassenger.layer.cornerRadius = (self.imgPassenger.frame.size.width) / 2
+        self.imgPassenger.clipsToBounds = true
+        self.imgPassenger.layer.borderWidth = 1.0
+        self.imgPassenger.layer.borderColor = UIColor.lightGray.cgColor
     }
     
     func setupData() {
-        let passengerInfo = self.dictCurrentBookingInfoData.object(forKey: "PassengerInfo") as? NSDictionary
         let packageInfo = self.dictCurrentBookingInfoData.object(forKey: "PackageInfo") as? NSDictionary
-        
+        self.lblPickUpLoc.text =  self.dictCurrentBookingInfoData.object(forKey: "PickupLocation") as? String ?? ""
+        self.lblDropOffLoc.text =  self.dictCurrentBookingInfoData.object(forKey: "DropoffLocation") as? String ?? ""
         self.lblPassengerName.text = self.dictCurrentPassengerInfoData.object(forKey: "Fullname") as? String ?? ""
-        self.btnPhoneNumber.underline(text: self.dictCurrentPassengerInfoData.object(forKey: "MobileNo") as? String ?? "")
-        self.lblHours.text = "Package : \(packageInfo?.object(forKey: "MinimumHours") as? String ?? "") Hr/\(packageInfo?.object(forKey: "MinimumKm") as? String ?? "") km $\(packageInfo?.object(forKey: "MinimumAmount") as? String ?? "")"
+       // self.btnPhoneNumber.underline(text: self.dictCurrentPassengerInfoData.object(forKey: "MobileNo") as? String ?? "")
+        self.lblHours.text = "\(packageInfo?.object(forKey: "MinimumHours") as? String ?? "") hrs/\(packageInfo?.object(forKey: "MinimumKm") as? String ?? "") km $\(packageInfo?.object(forKey: "MinimumAmount") as? String ?? "")"
       
-        let urlLogo = "\(WebserviceURLs.kImageBaseURL)\(passengerInfo?.object(forKey: "Image") as? String ?? "")"
+        let urlLogo = "\(WebserviceURLs.kImageBaseURL)\(self.dictCurrentPassengerInfoData.object(forKey: "Image") as? String ?? "")"
         self.imgPassenger.sd_imageIndicator = SDWebImageActivityIndicator.gray
         self.imgPassenger.sd_setImage(with: URL(string: urlLogo), placeholderImage: UIImage(named: "iconPicture"), options: [.continueInBackground], progress: nil, completed: { (image, error, cache, url) in
             if (error == nil) {
                 self.imgPassenger.image = image
             }
         })
-
-
+    }
+    
+    func callNumber(phoneNumber:String) {
+        if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+            let application:UIApplication = UIApplication.shared
+            if (application.canOpenURL(phoneCallURL)) {
+                application.open(phoneCallURL, options: [:], completionHandler: nil)
+            }
+        }
     }
     
     @IBAction func btnPhoneAction(_ sender: Any) {
@@ -88,5 +120,17 @@ class TourPassengerInfoVC: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-
+    @IBAction func btnCloseAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func btncallAction(_ sender: Any) {
+        callNumber(phoneNumber: Singletons.sharedInstance.DispatchCall)
+    }
+    
+    @IBAction func btnChatAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: {
+            self.delegate?.gotoChat()
+        })
+    }
 }

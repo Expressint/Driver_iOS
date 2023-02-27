@@ -88,6 +88,7 @@ let HelpOptions = WebserviceURLs.kHelpOptions
 let Help = WebserviceURLs.kHelp
 let SubmitRntalCompleteBooking = WebserviceURLs.kSubmitCompleteRentalBooking
 let RentalReviewRating = WebserviceURLs.kRentalReviewRating
+let RentalHistory = WebserviceURLs.kRentalHistory
 
 //-------------------------------------------------------------
 // MARK: - Webservice For Registration
@@ -235,6 +236,12 @@ func webserviceForCompletedTripSuccessfully(_ dictParams: AnyObject, completion:
 func webserviceForCompletedTripRental(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
     let url = SubmitRntalCompleteBooking
+    postData(dictParams, nsURL: url, completion: completion)
+}
+
+func webserviceForRentalHistory(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = RentalHistory
     postData(dictParams, nsURL: url, completion: completion)
 }
 

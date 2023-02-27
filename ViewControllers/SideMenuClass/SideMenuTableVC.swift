@@ -78,8 +78,8 @@ class SideMenuTableVC: UIViewController {
         
     }
     func setLocalization() {
-        arrMenuTitle = ["My Jobs".localized,"My Earnings".localized,"Help".localized,"Invite Friend".localized, "Settings".localized, "Select Language".localized]
-        arrMenuIcons = [kiconMyJobs,kiconPaymentOption,kIconHelp,kiconInviteFriend,kiconSettings,kLocation]
+        arrMenuTitle = ["My Jobs".localized, "Hourly Bookings".localized, "My Earnings".localized,"Help".localized,"Invite Friend".localized, "Settings".localized, "Select Language".localized]
+        arrMenuIcons = [kiconMyJobs,kiconMyJobs,kiconPaymentOption,kIconHelp,kiconInviteFriend,kiconSettings,kLocation]
         
         lblLogout.text = "Sign out".localized
         deleteButton.setTitle("Delete Account".localized, for: .normal)
@@ -242,6 +242,11 @@ extension SideMenuTableVC: UITableViewDelegate, UITableViewDataSource {
             sideMenuController?.toggle()
             let viewController = self.storyboard?.instantiateViewController(withIdentifier: "MyJobsViewController") as! MyJobsViewController
             self.navigationController?.pushViewController(viewController, animated: true)
+        } else if arrMenuTitle[indexPath.row] == "Hourly Bookings".localized {
+            sideMenuController?.toggle()
+            let storyboard = UIStoryboard(name: "MyEarnings", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "TourTripHistoryVC") as! TourTripHistoryVC
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         else if arrMenuTitle[indexPath.row] == "My Earnings".localized {
             sideMenuController?.toggle()
@@ -298,6 +303,19 @@ extension SideMenuTableVC: UITableViewDelegate, UITableViewDataSource {
         self.present(alert, animated: true, completion: {
             print("completion block")
         })
+    }
+
+}
+
+extension UIImage {
+
+    func imageWithSize(scaledToSize newSize: CGSize) -> UIImage {
+
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+        self.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
     }
 
 }

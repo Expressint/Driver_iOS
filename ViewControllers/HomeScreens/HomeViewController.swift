@@ -107,8 +107,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         return mf
     }()
     
-    var SosTimer: Timer?
-    var SosTimerCount: Int = 10
+//    var SosTimer: Timer?
+//    var SosTimerCount: Int = 10
     
     @IBOutlet var btnPassengerInfo: UIButton!
     
@@ -269,6 +269,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.goChatWithDispatcher), name: GoToDispatcherChatScreen, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.signOutUser), name: UserSignOut, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.rentalOnTheWay(_:)), name: NSNotification.Name(rawValue: "rentalOnTheWay"), object: nil)
         
         setCar()
         
@@ -1106,6 +1108,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         // Tours
         self.onNewRequestTours()
         self.onGettingRentalBookingInfo()
+        self.onStartRentalTripTimeError()
     }
     
     func socketOnForGetDriverLocation() {
@@ -1171,17 +1174,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 else {
                     next.strEstimateFare = "0"
                 }
-                //                    if let grandTotal = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "GrandTotal") as? String {
-                //                        if grandTotal == "" {
-                //                            next.strGrandTotal = "0"
-                //                        }
-                //                        else {
-                //                            next.strGrandTotal = grandTotal
-                //                        }
-                //                    }
-                //                    else {
-                //                        next.strGrandTotal = "0"
-                //                    }
+
                 if let PickupLocation = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "PickupLocation") as? String {
                     next.strPickupLocation = PickupLocation
                 }
@@ -1316,46 +1309,53 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     func socketEmitForSOS()
     {
-        let alertController = UIAlertController(title: "SOS".localized, message: "Are you sure you want to trigger SOS?", preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "Cancel \(SosTimerCount)".localized, style: .default, handler: {
-            action in
-            self.SosTimer?.invalidate()
-            self.SosTimer = nil
-            self.SosTimerCount = 10
-            self.dismiss(animated: true, completion: nil)
-        })
-        
-        alertController.addAction(okAction)
-        present(alertController, animated: true) {
-            self.SosTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.countDownTimer), userInfo: nil, repeats: true)
-        }
+        let myJSON = ["UserId" : driverID,
+                      socketApiKeys.kBookingId: (toursBookingId != "") ? toursBookingId : (Singletons.sharedInstance.strBookingType == "BookLater") ? advanceBookingID : bookingID,
+                      socketApiKeys.kBookingType : Singletons.sharedInstance.strBookingType == "BookLater" ? "AdvanceBooking" : "Booking",
+                      socketApiKeys.kUserType: "Driver", "Token": Singletons.sharedInstance.deviceToken,socketApiKeys.kLat: defaultLocation.coordinate.latitude, "Lng": defaultLocation.coordinate.longitude] as [String : Any]
+            
+        socket.emit(socketApiKeys.SOS, with: [myJSON], completion: nil)
+        print ("\(socketApiKeys.SOS) : \(myJSON)")
+//        let alertController = UIAlertController(title: "SOS".localized, message: "Are you sure you want to trigger SOS?", preferredStyle: .alert)
+//
+//        let okAction = UIAlertAction(title: "Cancel".localized, style: .default, handler: {
+//            action in
+//            self.SosTimer?.invalidate()
+//            self.SosTimer = nil
+//            self.SosTimerCount = 10
+//            self.dismiss(animated: true, completion: nil)
+//        })
+//
+//        alertController.addAction(okAction)
+//        present(alertController, animated: true) {
+//            self.SosTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.countDownTimer), userInfo: nil, repeats: true)
+//        }
     }
     
-    @objc func countDownTimer() {
-        SosTimerCount -= 1
-        
-        let alertController = presentedViewController as! UIAlertController
-        let okAction = alertController.actions.first
-        
-        if SosTimerCount == 0 {
-            self.SosTimer?.invalidate()
-            self.SosTimer = nil
-            self.SosTimerCount = 10
-            
-            let myJSON = ["UserId" : driverID,
-                          socketApiKeys.kBookingId: Singletons.sharedInstance.strBookingType == "BookLater" ? advanceBookingID : bookingID,
-                          socketApiKeys.kBookingType : Singletons.sharedInstance.strBookingType == "BookLater" ? "AdvanceBooking" : "Booking",
-                          socketApiKeys.kUserType: "Driver", "Token": Singletons.sharedInstance.deviceToken,socketApiKeys.kLat: defaultLocation.coordinate.latitude, "Lng": defaultLocation.coordinate.longitude] as [String : Any]
-                
-            socket.emit(socketApiKeys.SOS, with: [myJSON], completion: nil)
-            print ("\(socketApiKeys.SOS) : \(myJSON)")
-            
-            self.dismiss(animated: true, completion: nil)
-        } else {
-            okAction?.setValue("Cancel \(SosTimerCount)", forKey: "title")
-        }
-    }
+//    @objc func countDownTimer() {
+//        SosTimerCount -= 1
+//        
+//        let alertController = presentedViewController as! UIAlertController
+//        let okAction = alertController.actions.first
+//        
+//        if SosTimerCount == 0 {
+//            self.SosTimer?.invalidate()
+//            self.SosTimer = nil
+//            self.SosTimerCount = 10
+//            
+//            let myJSON = ["UserId" : driverID,
+//                          socketApiKeys.kBookingId: Singletons.sharedInstance.strBookingType == "BookLater" ? advanceBookingID : bookingID,
+//                          socketApiKeys.kBookingType : Singletons.sharedInstance.strBookingType == "BookLater" ? "AdvanceBooking" : "Booking",
+//                          socketApiKeys.kUserType: "Driver", "Token": Singletons.sharedInstance.deviceToken,socketApiKeys.kLat: defaultLocation.coordinate.latitude, "Lng": defaultLocation.coordinate.longitude] as [String : Any]
+//                
+//            socket.emit(socketApiKeys.SOS, with: [myJSON], completion: nil)
+//            print ("\(socketApiKeys.SOS) : \(myJSON)")
+//            
+//            self.dismiss(animated: true, completion: nil)
+//        } else {
+//            okAction?.setValue("Cancel \(SosTimerCount)", forKey: "title")
+//        }
+//    }
     
     
     
@@ -2169,10 +2169,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         
         if(toursBookingId != ""){
             if(toursBookingType == "Rental Book Later") {
-                self.toursBookingType = ""
-                self.toursBookingId = ""
                 UtilityClass.hideACProgressHUD()
-                print("Rental Book Later...")
+                self.TourBookLaterAcceped()
             } else {
                 self.TourBookingAcceped()
             }
@@ -2575,10 +2573,22 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     
     func TourBookingAcceped() {
         Singletons.sharedInstance.isPending = 1
+        self.headerView?.viewSOSIcon.isHidden = false
         
         let myJSON = [socketApiKeys.kBookingId : toursBookingId,  profileKeys.kDriverId : driverID, "Lat" : defaultLocation.coordinate.latitude,"Long": defaultLocation.coordinate.longitude, "Pending": Singletons.sharedInstance.isPending] as [String : Any]
         socket.emit(socketApiKeys.AcceptRentalBooking, with: [myJSON], completion: nil)
         print("AcceptRentalBooking :  \(myJSON)")
+    }
+    
+    func TourBookLaterAcceped() {
+        Singletons.sharedInstance.isPending = 1
+        
+        let myJSON = [socketApiKeys.kBookingId : toursBookingId,  profileKeys.kDriverId : driverID, "Lat" : defaultLocation.coordinate.latitude,"Long": defaultLocation.coordinate.longitude, "Pending": Singletons.sharedInstance.isPending] as [String : Any]
+        socket.emit(socketApiKeys.AcceptRentalBooking, with: [myJSON], completion: nil)
+        print("AcceptRentalBooking :  \(myJSON)")
+        
+        self.toursBookingType = ""
+        self.toursBookingId = ""
     }
 
     
@@ -5654,6 +5664,13 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
     // MARK: - Webservice Methods Sign Out
     //-------------------------------------------------------------
     
+    @objc func rentalOnTheWay(_ notification: NSNotification) {
+        if let id = notification.userInfo?["id"] as? String {
+            print(id)
+            self.emitForRentalAdvanceTripStart(Id: id)
+        }
+    }
+    
     @objc func signOutUser() {
         let socket = (UIApplication.shared.delegate as! AppDelegate).SManager.defaultSocket
         
@@ -6248,6 +6265,8 @@ extension HomeViewController : UIViewControllerTransitioningDelegate, ClassTours
             UtilityClass.hideHUD()
             if(success) {
                 let resultData = (result as! NSDictionary)
+                self.headerView?.viewSOSIcon.isHidden = false
+                
                 self.aryCurrentBookingData.removeAllObjects()
                 self.aryCurrentBookingData.add(resultData)
                 
@@ -6282,6 +6301,7 @@ extension HomeViewController : UIViewControllerTransitioningDelegate, ClassTours
         let customView: ToursView = UIView.fromNib()
         customView.delegate = self
         customView.delegate1 = self
+        customView.delegate2 = self
         customView.dictCurrentBookingInfoData = BookingInFo
         customView.dictCurrentPassengerInfoData = PassengerInfo
         self.view.addSubview(customView)
@@ -6304,24 +6324,7 @@ extension HomeViewController : UIViewControllerTransitioningDelegate, ClassTours
     }
     
     func completeTripRental(TripData: NSDictionary) {
-        let paymentType = TripData.object(forKey: "PaymentType") as? String ?? ""
-        if paymentType.lowercased() == "cash" {
-            self.playSound(strName: "\(RingToneSound)")
-            self.dictCompleteTripData = TripData
-            let Amount = TripData.object(forKey: "GrandTotal") as? String ?? ""
-            let msg = "Please Collect Money From Passenger".localized + " : $\(Amount)"
-            UtilityClass.showAlertWithCompletion("Alert! This is a cash job".localized, message: msg, vc: self, completionHandler: { ACTION in
-                DispatchQueue.main.async {
-                    self.stopSound()
-                    self.goTonvoice(tripData: TripData)
-                }
-            })
-            
-        } else if paymentType.lowercased() == "card" {
-            self.goTonvoice(tripData: TripData)
-        } else {
-            
-        }
+        self.goTonvoice(tripData: TripData)
     }
     
     func goTonvoice(tripData: NSDictionary) {
@@ -6356,6 +6359,10 @@ extension HomeViewController : UIViewControllerTransitioningDelegate, ClassTours
                 next.strEstimateFare = (grandTotal == "") ? "0" : grandTotal
             } else {
                 next.strEstimateFare = "0"
+            }
+            
+            if let PackagesName = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "PackagesName") as? String {
+                next.packageNote = PackagesName
             }
 
             if let PickupLocation = ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "PickupLocation") as? String {
@@ -6404,11 +6411,37 @@ extension HomeViewController : UIViewControllerTransitioningDelegate, ClassTours
         })
     }
     
+    func onStartRentalTripTimeError() {
+        self.socket.on(socketApiKeys.StartRentalTripTimeError, callback: { (data, ack) in
+            print ("StartRentalTripTimeError : \(data)")
+            let msg = (data as NSArray)
+            UtilityClass.showAlert("", message: (msg.object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as? String ?? "", vc: self)
+        })
+    }
+                       
+    
+    func emitForRentalAdvanceTripStart(Id: String) {
+        let myJSON = [socketApiKeys.kBookingId : Id,profileKeys.kDriverId : Singletons.sharedInstance.strDriverID] as [String : Any]
+        socket.emit(socketApiKeys.OntheWayForRentalAdvancedTrip, with: [myJSON], completion: nil)
+        print ("OntheWayForRentalAdvancedTrip : \(myJSON)")
+    }
+    
 }
          
 
 extension UIView {
     class func fromNib<T: UIView>() -> T {
         return Bundle(for: T.self).loadNibNamed(String(describing: T.self), owner: nil, options: nil)![0] as! T
+    }
+}
+
+extension HomeViewController: ChatWithPassengerDelegate {
+    func gotoChat(ChatData: NSDictionary) {
+        Singletons.sharedInstance.currentTripType = "2"
+        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "ChatVC") as! ChatVC
+        viewController.receiverName = ChatData["PassengerName"] as? String ?? ""
+        viewController.bookingId = ChatData["BookingId"] as? String ?? ""
+        viewController.receiverId = ChatData["PassengerId"] as? String ?? ""
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
 }

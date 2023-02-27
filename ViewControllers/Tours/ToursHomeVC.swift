@@ -17,6 +17,10 @@ protocol CompleteRentalTripDelegate: class {
     func completeTripRental(TripData: NSDictionary)
 }
 
+protocol ChatWithPassengerDelegate: class {
+    func gotoChat(ChatData: NSDictionary)
+}
+
 class ToursView: UIView {
     
     @IBOutlet weak var MapViewLoad: UIView!
@@ -33,6 +37,7 @@ class ToursView: UIView {
     var zoomLevel: Float = 17
     weak var delegate: ClassToursDelegate?
     weak var delegate1: CompleteRentalTripDelegate?
+    weak var delegate2: ChatWithPassengerDelegate?
     var selectedRoute: Dictionary<String, AnyObject>!
     var overviewPolyline: Dictionary<String, AnyObject>!
     var originCoordinate: CLLocationCoordinate2D!
@@ -66,6 +71,20 @@ class ToursView: UIView {
             self.setupUI()
             //   self.setupBtns()
         }
+        
+        self.setLocalization()
+        NotificationCenter.default.addObserver(self, selector: #selector(changeLanguage), name: Notification.Name(rawValue: LCLLanguageChangeNotification), object: nil)
+    }
+    
+    @objc func changeLanguage(){
+        self.setLocalization()
+    }
+    func setLocalization(){
+        //self.lblServices.text = "Services".localized
+        self.btnArrived.setTitle("Arrived at Pickup Location".localized, for: .normal)
+        self.btnStart.setTitle("Start Trip".localized, for: .normal)
+        self.btnComplete.setTitle("Complete Trip".localized, for: .normal)
+        
     }
     
     override func layoutSubviews() {
@@ -144,7 +163,7 @@ class ToursView: UIView {
         hours = totalSecond / 3600
         minutes = (totalSecond % 3600) / 60
         seconds = (totalSecond % 3600) % 60
-        self.lbltripDuration.text = "Trip Duration : \(String(format: "%02d:%02d:%02d", hours, minutes, seconds))"
+        self.lbltripDuration.text = "\("Trip Duration".localized) : \(String(format: "%02d:%02d:%02d", hours, minutes, seconds))"
         
         let packageInfo = self.dictCurrentBookingInfoData.object(forKey: "PackageInfo") as? NSDictionary
         let packageHours = Int(packageInfo?.object(forKey: "MinimumHours") as? String ?? "") ?? 0
@@ -175,6 +194,7 @@ class ToursView: UIView {
         let topVC = UIApplication.shared.keyWindow?.rootViewController
         let storyboard = UIStoryboard(name: "MyEarnings", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "TourPassengerInfoVC") as! TourPassengerInfoVC
+        vc.delegate = self
         vc.dictCurrentBookingInfoData = self.dictCurrentBookingInfoData
         vc.dictCurrentPassengerInfoData = self.dictCurrentPassengerInfoData
         vc.modalPresentationStyle = .overCurrentContext
@@ -550,5 +570,28 @@ extension ToursView: LocationManagerDelegate {
         let radiansBearing = atan2(y, x)
 
         return radiansToDegrees(radians: radiansBearing)
+    }
+}
+
+extension ToursView: ChatWithPassengerprotocol {
+    func gotoChat() {
+        let strBookingID = "\(self.dictCurrentBookingInfoData.object(forKey: "Id") as AnyObject)"
+        let setDriverId =  "\(self.dictCurrentPassengerInfoData.object(forKey: "Id") as AnyObject)"
+        let DriverName = self.dictCurrentPassengerInfoData.object(forKey: "Fullname") as? String ?? ""
+      
+        var dictData : [String:String] = [:]
+        dictData["BookingId"] = strBookingID
+        dictData["PassengerId"] = setDriverId
+        dictData["PassengerName"] = DriverName
+        self.delegate2?.gotoChat(ChatData: dictData as NSDictionary)
+       
+        self.removeFromSuperview()
+        self.delegate?.closeToursPopup()
+        
+        self.socket.off(socketApiKeys.RentalDriverArrivedCheck)
+        self.socket.off(socketApiKeys.StartRentalTrip)
+        self.socket.off(socketApiKeys.StartRentalTripError)
+        self.socket.off(socketApiKeys.CancelRentalTripNotification)
+        
     }
 }

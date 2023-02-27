@@ -22,8 +22,8 @@ struct WebSupport {
 //Development: http://52.23.45.119/v2/
 struct WebserviceURLs {
     
-    static let kBaseURL                                 = "http://52.23.45.119/v3/Drvier_Api/"
-    static let kImageBaseURL                            = "http://52.23.45.119/"
+    static let kBaseURL                                 = "https://www.bookaridegy.com/v3/Drvier_Api/"
+    static let kImageBaseURL                            = "https://www.bookaridegy.com/"
     static let kOTPForDriverRegister                    = "OtpForRegister"
     static let kVehicalModelList                        = "TaxiModel/"
     static let kDriverRegister                          = "Register"
@@ -86,7 +86,8 @@ struct WebserviceURLs {
     //Tour
     static let RentalCurrentBooking                    = "RentalCurrentBooking"
     static let kSubmitCompleteRentalBooking           = "SubmitCompleteRentalBooking"
-    static let kRentalReviewRating                            = "RentalReviewRating"
+    static let kRentalReviewRating                     = "RentalReviewRating"
+    static let kRentalHistory                           = "RentalBookingHistory"
 
 //    https://www.tantaxitanzania.com/Drvier_Api/FeedbackList/9
     static let kFeedbackList                     = "FeedbackList/"
@@ -221,7 +222,7 @@ struct RegistrationFinalKeys {
 //Development: http://52.23.45.119:8080
 struct socketApiKeys {
     
-    static let kSocketBaseURL = "http://52.23.45.119:8080"
+    static let kSocketBaseURL = "https://www.bookaridegy.com:8080"
  
     static let kUpdateDriverLocation = "UpdateDriverLatLong"
     static let kReceiveBookingRequest = "AriveBookingRequest"
@@ -287,6 +288,8 @@ struct socketApiKeys {
     static let StartRentalTripError = "StartRentalTripTimeError"
     static let RentalUpdateDriverLocation = "UpdateRentalDriverLatLong"
     static let CancelRentalTripNotification = "DriverCancelRentalTripNotification"
+    static let OntheWayForRentalAdvancedTrip = "OntheWayForRentalAdvancedTrip"
+    static let StartRentalTripTimeError = "StartRentalTripTimeError"
     
 }
 
