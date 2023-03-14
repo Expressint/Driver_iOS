@@ -1254,12 +1254,13 @@
 			path = MyEarnings;
 			sourceTree = "<group>";
 		};
-		4712421F2987ABC500375070 /* XIBs */ = {
+		4712421F2987ABC500375070 /* ToursHome */ = {
 			isa = PBXGroup;
 			children = (
+				845D54D52976C99400FA8F7B /* ToursHomeVC.swift */,
 				471242202987ABF600375070 /* ToursView.xib */,
 			);
-			path = XIBs;
+			path = ToursHome;
 			sourceTree = "<group>";
 		};
 		471242222987BC1B00375070 /* Location Manager */ = {
@@ -1351,11 +1352,10 @@
 		845D54D42976C97300FA8F7B /* Tours */ = {
 			isa = PBXGroup;
 			children = (
-				47AEB81C29A3407E008B661C /* Histoy */,
-				845D54D52976C99400FA8F7B /* ToursHomeVC.swift */,
-				471242252987DF6B00375070 /* TourInvoiceVVC.swift */,
+				4712421F2987ABC500375070 /* ToursHome */,
 				4773EB50298916C300350386 /* TourPassengerInfoVC.swift */,
-				4712421F2987ABC500375070 /* XIBs */,
+				471242252987DF6B00375070 /* TourInvoiceVVC.swift */,
+				47AEB81C29A3407E008B661C /* Histoy */,
 			);
 			path = Tours;
 			sourceTree = "<group>";
@@ -2034,7 +2034,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7.8;
+				CURRENT_PROJECT_VERSION = 1.7.9;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AQ5BYLK3P7;
 				INFOPLIST_FILE = "$(SRCROOT)/Other Resources/Info.plist";
@@ -2043,7 +2043,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.9;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eww.BookARideDriver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2063,7 +2063,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7.8;
+				CURRENT_PROJECT_VERSION = 1.7.9;
 				DEVELOPMENT_TEAM = AQ5BYLK3P7;
 				INFOPLIST_FILE = "$(SRCROOT)/Other Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2071,7 +2071,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.9;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.eww.BookARideDriver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

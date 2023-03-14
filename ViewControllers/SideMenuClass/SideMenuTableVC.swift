@@ -29,6 +29,7 @@ class SideMenuTableVC: UIViewController {
     @IBOutlet weak var logoutTouchView: UIView!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var lblLogout: UILabel!
+    @IBOutlet weak var tblDataHeight: NSLayoutConstraint!
     
     
     var aryItemNames = [String]()
@@ -46,9 +47,23 @@ class SideMenuTableVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.showsVerticalScrollIndicator = false
+        self.tableView.showsHorizontalScrollIndicator = false
+        self.tableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
+        
         strSelectedLaungage = KEnglish
         self.getDataFromSingleton()
         self.setProfileData()
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        self.tableView.layer.removeAllAnimations()
+        self.tblDataHeight.constant = self.tableView.contentSize.height
+        UIView.animate(withDuration: 0.5) {
+            self.updateViewConstraints()
+        }
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {

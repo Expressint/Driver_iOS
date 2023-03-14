@@ -390,7 +390,7 @@ extension ToursView {
             self.btnStart.isHidden = false
             self.btnArrived.isHidden = true
             self.btnComplete.isHidden = true
-        //    self.showErrorMessage(((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String)
+        // self.showErrorMessage(((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String)
         })
     }
     
@@ -463,6 +463,8 @@ extension ToursView {
         UtilityClass.showHUD()
         var dictData = [String:Any]()
         dictData["BookingId"] =  self.dictCurrentBookingInfoData.object(forKey: "Id") as? String ?? ""
+        dictData["DropoffLat"] =  "\(LocationManager.shared.mostRecentLocation?.coordinate.latitude ?? 0.0)"
+        dictData["DropoffLong"] =  "\(LocationManager.shared.mostRecentLocation?.coordinate.longitude ?? 0.0)"
         
         webserviceForCompletedTripRental(dictData as AnyObject) { (result, status) in
             UtilityClass.hideHUD()
