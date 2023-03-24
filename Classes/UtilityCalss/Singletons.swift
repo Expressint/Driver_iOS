@@ -118,6 +118,8 @@ class Singletons: NSObject {
     /// isPickUPPasenger = true than Start Trip else only accepted
     var isPickUPPasenger: Bool!
     
+    var isTripON: Bool = false
+    
 }
 
 

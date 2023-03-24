@@ -622,20 +622,40 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         let location: CLLocation = locations.last!
         let kmh = location.speed / 1000.0 * 60.0 * 60.0
     
-        if(kmh <= 5.0  && !self.stackViewOfWaitingTime.isHidden  && !App_Delegate.RoadPickupTimer.isValid && (self.bookingID != "" || self.advanceBookingID != "")){
+        if(kmh <= 5.0  && Singletons.sharedInstance.isTripON){
             print("Speed : \(kmh)")
             if(WaitingHoldTimer.isValid == false){
                 WaitingHoldTimer.invalidate()
                 WaitingHoldTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
             }
-            
-        }else{
+        } else {
             if(WaitingHoldTimer.isValid == true){
                 WaitingCounter = 0
                 WaitingHoldTimer.invalidate()
                 btnDirection.setTitle("Direction".localized, for: .normal)
             }
         }
+        
+        //Custom ETA Calculation
+        let currentLatitude = location.coordinate.latitude
+        let currentLongitude = location.coordinate.longitude
+        let destinationLatitude = 23.09851140489285
+        let destinationLongitude = 72.53129169344902
+        
+        let earthRadius = 6371.0 // in kilometers
+        
+        let latitudeDifference = (destinationLatitude - currentLatitude).degreesToRadians
+        let longitudeDifference = (destinationLongitude - currentLongitude).degreesToRadians
+        
+        let a = sin(latitudeDifference/2) * sin(latitudeDifference/2) + cos(currentLatitude.degreesToRadians) * cos(destinationLatitude.degreesToRadians) * sin(longitudeDifference/2) * sin(longitudeDifference/2)
+        let c = 2 * atan2(sqrt(a), sqrt(1-a))
+        
+        let distanceInKilometers = earthRadius * c
+        
+        // Calculate the ETA based on the average driving speed of 60 kilometers per hour
+        let averageDrivingSpeed = 40.0
+        let timeInSeconds = distanceInKilometers / averageDrivingSpeed * 3600
+        print("Time : \(timeInSeconds), distance : \(distanceInKilometers)")
         
         
 //        if(kmh <= 0.0){
@@ -1098,8 +1118,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             // print ("data is \(data)")
             print ("kReceiveBookingRequest : \(data)")
             
-            
-            if(self.aryPassengerData.count != 0 && Singletons.sharedInstance.bookingId != "")
+            if(Singletons.sharedInstance.bookingId != "")
             {
                 if let BookingID = ((data as NSArray).object(at: 0)as? NSDictionary)?.object(forKey: "BookingId") as? String
                 {
@@ -2138,6 +2157,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         self.stopSound()
         Singletons.sharedInstance.isPickUPPasenger = false
         
+        Singletons.sharedInstance.isTripON = true
+        
         if(toursBookingId != ""){
             if(toursBookingType == "Rental Book Later") {
                 UtilityClass.hideACProgressHUD()
@@ -2145,6 +2166,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             } else {
                 self.TourBookingAcceped()
             }
+            Singletons.sharedInstance.isTripON = false
         } else if isAdvanceBooking {
             self.AcceptBookLaterBookingRequest()
         } else {
@@ -2293,11 +2315,8 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         })
     }
     
-    func gettopMostViewController() -> UIViewController?
-    {
-        
+    func gettopMostViewController() -> UIViewController? {
         return Utilities.findtopViewController()
-        
     }
     
     func findtopViewController(controller: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController?
@@ -2583,12 +2602,10 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             socket.emit(socketApiKeys.kRejectBookingRequest, with: [myJSON], completion: nil)
         }
         else {
-            
             if (Singletons.sharedInstance.firstRequestIsAccepted && self.strTempBookingId.count != 0){
                 let myJSON = [socketApiKeys.kBookingId : strTempBookingId,  profileKeys.kDriverId : driverID, profileKeys.kRejectBy: (isRejectByDriver) ? "Manual" : "Auto"] as [String : Any]
                 socket.emit(socketApiKeys.kRejectBookingRequest, with: [myJSON], completion: nil)
                 Singletons.sharedInstance.firstRequestIsAccepted = false
-                
             }
             else
             {
@@ -4952,6 +4969,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         webserviceForCurrentBooking(param as AnyObject) { (result, status) in
             
             if (status) {
+                Singletons.sharedInstance.isTripON = true
                 Singletons.sharedInstance.driverDuty = "1"
                 UserDefaults.standard.set(Singletons.sharedInstance.driverDuty, forKey: "DriverDuty")
                 self.headerView?.btnSwitch.isSelected = true
@@ -5226,6 +5244,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                 self.dictCompleteTripData = (result as! NSDictionary)
                 
                 self.resetMapView()
+                Singletons.sharedInstance.isTripON = false
 //                self.headerView?.viewSOSIcon.isHidden = true
                 Singletons.sharedInstance.isRequestAccepted = false
                 Singletons.sharedInstance.isTripContinue = false
@@ -5427,7 +5446,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             if (status) {
                 
                 self.dictCompleteTripData = (result as! NSDictionary)
-                
+                Singletons.sharedInstance.isTripON = false
                 self.resetMapView()
                 
                 Singletons.sharedInstance.oldBookingType.isBookNow = false
@@ -6201,7 +6220,7 @@ extension HomeViewController : UIViewControllerTransitioningDelegate, ClassTours
         self.socket.on(socketApiKeys.NewRequestForTour, callback: { (data, ack) in
             print ("NewRequestForTour : \(data)")
             
-            if(self.aryPassengerData.count != 0 && Singletons.sharedInstance.tourBookingId != "")
+            if(Singletons.sharedInstance.tourBookingId != "")
             {
                 if let BookingID = ((data as NSArray).object(at: 0)as? NSDictionary)?.object(forKey: "BookingId") as? String
                 {
@@ -6307,5 +6326,11 @@ extension HomeViewController: ChatWithPassengerDelegate {
         viewController.bookingType = "Rental"
         viewController.receiverId = ChatData["PassengerId"] as? String ?? ""
         self.navigationController?.pushViewController(viewController, animated: true)
+    }
+}
+
+extension Double {
+    var degreesToRadians: Double {
+        return self * .pi / 180.0
     }
 }

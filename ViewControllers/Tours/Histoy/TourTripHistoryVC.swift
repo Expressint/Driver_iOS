@@ -19,7 +19,7 @@ class TourTripHistoryVC: ParentViewController {
     @IBOutlet weak var lblNavBack: UIButton!
     @IBOutlet weak var vwTopHeight: NSLayoutConstraint!
     
-    var selectedTyoe = "2"
+    var selectedTyoe = "1"
     var currentPage = "1"
     var isPageEnd: Bool = false
     var aryData : [[String:AnyObject]] = [[:]]
@@ -97,7 +97,7 @@ class TourTripHistoryVC: ParentViewController {
 
     @IBAction func btnUpComingAction(_ sender: Any) {
         self.selectedTyoe = "1"
-        self.reloadTopView(index: selectedTyoe)
+         self.reloadTopView(index: selectedTyoe)
     }
     
     @IBAction func btnPastBookingAction(_ sender: Any) {
@@ -217,6 +217,7 @@ extension TourTripHistoryVC {
         webserviceForRentalHistory(dictData as AnyObject) { (result, status) in
             if (status) {
                 print(result)
+                //self.aryData = []
                 let dictData = result as? [String:AnyObject] ?? [:]
                 let data = dictData["data"] as? [[String:AnyObject]] ?? []
                 if data.count != 0 {

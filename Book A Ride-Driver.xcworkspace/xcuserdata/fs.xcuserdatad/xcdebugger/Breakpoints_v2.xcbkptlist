@@ -142,8 +142,8 @@
             filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6210"
-            endingLineNumber = "6210"
+            startingLineNumber = "6229"
+            endingLineNumber = "6229"
             landmarkName = "onNewRequestTours()"
             landmarkType = "7">
          </BreakpointContent>
@@ -158,8 +158,8 @@
             filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6206"
-            endingLineNumber = "6206"
+            startingLineNumber = "6225"
+            endingLineNumber = "6225"
             landmarkName = "onNewRequestTours()"
             landmarkType = "7">
          </BreakpointContent>
@@ -174,8 +174,8 @@
             filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2403"
-            endingLineNumber = "2403"
+            startingLineNumber = "2422"
+            endingLineNumber = "2422"
             landmarkName = "ReceiveBookLaterBookingRequest()"
             landmarkType = "7">
          </BreakpointContent>
@@ -190,8 +190,8 @@
             filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2404"
-            endingLineNumber = "2404"
+            startingLineNumber = "2423"
+            endingLineNumber = "2423"
             landmarkName = "ReceiveBookLaterBookingRequest()"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,8 +206,8 @@
             filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2405"
-            endingLineNumber = "2405"
+            startingLineNumber = "2424"
+            endingLineNumber = "2424"
             landmarkName = "ReceiveBookLaterBookingRequest()"
             landmarkType = "7">
          </BreakpointContent>
@@ -222,25 +222,9 @@
             filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2401"
-            endingLineNumber = "2401"
+            startingLineNumber = "2420"
+            endingLineNumber = "2420"
             landmarkName = "ReceiveBookLaterBookingRequest()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8CCFEFAF-CC85-4F15-A862-9A4D2372D4E2"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1108"
-            endingLineNumber = "1108"
-            landmarkName = "socketCallForReceivingBookingRequest()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -257,6 +241,86 @@
             startingLineNumber = "483"
             endingLineNumber = "483"
             landmarkName = "webserviceForCompleteRentalTrip()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "51B3A330-5FC1-491C-942D-5F61F07AB79F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2600"
+            endingLineNumber = "2600"
+            landmarkName = "BookingRejected(isRejectByDriver:isTripOnGoing:bookingID:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1DBE8E3A-1303-4CAA-8764-2E59E823FA35"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1123"
+            endingLineNumber = "1123"
+            landmarkName = "socketCallForReceivingBookingRequest()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "05118838-0D19-41C2-9757-954AA6AA02BD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1125"
+            endingLineNumber = "1125"
+            landmarkName = "socketCallForReceivingBookingRequest()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7A76F774-5DA4-41BD-8B60-9C616D2D0586"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "6223"
+            endingLineNumber = "6223"
+            landmarkName = "onNewRequestTours()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "194F3EBF-5A20-4F85-8A67-CC700ADBFACB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewControllers/HomeScreens/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2579"
+            endingLineNumber = "2579"
+            landmarkName = "TourBookingRejected(isRejectByDriver:isTripOnGoing:bookingID:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
