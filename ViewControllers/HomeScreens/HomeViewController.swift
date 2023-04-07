@@ -637,25 +637,25 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
         }
         
         //Custom ETA Calculation
-        let currentLatitude = location.coordinate.latitude
-        let currentLongitude = location.coordinate.longitude
-        let destinationLatitude = 23.09851140489285
-        let destinationLongitude = 72.53129169344902
-        
-        let earthRadius = 6371.0 // in kilometers
-        
-        let latitudeDifference = (destinationLatitude - currentLatitude).degreesToRadians
-        let longitudeDifference = (destinationLongitude - currentLongitude).degreesToRadians
-        
-        let a = sin(latitudeDifference/2) * sin(latitudeDifference/2) + cos(currentLatitude.degreesToRadians) * cos(destinationLatitude.degreesToRadians) * sin(longitudeDifference/2) * sin(longitudeDifference/2)
-        let c = 2 * atan2(sqrt(a), sqrt(1-a))
-        
-        let distanceInKilometers = earthRadius * c
-        
-        // Calculate the ETA based on the average driving speed of 60 kilometers per hour
-        let averageDrivingSpeed = 40.0
-        let timeInSeconds = distanceInKilometers / averageDrivingSpeed * 3600
-        print("Time : \(timeInSeconds), distance : \(distanceInKilometers)")
+//        let currentLatitude = location.coordinate.latitude
+//        let currentLongitude = location.coordinate.longitude
+//        let destinationLatitude = 23.09851140489285
+//        let destinationLongitude = 72.53129169344902
+//        
+//        let earthRadius = 6371.0 // in kilometers
+//        
+//        let latitudeDifference = (destinationLatitude - currentLatitude).degreesToRadians
+//        let longitudeDifference = (destinationLongitude - currentLongitude).degreesToRadians
+//        
+//        let a = sin(latitudeDifference/2) * sin(latitudeDifference/2) + cos(currentLatitude.degreesToRadians) * cos(destinationLatitude.degreesToRadians) * sin(longitudeDifference/2) * sin(longitudeDifference/2)
+//        let c = 2 * atan2(sqrt(a), sqrt(1-a))
+//        
+//        let distanceInKilometers = earthRadius * c
+//        
+//        // Calculate the ETA based on the average driving speed of 60 kilometers per hour
+//        let averageDrivingSpeed = 40.0
+//        let timeInSeconds = distanceInKilometers / averageDrivingSpeed * 3600
+//        print("Time : \(timeInSeconds), distance : \(distanceInKilometers)")
         
         
 //        if(kmh <= 0.0){
@@ -5530,9 +5530,7 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
             if (status) {
                 print(result)
                 Singletons.sharedInstance.CardsVCHaveAryData = (result as! NSDictionary).object(forKey: "cards") as! [[String:AnyObject]]
-            }
-            else
-            {
+            } else {
                 print(result)
                 if let res = result as? String {
                     UtilityClass.showAlert("App Name".localized, message: res, vc: self)
@@ -5730,12 +5728,9 @@ class HomeViewController: ParentViewController, CLLocationManagerDelegate,ARCarM
                     Singletons.sharedInstance.passengerPaymentType = self.dictCurrentBookingInfoData.object(forKey: "PaymentType") as! String
                 }
                 
-                
                 DispatchQueue.main.async {
                     UtilityClass.showHUD()
-                    
                 }
-                
                 
                 if bookingType != "" {
                     Singletons.sharedInstance.isBookNowOrBookLater = true
@@ -6165,7 +6160,7 @@ extension HomeViewController : UIViewControllerTransitioningDelegate, ClassTours
                 if(bookingType == ""){ return }
                 self.dictCurrentBookingInfoData = ((resultData).object(forKey: "BookingInfo") as! NSDictionary)
                 self.dictCurrentPassengerInfoData = ((resultData).object(forKey: "PassengerInfo") as! NSDictionary)
-                self.toursBookingId = self.dictCurrentBookingInfoData.object(forKey: "Id") as! String
+                self.toursBookingId = self.dictCurrentBookingInfoData.object(forKey: "Id") as? String ?? ""
                 Singletons.sharedInstance.tourBookingId = self.toursBookingId
 
                 self.openToursVC(BookingInFo: self.dictCurrentBookingInfoData, PassengerInfo: self.dictCurrentPassengerInfoData)
@@ -6207,6 +6202,9 @@ extension HomeViewController : UIViewControllerTransitioningDelegate, ClassTours
     }
     
     func completeTripRental(TripData: NSDictionary) {
+        self.toursBookingId = ""
+        Singletons.sharedInstance.tourBookingId = ""
+        
         self.goTonvoice(tripData: TripData)
     }
     
@@ -6286,6 +6284,10 @@ extension HomeViewController : UIViewControllerTransitioningDelegate, ClassTours
             let getBookingAndPassengerInfo = self.getBookingAndPassengerInfo(data: data as NSArray)
             let BookingInfo = getBookingAndPassengerInfo.0
             let PassengerInfo = getBookingAndPassengerInfo.1
+            
+            self.toursBookingId = BookingInfo.object(forKey: "Id") as? String ?? ""
+            Singletons.sharedInstance.tourBookingId = self.toursBookingId
+            
             print(BookingInfo)
             print(PassengerInfo)
             //let isArrived = BookingInfo.object(forKey: "IsArrived") as? String

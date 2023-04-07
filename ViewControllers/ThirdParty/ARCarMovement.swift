@@ -43,7 +43,6 @@ public class ARCarMovement: NSObject {
 //        CATransaction.setCompletionBlock({() -> Void in
 //            marker.rotation = (Int(bearing) != 0) ? CLLocationDegrees(bearing + 90) : CLLocationDegrees(calBearing)
 //        })
-        
     }
     
     private func getHeadingForDirection(fromCoordinate fromLoc: CLLocationCoordinate2D, toCoordinate toLoc: CLLocationCoordinate2D) -> Float {

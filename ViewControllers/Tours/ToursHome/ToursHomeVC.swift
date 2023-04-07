@@ -64,6 +64,9 @@ class ToursView: UIView {
     var boolShouldTrackCamera = true
     var isCameraDisable: Bool = false
     
+    var lastLocation: CLLocation?
+    var totalDistance: CLLocationDistance = 0
+    
     override func awakeFromNib() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             LocationManager.shared.delegate = self
@@ -250,7 +253,6 @@ extension ToursView : GMSMapViewDelegate {
     }
     
     func LoadMapView(destinationLat: String, destinationLong: String) {
-        
         let camera = GMSCameraPosition.camera(withLatitude: Singletons.sharedInstance.latitude, longitude: Singletons.sharedInstance.longitude, zoom: zoomLevel)
         mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: self.MapViewLoad.frame.width, height: self.MapViewLoad.frame.height), camera: camera)
         self.mapView.delegate = self
@@ -416,7 +418,6 @@ extension ToursView {
             
             self.totalSecond = Int(Double(self.findDateDiff(time1Str: self.convertDate(strDate: bookingTime ?? ""), time2Str: currentTime)) ?? 0)
             self.startTimer()
-       //     self.showErrorMessage(((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: GetResponseMessageKey()) as! String)
         })
     }
     
@@ -466,10 +467,19 @@ extension ToursView {
         dictData["DropoffLat"] =  "\(LocationManager.shared.mostRecentLocation?.coordinate.latitude ?? 0.0)"
         dictData["DropoffLong"] =  "\(LocationManager.shared.mostRecentLocation?.coordinate.longitude ?? 0.0)"
         
+        let distance = self.totalDistance / 1000
+        let formattedDistance = String(format: "%.2f", distance)
+        dictData["distance"] = formattedDistance
+        
         webserviceForCompletedTripRental(dictData as AnyObject) { (result, status) in
             UtilityClass.hideHUD()
             
             if (status) {
+                self.totalDistance = 0
+                self.lastLocation = nil
+                UserDefaults.standard.removeObject(forKey: "rentalDistance")
+                UserDefaults.standard.synchronize()
+
                 let dict = (result as! NSDictionary).object(forKey: "data") as! NSDictionary
                 self.dictCompleteTripData = dict
                 self.delegate1?.completeTripRental(TripData: self.dictCompleteTripData)
@@ -504,16 +514,40 @@ extension ToursView: LocationManagerDelegate {
     }
     
     func updateLocation() {
+        //Singletons.sharedInstance.tourBookingId = ""
+        
         guard let location = LocationManager.shared.mostRecentLocation else {
             return
         }
+        
+        // Calculate distance
+        let kmh = location.speed / 1000.0 * 60.0 * 60.0
+        if Singletons.sharedInstance.tourBookingId != "" {
+            if kmh >= 5 && self.lastLocation != nil {
+                let distance = location.distance(from: self.lastLocation!)
+                self.totalDistance += distance
+                UserDefaults.standard.set(self.totalDistance, forKey: "rentalDistance")
+                UserDefaults.standard.synchronize()
+                print("Total distance traveled: \(self.totalDistance)m")
+            } else {
+                if let retrievedValue = UserDefaults.standard.object(forKey: "rentalDistance") {
+                    self.totalDistance = retrievedValue as! CLLocationDistance
+                }
+            }
+            self.lastLocation = location
+        } else {
+            self.totalDistance = 0
+            self.lastLocation = nil
+            UserDefaults.standard.removeObject(forKey: "rentalDistance")
+            UserDefaults.standard.synchronize()
+        }
+        // Calculate distance comp
 
         if(driverMarker == nil || driverMarker!.map == nil) {
             setDriverMarker()
         }
         driverMarker.map = mapView
         
-        let kmh = location.speed / 1000.0 * 60.0 * 60.0
         if(kmh <= 2){
             return
         }
@@ -561,7 +595,6 @@ extension ToursView: LocationManagerDelegate {
 
         let lat1 = degreesToRadians(degrees: point1.latitude)
         let lon1 = degreesToRadians(degrees: point1.longitude)
-
         let lat2 = degreesToRadians(degrees: point2.latitude)
         let lon2 = degreesToRadians(degrees: point2.longitude)
 

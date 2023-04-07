@@ -19,7 +19,7 @@ struct WebSupport {
 }
 
 //Live: https://www.bookaridegy.com/Drvier_Api/
-//Development: http://52.23.45.119/v2/
+//Development: http://52.23.45.119/
 struct WebserviceURLs {
     
     static let kBaseURL                                 = "http://52.23.45.119/v3/Drvier_Api/"

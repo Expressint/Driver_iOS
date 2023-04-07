@@ -11,23 +11,14 @@ import FloatRatingView
 
 class MyRatingViewCell: UITableViewCell {
 
-    
-    
     @IBOutlet weak var lblCommentTitle: UILabel!
     @IBOutlet weak var lblComments: UILabel!
     @IBOutlet var imgProfile: UIImageView!
     @IBOutlet var viewCell: UIView!
-    
     @IBOutlet var viewRating: FloatRatingView!
     @IBOutlet var lblDateTime: UILabel!
-    
-//    @IBOutlet var viewRating: FloatRatingView!//HCSStarRatingView!
     @IBOutlet var lblPassengerName: UILabel!
-    
- 
-    
     @IBOutlet var lblPickUpAddress: UILabel!
-    
     @IBOutlet var lblDropUpAddress: UILabel!
     
     override func awakeFromNib() {
