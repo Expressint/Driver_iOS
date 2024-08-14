@@ -44,6 +44,14 @@ class TourInvoiceVVC: ParentViewController {
     @IBOutlet weak var lblTitleRating: UILabel!
     @IBOutlet weak var btnSubmit: UIButton!
     
+    @IBOutlet weak var extraChargeContent: UIView!
+    @IBOutlet weak var lblExtraChargesTitle: UILabel!
+    @IBOutlet weak var lblExtraChargesValue: UILabel!
+    
+    @IBOutlet weak var extrachargeReasonContent: UIView!
+    @IBOutlet weak var lblExtraChargesReasonTitle: UILabel!
+    @IBOutlet weak var lblExtraChargeReasonValue: UILabel!
+    
     var ratingToDriver: Float = 0
     var dictCompleteTripData = NSDictionary()
 
@@ -79,6 +87,8 @@ class TourInvoiceVVC: ParentViewController {
         self.lblTitlePackage.text = "Package Info".localized
         self.lblTitlePayable.text = "Total Payable".localized
         self.lblTitleRating.text = "How was your experience with Passenger?".localized
+        self.lblExtraChargesTitle.text = "Extra Charge".localized
+        self.lblExtraChargesReasonTitle.text = "Extra Charge Reason".localized
         self.btnSubmit.setTitle("Submit".localized, for: .normal)
         
     }
@@ -99,6 +109,14 @@ class TourInvoiceVVC: ParentViewController {
         
         self.lblVehicleInfo.text = vehicleInfo?.object(forKey: "Name") as? String ?? ""
         self.lblPackageInfo.text = "\(packageInfo?.object(forKey: "MinimumHours") as? String ?? "") hrs/\(packageInfo?.object(forKey: "MinimumKm") as? String ?? "") km $\(packageInfo?.object(forKey: "MinimumAmount") as? String ?? "")"
+        
+        let extraCharge = dictCompleteTripData.double(forKey: "AdditionalCharges")
+        lblExtraChargesValue.text = extraCharge.toCurrencyString()
+        extraChargeContent.isHidden = extraCharge <= 0
+        
+        let extraChargesReason = dictCompleteTripData.string(forKey: "AdditionalChargeReason")
+        lblExtraChargeReasonValue.text = extraChargesReason
+        extrachargeReasonContent.isHidden = extraChargesReason.isEmpty
     }
     
     @IBAction func btnBackAction(_ sender: Any) {

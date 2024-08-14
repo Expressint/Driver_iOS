@@ -371,3 +371,42 @@ class Connectivity {
 }
 
 
+extension NSDictionary {
+    func string(forKey key: String) -> String {
+        self[key] as? String ?? ""
+    }
+    func double(forKey key: String) -> Double {
+        if let doubleValue = self[key] as? Double {
+            return doubleValue
+        } else if let doubleValue = self[key] as? String {
+            return Double(doubleValue) ?? 0
+        } else {
+            return 0
+        }
+         
+    }
+}
+
+extension Double {
+    
+    func toCurrencyString(_ symbol: String = "$") -> String {
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.usesGroupingSeparator = true
+        currencyFormatter.numberStyle = .currency
+        //currencyFormatter.locale = Locale(identifier: "en_KE")
+        currencyFormatter.currencySymbol = symbol
+        currencyFormatter.minimumFractionDigits = 0
+        currencyFormatter.maximumFractionDigits = 2
+        let priceString = currencyFormatter.string(from: NSNumber(value: self))!
+        return priceString
+    }
+}
+
+extension String {
+    func toCurrencyString(_ symbol: String = "$") -> String {
+        if self.contains(symbol) {
+            return self
+        }
+        return Double(self)?.toCurrencyString(symbol) ?? ""
+    }
+}
